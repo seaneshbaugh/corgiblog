@@ -1,0 +1,51 @@
+<%= form_tag edit_multiple_admin_users_path, :id => "users-index-form", :method => :get do %>
+<table>
+  <thead>
+    <tr>
+      <th scope="col"><input class="check-all" type="checkbox"></th>
+      <th scope="col"><%= sortable "id", "ID" %></th>
+      <th scope="col"><%= sortable "email_address", "E-mail" %></th>
+      <th scope="col"><%= sortable "first_name" %></th>
+      <th scope="col"><%= sortable "last_name" %></th>
+      <th scope="col"><%= sortable "privilege_level" %></th>
+      <th scope="col"><%= sortable "created_at" %></th>
+      <th scope="col"><%= sortable "updated_at" %></th>
+      <th scope="col"><%= sortable "last_login" %></th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% even_row = false %>
+    <% @users.each do |user| %>
+      <tr class="<% if even_row %>even<% else %>odd<% end %><% even_row = !even_row %>">
+        <td>
+          <% if user.id == @current_user.id or user.privilege_level < @current_user.privilege_level %>
+            <%= check_box_tag "users_ids[]", user.id %>
+          <% else %>
+            <%= check_box_tag "users_ids[]", user.id, false, :disabled => true %>
+          <% end %>
+        </td>
+        <td><%= link_to user.id, admin_user_path(user) %></td>
+        <td><%= link_to user.email_address, admin_user_path(user) %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+        <td><%= user.privilege_level %></td>
+        <td><%= user.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= user.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%if !user.last_login.nil? %><%= user.last_login.strftime("%Y-%m-%d %H:%M:%S") %><% end %></td>
+        <td>
+          <% if @current_user.id == user.id or @current_user.privilege_level > user.privilege_level %>
+            <%= link_to image_tag(image_path("icons/16x16/edit.png"), :title => "Edit", :alt => "Edit"), edit_admin_user_path(user) %>
+            <%= link_to image_tag(image_path("icons/16x16/remove.png"), :title => "Delete", :alt => "Delete"), admin_user_path(user), :method => :delete %>
+          <% else %>
+            <%= image_tag image_path("icons/16x16/edit.png"), :title => "Cannot Edit", :alt => "Cannot Edit" %>
+            <%= image_tag image_path("icons/16x16/remove.png"), :title => "Cannot Delete", :alt => "Cannot Delete" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= submit_tag "Edit Selected", :class => "button", :disabled => true, :id => "edit-selected-button" %>
+<% end %>
+<%= paginate @users %>

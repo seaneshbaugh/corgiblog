@@ -1,0 +1,54 @@
+<%= form_tag edit_multiple_admin_posts_path, :id => "posts-index-form", :method => :get do %>
+<table>
+  <thead>
+    <tr>
+      <th scope="col"><input class="check-all" type="checkbox"></th>
+      <th scope="col"><%= sortable "id", "ID" %></th>
+      <th scope="col"><%= sortable "title" %></th>
+      <th scope="col">Body</th>
+      <th scope="col">Style</th>
+      <th scope="col"><%= sortable "user_id", "Written By" %></th>
+      <th scope="col"><%= sortable "status" %></th>
+      <th scope="col"><%= sortable "private" %></th>
+      <th scope="col"><%= sortable "created_at" %></th>
+      <th scope="col"><%= sortable "updated_at" %></th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% even_row = false %>
+    <% @posts.each do |post| %>
+      <tr class="<% if even_row %>even<% else %>odd<% end %><% even_row = !even_row %>">
+        <td><%= check_box_tag "posts_ids[]", post.id %></td>
+        <td><%= link_to post.id, admin_post_path(post) %></td>
+        <td><%= link_to post.title, admin_post_path(post) %></td>
+        <td><%= truncate(post.body) %></td>
+        <td><%= truncate(post.style) %></td>
+        <td><% if post.user %><%= link_to "#{post.user.first_name} #{post.user.last_name}", admin_user_path(post.user) %><% else %>-<% end %></td>
+        <td>
+          <%= case post.status
+            when 0
+              "Draft"
+            when 1
+              "Published"
+            when 2
+              "Awaiting Review"
+            else
+              "Unknown"
+            end
+          %>
+        </td>
+        <td><% if post.private %>Yes<% else %>No<% end %></td>
+        <td><%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= post.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td>
+          <%= link_to image_tag(image_path("icons/16x16/edit.png"), :title => "Edit", :alt => "Edit"), edit_admin_post_path(post) %>
+          <%= link_to image_tag(image_path("icons/16x16/remove.png"), :title => "Delete", :alt => "Delete"), admin_post_path(post), :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= submit_tag "Edit Selected", :class => "button", :disabled => true, :id => "edit-selected-button" %>
+<% end %>
+<%= paginate @posts %>

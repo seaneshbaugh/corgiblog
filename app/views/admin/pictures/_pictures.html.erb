@@ -1,0 +1,38 @@
+<%# form_tag edit_multiple_admin_pages_path, :id => "pages-index-form", :method => :get do %>
+<table>
+  <thead>
+    <tr>
+      <!--<th scope="col"><input class="check-all" type="checkbox"></th>-->
+      <th scope="col"><%= sortable "id", "ID" %></th>
+      <th scope="col">Thumbnail</th>
+      <th scope="col"><%= sortable "title" %></th>
+      <th scope="col"><%= sortable "alt_text" %></th>
+      <th scope="col"><%= sortable "caption" %></th>
+      <th scope="col"><%= sortable "created_at" %></th>
+      <th scope="col"><%= sortable "updated_at" %></th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% even_row = false %>
+    <% @pictures.each do |picture| %>
+      <tr class="<% if even_row %>even<% else %>odd<% end %><% even_row = !even_row %>">
+        <!--<td><%= check_box_tag "pictures_ids[]", picture.id %></td>-->
+        <td><%= link_to picture.id, admin_picture_path(picture) %></td>
+        <td><%= link_to image_tag(picture.image_url(:thumb).to_s), admin_picture_path(picture) %></td>
+        <td><%= link_to truncate(picture.title), admin_picture_path(picture) %></td>
+        <td><%= truncate(picture.alt_text) %></td>
+        <td><%= truncate(picture.caption) %></td>
+        <td><%= picture.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= picture.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td>
+          <%= link_to image_tag(image_path("icons/16x16/edit.png"), :title => "Edit", :alt => "Edit"), edit_admin_picture_path(picture) %>
+          <%= link_to image_tag(image_path("icons/16x16/remove.png"), :title => "Delete", :alt => "Delete"), admin_picture_path(picture), :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%# submit_tag "Edit Selected", :class => "button", :disabled => true, :id => "edit-selected-button" %>
+<%# end %>
+<%= paginate @pictures %>

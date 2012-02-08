@@ -1,0 +1,38 @@
+<div id="page-info" class="in">
+  <h2>Showing Blog Post: <%= @post.title %></h2>
+</div>
+<div class="line"></div>
+<div id="page-actions" class="in">
+  <%= link_to "Edit Post", edit_admin_post_path(@post) %><%= link_to "Delete Post", admin_post_path(@post), :method => :delete %>
+</div>
+<div class="in">
+  <p><strong>Title:</strong> <%= @post.title %></p>
+  <p><strong>Body:</strong></p>
+  <pre><%= @post.body %></pre>
+  <p><strong>Style:</strong></p>
+  <pre><%= @post.style %></pre>
+  <p><strong>Meta Description:</strong> <%= @post.meta_description %></p>
+  <p><strong>Meta Keywords:</strong> <%= @post.meta_description %></p>
+  <p><strong>Slug:</strong> <%= @post.slug %></p>
+  <p><strong>Status:</strong>
+  <%= case @post.status
+      when 0
+        "Draft"
+      when 1
+        "Published"
+      when 2
+        "Awaiting Review"
+      else
+        "Unknown"
+      end
+  %></p>
+  <p><strong>Private:</strong> <% if @post.private %>Yes<% else %>No<% end %></p>
+  <p><strong>Created at:</strong> <%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <p><strong>Last Updated at:</strong> <%= @post.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+</div>
+<div id="toggle-debug" class="in">
+  <span class="toggle-debug-text">Show Debug Info</span><span class="toggle-debug-text" style="display: none;">Hide Debug Info</span>
+</div>
+<div id="debug-info" class="in">
+  <%= debug @post %>
+</div>

@@ -1,0 +1,426 @@
+/*
+*= require reset
+*= require_self
+*/
+
+@charset "utf-8";
+
+@font-face {
+  font-family: "Ubuntu";
+  src: font-url("Ubuntu/Ubuntu-L-webfont.eot");
+  src: font-url("Ubuntu/Ubuntu-L-webfont.eot?#iefix") format("embedded-opentype"),
+       font-url("Ubuntu/Ubuntu-L-webfont.woff") format("woff"),
+       font-url("Ubuntu/Ubuntu-L-webfont.ttf") format("truetype"),
+       font-url("Ubuntu/Ubuntu-L-webfont.svg#UbuntuLight") format("svg");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: font-url("Ubuntu/Ubuntu-LI-webfont.eot");
+  src: font-url("Ubuntu/Ubuntu-LI-webfont.eot?#iefix") format("embedded-opentype"),
+       font-url("Ubuntu/Ubuntu-LI-webfont.woff") format("woff"),
+       font-url("Ubuntu/Ubuntu-LI-webfont.ttf") format("truetype"),
+       font-url("Ubuntu/Ubuntu-LI-webfont.svg#UbuntuLightItalic") format("svg");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: font-url("Ubuntu/Ubuntu-R-webfont.eot");
+  src: font-url("Ubuntu/Ubuntu-R-webfont.eot?#iefix") format("embedded-opentype"),
+       font-url("Ubuntu/Ubuntu-R-webfont.woff") format("woff"),
+       font-url("Ubuntu/Ubuntu-R-webfont.ttf") format("truetype"),
+       font-url("Ubuntu/Ubuntu-R-webfont.svg#UbuntuRegular") format("svg");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: font-url("Ubuntu/Ubuntu-RI-webfont.eot");
+  src: font-url("Ubuntu/Ubuntu-RI-webfont.eot?#iefix") format("embedded-opentype"),
+       font-url("Ubuntu/Ubuntu-RI-webfont.woff") format("woff"),
+       font-url("Ubuntu/Ubuntu-RI-webfont.ttf") format("truetype"),
+       font-url("Ubuntu/Ubuntu-RI-webfont.svg#UbuntuItalic") format("svg");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: font-url("Ubuntu/Ubuntu-M-webfont.eot");
+  src: font-url("Ubuntu/Ubuntu-M-webfont.eot?#iefix") format("embedded-opentype"),
+       font-url("Ubuntu/Ubuntu-M-webfont.woff") format("woff"),
+       font-url("Ubuntu/Ubuntu-M-webfont.ttf") format("truetype"),
+       font-url("Ubuntu/Ubuntu-M-webfont.svg#UbuntuMedium") format("svg");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: font-url("Ubuntu/Ubuntu-MI-webfont.eot");
+  src: font-url("Ubuntu/Ubuntu-MI-webfont.eot?#iefix") format("embedded-opentype"),
+       font-url("Ubuntu/Ubuntu-MI-webfont.woff") format("woff"),
+       font-url("Ubuntu/Ubuntu-MI-webfont.ttf") format("truetype"),
+       font-url("Ubuntu/Ubuntu-MI-webfont.svg#UbuntuMediumItalic") format("svg");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: font-url("Ubuntu/Ubuntu-B-webfont.eot");
+  src: font-url("Ubuntu/Ubuntu-B-webfont.eot?#iefix") format("embedded-opentype"),
+       font-url("Ubuntu/Ubuntu-B-webfont.woff") format("woff"),
+       font-url("Ubuntu/Ubuntu-B-webfont.ttf") format("truetype"),
+       font-url("Ubuntu/Ubuntu-B-webfont.svg#UbuntuBold") format("svg");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: font-url("Ubuntu/Ubuntu-BI-webfont.eot");
+  src: font-url("Ubuntu/Ubuntu-BI-webfont.eot?#iefix") format("embedded-opentype"),
+       font-url("Ubuntu/Ubuntu-BI-webfont.woff") format("woff"),
+       font-url("Ubuntu/Ubuntu-BI-webfont.ttf") format("truetype"),
+       font-url("Ubuntu/Ubuntu-BI-webfont.svg#UbuntuBoldItalic") format("svg");
+  font-weight: 900;
+  font-style: italic;
+}
+
+/*
+Color palette based on http://design-seeds.com/index.php/home/entry/alp-hues
+darker blue: #044e8f
+light gray: #f0e8f0
+baby blue: #8de3eb
+green: #b09602
+slate: #124d4d
+*/
+
+/* Begin Body Styles */
+
+body {
+  background: #ffffff;
+  color: #124d4d;
+}
+
+/* End Body Styles */
+
+/* Begin General Link Styles */
+
+a {
+  text-decoration: none;
+}
+
+a:focus, a:hover {
+}
+
+a:active {
+}
+
+a:visited {
+}
+
+/* End General Link Styles */
+
+
+#container {
+  margin: 20px auto;
+  width: 1000px;
+}
+
+#main-header {
+  overflow: hidden;
+  h1 {
+    font-size: 40px;
+  }
+  #main-nav {
+    margin-bottom: 20px;
+    ul {
+      list-style: none;
+      li {
+        display: inline-block;
+        margin-right: 15px;
+      }
+    }
+  }
+  #main-social {
+    height: 30px;
+    .fb-like {
+      float: left;
+    }
+    .tweet-this {
+      float: left;
+    }
+    .google-plus-one {
+      float: left;
+    }
+    .pin-it {
+      float: left;
+    }
+    #rss {
+      float: left;
+      img {
+        height: 20px;
+      }
+    }
+  }
+}
+
+/* Begin Flash Notification */
+
+.notification {
+  background: #f7f7f7;
+  border: 1px solid #bab9b9;
+  cursor: pointer;
+  margin: 32px;
+  min-height: 16px;
+  padding: 10px 15px 10px 62px;
+  text-align: left;
+}
+
+.attention {
+  background: #ffdb91 url(notifications/attention.png) no-repeat 15px center;
+  border: 1px solid #ffc44a;
+}
+
+.success {
+  background: #e2ff7d url(notifications/success.png) no-repeat 15px center;
+  border: 1px solid #99c600;
+}
+
+.error {
+  background: #f5b5a9 url(notifications/error.png) no-repeat 15px center;
+  border: 1px solid #eb5339;
+}
+
+.information {
+  background: #b3cfea url(notifications/information.png) no-repeat 15px center;
+  border: 1px solid #418acc;
+}
+
+.lightbulb {
+  background: #feefcb url(notifications/lightbulb.png) no-repeat 15px center;
+  border: 1px solid #d3a350;
+}
+
+/* End Flash Notification */
+
+#main-footer {
+  margin-top: 20px;
+}
+
+/* Begin Post Styles */
+
+article.post {
+  .post-header {
+    overflow: hidden;
+    .post-title {
+      float: left;
+    }
+    .post-author {
+      float: left;
+      font-style: italic;
+      margin: 20px 0 0 20px;
+    }
+    .post-date {
+      float: right;
+      .day {
+        font-size: 30px;
+      }
+      .month {
+        font-size: 20px;
+      }
+      .year {
+        font-size: 9px;
+        letter-spacing: 3px;
+        text-align: center;
+      }
+    }
+    .post-social {
+      clear: both;
+      height: 30px;
+      .fb-like {
+        float: left;
+      }
+      .tweet-this {
+        float: left;
+      }
+      .google-plus-one {
+        float: left;
+      }
+      .pin-it {
+        float: left;
+      }
+    }
+  }
+  .post-content {
+    p {
+      font-family: Ubuntu, serif;
+      overflow: hidden;
+      img.left {
+        float: left;
+        margin-right: 10px;
+      }
+      img.right {
+        float: right;
+        margin-left: 10px;
+      }
+    }
+    p.left {
+      text-align: left;
+    }
+    p.center {
+      text-align: center;
+    }
+    p.right {
+      text-align: right;
+    }
+    p.justify {
+      text-align: justify;
+    }
+  }
+}
+
+/* End Post Styles */
+
+/* Begin Forms */
+
+form div {
+  margin-bottom: 15px;
+}
+
+input {
+  &[type="file"], &[type="password"], &[type="text"] {
+    border: 1px solid #bab9b9;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -ms-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    color: #707070;
+    font-size: 14px;
+    margin-top: 5px;
+    padding: 10px;
+  }
+}
+
+select {
+  border: 1px solid #bab9b9;
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -ms-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  color: #707070;
+  font-size: 14px;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+input {
+  &[type="button"], &[type="reset"], &[type="submit"] {
+    border: 0;
+    background: #f7941d;
+    color: #ffffff;
+    font-size: 14px;
+    margin: 0;
+    padding: 10px 20px;
+  }
+}
+
+textarea {
+  border: 1px solid #bab9b9;
+  color: #707070;
+  font-size: 14px;
+  height: 140px;
+  margin-top: 5px;
+  padding: 10px;
+  width: 830px;
+}
+
+input.small, select.small {
+  width: 300px;
+}
+
+input.medium, select.medium {
+  width: 600px;
+}
+
+input.large, select.large {
+  width: 830px;
+}
+
+form p {
+  margin-bottom: 15px;
+}
+
+.field_with_errors {
+  input, select, textarea {
+    border: #ff3443 1px solid;
+    box-shadow: 0 0 5px rgba(255, 52, 67, 1);
+    -moz-box-shadow: 0 0 5px rgba(255, 52, 67, 1);
+    -webkit-box-shadow: 0 0 5px rgba(255, 52, 67, 1);
+  }
+}
+
+input {
+  &[type="file"], &[type="password"], &[type="text"] {
+    outline: none;
+    transition: box-shadow 0.30s ease-in-out, -moz-box-shadow 0.30s ease-in-out, -webkit-box-shadow 0.30s ease-in-out;
+    -moz-transition: box-shadow 0.30s ease-in-out, -moz-box-shadow 0.30s ease-in-out, -webkit-box-shadow 0.30s ease-in-out;
+    -webkit-transition: box-shadow 0.30s ease-in-out, -moz-box-shadow 0.30s ease-in-out, -webkit-box-shadow 0.30s ease-in-out;
+  }
+}
+
+select, textarea {
+  outline: none;
+  transition: box-shadow 0.30s ease-in-out, -moz-box-shadow 0.30s ease-in-out, -webkit-box-shadow 0.30s ease-in-out;
+  -moz-transition: box-shadow 0.30s ease-in-out, -moz-box-shadow 0.30s ease-in-out, -webkit-box-shadow 0.30s ease-in-out;
+  -webkit-transition: box-shadow 0.30s ease-in-out, -moz-box-shadow 0.30s ease-in-out, -webkit-box-shadow 0.30s ease-in-out;
+}
+
+input {
+  &[type="file"]:focus, &[type="password"]:focus, &[type="text"]:focus {
+    border: 1px solid #bab9b9;
+    box-shadow: 0 0 5px rgba(218, 160, 50, 1);
+    -webkit-box-shadow: 0 0 5px rgba(218, 160, 50, 1);
+    -moz-box-shadow: 0 0 5px rgba(218, 160, 50, 1);
+  }
+}
+
+select:focus, textarea:focus {
+  border: 1px solid #bab9b9;
+  box-shadow: 0 0 5px rgba(218, 160, 50, 1);
+  -webkit-box-shadow: 0 0 5px rgba(218, 160, 50, 1);
+  -moz-box-shadow: 0 0 5px rgba(218, 160, 50, 1);
+}
+
+/* End Forms */
+
+@media all and (max-width: 640px) and (min-width: 321px) {
+  #container {
+    margin: 0 auto;
+    width: 300px;
+    #main-header {
+      h1 {
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 320px) {
+  #container {
+    margin: 0 auto;
+    width: 250px;
+    #main-header {
+      h1 {
+        font-size: 28px;
+      }
+    }
+  }
+}

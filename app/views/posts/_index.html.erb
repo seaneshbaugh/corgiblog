@@ -1,0 +1,39 @@
+<div id="blog">
+  <% @posts.each do |post| %>
+    <article id="post-<%= post.id %>" class="post">
+      <header class="post-header">
+        <h1 class="post-title"><%= link_to(post.title, post, :title => "\"#{post.title}\" posted on #{post.created_at.strftime("%Y-%m-%d %H:%M:%S")}") %></h1>
+        <div class="post-author">
+          posted by <%= post.user.first_name %>
+        </div>
+        <div class="post-date">
+          <div class="day">
+            <%= post.created_at.strftime("%d") %>
+          </div>
+          <div class="month">
+            <%= post.created_at.strftime("%b") %>
+          </div>
+          <div class="year">
+            <%= post.created_at.strftime("%Y") %>
+          </div>
+        </div>
+      </header>
+      <div class="post-content">
+        <% if !post.style.blank? %>
+          <style scoped="scoped">
+            <%= raw post.style %>
+          </style>
+        <% end %>
+        <%= raw truncate_html(post.more) %>
+      </div>
+      <footer class="post-footer">
+        <% if post.truncated? %>
+          <div class="read-more">
+            <%= link_to "Read More...", post %>
+          </div>
+        <% end %>
+      </footer>
+    </article>
+  <% end  %>
+</div>
+<%= paginate @posts %>

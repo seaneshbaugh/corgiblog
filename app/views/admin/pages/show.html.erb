@@ -1,0 +1,39 @@
+<div id="page-info" class="in">
+  <h2>Showing Page: <%= @page.title %></h2>
+</div>
+<div class="line"></div>
+<div id="page-actions" class="in">
+  <%= link_to "Edit Page", edit_admin_page_path(@page) %><%= link_to "Delete Page", admin_pages_path(@page), :method => :delete %>
+</div>
+<div class="in">
+  <p><strong>Title:</strong> <%= @page.title %></p>
+  <p><strong>Body:</strong></p>
+  <pre><%= @page.body %></pre>
+  <p><strong>Style:</strong></p>
+  <pre><%= @page.style %></pre>
+  <p><strong>Meta Description:</strong> <%= @page.meta_description %></p>
+  <p><strong>Meta Keywords:</strong> <%= @page.meta_description %></p>
+  <p><strong>Slug:</strong> <%= @page.slug %></p>
+  <p><strong>Parent Page:</strong> <% unless @page.parent.nil? %><%= @page.parent.title %><% else %>-<% end %></p>
+  <p><strong>Status:</strong>
+  <%= case @page.status
+      when 0
+        "Draft"
+      when 1
+        "Published"
+      when 2
+        "Awaiting Review"
+      else
+        "Unknown"
+      end
+  %></p>
+  <p><strong>Private:</strong> <% if @page.private %>Yes<% else %>No<% end %></p>
+  <p><strong>Created at:</strong> <%= @page.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <p><strong>Last Updated at:</strong> <%= @page.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+</div>
+<div id="toggle-debug" class="in">
+  <span class="toggle-debug-text">Show Debug Info</span><span class="toggle-debug-text" style="display: none;">Hide Debug Info</span>
+</div>
+<div id="debug-info" class="in">
+  <%= debug @page %>
+</div>

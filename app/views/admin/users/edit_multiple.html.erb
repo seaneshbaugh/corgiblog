@@ -1,0 +1,32 @@
+<h2>Editing Multiple Users</h2>
+<div class="line"></div>
+<ul>
+  <% for user in @users %>
+    <li>
+      <%= hidden_field_tag "user_ids[]", user.id %>
+      <%= user.id %> - <%= user.first_name %> <%= user.last_name %>
+    </li>
+  <% end %>
+</ul>
+<%= form_for :user, :url => update_multiple_admin_users_path, :html => {:method => :put} do |f| %>
+  <fieldset>
+    <p>
+      <%= f.label :first_name, "First Name:" %><br />
+      <%= f.text_field :first_name, :class => "text small" %>
+    </p>
+    <p>
+      <%= f.label :last_name, "Last Name:" %><br />
+      <%= f.text_field :last_name, :class => "text small" %>
+    </p>
+    <p>
+      <%= f.label :phone_number, "Phone Number:" %><br />
+      <%= f.text_field :phone_number, :class => "text small" %>
+    </p>
+    <p>
+      <%= f.label :privilege_level, "Privilege Level:" %><br />
+      <%= f.select :privilege_level, get_valid_privilege_levels, :class => "select" %>
+    </p>
+    <br />
+    <%= submit_tag "Submit", :class => "submit" %>
+  </fieldset>
+<% end %>

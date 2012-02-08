@@ -1,0 +1,35 @@
+<div id="page-info" class="in">
+  <h2>Showing User: <%= @user.id %></h2>
+</div>
+<div class="line"></div>
+<% if @user == @current_user or @user.privilege_level <= @current_user.privilege_level %>
+  <div id="page-actions" class="in">
+    <%= link_to "Edit User", edit_admin_user_path(@user) %><%= link_to "Delete User", admin_users_path(@user), :method => :delete %>
+  </div>
+<% end %>
+<div class="in">
+  <p><strong>E-mail Address:</strong> <%= link_to @user.email_address, "mailto:#{@user.email_address}" %></p>
+  <p><strong>Name:</strong> <%= @user.first_name %></p>
+  <p><strong>Last Name:</strong> <%= @user.last_name %></p>
+  <p><strong>Phone Number:</strong> <%= @user.phone_number %></p>
+  <p><strong>Privilege Level:</strong> <%= @user.privilege_level %></p>
+  <p><strong>Latest IP Addresses:</strong>
+    <% if !@user.ip_addresses.blank? %>
+      <ul>
+        <% ips = @user.ip_addresses.split(";")
+        ips.each do |ip| %>
+          <li><%= ip %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </p>
+  <p><strong>Created at:</strong> <%= @user.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <p><strong>Last Updated at:</strong> <%= @user.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <p><strong>Last Login:</strong> <% if @user.last_login %><%= @user.last_login.strftime("%Y-%m-%d %H:%M:%S") %><% else %>Never<% end %></p>
+</div>
+<div id="toggle-debug" class="in">
+  <span class="toggle-debug-text">Show Debug Info</span><span class="toggle-debug-text" style="display: none;">Hide Debug Info</span>
+</div>
+<div id="debug-info" class="in">
+  <%= debug @user %>
+</div>

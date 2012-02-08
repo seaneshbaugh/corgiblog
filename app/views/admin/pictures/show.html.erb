@@ -1,0 +1,21 @@
+<div id="page-info" class="in">
+  <h2>Showing Picture: <%= @picture.title %></h2>
+</div>
+<div class="line"></div>
+<div id="page-actions" class="in">
+  <%= link_to "Edit Picture", edit_admin_picture_path(@picture) %><%= link_to "Delete Picture", admin_picture_path(@picture), :method => :delete %>
+</div>
+<div class="in">
+  <p><%= link_to image_tag(@picture.image_url(:thumb).to_s), @picture.image_url.to_s %></p>
+  <p><strong>Title:</strong> <%= @picture.title %></p>
+  <p><strong>Alt Text:</strong> <%= @picture.alt_text %></p>
+  <p><strong>Caption:</strong> <%= @picture.caption %></p>
+  <p><strong>Created at:</strong> <%= @picture.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+  <p><strong>Last Updated at:</strong> <%= @picture.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+</div>
+<div id="toggle-debug" class="in">
+  <span class="toggle-debug-text">Show Debug Info</span><span class="toggle-debug-text" style="display: none;">Hide Debug Info</span>
+</div>
+<div id="debug-info" class="in">
+  <%= debug @picture %>
+</div>

@@ -1,0 +1,3 @@
+$("#pictures").html("<%= escape_javascript(render("pictures")) %>");
+
+document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Pictures by #{(params[:sort] || 'title').titleize} - Page #{(params[:page] || 1)}") %>";

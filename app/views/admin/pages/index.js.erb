@@ -1,0 +1,3 @@
+$("#pages").html("<%= escape_javascript(render("pages")) %>");
+
+document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} Pages by #{(params[:sort] || 'title').titleize} - Page #{(params[:page] || 1)}") %>";

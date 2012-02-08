@@ -1,0 +1,45 @@
+<div id="page-info" class="in">
+  <h2><%= legend %></h2>
+</div>
+<div class="line"></div>
+<div class="in">
+  <%= form_for [:admin, @user] do |f| %>
+    <fieldset>
+      <div>
+        <%= f.label :email_address, "E-mail Address:" %><br />
+        <%= f.text_field :email_address, :class => "small" %>
+      </div>
+      <div>
+        <%= f.label :email_address_confirmation, "Repeat E-mail Address:" %><br />
+        <%= f.text_field :email_address_confirmation, :class => "small" %>
+      </div>
+      <div>
+        <%= f.label :password, "Password:" %><br />
+        <%= f.password_field :password, :class => "small" %>
+      </div>
+      <div>
+        <%= f.label :password_confirmation, "Repeat Password:" %><br />
+        <%= f.password_field :password_confirmation, :class => "small" %>
+      </div>
+      <div>
+        <%= f.label :first_name, "First Name:" %><br />
+        <%= f.text_field :first_name, :class => "small" %>
+      </div>
+      <div>
+        <%= f.label :last_name, "Last Name:" %><br />
+        <%= f.text_field :last_name, :class => "small" %>
+      </div>
+      <div>
+        <%= f.label :phone_number, "Phone Number:" %><br />
+        <%= f.text_field :phone_number, :class => "small" %>
+      </div>
+      <div>
+        <%= f.label :privilege_level, "Privilege Level:" %><br />
+        <%= f.select :privilege_level, get_valid_privilege_levels, {}, :class => "small" %>
+      </div>
+      <div>
+        <%= submit_tag "Submit" %>
+      </div>
+    </fieldset>
+  <% end %>
+</div>

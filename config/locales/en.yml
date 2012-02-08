@@ -1,0 +1,125 @@
+#English
+
+en:
+  flash:
+    access:
+      must_be_logged_in: "You must be logged in to view this page."
+      already_logged_in: "You are already logged in."
+      not_authorized: "You are not authorized to view this page."
+    error: "Error: "
+    reboot: "Rebooting Rails. You may need to refresh this page in order to see the changes take effect."
+    session:
+      error:
+        could_not_create: "Error: Unable to create the session!"
+        login: "The user name and password you provided is not valid."
+        recovery_link: "Invalid recovery link."
+      success:
+        login: "Welcome back %{user_name}, thank you for logging in!"
+        logout: "You are now logged out."
+        change_password: "Please change your password."
+      password_resets:
+        sent_email: "Sent email with password reset instructions."
+        expired: "Password reset has expired."
+        reset: "Your password has been reset."
+    page:
+      error:
+        could_not_find: "Error: Unable to find the specified page!"
+        could_not_create: "Error: Unable to create the page!"
+        could_not_save: "Error: Unable to save the page to database!"
+        could_not_update: "Error: Unable to save changes to the page!"
+        could_not_destroy: "Error: Unable to delete the specified page!"
+        could_not_find_multiple: "Error: Unable to find one or more of the specified pages!"
+        could_not_update_multiple: "The following errors occurred when updating page \"%{page_title}\":<br />"
+      success:
+        created: "Page \"%{page_title}\" has been created! %{undo_link}."
+        updated: "Page \"%{page_title}\" has been updated! %{undo_link}."
+        destroyed: "Page \"%{page_title}\" has been deleted! %{undo_link}."
+    picture:
+      error:
+        could_not_find: "Error: Unable to find the specified picture!"
+        no_image_selected: "Error: No image selected!"
+        could_not_create: "Error: Unable to create the picture!"
+        could_not_save: "Error: Unable to save the picture to database!"
+        could_not_update: "Error: Unable to save changes to the picture!"
+        could_not_destroy: "Error: Unable to delete the specified picture!"
+        could_not_find_multiple: "Error: Unable to find one or more of the specified picture!"
+        could_not_update_multiple: "The following errors occurred when updating picture \"%{picture_title}\":<br />"
+      success:
+        created: "Picture \"%{picture_title}\" has been created!"
+        updated: "Picture \"%{picture_title}\" has been updated!"
+        destroyed: "Picture \"%{picture_title}\" has been deleted!"
+    post:
+      error:
+        could_not_find: "Error: Unable to find the specified blog post!"
+        could_not_create: "Error: Unable to create the blog post!"
+        could_not_save: "Error: Unable to save the blog post to database!"
+        could_not_update: "Error: Unable to save changes to the blog post!"
+        could_not_destroy: "Error: Unable to delete the specified blog post!"
+        could_not_find_multiple: "Error: Unable to find one or more of the specified blog posts!"
+        could_not_update_multiple: "The following errors occurred when updating blog post \"%{post_title}\":<br />"
+      success:
+        created: "Blog post \"%{post_title}\" has been created! %{undo_link}."
+        updated: "Blog post \"%{post_title}\" has been updated! %{undo_link}."
+        destroyed: "Blog post \"%{post_title}\" has been deleted! %{undo_link}."
+    user:
+      error:
+        could_not_find: "Error: Unable to find the specified user!"
+        could_not_create: "Error: Unable to create the user!"
+        could_not_save: "Error: Unable to save the user to database!"
+        could_not_update: "Error: Unable to save changes to the user!"
+        could_not_destroy: "Error: Unable to delete the specified user!"
+        privilege_level_create: "Error: You cannot create a user with a higher privilege level than your own!"
+        privilege_level_edit: "Error: You are not authorized to to edit that user!"
+        privilege_level_update: "Error: You cannot modify a users privilege level to be higher than your own!"
+        privilege_level_destroy: "Error: You are not authorized to delete that user!"
+        could_not_find_multiple: "Error: Unable to find one or more of the specified users!"
+        could_not_update_multiple: "The following errors occurred when updating %{user_name} account:<br />"
+        privilege_level_edit_multiple: "Error: You are not authorized to to edit the following users:<br />"
+        privilege_level_destroy_multiple: "Error: You are not authorized to delete the following users:<br />"
+        cannot_destroy_self_via_multiple: "Error: You cannot delete your account this way!"
+      success:
+        created: "User %{user_name} has been created! %{undo_link}."
+        updated: "%{user_name} account has been updated! %{undo_link}."
+        destroyed: "%{user_name} account has been deleted! %{undo_link}."
+        updated_self: "Your account has been updated! %{undo_link}."
+    versions:
+      undo: "Undo"
+      redo: "Redo"
+      undid:
+        create: "Undid create."
+        update: "Undid update."
+        destroy: "Undid delete."
+  activerecord:
+    attributes:
+      user:
+        email_address: "E-mail Address"
+    errors:
+      messages:
+        blank:
+          "cannot be blank"
+      models:
+        page:
+          parent_must_exist: "must reference an existing page"
+          taken: "is already in use by another page"
+        post:
+          user_must_exist: "must reference an existing user"
+        result:
+          top_and_bottom_order: "upper end must be greater than the lower end"
+        user:
+          confirmation: "does not match the confirmation"
+          taken: "is already in use by another user"
+          attributes:
+            email_address:
+              invalid: "must be a valid e-mail address"
+            name:
+              invalid: "must be 4 to 16 letters, numbers, or underscores and have no spaces"
+            password:
+              invalid: "must be 6 to 32 characters"
+            phone_number:
+              invalid:  "must be a valid US phone number"
+    models:
+      post: "Blog Post"
+  views:
+    pagination:
+      previous: "&lt; Previous"
+      next: "Next &gt;"

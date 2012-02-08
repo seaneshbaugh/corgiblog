@@ -1,0 +1,132 @@
+<!--
+This is in major need of refactoring!
+TODO:
+  -Move styles to admin css
+  -Move JavaScript to admin js
+  -Add width and height fields (absolute and percent)
+  -Add small, medium, full size
+  -Add alignment, none, left, center, right
+  -Add image info (file type, file size, dimensions, upload date)
+-->
+<style>
+#picture-selector-container {
+  background: rgba(255, 255, 255, 0.85);
+  height: 616px;
+  left: 10px;
+  position: fixed;
+  top: 10px;
+  width: 416px;
+  z-index: 1;
+}
+#picture-selector {
+  height: 580px;
+  margin: 16px auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 380px;
+}
+#picture-selector-close {
+  float: right;
+}
+.picture {
+  margin: 10px;
+}
+.thumbnail {
+  margin: 0 auto;
+  width: 200px;
+}
+.url {
+  display: none;
+}
+</style>
+<script>
+$.fn.extend({
+  insertAtCaret: function(myValue) {
+    this.each(function(index) {
+      if (document.selection) {
+        this.focus();
+        var sel = document.selection.createRange();
+        sel.text = myValue;
+        this.focus();
+      } else {
+        if (this.selectionStart || this.selectionStart === "0") {
+          var startPos = this.selectionStart;
+          var endPos = this.selectionEnd;
+          var scrollTop = this.scrollTop;
+
+          this.value = this.value.substring(0, startPos) + myValue + this.value.substring(endPos, this.value.length);
+          this.focus();
+          this.selectionStart = startPos + myValue.length;
+          this.selectionEnd = startPos + myValue.length;
+          this.scrollTop = scrollTop;
+        } else {
+          this.value += myValue;
+          this.focus();
+        }
+      }
+    });
+  }
+});
+
+$.fn.extend({
+  insertImageTagAtCaret: function(url, altText, title, isLink) {
+    this.each(function(index) {
+      var imageTag = "<img src=\"" + url.trim() + "\" alt=\"" + altText.trim() + "\" title=\"" + title.trim() + "\" />";
+
+      if (isLink) {
+        imageTag = "<a href=\"" + url.trim() + "\">" + imageTag.trim() + "</a>";
+      }
+
+      $(this).insertAtCaret(imageTag);
+    });
+  }
+})
+
+$("#picture-selector-close").click(function() {
+  $(this).parent().remove();
+});
+
+$(".insert").click(function(event) {
+  event.preventDefault();
+
+  if (lastTextArea !== undefined) {
+    $(lastTextArea).insertImageTagAtCaret($(this).parent().parent().find(".url").text(), $(this).parent().parent().find(".alt-text").text(), $(this).parent().parent().find(".title").text(), false);
+  }
+});
+
+$(".insert-as-link").click(function(event) {
+  event.preventDefault();
+
+  if (lastTextArea !== undefined) {
+    $(lastTextArea).insertImageTagAtCaret($(this).parent().parent().find(".url").text(), $(this).parent().parent().find(".alt-text").text(), $(this).parent().parent().find(".title").text(), true);
+  }
+});
+</script>
+<div id="picture-selector-container">
+  <%= image_tag(image_path("close.png"), :id => "picture-selector-close") %>
+  <div id="picture-selector">
+    <% @pictures.each do |picture| %>
+      <div id="picture-<%= picture.id %>" class="picture">
+        <div class="thumbnail">
+          <%= image_tag(picture.image_url(:thumb).to_s) %>
+        </div>
+        <div>
+          <strong>Title:</strong> <span class="title"><%= picture.title %></span>
+        </div>
+        <div>
+          <strong>Alt Text:</strong> <span class="alt-text"><%= picture.alt_text %></span>
+        </div>
+        <div>
+          <strong>Caption:</strong> <span class="caption"><%= picture.caption %></span>
+        </div>
+        <div class="url">
+          <%= picture.image_url %>
+        </div>
+        <div class="insert-buttons">
+          <button id="insert-<%= picture.id %>" class="insert" name="insert-<%= picture.id %>">Insert</button>
+          <button id="insert-as-link-<%= picture.id %>" class="insert-as-link" name="insert-as-link-<%= picture.id %>">Insert as Link</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
