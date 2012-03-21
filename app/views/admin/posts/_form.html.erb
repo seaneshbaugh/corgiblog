@@ -13,6 +13,21 @@
         <%= f.label :body, "Body:" %><br />
         <%= f.text_area :body, :class => "large" %>
       </div>
+      <style>
+        #preview {
+          height: 500px;
+          overflow:  scroll;
+          width: 100%;
+        }
+      </style>
+      <script>
+        $(function() {
+          $("#post_body").on("input", function(event) {
+            $("#preview").html($(this).val());
+          });
+        });
+      </script>
+      <div id="preview"></div>
       <div>
         <button id="picture-selector-button" name="picture-selector-button">Select Picture</button>
       </div>

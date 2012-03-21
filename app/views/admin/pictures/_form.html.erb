@@ -3,6 +3,11 @@
 </div>
 <div class="line"></div>
 <div class="in">
+   <div>
+    <% unless @picture.new_record? or @picture.image_url.blank? %>
+      <%= link_to image_tag(@picture.image_url(:thumb).to_s), image_tag(@picture.image_url.to_s) %>
+    <% end %>
+  </div>
   <%= form_for [:admin, @picture], :html => { :multipart => true } do |f| %>
     <fieldset>
       <div>

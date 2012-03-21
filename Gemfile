@@ -46,3 +46,5 @@ gem 'nokogiri'
 gem 'paper_trail'
 
 gem 'rmagick'
+
+gem 'fastercsv'

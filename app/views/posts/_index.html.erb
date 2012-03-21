@@ -24,7 +24,7 @@
             <%= raw post.style %>
           </style>
         <% end %>
-        <%= raw truncate_html(post.more) %>
+        <%= raw truncate_html(post.more, 200) %>
       </div>
       <footer class="post-footer">
         <% if post.truncated? %>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="en-US">
 <head>
   <meta charset="utf-8" />
   <title>Conney the Corgi!</title>
@@ -19,57 +19,6 @@
 </head>
 <body>
   <div id="fb-root"></div>
-  <script>
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
-  <script>
-    !function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (!d.getElementById(id)) {
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//platform.twitter.com/widgets.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      }
-    }(document, "script", "twitter-wjs");
-  </script>
-  <script>
-    (function() {
-      var po = document.createElement('script');
-      po.type = 'text/javascript';
-      po.async = true;
-      po.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(po, s);
-    })();
-  </script>
-  <script>
-    (function() {
-      window.PinIt = window.PinIt || { loaded:false };
-      if (window.PinIt.loaded) return;
-      window.PinIt.loaded = true;
-      function async_load() {
-        var s = document.createElement("script");
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = "http://assets.pinterest.com/js/pinit.js";
-        var x = document.getElementsByTagName("script")[0];
-        x.parentNode.insertBefore(s, x);
-      }
-      if (window.attachEvent) {
-        window.attachEvent("onload", async_load);
-      } else {
-        window.addEventListener("load", async_load, false);
-      }
-    })();
-  </script>
   <div id="container">
     <header id="main-header">
       <h1><%= link_to "Conney the Corgi!", root_path %></h1>
@@ -91,7 +40,7 @@
         <div class="fb-like" data-href="<%= root_url %>" data-send="true" data-layout="button_count" data-show-faces="false"></div>
         <div class="tweet-this"><a href="https://twitter.com/share" class="twitter-share-button" data-url="<%= root_url %>">Tweet</a></div>
         <div class="google-plus-one"><div class="g-plusone" data-size="medium" data-href="<%= root_url %>"></div></div>
-        <div class="pin-it"><a href="http://pinterest.com/pin/create/button/?url=<%= url_encode(root_url) %>&media=<%= url_encode(image_url("conney-the-corgi.jpg")) %>" class="pin-it-button" count-layout="horizontal">Pin It</a></div>
+        <div class="pin-it"><a href="http://pinterest.com/pin/create/button/?url=<%= url_encode(root_url) %>&amp;media=<%= url_encode(image_url("conney-the-corgi.jpg")) %>" class="pin-it-button" count-layout="horizontal">Pin It</a></div>
         <div id="rss">
           <%= link_to image_tag(image_path("rss.png")), posts_url(:format => "rss") %>
         </div>
@@ -114,8 +63,55 @@
       <span id="credits">Created with <a href="http://rubyonrails.org/">Ruby on Rails</a> by <a href="http://seaneshbaugh.com/">Sean Eshbaugh</a>.</span>
     </footer>
   </div>
-  <% if !@current_user and request.host != "127.0.0.1" %>
-    <script type="text/javascript">
+  <script>
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    !function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (!d.getElementById(id)) {
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }
+    }(document, "script", "twitter-wjs");
+
+    (function() {
+      var po = document.createElement('script');
+      po.type = 'text/javascript';
+      po.async = true;
+      po.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(po, s);
+    })();
+
+    (function() {
+      window.PinIt = window.PinIt || { loaded:false };
+      if (window.PinIt.loaded) return;
+      window.PinIt.loaded = true;
+      function async_load() {
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "http://assets.pinterest.com/js/pinit.js";
+        var x = document.getElementsByTagName("script")[0];
+        x.parentNode.insertBefore(s, x);
+      }
+      if (window.attachEvent) {
+        window.attachEvent("onload", async_load);
+      } else {
+        window.addEventListener("load", async_load, false);
+      }
+    })();
+
+    <% if !@current_user and request.host != "127.0.0.1" %>
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-28027997-1']);
       _gaq.push(['_trackPageview']);
@@ -125,7 +121,7 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-    </script>
-  <% end %>
+    <% end %>
+  </script>
 </body>
 </html>

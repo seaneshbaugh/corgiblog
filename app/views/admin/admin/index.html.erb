@@ -19,19 +19,22 @@
     <fieldset>
       <%= f.hidden_field :status, :value => 1 %>
       <%= f.hidden_field :private, :value => 0 %>
-      <p>
+      <div>
         <%= f.label :title, "Title:" %><br />
         <%= f.text_field :title, :class => "small" %>
-      </p>
-      <p>
+      </div>
+      <div>
         <%= f.label :body, "Body:" %><br />
         <%= f.text_area :body, :class => "large" %>
-      </p>
-      <p>
+      </div>
+      <div>
         <%= submit_tag "Submit", :class => "submit" %>
-      </p>
+      </div>
     </fieldset>
   <% end %>
+</div>
+<div class="in">
+  Rails is currently in <%= Rails.env %> mode.
 </div>
 <!-- <%= Rails.application.routes.named_routes.each do |route| %>
   <%= route %>

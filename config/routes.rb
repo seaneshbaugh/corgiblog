@@ -19,6 +19,7 @@ Corgiblog::Application.routes.draw do
     root :to => "admin#index"
 
     get "reboot" => "admin#reboot", :as => "reboot"
+    get "export" => "admin#export", :as => "export"
 
     resources :pages do
       collection do

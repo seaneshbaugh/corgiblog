@@ -122,7 +122,7 @@ class Admin::PicturesController < Admin::AdminController
   end
 
   def selector
-    @pictures = Picture.all
+    @pictures = Picture.order("created_at DESC")
 
     render :layout => false
   end

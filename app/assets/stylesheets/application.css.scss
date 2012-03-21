@@ -105,7 +105,31 @@ slate: #124d4d
 /* Begin Body Styles */
 
 body {
-  background: #ffffff;
+	background-color: #ffecd0;
+	background-image:
+			-moz-linear-gradient(0deg, transparent 50%, transparent 50%),
+			-moz-linear-gradient(-45deg, rgba(223, 70, 149, .3) 25%, transparent 25%,
+				transparent 50%, rgba(223, 70, 149, .3) 50%, rgba(223, 70, 149, .3) 75%,
+				transparent 75%, transparent);
+	background-image:
+			-ms-linear-gradient(0deg, transparent 50%, white 50%),
+			-ms-linear-gradient(-45deg, rgba(255, 255, 255, .3) 25%, transparent 25%,
+				transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%,
+				transparent 75%, transparent);
+	background-image:
+			-o-linear-gradient(0deg, transparent 50%, white 50%),
+			-o-linear-gradient(-45deg, rgba(255, 255, 255, .3) 25%, transparent 25%,
+				transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%,
+				transparent 75%, transparent);
+	background-image:
+			-webkit-gradient(linear, 0 0, 100% 0,
+				color-stop(.5, transparent), color-stop(.5, white)),
+			-webkit-gradient(linear, 0 100%, 100% 0,
+				color-stop(.25, rgba(255, 255, 255, .3)), color-stop(.25, transparent),
+				color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .3)),
+				color-stop(.75, rgba(255, 255, 255, .3)), color-stop(.75, transparent),
+					to(transparent));
+	background-size: 100% 100%, 100px 100px;
   color: #124d4d;
 }
 
@@ -260,6 +284,9 @@ article.post {
     }
   }
   .post-content {
+    iframe {
+      border: none;
+    }
     p {
       font-family: Ubuntu, serif;
       overflow: hidden;
