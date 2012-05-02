@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(:version => 20120114095655) do
     t.integer  "display_order",    :default => 0,     :null => false
     t.integer  "status",           :default => 1,     :null => false
     t.boolean  "private",          :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
   create_table "pictures", :force => true do |t|
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(:version => 20120114095655) do
     t.text     "alt_text"
     t.text     "caption"
     t.string   "image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "md5"
   end
 
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(:version => 20120114095655) do
     t.integer  "user_id",                             :null => false
     t.integer  "status",           :default => 1,     :null => false
     t.boolean  "private",          :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(:version => 20120114095655) do
     t.integer  "post_count",             :default => 0, :null => false
     t.datetime "password_reset_sent_at"
     t.datetime "last_login"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
   create_table "versions", :force => true do |t|

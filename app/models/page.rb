@@ -1,4 +1,6 @@
 class Page < ActiveRecord::Base
+  attr_accessible :title, :body, :style, :meta_description, :meta_keywords, :parent_id, :display_order, :status, :private
+
   belongs_to :parent, :class_name => "Page"
   has_many :subpages, :class_name => "Page", :foreign_key => "parent_id", :dependent => :destroy, :order => "display_order"
   has_paper_trail

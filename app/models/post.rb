@@ -2,6 +2,8 @@ require "nokogiri"
 require "truncate_html"
 
 class Post < ActiveRecord::Base
+  attr_accessible :title, :body, :style, :meta_description, :meta_keywords, :parent_id, :display_order, :status, :private
+
   belongs_to :user, :validate => true
   has_paper_trail
   paginates_per 10

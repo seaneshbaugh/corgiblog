@@ -3,6 +3,7 @@ require "RFC2822"
 
 class User < ActiveRecord::Base
   attr_accessor :password
+  attr_accessible :email_address, :email_address_confirmation, :password, :password_confirmation, :first_name, :last_name, :phone_number
 
   has_many :posts, :dependent => :destroy
   has_paper_trail

@@ -8,7 +8,7 @@ class CreatePosts < ActiveRecord::Migration
       t.text :meta_keywords
       t.string :slug, :null => false
       t.belongs_to :user, :null => false
-      t.integer :c, :null => false, :default => 1
+      t.integer :status, :null => false, :default => 1
       t.boolean :private, :null => false, :default => false
       t.timestamps
     end

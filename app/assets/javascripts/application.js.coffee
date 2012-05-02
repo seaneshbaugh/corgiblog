@@ -3,7 +3,7 @@
 #= require jquery_ujs
 #= require_self
 
-#$ ->
+$ ->
 #  if $(".pagination").length
 #    $(window).scroll ->
 #      url = $(".pagination .next a").attr("href")

@@ -8,12 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
-  <!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
-  <link rel="author" href="humans.txt" />
+  <link href="favicon.ico" rel="shortcut icon" />
+  <link href="images/apple-touch-icon-iphone.png" rel="apple-touch-icon" />
+  <link href="images/apple-touch-icon-ipad.png" rel="apple-touch-icon" sizes="72x72" />
+  <link href="images/apple-touch-icon-iphone4.png" rel="apple-touch-icon" sizes="114x114" />
+  <link href="humans.txt" rel="author" />
   <%= auto_discovery_link_tag :rss, posts_url, :title => "Conney the Corgi RSS Feed" %>
   <%= csrf_meta_tag %>
 </head>

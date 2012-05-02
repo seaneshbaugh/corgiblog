@@ -15,7 +15,8 @@
   Petfinder
   Site: http://www.petfinder.com/index.html
 
-  Nicole Chavez
+  Nicole Chavez and Emma
+  http://emmathebean.com/
 
   Conney
   Ginger
@@ -23,9 +24,9 @@
 
 /* SITE */
   Created On: 2012/01/01
-  Last Updated: 2012/02/17
+  Last Updated: 2012/05/02
   Language: English
   Doctype: HTML5
-  Lovingly Made In: RubyMine 3.2.4
-  Lovingly Made On: Windows 7
+  Lovingly Made In: RubyMine 4.0.3, TextMate 1.5.10 (1623)
+  Lovingly Made On: Windows 7, OSX 10.7 Lion
   Lovingly Made With: Ruby, Ruby on Rails, ERB, HTML5, CSS3, SCSS, JavaScript, jQuery

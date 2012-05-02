@@ -78,4 +78,3 @@ then
 else
 	echo "Using: $GEM_HOME" # don't use colors in interactive shells
 fi
-
