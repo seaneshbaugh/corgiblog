@@ -93,44 +93,93 @@
   font-style: italic;
 }
 
+@font-face {
+  font-family: "TeXGyrePagella";
+  src: font-url("TeXGyrePagella/texgyrepagella-regular.eot");
+  src: font-url("TeXGyrePagella/texgyrepagella-regular.eot?#iefix") format("embedded-opentype"),
+       font-url("TeXGyrePagella/texgyrepagella-regular.woff") format("woff"),
+       font-url("TeXGyrePagella/texgyrepagella-regular.ttf") format("truetype"),
+       font-url("TeXGyrePagella/texgyrepagella-regular.svg#TeXGyrePagella") format("svg");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "TeXGyrePagella";
+  src: font-url("TeXGyrePagella/texgyrepagella-italic.eot");
+  src: font-url("TeXGyrePagella/texgyrepagella-italic.eot?#iefix") format("embedded-opentype"),
+       font-url("TeXGyrePagella/texgyrepagella-italic.woff") format("woff"),
+       font-url("TeXGyrePagella/texgyrepagella-italic.ttf") format("truetype"),
+       font-url("TeXGyrePagella/texgyrepagella-italic.svg#TeXGyrePagellaItalic") format("svg");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "TeXGyrePagella";
+  src: font-url("TeXGyrePagella/texgyrepagella-bold.eot");
+  src: font-url("TeXGyrePagella/texgyrepagella-bold.eot?#iefix") format("embedded-opentype"),
+       font-url("TeXGyrePagella/texgyrepagella-bold.woff") format("woff"),
+       font-url("TeXGyrePagella/texgyrepagella-bold.ttf") format("truetype"),
+       font-url("TeXGyrePagella/texgyrepagella-bold.svg#TeXGyrePagellaBold") format("svg");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "TeXGyrePagella";
+  src: font-url("TeXGyrePagella/texgyrepagella-bolditalic.eot");
+  src: font-url("TeXGyrePagella/texgyrepagella-bolditalic.eot?#iefix") format("embedded-opentype"),
+       font-url("TeXGyrePagella/texgyrepagella-bolditalic.woff") format("woff"),
+       font-url("TeXGyrePagella/texgyrepagella-bolditalic.ttf") format("truetype"),
+       font-url("TeXGyrePagella/texgyrepagella-bolditalic.svg#TeXGyrePagellaBoldItalic") format("svg");
+  font-weight: 900;
+  font-style: italic;
+}
+
 /*
-Color palette based on http://design-seeds.com/index.php/home/entry/alp-hues
-darker blue: #044e8f
-light gray: #f0e8f0
-baby blue: #8de3eb
-green: #b09602
-slate: #124d4d
+Color palette based on http://www.colourlovers.com/palette/629007/laughter
+#4d4a4b
+#f60069
+#ff41a1
+#ff90ab
+#ffccd1
 */
 
 /* Begin Body Styles */
 
+html {
+  height: 100%;
+}
+
 body {
-	background-color: #ffecd0;
+	background-color: #ffccd1;
 	background-image:
 			-moz-linear-gradient(0deg, transparent 50%, transparent 50%),
-			-moz-linear-gradient(-45deg, rgba(223, 70, 149, .3) 25%, transparent 25%,
-				transparent 50%, rgba(223, 70, 149, .3) 50%, rgba(223, 70, 149, .3) 75%,
+			-moz-linear-gradient(-45deg, rgba(255, 65, 161, .3) 25%, transparent 25%,
+				transparent 50%, rgba(255, 65, 161, .3) 50%, rgba(255, 65, 161, .3) 75%,
 				transparent 75%, transparent);
 	background-image:
 			-ms-linear-gradient(0deg, transparent 50%, white 50%),
-			-ms-linear-gradient(-45deg, rgba(255, 255, 255, .3) 25%, transparent 25%,
-				transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%,
+			-ms-linear-gradient(-45deg, rgba(255, 65, 161, .3) 25%, transparent 25%,
+				transparent 50%, rgba(255, 65, 161, .3) 50%, rgba(255, 65, 161, .3) 75%,
 				transparent 75%, transparent);
 	background-image:
 			-o-linear-gradient(0deg, transparent 50%, white 50%),
-			-o-linear-gradient(-45deg, rgba(255, 255, 255, .3) 25%, transparent 25%,
-				transparent 50%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .3) 75%,
+			-o-linear-gradient(-45deg, rgba(255, 65, 161, .3) 25%, transparent 25%,
+				transparent 50%, rgba(255, 65, 161, .3) 50%, rgba(255, 65, 161, .3) 75%,
 				transparent 75%, transparent);
 	background-image:
 			-webkit-gradient(linear, 0 0, 100% 0,
 				color-stop(.5, transparent), color-stop(.5, white)),
 			-webkit-gradient(linear, 0 100%, 100% 0,
-				color-stop(.25, rgba(255, 255, 255, .3)), color-stop(.25, transparent),
-				color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .3)),
-				color-stop(.75, rgba(255, 255, 255, .3)), color-stop(.75, transparent),
+				color-stop(.25, rgba(255, 65, 161, .3)), color-stop(.25, transparent),
+				color-stop(.5, transparent), color-stop(.5, rgba(255, 65, 161, .3)),
+				color-stop(.75, rgba(255, 65, 161, .3)), color-stop(.75, transparent),
 					to(transparent));
 	background-size: 100% 100%, 100px 100px;
-  color: #124d4d;
+  color: #4d4a4b;
+  height: 100%;
 }
 
 /* End Body Styles */
@@ -138,24 +187,34 @@ body {
 /* Begin General Link Styles */
 
 a {
+  color: #f60069;
   text-decoration: none;
 }
 
 a:focus, a:hover {
+  color: #f60069;
 }
 
 a:active {
+  color: #f60069;
 }
 
 a:visited {
+  color: #f60069;
 }
 
 /* End General Link Styles */
 
 
 #container {
-  margin: 20px auto;
-  width: 1000px;
+  background: #ff90ab;
+  -webkit-box-shadow: 5px 0 5px -5px #333333 , -5px 0 5px -5px #333333;
+  -moz-box-shadow: 5px 0 5px -5px #333333 , -5px 0 5px -5px #333333;
+  box-shadow: 5px 0 5px -5px #333333 , -5px 0 5px -5px #333333;
+  margin: 0 auto;
+  min-height: 100%;
+  padding: 0 10px;
+  width: 980px;
 }
 
 #main-header {
@@ -253,12 +312,17 @@ article.post {
       margin: 20px 0 0 20px;
     }
     .post-date {
+      position: relative;
       float: right;
+      margin-bottom: 15px;
+      width: 60px;
       .day {
         font-size: 30px;
+        text-align: center;
       }
       .month {
         font-size: 20px;
+        text-align: center;
       }
       .year {
         font-size: 9px;
@@ -413,17 +477,17 @@ select, textarea {
 input {
   &[type="file"]:focus, &[type="password"]:focus, &[type="text"]:focus {
     border: 1px solid #bab9b9;
-    box-shadow: 0 0 5px rgba(218, 160, 50, 1);
-    -webkit-box-shadow: 0 0 5px rgba(218, 160, 50, 1);
-    -moz-box-shadow: 0 0 5px rgba(218, 160, 50, 1);
+    box-shadow: 0 0 5px rgba(246, 0, 105, 1);
+    -webkit-box-shadow: 0 0 5px rgba(246, 0, 105, 1);
+    -moz-box-shadow: 0 0 5px rgba(246, 0, 105, 1);
   }
 }
 
 select:focus, textarea:focus {
   border: 1px solid #bab9b9;
-  box-shadow: 0 0 5px rgba(218, 160, 50, 1);
-  -webkit-box-shadow: 0 0 5px rgba(218, 160, 50, 1);
-  -moz-box-shadow: 0 0 5px rgba(218, 160, 50, 1);
+  box-shadow: 0 0 5px rgba(246, 0, 105, 1);
+  -webkit-box-shadow: 0 0 5px rgba(246, 0, 105, 1);
+  -moz-box-shadow: 0 0 5px rgba(246, 0, 105, 1);
 }
 
 /* End Forms */

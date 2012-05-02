@@ -1,6 +1,3 @@
-require "FasterCSV"
-require "FileUtils"
-
 class Admin::AdminController < ApplicationController
   layout "admin"
 
@@ -22,21 +19,6 @@ class Admin::AdminController < ApplicationController
     flash[:type] = "information"
 
     flash[:notice] = t "flash.reboot"
-
-    redirect_to admin_root_url and return
-  end
-
-  def export
-    path = File.join(Rails.root, "tmp", "database-export.csv")
-
-    database = ActiveRecord::Base.connection
-
-    database.tables.each do |table|
-      FasterCSV.open(path, "w") do |csv|
-        csv << database.columns(table).map(&:name)
-      end
-
-    end
 
     redirect_to admin_root_url and return
   end
