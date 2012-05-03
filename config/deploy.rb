@@ -9,6 +9,7 @@ set :deploy_to, "/home/#{user}/#{application}/"
 #set :deploy_via, :remote_cache
 set :normalize_asset_timestamps, false
 set :use_sudo, false
+set :keep_releases, 2
 
 set :scm, "git"
 set :repository, "git@github.com:seaneshbaugh/#{application}.git"
@@ -22,7 +23,6 @@ namespace :deploy do
   end
 
   task :symlink_config, :roles => :app do
-    # I dunno if this is a good idea. But I don't want my database config in my repository.
     run "ln -s /home/#{user}/database.yml #{release_path}/config/database.yml"
   end
 
@@ -30,9 +30,6 @@ namespace :deploy do
     run "touch #{release_path}/public/.htaccess"
     run "echo -e 'PassengerEnabled On\\nPassengerAppRoot #{release_path}\\n' > #{release_path}/public/.htaccess"
   end
-
-  task :symlink_uploads, :roles => :app do
-    run "ls -s /#{user}/corgiblog_uploads #{release_path}/public/uploads"
 
   task :bundle_install, :roles => :app do
     run "cd #{release_path} && bundle install --path vendor/bundle"
@@ -42,8 +39,13 @@ namespace :deploy do
     run "cd #{release_path} and bundle exec rake assets:precompile"
   end
 
+  task :symlink_uploads, :roles => :app do
+    run "ln -s ~/corgiblog_uploads/ #{release_path}/public/uploads"
+  end
+
   after "deploy:finalize_update", "deploy:symlink_config"
   after "deploy:symlink_config", "deploy:add_htaccess"
   after "deploy:add_htaccess", "deploy:bundle_install"
   after "deploy:bundle_install", "deploy:precompile_assets"
+  after "deploy:precompile_assets", "deploy:symlink_uploads"
 end
