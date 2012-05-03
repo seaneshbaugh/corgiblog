@@ -5,7 +5,7 @@ server "conneythecorgi.com", :web, :app, :db, :primary => true
 
 set :application, "corgiblog"
 set :user, "conneyth"
-set :deploy_to, "/home/#{user}/this_is_a_test/#{application}/"
+set :deploy_to, "/home/#{user}/#{application}/"
 #set :deploy_via, :remote_cache
 set :normalize_asset_timestamps, false
 set :use_sudo, false
@@ -28,9 +28,22 @@ namespace :deploy do
 
   task :add_htaccess, :roles => :app do
     run "touch #{release_path}/public/.htaccess"
-    run "echo -e 'PassengerEnabled On\\nPassengerAppRoot #{release_path}' > #{release_path}/public/.htaccess"
+    run "echo -e 'PassengerEnabled On\\nPassengerAppRoot #{release_path}\\n' > #{release_path}/public/.htaccess"
+  end
+
+  task :symlink_uploads, :roles => :app do
+    run "ls -s /#{user}/corgiblog_uploads #{release_path}/public/uploads"
+
+  task :bundle_install, :roles => :app do
+    run "cd #{release_path} && bundle install --path vendor/bundle"
+  end
+
+  task :precompile_assets, :roles => :app do
+    run "cd #{release_path} and bundle exec rake assets:precompile"
   end
 
   after "deploy:finalize_update", "deploy:symlink_config"
   after "deploy:symlink_config", "deploy:add_htaccess"
+  after "deploy:add_htaccess", "deploy:bundle_install"
+  after "deploy:bundle_install", "deploy:precompile_assets"
 end
