@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <title><%= t('application.title') %></title>
+  <meta name="description" content="A blog about an ornery corgi named Conney and her adorable adventures." />
+  <meta name="author" content="Sean Eshbaugh" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%= stylesheet_link_tag 'application', :media => 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <!--[if lt IE 9]>
+  <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="favicon.ico" rel="shortcut icon" />
+  <link href="images/apple-touch-icon-iphone.png" rel="apple-touch-icon" />
+  <link href="images/apple-touch-icon-ipad.png" rel="apple-touch-icon" sizes="72x72" />
+  <link href="images/apple-touch-icon-iphone4.png" rel="apple-touch-icon" sizes="114x114" />
+  <link href="humans.txt" rel="author" />
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="container main">
+    <%= yield %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    models:
+      <%= resource_name %>: "<%= resource_name.humanize.titlecase %>"
+    attributes:
+      <%= resource_name %>:<% columns.each do |column| %>
+        <%= column.name %>: "<%= column.name.humanize.titlecase %>"<% end %>
+    errors:
+      models:
+        <%= resource_name %>:
+          attributes:<% columns.each do |column| %>
+            <%= column.name %>: "<%= column.name.humanize.titlecase %>"<% end %>

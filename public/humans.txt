@@ -1,0 +1,35 @@
+/* TEAM */
+  Developer and Contributor: Sean Eshbaugh
+  Site: http://seaneshbaugh.com/
+  Twitter: http://twitter.com/bungoman
+  Contact: sean (at) conneythecorgi.com
+
+  Contributor: Casie Clark
+  Twitter: http://twitter.com/casieclarksss
+  Contact: casie (at) conneythecorgi.com
+
+/* THANKS */
+  Betty Baker and Oak Hill Animal Rescue Inc.
+  Site: http://www.ohar.org/
+
+  Petfinder
+  Site: http://www.petfinder.com/index.html
+
+  Nicole Chavez and Emma
+  http://emmathebean.com/
+
+  Kyle Clark and Lucy
+  http://leisurelylucy.tumblr.com/
+
+  Conney
+  Ginger
+  Chien
+
+/* SITE */
+  Created On: 2012/01/01
+  Last Updated: 2012/07/25
+  Language: English
+  Doctype: HTML5
+  Lovingly Made In: RubyMine 4.5.0, TextMate 1.5.11 (1635)
+  Lovingly Made On: OSX 10.7 Lion
+  Lovingly Made With: Ruby, Ruby on Rails, ERB, HTML5, CSS3, SCSS, JavaScript, jQuery
