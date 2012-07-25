@@ -1,6 +1,8 @@
 require "hierarchy"
 
 class Admin::PagesController < Admin::AdminController
+  authorize_resource
+
   helper_method :sort_column, :sort_order
 
   def index

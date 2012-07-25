@@ -19,7 +19,7 @@ after "deploy", "deploy:cleanup"
 
 namespace :deploy do
   task :restart, :roles => :app do
-    run "touch #{current_path}/tmp/restart.txt"
+    run "touch #{current_p ath}/tmp/restart.txt"
   end
 
   task :symlink_config, :roles => :app do

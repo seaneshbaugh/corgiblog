@@ -6,8 +6,8 @@
   <meta name="description" content="A blog about an ornery corgi named Conney and her adorable adventures." />
   <meta name="author" content="Sean Eshbaugh" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag 'application' %>
   <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -16,7 +16,7 @@
   <link href="images/apple-touch-icon-ipad.png" rel="apple-touch-icon" sizes="72x72" />
   <link href="images/apple-touch-icon-iphone4.png" rel="apple-touch-icon" sizes="114x114" />
   <link href="humans.txt" rel="author" />
-  <%= auto_discovery_link_tag :rss, posts_url, :title => "Conney the Corgi RSS Feed" %>
+  <%= auto_discovery_link_tag :rss, posts_url, :title => 'Conney the Corgi RSS Feed' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -26,13 +26,7 @@
       <h1><%= link_to "Conney <span style='font-family: TeXGyrePagella; font-style: italic;'>the</span> Corgi!".html_safe, root_path %></h1>
       <nav id="main-nav">
         <ul>
-          <% if @current_user %>
-            <li><%= link_to "Logout", logout_path %></li>
-            <% if @current_user.privilege_level >= User::PrivilegeLevelAdmin %>
-              <li><%= link_to "Admin Panel", admin_root_path %></li>
-            <% end %>
-          <% end %>
-          <% Page.top_level.order("display_order").each do |page| %>
+          <% Page.top_level.order('display_order').each do |page| %>
             <li><%= link_to page.title, page %></li>
           <% end %>
         </ul>
@@ -62,7 +56,19 @@
       <%= yield %>
     </div>
     <footer id="main-footer">
-      <span id="credits">Created with <a href="http://rubyonrails.org/">Ruby on Rails</a> by <a href="http://seaneshbaugh.com/">Sean Eshbaugh</a>.</span>
+      <nav id="footer-nav">
+        <ul>
+          <% if user_signed_in? %>
+            <li><%= link_to 'Logout', logout_path, :method => :delete %></li>
+            <% if can? :read, :admin_panel, current_user %>
+              <li><%= link_to 'Admin Panel', admin_root_path %></li>
+            <% end %>
+          <% else %>
+            <li><%= link_to 'Login', new_user_session_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+      <p id="credits">Created with <a href="http://rubyonrails.org/">Ruby on Rails</a> by <a href="http://seaneshbaugh.com/">Sean Eshbaugh</a>.</p>
     </footer>
   </div>
   <script>

@@ -1,4 +1,6 @@
 class Admin::UsersController < Admin::AdminController
+  authorize_resource
+
   helper_method :sort_column, :sort_order
 
   def index

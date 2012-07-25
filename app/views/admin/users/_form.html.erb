@@ -6,8 +6,8 @@
   <%= form_for [:admin, @user] do |f| %>
     <fieldset>
       <div>
-        <%= f.label :email_address, "E-mail Address:" %><br />
-        <%= f.text_field :email_address, :class => "small" %>
+        <%= f.label :email, "E-mail Address:" %><br />
+        <%= f.text_field :email, :class => "small" %>
       </div>
       <div>
         <%= f.label :email_address_confirmation, "Repeat E-mail Address:" %><br />
@@ -34,7 +34,7 @@
         <%= f.text_field :phone_number, :class => "small" %>
       </div>
       <div>
-        <%= f.label :privilege_level, "Privilege Level:" %><br />
+        <%= f.label :privilege_level, "Role:" %><br />
         <%= f.select :privilege_level, get_valid_privilege_levels, {}, :class => "small" %>
       </div>
       <div>

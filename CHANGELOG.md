@@ -1,3 +1,7 @@
+## v0.2.0
+
+* Switched authentication to devise.
+
 ## v0.1.1
 
 * Major front-end overhaul.

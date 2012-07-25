@@ -52,23 +52,35 @@ ActiveRecord::Schema.define(:version => 20120114095655) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email_address",                         :null => false
-    t.string   "password_hash",                         :null => false
-    t.string   "password_salt",                         :null => false
-    t.string   "remember_me_token"
-    t.string   "password_reset_token"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "email",                  :default => "",          :null => false
+    t.string   "encrypted_password",     :default => "",          :null => false
+    t.string   "first_name",             :default => "",          :null => false
+    t.string   "last_name",              :default => "",          :null => false
     t.string   "phone_number"
-    t.string   "ip_addresses"
-    t.integer  "privilege_level",        :default => 1, :null => false
-    t.integer  "login_count",            :default => 0, :null => false
-    t.integer  "post_count",             :default => 0, :null => false
-    t.datetime "password_reset_sent_at"
-    t.datetime "last_login"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.string   "role",                   :default => "read_only", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0,           :null => false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
+
+  add_index "users", ["created_at"], :name => "index_users_on_created_at"
+  add_index "users", ["current_sign_in_ip"], :name => "index_users_on_current_sign_in_ip"
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["first_name"], :name => "index_users_on_first_name"
+  add_index "users", ["last_name"], :name => "index_users_on_last_name"
+  add_index "users", ["last_sign_in_ip"], :name => "index_users_on_last_sign_in_ip"
+  add_index "users", ["phone_number"], :name => "index_users_on_phone_number"
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["role"], :name => "index_users_on_role"
+  add_index "users", ["sign_in_count"], :name => "index_users_on_sign_in_count"
+  add_index "users", ["updated_at"], :name => "index_users_on_updated_at"
 
   create_table "versions", :force => true do |t|
     t.string   "item_type",  :null => false
