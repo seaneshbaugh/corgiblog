@@ -29,3 +29,4 @@ en:
   lteq: "<="
   gteq: ">="
   eq: "="
+  reboot: "Rebooting Rails. You may need to refresh this page in order to see the changes take effect."

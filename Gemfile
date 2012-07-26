@@ -7,6 +7,8 @@ gem 'devise'
 gem 'highline'
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'paper_trail'
+gem 'paperclip'
 gem 'ransack'
 gem 'simple_form'
 gem 'yaml_db'
@@ -20,8 +22,16 @@ end
 
 group :development do
   gem 'capistrano-ext'
+  gem 'mailcatcher'
+  gem 'quiet_assets'
 end
 
 group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'debugger', '1.1.2'
+  gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'simplecov', :require => false
 end
