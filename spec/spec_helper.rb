@@ -58,4 +58,8 @@ RSpec.configure do |config|
   end
 
   FactoryGirl.definition_file_paths = [File.join(Rails.root, 'spec', 'factories')]
+
+  if RUBY_VERSION.match /1.8.\d/
+    FactoryGirl.find_definitions
+  end
 end

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en-US">
+<html dir="ltr" lang="en-US" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="utf-8" />
-  <title><%= t('application.title') %></title>
-  <meta name="description" content="A blog about an ornery corgi named Conney and her adorable adventures." />
-  <meta name="author" content="Sean Eshbaugh" />
+  <title><%= page_title %></title>
+  <meta name="description" content="<%= page_description %>" />
+  <meta name="author" content="<%= t('application.author') %>" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <%= stylesheet_link_tag 'application', :media => 'all' %>
   <%= javascript_include_tag 'application' %>
@@ -15,12 +15,47 @@
   <link href="<%= image_path('apple-touch-icon-iphone.png') %>" rel="apple-touch-icon" />
   <link href="<%= image_path('apple-touch-icon-ipad.png') %>" rel="apple-touch-icon" sizes="72x72" />
   <link href="<%= image_path('apple-touch-icon-iphone4.png') %>" rel="apple-touch-icon" sizes="114x114" />
-  <link href="humans.txt" rel="author" />
+  <!-- TODO: Add 144x144 apple-touch-icon -->
+  <link href="/humans.txt" rel="author" />
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="container main">
-    <%= yield %>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <%= link_to t('application.title'), root_path, :class => 'brand' %>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="nav-collapse right utility">
+          <ul class="nav">
+            <% if user_signed_in? %>
+             <li><%= link_to t('navigation.sign_out'), destroy_user_session_path, :method => :delete %></li>
+            <% else %>
+              <li><%= link_to t('navigation.sign_in'), new_user_session_path %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div id="content" class="row">
+      <%= yield %>
+    </div>
+    <div class="row">
+      <footer class="span8 offset2">
+        <p><%= t('application.footer').html_safe %></p>
+      </footer>
+    </div>
   </div>
 </body>
 </html>

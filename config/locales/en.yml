@@ -1,7 +1,9 @@
 en:
   application:
     title: "Conney the Corgi!"
-    description: ""
+    description: "A blog about an ornery corgi named Conney and her adorable adventures."
+    author: "Sean Eshbaugh"
+    footer: Created with <a href="http://rubyonrails.org/">Ruby on Rails</a> by <a href="http://seaneshbaugh.com/">Sean Eshbaugh</a>. Fork me on <a href="https://github.com/seaneshbaugh/corgiblog">GitHub</a>!
   navigation:
     sign_in: "Sign In"
     sign_out: "Sign Out"

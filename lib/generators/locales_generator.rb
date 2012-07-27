@@ -4,8 +4,8 @@ require 'rails/generators/generated_attribute'
 
 class LocalesGenerator < ::Rails::Generators::Base
   source_root File.expand_path('../templates', __FILE__)
-  argument :controller_path, type: :string
-  argument :model_name, type: :string, required: false
+  argument :controller_path, :type => :string
+  argument :model_name, :type => :string, :required => false
 
   def initialize(args, *options)
     super(args, *options)

@@ -1,0 +1,30 @@
+---
+posts:
+  columns:
+  - id
+  - title
+  - body
+  - style
+  - meta_description
+  - meta_keywords
+  - slug
+  - user_id
+  - status
+  - private
+  - created_at
+  - updated_at
+  records:
+  - - 1
+    - It's Corgi Time!
+    - |-
+      <p>Hi! My name is Sean and this is a blog dedicated to chronicling the adventures our newly adopted corgi named Conney. She's a little under three years old and is the sweetest most well behaved dog you'll ever meet.</p>
+      <p>The site itself is a work in progress so check soon if everything looks to be a mess. I'll be updating the layout over the coming week. I promise there will be tons of pictures very soon.<p>
+    - ""
+    - ""
+    - ""
+    - it-s-corgi-time
+    - 1
+    - 1
+    - false
+    - 2012-01-02 11:39:33 Z
+    - 2012-01-02 11:44:24 Z

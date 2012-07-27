@@ -27,7 +27,7 @@ class Post < ActiveRecord::Base
 
   default_scope :order => 'created_at DESC'
 
-  scope :published, where(:published => 1)
+  scope :published, where(:status => 1)
 
   def to_param
     self.slug
