@@ -74,24 +74,75 @@ body {
     .subnav {
       background: #464646;
       border-radius: 0;
-      min-height: 57px;
+      min-height: 40px;
       padding: 0;
 
       .nav {
         margin: 0;
 
         a {
+          border-radius: 0;
           color: #ffffff;
           font-size: 14px;
           line-height: 20px;
           padding-left: 30px;
           padding-right: 30px;
+
+          &:hover {
+            background: none;
+          }
         }
         li {
           &:hover {
             background: #30a4b1;
           }
+
           .active {
+            background: #30a4b1;
+          }
+        }
+      }
+
+      .nav-pills {
+        &:after {
+          clear: none;
+        }
+      }
+
+      form {
+        float: right;
+
+        input[type="text"] {
+          border: 1;
+          border-radius: 0;
+          font-size: 18px;
+          height: 30px;
+        }
+
+        button[type="submit"] {
+          background: #f7941d;
+          border: 0;
+          color: #ffffff;
+          font-size: 14px;
+          height: 40px;
+          padding-left: 20px;
+          padding-right: 20px;
+
+          &:hover {
+            background: #30a4b1;
+          }
+        }
+
+        a {
+          background: #f7941d;
+          color: #ffffff;
+          font-size: 14px;
+          float: right;
+          margin-left: 3px;
+          padding: 11px 20px;
+          text-decoration: none;
+
+          &:hover {
             background: #30a4b1;
           }
         }

@@ -8,13 +8,16 @@
     </div>
     <div class="subnav">
       <ul class="nav nav-pills">
-        <li><a href="#global">Global styles</a></li>
-        <li><a href="#gridSystem">Grid system</a></li>
-        <li><a href="#fluidGridSystem">Fluid grid system</a></li>
-        <li><a href="#gridCustomization">Customizing</a></li>
-        <li><a href="#layouts">Layouts</a></li>
-        <li><a href="#responsive">Responsive design</a></li>
+        <% if can? :create, Post, current_user %><li><%= link_to t('posts.new.title'), new_admin_post_path %></li><% end %>
       </ul>
+      <%= search_form_for @search, :url => admin_posts_path, :html => { :method => :get, :class => 'form-search hidden-phone' } do |f| %>
+        <fieldset>
+          <%= f.text_field :title_cont, :placeholder => t('activerecord.attributes.post.title') %>
+          <%= hidden_field_tag 'page', params[:page] %>
+          <%= f.button t('search'), :type => :submit %>
+          <%= link_to t('clear_search'), admin_posts_path %>
+        </fieldset>
+      <% end %>
     </div>
     <div class="block_content">
       <table class="table table-striped">
