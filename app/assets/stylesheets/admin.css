@@ -2,4 +2,7 @@
  *= require_self
  *= require vendor_assets
  *= require_tree ./admin
+ *= require ./common
 */
+
+@charset "utf-8";

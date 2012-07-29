@@ -1,0 +1,30 @@
+en:
+  activerecord:
+    models:
+      picture: "Picture"
+    attributes:
+      picture:
+        title: "Title"
+        alt_text: "Alt Text"
+        caption: "Caption"
+        image_file_name: "Image File Name"
+        image_content_type: "Image Content Type"
+        image_file_size: "Image File Size"
+        image_updated_at: "Image Updated At"
+        image_fingerprint: "Image Fingerprint"
+        created_at: "Created At"
+        updated_at: "Updated At"
+    errors:
+      models:
+        picture:
+          attributes:
+            title: "Title"
+            alt_text: "Alt Text"
+            caption: "Caption"
+            image_file_name: "Image File Name"
+            image_content_type: "Image Content Type"
+            image_file_size: "Image File Size"
+            image_updated_at: "Image Updated At"
+            image_fingerprint: "Image Fingerprint"
+            created_at: "Created At"
+            updated_at: "Updated At"

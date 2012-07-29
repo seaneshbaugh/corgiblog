@@ -1,0 +1,32 @@
+en:
+  activerecord:
+    models:
+      post: "Post"
+    attributes:
+      post:
+        title: "Title"
+        body: "Body"
+        style: "Style"
+        meta_description: "Meta Description"
+        meta_keywords: "Meta Keywords"
+        slug: "Slug"
+        user_id: "User"
+        status: "Status"
+        private: "Private"
+        created_at: "Created At"
+        updated_at: "Updated At"
+    errors:
+      models:
+        post:
+          attributes:
+            title: "Title"
+            body: "Body"
+            style: "Style"
+            meta_description: "Meta Description"
+            meta_keywords: "Meta Keywords"
+            slug: "Slug"
+            user_id: "User"
+            status: "Status"
+            private: "Private"
+            created_at: "Created At"
+            updated_at: "Updated At"

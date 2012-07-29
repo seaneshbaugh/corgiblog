@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <title><%= t('application.title') %></title>
-  <meta name="description" content="A blog about an ornery corgi named Conney and her adorable adventures." />
-  <meta name="author" content="Sean Eshbaugh" />
+  <meta name="description" content="<%= t('application.description') %>" />
+  <meta name="author" content="<%= t('application.author') %>" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <%= stylesheet_link_tag 'application', :media => 'all' %>
-  <%= javascript_include_tag 'application' %>
+  <%= stylesheet_link_tag 'admin', :media => 'all' %>
+  <%= javascript_include_tag 'admin' %>
   <!--[if lt IE 9]>
   <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -20,7 +20,45 @@
 </head>
 <body>
 <div class="container main">
-  <%= yield %>
+  <h1 class="hidden-phone">conneythecorgi.com Admin Panel</h1>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <%= link_to t('application.title'), root_path, :class => 'brand visible-phone' %>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li><%= link_to t('navigation.admin_home'), admin_root_path, :class => is_active_controller?('admin/admin') %></li>
+            <% if can? :read, Post, current_user %><li><%= link_to t('navigation.posts'), admin_posts_path, :class => is_active_controller?('admin/posts') %></li><% end %>
+            <% if can? :read, Page, current_user %><li><%= link_to t('navigation.pages'), admin_pages_path, :class => is_active_controller?('admin/pages') %></li><% end %>
+            <% if can? :read, Picture, current_user %><li><%= link_to t('navigation.pictures'), admin_pictures_path, :class => is_active_controller?('admin/pictures') %></li><% end %>
+            <% if can? :read, User, current_user %><li><%= link_to t('navigation.users'), admin_users_path, :class => is_active_controller?('admin/users') %></li><% end %>
+            <li><%= link_to t('navigation.site_home'), root_path %></li>
+          </ul>
+        </div>
+        <div class="nav-collapse pull-right utility">
+          <ul class="nav">
+            <li><%= link_to t('navigation.sign_out'), destroy_user_session_path, :method => :delete %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= flash_messages %>
+  <div class="container">
+    <div id="content" class="row">
+      <%= yield %>
+    </div>
+    <div class="row">
+      <footer class="span10 offset1">
+        <p><%= t('application.footer').html_safe %></p>
+      </footer>
+    </div>
+  </div>
 </div>
 </body>
 </html>

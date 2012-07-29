@@ -35,10 +35,11 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
-        <div class="nav-collapse right utility">
+        <div class="nav-collapse pull-right utility">
           <ul class="nav">
             <% if user_signed_in? %>
              <li><%= link_to t('navigation.sign_out'), destroy_user_session_path, :method => :delete %></li>
+              <% if can? :read, :admin_panel, current_user %><li><%= link_to t('navigation.admin_panel'), admin_root_path %></li><% end %>
             <% else %>
               <li><%= link_to t('navigation.sign_in'), new_user_session_path %></li>
             <% end %>
@@ -48,11 +49,12 @@
     </div>
   </div>
   <div class="container">
+    <%= flash_messages %>
     <div id="content" class="row">
       <%= yield %>
     </div>
     <div class="row">
-      <footer class="span8 offset2">
+      <footer class="span10 offset1">
         <p><%= t('application.footer').html_safe %></p>
       </footer>
     </div>

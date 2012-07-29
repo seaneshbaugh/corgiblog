@@ -1,0 +1,34 @@
+en:
+  activerecord:
+    models:
+      page: "Page"
+    attributes:
+      page:
+        title: "Title"
+        body: "Body"
+        style: "Style"
+        meta_description: "Meta Description"
+        meta_keywords: "Meta Keywords"
+        slug: "Slug"
+        parent_id: "Parent"
+        display_order: "Display Order"
+        status: "Status"
+        private: "Private"
+        created_at: "Created At"
+        updated_at: "Updated At"
+    errors:
+      models:
+        page:
+          attributes:
+            title: "Title"
+            body: "Body"
+            style: "Style"
+            meta_description: "Meta Description"
+            meta_keywords: "Meta Keywords"
+            slug: "Slug"
+            parent_id: "Parent"
+            display_order: "Display Order"
+            status: "Status"
+            private: "Private"
+            created_at: "Created At"
+            updated_at: "Updated At"

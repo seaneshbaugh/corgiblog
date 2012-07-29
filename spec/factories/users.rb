@@ -1,6 +1,6 @@
 FactoryGirl.define do
   sequence :email do |n|
-    "user#{n}@clickhere.com"
+    "user#{n}@conneythecorgi.com"
   end
 
   sequence :first_name do |n|
@@ -24,7 +24,7 @@ FactoryGirl.define do
     end
 
     trait :contributor do
-      role Ability::ROLES[:manager]
+      role Ability::ROLES[:contributor]
     end
 
     trait :admin do
@@ -36,7 +36,7 @@ FactoryGirl.define do
     end
 
     factory :read_only_user, :traits => [:read_only]
-    factory :contributor_user, :traits => [:manager]
+    factory :contributor_user, :traits => [:contributor]
     factory :admin_user, :traits => [:admin]
     factory :sysadmin_user, :traits => [:sysadmin]
   end

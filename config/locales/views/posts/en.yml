@@ -1,0 +1,34 @@
+en:
+  navigation:
+    posts: "Posts"
+  helpers:
+    submit:
+      post:
+        create: "Add Post"
+        update: "Update Post"
+    button:
+      post:
+  messages:
+    posts:
+      could_not_find: "Could not find the specified post."
+      created: "Post has been created."
+      updated: "Post has been updated."
+      deleted: "Post has been deleted."
+      none: "There are no posts yet. Click 'New Post' to get started."
+  posts:
+    links:
+      back_to_index: "Back to Posts"
+      deactivate: "Deactivate Post"
+      activate: "Activate Post"
+    sections:
+      information: "Post Information"
+    index:
+      title: "Posts"
+    new:
+      title: "New Post"
+    edit:
+      title: "Edit Post"
+    delete:
+      title: "Delete Post"
+    show:
+      title: "Post"

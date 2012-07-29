@@ -1,0 +1,34 @@
+en:
+  navigation:
+    users: "Users"
+  helpers:
+    submit:
+      user:
+        create: "Add User"
+        update: "Update User"
+    button:
+      user:
+  messages:
+    users:
+      could_not_find: "Could not find the specified user."
+      created: "User has been created."
+      updated: "User has been updated."
+      deleted: "User has been deleted."
+      none: "There are no users yet. Click 'New User' to get started."
+  users:
+    links:
+      back_to_index: "Back to Users"
+      deactivate: "Deactivate User"
+      activate: "Activate User"
+    sections:
+      information: "User Information"
+    index:
+      title: "Users"
+    new:
+      title: "New User"
+    edit:
+      title: "Edit User"
+    delete:
+      title: "Delete User"
+    show:
+      title: "User"

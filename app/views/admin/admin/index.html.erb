@@ -1,0 +1,18 @@
+<div id="admin-index" class="span10 offset1">
+  <div id="rails-info">
+    <%= Rails::Info.to_html.html_safe %>
+  </div>
+  <div id="rails-routes" class="row">
+    <pre>
+        <ul class="unstyled">
+        <%
+           routes = Rails.application.routes.routes
+           inspector = Rails::Application::RouteInspector.new
+        %>
+        <% inspector.format(routes, ENV['CONTROLLER']).each do |route| %>
+          <li><%= route %></li>
+        <% end %>
+      </ul>
+    </pre>
+  </div>
+</div>

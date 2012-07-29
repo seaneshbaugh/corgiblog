@@ -1,0 +1,34 @@
+en:
+  navigation:
+    pages: "Pages"
+  helpers:
+    submit:
+      page:
+        create: "Add Page"
+        update: "Update Page"
+    button:
+      page:
+  messages:
+    pages:
+      could_not_find: "Could not find the specified page."
+      created: "Page has been created."
+      updated: "Page has been updated."
+      deleted: "Page has been deleted."
+      none: "There are no pages yet. Click 'New Page' to get started."
+  pages:
+    links:
+      back_to_index: "Back to Pages"
+      deactivate: "Deactivate Page"
+      activate: "Activate Page"
+    sections:
+      information: "Page Information"
+    index:
+      title: "Pages"
+    new:
+      title: "New Page"
+    edit:
+      title: "Edit Page"
+    delete:
+      title: "Delete Page"
+    show:
+      title: "Page"

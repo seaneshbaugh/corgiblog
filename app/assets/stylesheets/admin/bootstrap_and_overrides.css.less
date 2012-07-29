@@ -5,16 +5,6 @@
 @iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
 @iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
 
-// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
-@fontAwesomeEotPath: asset-path('fontawesome-webfont.eot');
-@fontAwesomeWoffPath: asset-path('fontawesome-webfont.woff');
-@fontAwesomeTtfPath: asset-path('fontawesome-webfont.ttf');
-@fontAwesomeSvgzPath: asset-path('fontawesome-webfont.svgz');
-@fontAwesomeSvgPath: asset-path('fontawesome-webfont.svg');
-
-// Font Awesome
-@import "fontawesome";
-
 // Your custom LESS stylesheets goes here
 //
 // Since bootstrap was imported above you have access to its mixins which
@@ -27,5 +17,101 @@
 // @linkColor: #ff0000;
 
 body {
+  background: #ebebeb;
+  color: #464646;
+//  font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   overflow-y: scroll;
+
+  h1 {
+    margin-top: 20px;
+  }
+
+  .navbar {
+    .navbar-inner {
+      background: #464646;
+      border-radius: 0;
+      min-height: 57px;
+      padding: 0;
+
+      .nav {
+        margin: 0;
+
+        a {
+          color: #ffffff;
+          font-size: 14px;
+          line-height: 37px;
+          padding-left: 30px;
+          padding-right: 30px;
+        }
+        li {
+          &:hover {
+            background: #30a4b1;
+          }
+          .active {
+            background: #30a4b1;
+          }
+        }
+      }
+    }
+  }
+
+  #content {
+    background: #ffffff;
+    border: 1px solid #bab9b9;
+    margin: 0;
+    padding-bottom: 25px;
+
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 24px;
+      font-style: italic;
+
+      small {
+        font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+      }
+    }
+
+    .subnav {
+      background: #464646;
+      border-radius: 0;
+      min-height: 57px;
+      padding: 0;
+
+      .nav {
+        margin: 0;
+
+        a {
+          color: #ffffff;
+          font-size: 14px;
+          line-height: 20px;
+          padding-left: 30px;
+          padding-right: 30px;
+        }
+        li {
+          &:hover {
+            background: #30a4b1;
+          }
+          .active {
+            background: #30a4b1;
+          }
+        }
+      }
+    }
+  }
+
+  #rails-routes {
+    pre {
+      line-height: 0px;
+    }
+  }
+}
+
+@media (max-width: 979px) {
+  .navbar {
+    .navbar-inner {
+      .nav-collapse.pull-right {
+        float: none;
+      }
+    }
+  }
 }

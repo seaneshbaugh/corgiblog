@@ -1,4 +1,4 @@
-<div id="posts" class="span8 offset2">
+<div id="posts" class="span10 offset1">
   <% @posts.each do |post| %>
     <article id="post-<%= post.id %>" class="post">
       <header class="post-header">
@@ -24,7 +24,7 @@
         </div>
       </header>
       <div class="post-content">
-        <% unless post.style.blank? %>
+        <% if post.style.present? %>
           <style scoped="scoped">
             <%= post.style.html_safe %>
           </style>

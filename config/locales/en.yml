@@ -7,6 +7,7 @@ en:
   navigation:
     sign_in: "Sign In"
     sign_out: "Sign Out"
+    admin_panel: "Admin Panel"
   na: "N/A"
   home: "Home"
   back: "Back"

@@ -19,4 +19,16 @@ module ApplicationHelper
     url_or_path = eval(url_or_path) if url_or_path =~ /_path|_url|@/
     url_or_path
   end
+
+  def flash_messages
+    render :partial => 'shared/flash_messages'
+  end
+
+  def is_active_controller?(controller_name)
+    'active' if params[:controller] == controller_name
+  end
+
+  def is_active_action?(action_name)
+    'active' if params[:action] == action_name
+  end
 end

@@ -1,8 +1,4 @@
 en:
-  favorites:
-    <%= plural_resource_name %>:
-      viewed: "Recent <%= plural_resource_name.humanize.titlecase %>"
-      marked: "Favorite <%= plural_resource_name.humanize.titlecase %>"
   navigation:
     <%= plural_resource_name %>: "<%= plural_resource_name.humanize.titlecase %>"
   helpers:
