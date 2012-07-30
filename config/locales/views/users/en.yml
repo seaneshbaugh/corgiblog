@@ -22,6 +22,8 @@ en:
       activate: "Activate User"
     sections:
       information: "User Information"
+      contact_information: "Contact Information"
+      account_information: "Account Information"
     index:
       title: "Users"
     new:

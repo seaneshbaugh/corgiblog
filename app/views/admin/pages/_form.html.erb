@@ -1,0 +1,26 @@
+<div class="block">
+  <div class="block_head">
+    <h2><%= t("pages.#{@page.persisted? ? 'edit' : 'new'}.title") %></h2>
+  </div>
+  <div class="block_content">
+    <%= simple_form_for [:admin, @page], :html => { :class => 'form-horizontal' } do |f| %>
+      <fieldset>
+        <div class="page-header">
+          <h3><%= t('pages.sections.data') %></h3>
+        </div>
+        <%= f.input :title %>
+        <%= f.input :body %>
+        <%= f.input :style %>
+        <div class="page-header">
+          <h3><%= t('pages.sections.meta_data') %></h3>
+        </div>
+        <%= f.input :meta_description %>
+        <%= f.input :meta_keywords %>
+        <div class="form-actions">
+          <%= f.submit nil, :class => 'btn btn-primary right' %>
+          <%= link_to t('pages.links.back_to_index'), pages_path, :class => 'btn right' %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>

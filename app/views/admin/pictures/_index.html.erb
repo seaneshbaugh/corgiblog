@@ -1,0 +1,45 @@
+<div id="pictures" class="span10 offset1">
+  <div class="block">
+    <div class="block_head">
+      <h2>
+        <%= t("pictures.index.title") %>
+        <small><%= @pictures.total_count %></small>
+      </h2>
+    </div>
+    <div class="subnav">
+      <ul class="nav nav-pills">
+        <% if can? :create, User, current_user %><li><%= link_to t('pictures.new.title'), new_admin_picture_path %></li><% end %>
+      </ul>
+      <%= search_form_for @search, :url => admin_pictures_path, :html => { :method => :get, :class => 'form-search hidden-phone' } do |f| %>
+        <fieldset>
+          <%= f.text_field :title_cont, :placeholder => t('activerecord.attributes.picture.title') %>
+          <%= hidden_field_tag 'picture', params[:picture] %>
+          <%= f.button t('search'), :type => :submit %>
+          <%= link_to t('clear_search'), admin_pictures_path %>
+        </fieldset>
+      <% end %>
+    </div>
+    <div class="block_content">
+      <table class="table table-striped">
+        <thead>
+        <th scope="col"><%= sort_link @search, :title %></th>
+        <th scope="col"><%= sort_link @search, :created_at %></th>
+        <th scope="col"><%= sort_link @search, :updated_at %></th>
+        <th class="icon">&nbsp;</th>
+        <th class="icon">&nbsp;</th>
+        </thead>
+        <tbody>
+        <% @pictures.each do |picture| %>
+          <tr>
+            <td><%= link_to truncate(picture.title, :length => 64), admin_picture_url(picture) %></td>
+            <td><%= picture.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td><%= picture.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+            <td class="icon"><%= icon_edit_link(edit_admin_picture_path(picture)) %></td>
+            <td class="icon"><%= icon_delete_link(admin_picture_path(picture)) %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="block">
+  <div class="block_head">
+    <h2><%= t("users.#{@user.persisted? ? 'edit' : 'new'}.title") %></h2>
+  </div>
+  <div class="block_content">
+    <%= simple_form_for [:admin, @user], :html => { :class => 'form-horizontal' } do |f| %>
+      <fieldset>
+        <div class="page-header">
+          <h3><%= t("users.sections.contact_information") %></h3>
+        </div>
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :email %>
+        <div class="page-header">
+          <h3><%= t("users.sections.account_information") %></h3>
+        </div>
+        <%= f.input :role, :collection => Ability::ROLES.map { |k, v| [v.humanize.titleize, k.to_s] }, :include_blank => false %>
+        <%= f.input :password %>
+        <%= f.input :password_confirmation %>
+        <div class="form-actions">
+          <%= f.submit nil, :class => 'btn btn-primary right' %>
+          <%= link_to t('users.links.back_to_index'), admin_users_path, :class => 'btn right' %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+</div>
