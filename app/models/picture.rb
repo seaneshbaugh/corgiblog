@@ -17,7 +17,7 @@ class Picture < ActiveRecord::Base
   before_validation :modify_image_file_name
   before_validation :set_default_title
 
-  before_post_process :no_image_processing?
+  before_post_process :image?
 
   default_scope :order => 'created_at DESC'
 
@@ -50,9 +50,7 @@ class Picture < ActiveRecord::Base
     self.title = File.basename(self.image_file_name, ".*").to_s if self.title.blank? && !self.image_file_name.blank?
   end
 
-  def no_image_processing?
-    extension = File.extname(self.image_file_name).downcase
-
-    extension.match /pdf/
+  def image?
+    !(image_content_type =~ /^image.*/).nil?
   end
 end
