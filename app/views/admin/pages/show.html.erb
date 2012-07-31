@@ -1,0 +1,62 @@
+<div id="page" class="span10 offset1">
+  <h2><%= t('pages.show.title') %></h2>
+  <div class="page-header">
+    <h3><%= t('pages.sections.data') %></h3>
+  </div>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.title') %></th>
+        <td><%= @page.title %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.body') %></th>
+        <td><%= @page.body %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.style') %></th>
+        <td><%= @page.style %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="page-header">
+    <h3><%= t('pages.sections.meta_data') %></h3>
+  </div>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.slug') %></th>
+        <td><%= @page.slug %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.meta_description') %></th>
+        <td><%= @page.meta_description %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.meta_keywords') %></th>
+        <td><%= @page.meta_keywords %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.created_at') %></th>
+        <td><%= @page.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.updated_at') %></th>
+        <td><%= @page.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.status') %></th>
+        <td><%= @page.status %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.private') %></th>
+        <td><%= @page.private ? 'Yes' : 'No' %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-actions">
+    <%= link_to t('pages.delete.title'), admin_page_path(@page), :method => 'delete', :data => { :confirm => t('confirm_delete') }, :class => 'btn btn-primary right' %>
+    <%= link_to t('pages.edit.title'), edit_admin_page_path(@page), :class => 'btn right' %>
+    <%= link_to t('pages.links.back_to_index'), admin_pages_path, :class => 'btn right ajax-link' %>
+  </div>
+</div>

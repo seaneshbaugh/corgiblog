@@ -54,7 +54,7 @@ RSpec.configure do |config|
   end
 
   config.after(:all) do
-    FileUtils.rm_rf(Dir['uploads/test'])
+    FileUtils.rm_rf(Dir['public/uploads/test'])
   end
 
   FactoryGirl.definition_file_paths = [File.join(Rails.root, 'spec', 'factories')]

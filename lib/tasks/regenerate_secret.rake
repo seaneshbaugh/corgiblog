@@ -1,4 +1,4 @@
-desc "Regenerate the secret token"
+desc 'Regenerate the secret token.'
 task :regenerate_secret => :environment do
   include ActiveSupport
   File.open(File.join(Rails.root, 'config', 'initializers', 'secret_token.rb'), 'w') do |f|

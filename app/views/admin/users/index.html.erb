@@ -1,1 +1,41 @@
-<%= render 'index' %>
+<div id="users" class="span10 offset1">
+  <h2>
+    <%= t("users.index.title") %>
+    <small><%= @users.total_count %></small>
+  </h2>
+  <div class="subnav">
+    <ul class="nav nav-pills">
+      <% if can? :create, User, current_user %><li><%= link_to t('users.new.title'), new_admin_user_path %></li><% end %>
+    </ul>
+    <%= search_form_for @search, :url => admin_users_path, :html => { :method => :get, :class => 'form-search hidden-phone' } do |f| %>
+      <fieldset>
+        <%= f.text_field :first_name_or_last_name_or_email_cont, :placeholder => t('activerecord.attributes.user.full_name') %>
+        <%= hidden_field_tag 'page', params[:page] %>
+        <%= f.button t('search'), :type => :submit %>
+        <%= link_to t('clear_search'), admin_users_path %>
+      </fieldset>
+    <% end %>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <th scope="col"><%= sort_link @search, :last_name, t('activerecord.attributes.user.full_name') %></th>
+      <th scope="col"><%= sort_link @search, :email, t('activerecord.attributes.user.email') %></th>
+      <th scope="col"><%= sort_link @search, :created_at %></th>
+      <th scope="col"><%= sort_link @search, :updated_at %></th>
+      <th class="icon">&nbsp;</th>
+      <th class="icon">&nbsp;</th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.full_name, admin_user_url(user) %></td>
+          <td><%= user.email %></td>
+          <td><%= user.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          <td><%= user.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          <td class="icon"><%= icon_edit_link(edit_admin_user_path(user)) %></td>
+          <td class="icon"><%= icon_delete_link(admin_user_path(user)) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

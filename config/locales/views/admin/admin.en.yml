@@ -2,3 +2,7 @@ en:
   navigation:
     admin_home: "Admin Home"
     site_home: "Site Home"
+  admin:
+    sections:
+      rails_info: "Rails Info"
+      routes: "Routes"

@@ -21,6 +21,7 @@ en:
       deactivate: "Deactivate Picture"
       activate: "Activate Picture"
     sections:
+      preview: "Preview"
       information: "Picture Information"
     index:
       title: "Pictures"
@@ -32,3 +33,7 @@ en:
       title: "Delete Picture"
     show:
       title: "Picture"
+    sizes:
+      thumb: "Small"
+      medium: "Medium"
+      original: "Large"

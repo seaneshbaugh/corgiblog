@@ -1,7 +1,10 @@
 class Picture < ActiveRecord::Base
-  attr_accessible :title, :alt_text, :caption
+  attr_accessible :title, :alt_text, :caption, :image
 
-  has_attached_file :image, :path => ":rails_root/uploads/#{'test/' if Rails.env.test?}:class:id/:basename.:extension"
+  has_attached_file :image, { :convert_options => { :thumb => '-quality 75 -strip', :medium => '-quality 85 -strip' },
+                              :path => ":rails_root/public/uploads/#{Rails.env.test? ? 'test/' : ''}:class_singular/:attachment/:style_prefix:basename.:extension",
+                              :styles => { :thumb => '100x100', :medium => '300x300' },
+                              :url => "/uploads/:class_singular/:attachment/#{Rails.env.test? ? 'test/' : ''}:style_prefix:basename.:extension" }
 
   validates_presence_of :title
 
@@ -44,7 +47,7 @@ class Picture < ActiveRecord::Base
   end
 
   def set_default_title
-    self.name = File.basename(self.image_file_name, ".*").to_s if self.title.blank? && !self.image_file_name.blank?
+    self.title = File.basename(self.image_file_name, ".*").to_s if self.title.blank? && !self.image_file_name.blank?
   end
 
   def no_image_processing?

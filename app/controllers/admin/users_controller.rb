@@ -23,6 +23,16 @@ class Admin::UsersController < Admin::AdminController
     @user = User.new
   end
 
+  def create
+    @user = User.new(params[:user])
+
+    if @user.save
+      redirect_to admin_users_url, :notice => t('messages.users.created')
+    else
+      render 'new'
+    end
+  end
+
   def edit
     @user = User.where(:id => params[:id]).first
 

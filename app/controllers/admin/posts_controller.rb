@@ -27,7 +27,7 @@ class Admin::PostsController < Admin::AdminController
     @post = Post.new(params[:post])
 
     if @post.save
-      redirect_to root_url, :notice => t('messages.posts.created')
+      redirect_to admin_posts_url, :notice => t('messages.posts.created')
     else
       render 'new'
     end

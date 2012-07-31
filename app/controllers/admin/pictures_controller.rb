@@ -23,8 +23,18 @@ class Admin::PicturesController < Admin::AdminController
     @picture = Picture.new
   end
 
+  def create
+    @picture = Picture.new(params[:picture])
+
+    if @picture.save
+      redirect_to admin_pictures_url, :notice => t('messages.pictures.created')
+    else
+      render 'new'
+    end
+  end
+
   def edit
-    @picture = Post.where(:id => params[:id]).first
+    @picture = Picture.where(:id => params[:id]).first
 
     if @picture.nil?
       redirect_to admin_pictures_url, :notice => t('messages.pictures.could_not_find')
@@ -32,7 +42,7 @@ class Admin::PicturesController < Admin::AdminController
   end
 
   def update
-    @picture = Post.where(:id => params[:id]).first
+    @picture = Picture.where(:id => params[:id]).first
 
     if @picture.nil?
       redirect_to admin_pictures_url, :notice => t('messages.pictures.could_not_find') and return
@@ -46,7 +56,7 @@ class Admin::PicturesController < Admin::AdminController
   end
 
   def destroy
-    @picture = Post.where(:id => params[:id]).first
+    @picture = Picture.where(:id => params[:id]).first
 
     if @picture.nil?
       redirect_to admin_pictures_url, :notice => t('messages.pictures.could_not_find') and return

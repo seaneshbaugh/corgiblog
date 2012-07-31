@@ -1,1 +1,66 @@
-<%= render 'show' %>
+<div id="post" class="span10 offset1">
+  <h2><%= t('posts.show.title') %></h2>
+  <div class="page-header">
+    <h3><%= t('posts.sections.data') %></h3>
+  </div>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.title') %></th>
+        <td><%= @post.title %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.body') %></th>
+        <td><%= @post.body %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.style') %></th>
+        <td><%= @post.style %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="page-header">
+    <h3><%= t('posts.sections.meta_data') %></h3>
+  </div>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.slug') %></th>
+        <td><%= @post.slug %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.user_id') %></th>
+        <td><%= @post.user.full_name unless @post.user.blank? %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.meta_description') %></th>
+        <td><%= @post.meta_description %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.meta_keywords') %></th>
+        <td><%= @post.meta_keywords %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.created_at') %></th>
+        <td><%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.updated_at') %></th>
+        <td><%= @post.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.status') %></th>
+        <td><%= @post.status %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.private') %></th>
+        <td><%= @post.private ? 'Yes' : 'No' %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-actions">
+    <%= link_to t('posts.delete.title'), admin_post_path(@post), :method => 'delete', :data => { :confirm => t('confirm_delete') }, :class => 'btn btn-primary right' %>
+    <%= link_to t('posts.edit.title'), edit_admin_post_path(@post), :class => 'btn right' %>
+    <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn right ajax-link' %>
+  </div>
+</div>

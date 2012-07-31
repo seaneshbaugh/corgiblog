@@ -1,0 +1,50 @@
+<div id="picture" class="span10 offset1">
+  <h2><%= t('pictures.show.title') %></h2>
+  <div class="picture-header">
+    <h3><%= t('pictures.sections.preview') %></h3>
+  </div>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3">&nbsp;</th>
+        <td><%= link_to image_tag(@picture.image.url(:medium)), @picture.image.url %></td>
+      </tr>
+      <tr>
+        <th class="span3">&nbsp;</th>
+        <td><%= link_to t('pictures.sizes.thumb'), @picture.image.url(:thumb) %> | <%= link_to t('pictures.sizes.medium'), @picture.image.url(:medium) %> | <%= link_to t('pictures.sizes.original'), @picture.image.url %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="picture-header">
+    <h3><%= t('pictures.sections.information') %></h3>
+  </div>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.picture.title') %></th>
+        <td><%= @picture.title %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.picture.alt_text') %></th>
+        <td><%= @picture.alt_text %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.picture.caption') %></th>
+        <td><%= @picture.caption %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.picture.created_at') %></th>
+        <td><%= @picture.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.picture.updated_at') %></th>
+        <td><%= @picture.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-actions">
+    <%= link_to t('pictures.delete.title'), admin_picture_path(@picture), :method => 'delete', :data => { :confirm => t('confirm_delete') }, :class => 'btn btn-primary right' %>
+    <%= link_to t('pictures.edit.title'), edit_admin_picture_path(@picture), :class => 'btn right' %>
+    <%= link_to t('pictures.links.back_to_index'), admin_pictures_path, :class => 'btn right ajax-link' %>
+  </div>
+</div>

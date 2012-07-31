@@ -1,14 +1,14 @@
 set :stages, %w(production)
-set :default_stag, 'production'
+set :default_stage, 'production'
 
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 
-#TODO: Make recipes for deployment
-#load 'config/recipes/base'
-#load 'config/recipes/check'
-#load 'config/recipes/db'
-#load 'config/recipes/mysql'
+load 'config/recipes/base'
+load 'config/recipes/check'
+load 'config/recipes/db'
+load 'config/recipes/mysql'
+load 'config/recipes/uploads'
 
 set :application, 'corgiblog'
 set :user, 'conneyth'

@@ -1,8 +1,15 @@
 <div id="admin-index" class="span10 offset1">
+  <h2><%= t('navigation.admin_home') %></h2>
+  <div class="page-header">
+    <h3><%= t("admin.sections.rails_info") %></h3>
+  </div>
   <div id="rails-info">
     <%= Rails::Info.to_html.html_safe %>
   </div>
-  <div id="rails-routes" class="row">
+  <div class="page-header">
+    <h3><%= t("admin.sections.routes") %></h3>
+  </div>
+  <div id="routes">
     <pre>
         <ul class="unstyled">
         <%
