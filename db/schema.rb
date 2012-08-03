@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -38,16 +37,21 @@ ActiveRecord::Schema.define(:version => 20120102062006) do
   add_index "pages", ["updated_at"], :name => "index_pages_on_updated_at"
 
   create_table "pictures", :force => true do |t|
-    t.text     "title",              :null => false
-    t.text     "alt_text",           :null => false
-    t.text     "caption",            :null => false
+    t.text     "title",                                :null => false
+    t.text     "alt_text",                             :null => false
+    t.text     "caption",                              :null => false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
-    t.datetime "image_updated_at"
     t.string   "image_fingerprint"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.integer  "image_original_width",  :default => 1, :null => false
+    t.integer  "image_original_height", :default => 1, :null => false
+    t.integer  "image_medium_width",    :default => 1, :null => false
+    t.integer  "image_medium_height",   :default => 1, :null => false
+    t.integer  "image_thumb_width",     :default => 1, :null => false
+    t.integer  "image_thumb_height",    :default => 1, :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   add_index "pictures", ["created_at"], :name => "index_pictures_on_created_at"
@@ -55,6 +59,12 @@ ActiveRecord::Schema.define(:version => 20120102062006) do
   add_index "pictures", ["image_file_name"], :name => "index_pictures_on_image_file_name"
   add_index "pictures", ["image_file_size"], :name => "index_pictures_on_image_file_size"
   add_index "pictures", ["image_fingerprint"], :name => "index_pictures_on_image_fingerprint"
+  add_index "pictures", ["image_medium_height"], :name => "index_pictures_on_image_medium_height"
+  add_index "pictures", ["image_medium_width"], :name => "index_pictures_on_image_medium_width"
+  add_index "pictures", ["image_original_height"], :name => "index_pictures_on_image_original_height"
+  add_index "pictures", ["image_original_width"], :name => "index_pictures_on_image_original_width"
+  add_index "pictures", ["image_thumb_height"], :name => "index_pictures_on_image_thumb_height"
+  add_index "pictures", ["image_thumb_width"], :name => "index_pictures_on_image_thumb_width"
   add_index "pictures", ["updated_at"], :name => "index_pictures_on_updated_at"
 
   create_table "posts", :force => true do |t|

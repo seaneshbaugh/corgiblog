@@ -23,11 +23,46 @@ class Admin::PicturesController < Admin::AdminController
     @picture = Picture.new
   end
 
+  #TODO: Clean this up!
   def create
-    @picture = Picture.new(params[:picture])
+    if params[:picture].present? && params[:picture][:image].present?
+      if params[:picture][:image].size == 1
+        @picture = Picture.new(params[:picture])
 
-    if @picture.save
-      redirect_to admin_pictures_url, :notice => t('messages.pictures.created')
+        if @picture.save
+          redirect_to admin_pictures_url, :notice => t('messages.pictures.created')
+        else
+          render 'new'
+        end
+      else
+        errors = []
+
+        params[:picture][:image].each do |file|
+          p = params[:picture]
+
+          p[:image] = file
+
+          picture = Picture.new(p)
+
+          unless picture.save
+            error = "#{t('messages.pictures.multiple_errors', :filename => p[:image].original_filename)}<br /><ul>"
+
+            error += picture.errors.to_a.map { |e| "<li>#{e}</li>"}.join('') + "</ul>"
+
+            errors << error
+          end
+        end
+
+        if errors.blank?
+          redirect_to admin_pictures_url, :notice => t('messages.pictures.created_plural')
+        else
+          @picture = Picture.new(params[:picture])
+
+          flash[:notice] = errors.join('')
+
+          render 'new'
+        end
+      end
     else
       render 'new'
     end

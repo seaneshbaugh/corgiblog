@@ -3,7 +3,7 @@
     <h2><%= t("pictures.#{@picture.persisted? ? 'edit' : 'new'}.title") %></h2>
   </div>
   <div class="block_content">
-    <%= simple_form_for [:admin, @picture], :html => { :class => 'form-horizontal' } do |f| %>
+    <%= simple_form_for [:admin, @picture], :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
       <fieldset>
         <div class="picture-header">
           <h3><%= t('pictures.sections.data') %></h3>
@@ -11,7 +11,11 @@
         <%= f.input :title %>
         <%= f.input :alt_text %>
         <%= f.input :caption %>
-        <%= f.input :image, :as => :file %>
+        <% if @picture.persisted? %>
+          <%= f.input :image, :as => :file %>
+        <% else %>
+          <%= f.input :image, :as => :file, :input_html => { :multiple => true } %>
+        <% end %>
         <div class="form-actions">
           <%= f.submit nil, :class => 'btn btn-primary right' %>
           <%= link_to t('pictures.links.back_to_index'), pictures_path, :class => 'btn right' %>

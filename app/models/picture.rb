@@ -18,6 +18,7 @@ class Picture < ActiveRecord::Base
   before_validation :set_default_title
 
   before_post_process :image?
+  after_post_process :save_image_dimensions
 
   default_scope :order => 'created_at DESC'
 
@@ -51,6 +52,21 @@ class Picture < ActiveRecord::Base
   end
 
   def image?
+    #TODO: Add error message here. Currently this causes the save to fail no reason at all is indicated.
     !(image_content_type =~ /^image.*/).nil?
+  end
+
+  def save_image_dimensions
+    original_geo = Paperclip::Geometry.from_file(image.queued_for_write[:original])
+    self.image_original_width = original_geo.width
+    self.image_original_height = original_geo.height
+
+    medium_geo = Paperclip::Geometry.from_file(image.queued_for_write[:medium])
+    self.image_medium_width = medium_geo.width
+    self.image_medium_height = medium_geo.height
+
+    thumb_geo = Paperclip::Geometry.from_file(image.queued_for_write[:thumb])
+    self.image_thumb_width = thumb_geo.width
+    self.image_thumb_height = thumb_geo.height
   end
 end
