@@ -4,5 +4,17 @@ en:
     site_home: "Site Home"
   admin:
     sections:
+      quick_post: "Quick Post"
       rails_info: "Rails Info"
       routes: "Routes"
+    quick_links:
+      add_user: "<br />Add User"
+      add_page: "<br />Add Page"
+      add_post: "<br />Add Post"
+      add_picture: "<br />Upload Picture"
+      analytics: "<br />View Analytics"
+      export: "<br />Export Database"
+      reboot: "<br />Reboot Rails"
+  messages:
+    admin:
+      not_implemented: "Coming soon! This feature has not been implemented."

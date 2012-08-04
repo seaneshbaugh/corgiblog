@@ -1,0 +1,54 @@
+<div id="user" class="admin-content">
+  <h2><%= t('users.show.title') %></h2>
+  <div class="page-header">
+    <h3><%= t('users.sections.contact_information') %></h3>
+  </div>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.email') %></th>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.first_name') %></th>
+        <td><%= @user.first_name %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.last_name') %></th>
+        <td><%= @user.last_name %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="page-header">
+    <h3><%= t('users.sections.login_activity') %></h3>
+  </div>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.sign_in_count') %></th>
+        <td><%= @user.sign_in_count %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.current_sign_in_at') %></th>
+        <td><%= @user.current_sign_in_at.blank? ? t('na') : @user.current_sign_in_at.to_s(:normal) %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.last_sign_in_at') %></th>
+        <td><%= @user.last_sign_in_at.blank? ? t('na') : @user.last_sign_in_at.to_s(:normal) %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.current_sign_in_ip') %></th>
+        <td><%= @user.current_sign_in_ip.blank? ? t('na') : @user.current_sign_in_ip %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.last_sign_in_ip') %></th>
+        <td><%= @user.last_sign_in_ip.blank? ? t('na') : @user.last_sign_in_ip %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-actions">
+    <% if can? :update, User, current_user %><%= link_to t('users.edit.title'), edit_admin_user_path(@user), :class => 'btn' %><% end %>
+    <%= link_to t('users.links.back_to_index'), admin_users_path, :class => 'btn' %>
+    <% if can? :destroy, User, current_user %><%= link_to t('users.delete.title'), admin_user_path(@user), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
+  </div>
+</div>

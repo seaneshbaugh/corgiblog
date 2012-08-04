@@ -1,4 +1,6 @@
-#$ ->
+$ ->
+  $(".chzn-select").chosen({no_results_text: "No results matched"})
+
 #  if history and history.pushState
 #    $(document).on "click", ".ajax-link", (event) ->
 #      event.preventDefault()

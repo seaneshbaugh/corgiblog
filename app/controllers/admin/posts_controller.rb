@@ -26,6 +26,10 @@ class Admin::PostsController < Admin::AdminController
   def create
     @post = Post.new(params[:post])
 
+    unless current_user.sysadmin? || current_user.admin? || @post.user.nil?
+      @post.user = current_user
+    end
+
     if @post.save
       redirect_to admin_posts_url, :notice => t('messages.posts.created')
     else
@@ -43,6 +47,10 @@ class Admin::PostsController < Admin::AdminController
 
   def update
     @post = Post.where(:slug => params[:id]).first
+
+    unless current_user.sysadmin? || current_user.admin? || @post.user.nil?
+      @post.user = current_user
+    end
 
     if @post.nil?
       redirect_to admin_posts_url, :notice => t('messages.posts.could_not_find') and return

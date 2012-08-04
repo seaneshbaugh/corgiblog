@@ -16,7 +16,9 @@
         </div>
         <%= f.input :meta_description %>
         <%= f.input :meta_keywords %>
-        <%= f.association :user, :collection => User.all, :label_method => :full_name, :input_html => { :class => 'input-xlarge chzn-select' } %>
+        <% if current_user.sysadmin? || current_user.admin? %>
+          <%= f.association :user, :collection => User.all, :label_method => :full_name, :input_html => { :class => 'input-xlarge chzn-select' } %>
+        <% end %>
         <div class="form-actions">
           <%= f.submit nil, :class => 'btn btn-primary right' %>
           <%= link_to t('posts.links.back_to_index'), posts_path, :class => 'btn right ajax-link' %>

@@ -14,7 +14,7 @@
         <div class="page-header">
           <h3><%= t("users.sections.account_information") %></h3>
         </div>
-        <%= f.input :role, :collection => Ability::ROLES.map { |k, v| [v.humanize.titleize, k.to_s] }, :include_blank => false %>
+        <%= f.input :role, :collection => Ability::ROLES.map { |k, v| [v.humanize.titleize, k.to_s] }, :include_blank => false, :input_html => { :class => 'input-xlarge chzn-select' } %>
         <%= f.input :password %>
         <%= f.input :password_confirmation %>
         <div class="form-actions">

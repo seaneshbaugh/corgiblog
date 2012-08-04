@@ -1,25 +1,69 @@
-<div id="admin-index" class="span10 offset1">
+<div id="admin-index" class="admin-content">
   <h2><%= t('navigation.admin_home') %></h2>
-  <div class="page-header">
-    <h3><%= t("admin.sections.rails_info") %></h3>
+  <div id="quick-links">
+    <ul>
+      <% if can? :create, Page, current_user %>
+        <li><%= link_to image_tag(image_path("icons/32x32/page-add.png")) + t('admin.quick_links.add_page').html_safe, new_admin_page_path %></li>
+      <% end %>
+      <% if can? :create, Post, current_user %>
+        <li><%= link_to image_tag(image_path("icons/32x32/blog-post-add.png")) + t('admin.quick_links.add_post').html_safe, new_admin_post_path %></li>
+      <% end %>
+      <% if can? :create, Picture, current_user %>
+        <li><%= link_to image_tag(image_path("icons/32x32/image-add.png")) + t('admin.quick_links.add_picture').html_safe, new_admin_picture_path %></li>
+      <% end %>
+      <% if can? :create, User, current_user %>
+        <li><%= link_to image_tag(image_path("icons/32x32/user-add.png")) + t('admin.quick_links.add_user').html_safe, new_admin_user_path %></li>
+      <% end %>
+      <% if can? :read, :analytics, current_user %>
+        <li><%= link_to image_tag(image_path("icons/32x32/chart.png")) + t('admin.quick_links.analytics').html_safe, admin_analytics_path %></li>
+      <% end %>
+      <% if can? :export, :database, current_user %>
+        <li><%= link_to image_tag(image_path("icons/32x32/database-down.png")) + t('admin.quick_links.export').html_safe, admin_export_path %></li>
+      <% end %>
+      <% if can? :reboot, :application, current_user %>
+        <li><%= link_to image_tag(image_path("icons/32x32/power.png")) + t('admin.quick_links.reboot').html_safe, admin_reboot_path %></li>
+      <% end %>
+    </ul>
   </div>
-  <div id="rails-info">
-    <%= Rails::Info.to_html.html_safe %>
-  </div>
-  <div class="page-header">
-    <h3><%= t("admin.sections.routes") %></h3>
-  </div>
-  <div id="routes">
-    <pre>
-        <ul class="unstyled">
-        <%
-           routes = Rails.application.routes.routes
-           inspector = Rails::Application::RouteInspector.new
-        %>
-        <% inspector.format(routes, ENV['CONTROLLER']).each do |route| %>
-          <li><%= route %></li>
-        <% end %>
-      </ul>
-    </pre>
-  </div>
+  <% if can? :create, Post, current_user %>
+    <div class="page-header">
+      <h3><%= t("admin.sections.quick_post") %></h3>
+    </div>
+    <div id="quick-post">
+      <%= simple_form_for [:admin, @post], :html => { :class => 'form-horizontal' } do |f| %>
+        <fieldset>
+          <%= f.input :title %>
+          <%= f.input :body %>
+          <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
+          <div class="form-actions">
+            <%= f.submit nil, :class => 'btn btn-primary right' %>
+          </div>
+        </fieldset>
+      <% end %>
+    </div>
+  <% end %>
+  <% if can? :read, :rails_info, current_user %>
+    <div class="page-header">
+      <h3><%= t("admin.sections.rails_info") %></h3>
+    </div>
+    <div id="rails-info">
+      <%= Rails::Info.to_html.html_safe %>
+    </div>
+    <div class="page-header">
+      <h3><%= t("admin.sections.routes") %></h3>
+    </div>
+    <div id="routes">
+      <pre>
+          <ul class="unstyled">
+          <%
+             routes = Rails.application.routes.routes
+             inspector = Rails::Application::RouteInspector.new
+          %>
+          <% inspector.format(routes, ENV['CONTROLLER']).each do |route| %>
+            <li><%= route %></li>
+          <% end %>
+        </ul>
+      </pre>
+    </div>
+  <% end %>
 </div>

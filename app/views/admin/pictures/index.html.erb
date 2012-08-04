@@ -1,4 +1,4 @@
-<div id="pictures" class="span10 offset1">
+<div id="pictures" class="admin-content">
   <h2>
     <%= t("pictures.index.title") %>
     <small><%= @pictures.total_count %></small>
@@ -18,22 +18,25 @@
   </div>
   <table class="table table-striped">
     <thead>
-      <th scope="col"><%= sort_link @search, :title %></th>
-      <th scope="col"><%= sort_link @search, :created_at %></th>
-      <th scope="col"><%= sort_link @search, :updated_at %></th>
-      <th class="icon">&nbsp;</th>
-      <th class="icon">&nbsp;</th>
+      <th scope="col">&nbsp;</th>
+      <th scope="col" class="hidden-phone"><%= sort_link @search, :title %></th>
+      <th scope="col" class="hidden-phone"><%= sort_link @search, :created_at %></th>
+      <th scope="col" class="hidden-phone"><%= sort_link @search, :updated_at %></th>
+      <% if can? :update, Picture, current_user %><th scope="col" class="icon">&nbsp;</th><% end %>
+      <% if can? :update, Picture, current_user %><th scope="col" class="icon">&nbsp;</th><% end %>
     </thead>
     <tbody>
       <% @pictures.each do |picture| %>
         <tr>
-          <td><%= link_to truncate(picture.title, :length => 64), admin_picture_url(picture) %></td>
-          <td><%= picture.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <td><%= picture.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <td class="icon"><%= icon_edit_link(edit_admin_picture_path(picture)) %></td>
-          <td class="icon"><%= icon_delete_link(admin_picture_path(picture)) %></td>
+          <td style="text-align: center;"><%= link_to image_tag(picture.image.url(:thumb), :style => "max-height: 50px;"), admin_picture_url(picture) %></td>
+          <td class="hidden-phone"><%= link_to truncate(picture.title, :length => 64), admin_picture_url(picture) %></td>
+          <td class="hidden-phone"><%= picture.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          <td class="hidden-phone"><%= picture.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          <% if can? :update, Picture, current_user %><td class="icon"><%= icon_edit_link(edit_admin_picture_path(picture)) %></td><% end %>
+          <% if can? :update, Picture, current_user %><td class="icon"><%= icon_delete_link(admin_picture_path(picture)) %></td><% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <%= paginate @pictures %>
 </div>

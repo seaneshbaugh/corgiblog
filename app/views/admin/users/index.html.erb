@@ -1,4 +1,4 @@
-<div id="users" class="span10 offset1">
+<div id="users" class="admin-content">
   <h2>
     <%= t("users.index.title") %>
     <small><%= @users.total_count %></small>
@@ -22,8 +22,8 @@
       <th scope="col"><%= sort_link @search, :email, t('activerecord.attributes.user.email') %></th>
       <th scope="col"><%= sort_link @search, :created_at %></th>
       <th scope="col"><%= sort_link @search, :updated_at %></th>
-      <th class="icon">&nbsp;</th>
-      <th class="icon">&nbsp;</th>
+      <% if can? :update, User, current_user %><th class="icon">&nbsp;</th><% end %>
+      <% if can? :update, User, current_user %><th class="icon">&nbsp;</th><% end %>
     </thead>
     <tbody>
       <% @users.each do |user| %>
@@ -32,10 +32,11 @@
           <td><%= user.email %></td>
           <td><%= user.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
           <td><%= user.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <td class="icon"><%= icon_edit_link(edit_admin_user_path(user)) %></td>
-          <td class="icon"><%= icon_delete_link(admin_user_path(user)) %></td>
+          <% if can? :update, User, current_user %><td class="icon"><%= icon_edit_link(edit_admin_user_path(user)) %></td><% end %>
+          <% if can? :update, User, current_user %><td class="icon"><%= icon_delete_link(admin_user_path(user)) %></td><% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <%= paginate @users %>
 </div>

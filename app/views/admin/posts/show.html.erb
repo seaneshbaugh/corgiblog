@@ -1,4 +1,4 @@
-<div id="post" class="span10 offset1">
+<div id="post" class="admin-content">
   <h2><%= t('posts.show.title') %></h2>
   <div class="page-header">
     <h3><%= t('posts.sections.data') %></h3>
@@ -59,8 +59,8 @@
     </tbody>
   </table>
   <div class="form-actions">
-    <%= link_to t('posts.delete.title'), admin_post_path(@post), :method => 'delete', :data => { :confirm => t('confirm_delete') }, :class => 'btn btn-primary right' %>
-    <%= link_to t('posts.edit.title'), edit_admin_post_path(@post), :class => 'btn right' %>
+    <% if can? :update, Post, current_user %><%= link_to t('posts.edit.title'), edit_admin_post_path(@post), :class => 'btn right' %><% end %>
     <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn right ajax-link' %>
+    <% if can? :destroy, User, current_user %><%= link_to t('posts.delete.title'), admin_post_path(@post), :method => 'delete', :data => { :confirm => t('confirm_delete') }, :class => 'btn btn-primary right' %><% end %>
   </div>
 </div>

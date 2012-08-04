@@ -21,6 +21,7 @@ Corgiblog::Application.routes.draw do
 
       get 'reboot' => 'admin#reboot', :as => 'reboot'
       get 'export' => 'admin#export', :as => 'export'
+      get 'analytics' => 'admin#analytics', :as => 'analytics'
 
       resources :pages
 

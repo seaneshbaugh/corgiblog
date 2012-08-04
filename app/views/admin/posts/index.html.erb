@@ -1,4 +1,4 @@
-<div id="posts" class="span10 offset1">
+<div id="posts" class="admin-content">
   <h2>
     <%= t("posts.index.title") %>
     <small><%= @posts.total_count %></small>
@@ -19,11 +19,11 @@
   <table class="table table-striped">
     <thead>
       <th scope="col"><%= sort_link @search, :title %></th>
-      <th scope="col"><%= sort_link @search, :user_id %></th>
+      <th scope="col"><%= sort_link @search, :user_last_name, t('activerecord.models.user') %></th>
       <th scope="col"><%= sort_link @search, :created_at %></th>
       <th scope="col"><%= sort_link @search, :updated_at %></th>
-      <th class="icon">&nbsp;</th>
-      <th class="icon">&nbsp;</th>
+      <% if can? :update, Post, current_user %><th class="icon">&nbsp;</th><% end %>
+      <% if can? :update, Post, current_user %><th class="icon">&nbsp;</th><% end %>
     </thead>
     <tbody>
       <% @posts.each do |post| %>
@@ -32,10 +32,11 @@
           <td><%= link_to post.user.full_name %></td>
           <td><%= post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
           <td><%= post.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <td class="icon"><%= icon_edit_link(edit_admin_post_path(post)) %></td>
-          <td class="icon"><%= icon_delete_link(admin_post_path(post)) %></td>
+          <% if can? :update, Post, current_user %><td class="icon"><%= icon_edit_link(edit_admin_post_path(post)) %></td><% end %>
+          <% if can? :update, Post, current_user %><td class="icon"><%= icon_delete_link(admin_post_path(post)) %></td><% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <%= paginate @posts %>
 </div>
