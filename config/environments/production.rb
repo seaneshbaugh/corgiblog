@@ -68,7 +68,7 @@ Corgiblog::Application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => 'localhost' }
 
-  # Set mailer host to homedepot.media.clickhere.com for in email links
+  # Set mailer host to conneythecorgi.com for in email links
   # change this to whatever it ends up actually being
   config.action_mailer.default_url_options = { :host => 'conneythecorgi.com' }
 end

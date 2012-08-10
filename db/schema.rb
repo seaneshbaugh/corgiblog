@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20120102062006) do
     t.integer  "user_id",                             :null => false
     t.integer  "status",           :default => 1,     :null => false
     t.boolean  "private",          :default => false, :null => false
+    t.string   "tumblr_id"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
   end
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20120102062006) do
   add_index "posts", ["slug"], :name => "index_posts_on_slug", :unique => true
   add_index "posts", ["status"], :name => "index_posts_on_status"
   add_index "posts", ["title"], :name => "index_posts_on_title", :unique => true
+  add_index "posts", ["tumblr_id"], :name => "index_posts_on_tumblr_id", :unique => true
   add_index "posts", ["updated_at"], :name => "index_posts_on_updated_at"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 

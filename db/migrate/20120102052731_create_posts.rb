@@ -10,6 +10,7 @@ class CreatePosts < ActiveRecord::Migration
       t.belongs_to :user,       :null => false
       t.integer :status,        :null => false, :default => 1
       t.boolean :private,       :null => false, :default => false
+      t.string :tumblr_id
       t.timestamps
     end
 
@@ -19,6 +20,7 @@ class CreatePosts < ActiveRecord::Migration
       t.index :user_id
       t.index :status
       t.index :private
+      t.index :tumblr_id, :unique => true
       t.index :created_at
       t.index :updated_at
     end

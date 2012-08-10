@@ -14,7 +14,6 @@ class CreatePictures < ActiveRecord::Migration
       t.integer :image_medium_height,   :null => false, :default => 1
       t.integer :image_thumb_width,     :null => false, :default => 1
       t.integer :image_thumb_height,    :null => false, :default => 1
-
       t.timestamps
     end
 

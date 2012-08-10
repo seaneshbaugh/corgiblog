@@ -26,7 +26,7 @@ class Admin::PostsController < Admin::AdminController
   def create
     @post = Post.new(params[:post])
 
-    unless current_user.sysadmin? || current_user.admin? || @post.user.nil?
+    if !(current_user.sysadmin? || current_user.admin?) || @post.user.nil?
       @post.user = current_user
     end
 
