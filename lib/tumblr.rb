@@ -83,9 +83,9 @@ module Tumblr
         end
       when 'video' then
         unless post['player'].blank?
-          post['player'].each do |video|
-            body += video['embed_code']
-          end
+          video = post['player'].sort_by { |video| video['width'] }.last
+
+          body += video['embed_code']
 
           unless post['caption'].blank?
             body +="#{post['caption'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”/, '&quot;')}"
