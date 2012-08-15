@@ -49,7 +49,7 @@ class Admin::UsersController < Admin::AdminController
     end
 
     if @user.update_attributes(params[:user])
-      redirect_to admin_edit_user_url(@user), :notice => t('messages.users.updated')
+      redirect_to edit_admin_user_url(@user), :notice => t('messages.users.updated')
     else
       render 'edit'
     end

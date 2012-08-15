@@ -7,7 +7,7 @@ unless ENV['DRB']
     SimpleCov.start 'rails'
 
     SimpleCov.configure do
-      coverage_dir('pubic/coverage')
+      coverage_dir('public/coverage')
     end
   end
 end

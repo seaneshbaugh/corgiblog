@@ -57,7 +57,7 @@ class Admin::PostsController < Admin::AdminController
     end
 
     if @post.update_attributes(params[:post])
-      redirect_to admin_edit_post_url(@post), :notice => t('messages.posts.updated')
+      redirect_to edit_admin_post_url(@post), :notice => t('messages.posts.updated')
     else
       render 'edit'
     end

@@ -84,7 +84,7 @@ class Admin::PicturesController < Admin::AdminController
     end
 
     if @picture.update_attributes(params[:picture])
-      redirect_to admin_edit_picture_url(@picture), :notice => t('messages.pictures.updated')
+      redirect_to edit_admin_picture_url(@picture), :notice => t('messages.pictures.updated')
     else
       render 'edit'
     end
