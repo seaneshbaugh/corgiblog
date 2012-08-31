@@ -17,6 +17,7 @@ set :use_sudo, false
 set :scm, 'git'
 set :repository, 'git@github.com:seaneshbaugh/corgiblog.git'
 set :scm_verbose, true
+set :bundle_flags, '--deployment'
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true

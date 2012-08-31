@@ -8,6 +8,7 @@ gem 'highline'
 gem 'httparty'
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'nokogiri'
 gem 'paper_trail'
 
 if RUBY_VERSION.match /1.8.\d/
