@@ -256,6 +256,7 @@ DEPENDENCIES
   kaminari
   mailcatcher
   mysql2
+  nokogiri
   paper_trail
   paperclip (~> 2.7)
   quiet_assets
