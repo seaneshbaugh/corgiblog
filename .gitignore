@@ -6,7 +6,6 @@
 .redcar/
 .sass-cache/
 database.yml
-Gemfile.lock
 /config/initializers/tumblr.rb
 /db/*.sqlite3
 /log/*.log
