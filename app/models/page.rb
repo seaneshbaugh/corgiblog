@@ -27,7 +27,7 @@ class Page < ActiveRecord::Base
   default_scope :order => 'created_at DESC'
 
   scope :published, where(:status => 1)
-  
+
   scope :top_level, where(:parent_id => nil)
 
   def to_param
