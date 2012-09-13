@@ -23,6 +23,7 @@ gem 'yaml_db'
 
 group :assets do
   gem 'coffee-rails'
+  gem 'jquery-rails'
   gem 'sass-rails'
   gem 'twitter-bootstrap-rails'
   gem 'uglifier'

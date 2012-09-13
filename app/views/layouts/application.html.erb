@@ -31,17 +31,20 @@
         <%= link_to t('application.title'), root_path, :class => 'brand' %>
         <div class="nav-collapse">
           <ul class="nav">
-            <li><a href="#about">About</a></li>
+            <li><%= link_to t('activerecord.models.picture').pluralize, pictures_path %></li>
+            <% Page.published.top_level.each do |page| %>
+              <li><%= link_to page.title, "/#{page.slug}" %></li>
+            <% end %>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
         <div class="nav-collapse pull-right utility">
           <ul class="nav">
             <% if user_signed_in? %>
-             <li><%= link_to t('navigation.sign_out'), destroy_user_session_path, :method => :delete %></li>
+             <li><%= link_to t('navigation.sign_out'), logout_path, :method => :delete %></li>
               <% if can? :read, :admin_panel, current_user %><li><%= link_to t('navigation.admin_panel'), admin_root_path %></li><% end %>
             <% else %>
-              <li><%= link_to t('navigation.sign_in'), new_user_session_path %></li>
+              <li><%= link_to t('navigation.sign_in'), login_path %></li>
             <% end %>
           </ul>
         </div>
@@ -54,7 +57,7 @@
       <%= yield %>
     </div>
     <div class="row">
-      <footer class="span10 offset1">
+      <footer>
         <p><%= t('application.footer').html_safe %></p>
       </footer>
     </div>

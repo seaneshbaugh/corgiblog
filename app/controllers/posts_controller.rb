@@ -24,8 +24,7 @@ class PostsController < ApplicationController
     if @post.nil?
       flash[:type] = "error"
 
-      # TODO: i18n this
-      flash[:notice] = "Could not find the specified post."
+      flash[:notice] = t('messages.posts.could_not_find')
 
       redirect_to root_url and return
     end

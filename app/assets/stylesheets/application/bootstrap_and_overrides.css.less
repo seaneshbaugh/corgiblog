@@ -5,123 +5,142 @@
 @iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
 @iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
 
-// Your custom LESS stylesheets goes here
-//
-// Since bootstrap was imported above you have access to its mixins which
-// you may use and inherit here
-//
-// If you'd like to override bootstrap's own variables, you can do so here as well
-// See http://twitter.github.com/bootstrap/less.html for their names and documentation
-//
-// Example:
-// @linkColor: #ff0000;
-
 @linkColor: #f60069;
 @linkColorHover: darken(@linkColor, 5%);
 
+@font-face {
+  font-family: 'Lobster';
+  src: font-url('Lobster/Lobster.eot');
+  src: font-url('Lobster/Lobster.eot?#iefix') format('embedded-opentype'),
+       font-url('Lobster/Lobster.woff') format('woff'),
+       font-url('Lobster/Lobster.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background-color: #ffccd1;
-  background-image:
-    -moz-linear-gradient(0deg, transparent 50%, transparent 50%),
-    -moz-linear-gradient(-45deg, rgba(255, 65, 161, .3) 25%, transparent 25%,
-    transparent 50%, rgba(255, 65, 161, .3) 50%, rgba(255, 65, 161, .3) 75%,
-    transparent 75%, transparent);
-  background-image:
-    -ms-linear-gradient(0deg, transparent 50%, white 50%),
-    -ms-linear-gradient(-45deg, rgba(255, 65, 161, .3) 25%, transparent 25%,
-    transparent 50%, rgba(255, 65, 161, .3) 50%, rgba(255, 65, 161, .3) 75%,
-    transparent 75%, transparent);
-  background-image:
-    -o-linear-gradient(0deg, transparent 50%, white 50%),
-    -o-linear-gradient(-45deg, rgba(255, 65, 161, .3) 25%, transparent 25%,
-    transparent 50%, rgba(255, 65, 161, .3) 50%, rgba(255, 65, 161, .3) 75%,
-    transparent 75%, transparent);
-  background-image:
-    -webkit-gradient(linear, 0 0, 100% 0,
-    color-stop(.5, transparent), color-stop(.5, white)),
-    -webkit-gradient(linear, 0 100%, 100% 0,
-    color-stop(.25, rgba(255, 65, 161, .3)), color-stop(.25, transparent),
-    color-stop(.5, transparent), color-stop(.5, rgba(255, 65, 161, .3)),
-    color-stop(.75, rgba(255, 65, 161, .3)), color-stop(.75, transparent),
-    to(transparent));
-  background-size: 100% 100%, 100px 100px;
+  background: -moz-repeating-linear-gradient(45deg, white, white 35px, rgba(255, 65, 161, .3) 35px, rgba(255, 65, 161, .3) 70px) repeat fixed 0 0 transparent;
+  background: -webkit-repeating-linear-gradient(45deg, white, white 35px, rgba(255, 65, 161, .3) 35px, rgba(255, 65, 161, .3) 70px) repeat fixed 0 0 transparent;
+  background: -o-repeating-linear-gradient(45deg, white, white 35px, rgba(255, 65, 161, .3) 35px, rgba(255, 65, 161, .3) 70px) repeat fixed 0 0 transparent;
+  min-height: 100%;
   overflow-y: scroll;
 
   .navbar-fixed-top, .navbar-fixed-bottom {
-    position: static;
-  }
+    background: #ff41a1;
 
-  .navbar-inner {
-    background: none;
-    box-shadow: none;
-    filter: none;
-  }
+    .brand {
+      text-shadow: none;
+    }
 
-  #posts {
-    background: #ffe1e6;
-    padding: 10px;
+    .navbar-inner {
+      background: none;
+      box-shadow: none;
+      filter: none;
+    }
 
-    .post {
-      &:not(:last-child) {
-        margin-bottom: 10px;
-      }
-
-      .post-header {
-        overflow: hidden;
-
-        .post-title {
-          float: left;
-          font-size: 22px;
-
-          a {
-            text-decoration: none;
-          }
-        }
-
-        .post-author {
-          float: left;
-          line-height: 36px;
-          margin-left: 10px;
-        }
-
-        .post-date {
-          float: right;
-          padding-top: 3px;
-          position: relative;
-          width: 60px;
-
-          .day {
-            font-size: 30px;
-            text-align: center;
-          }
-
-          .month {
-            font-size: 20px;
-            text-align: center;
-          }
-
-          .year {
-            font-size: 9px;
-            letter-spacing: 3px;
-            text-align: center;
-          }
-        }
-      }
-
-      p {
-        font-size: 17px;
-      }
+    .nav > li > a {
+      text-shadow: none;
     }
   }
 
-  #post {
-    background: #ffe1e6;
-    padding: 10px;
+  .row {
+    margin-left: 0;
   }
 
-  #page {
-    background: #ffe1e6;
-    padding: 10px;
+  #content {
+    margin-top: 39px;
+
+    #pictures {
+      background: #ffe1e6;
+      overflow: hidden;
+      padding: 10px;
+
+      .picture {
+        float: left;
+        margin: 10px;
+        width: 250px;
+      }
+    }
+
+    #posts {
+      background: #ffe1e6;
+      padding: 10px;
+
+      .post {
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+
+        .post-header {
+          overflow: hidden;
+
+          .post-title {
+            float: left;
+            font-family: "Lobster";
+            font-size: 35px;
+            font-weight: normal;
+
+            a {
+              text-decoration: none;
+            }
+          }
+
+          .post-author {
+            float: left;
+            font-family: "Georgia";
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            line-height: 36px;
+            margin-left: 10px;
+            margin-top: 17px;
+          }
+
+          .post-date {
+            float: right;
+            padding-top: 3px;
+            position: relative;
+            width: 60px;
+
+            .day {
+              font-size: 30px;
+              text-align: center;
+            }
+
+            .month {
+              font-size: 20px;
+              text-align: center;
+            }
+
+            .year {
+              font-size: 9px;
+              letter-spacing: 3px;
+              text-align: center;
+            }
+          }
+        }
+
+        p {
+          font-size: 17px;
+        }
+      }
+    }
+
+    #page {
+      background: #ffe1e6;
+      padding: 10px;
+    }
+
+    #picture {
+      background: #ffe1e6;
+      padding: 10px;
+    }
+
+    #post {
+      background: #ffe1e6;
+      padding: 10px;
+    }
   }
 }
 
@@ -129,10 +148,18 @@ body {
   body {
     margin-top: 0;
 
-    .navbar-inner {
-      .nav-collapse.utility {
-        float: none;
+    .navbar-fixed-top {
+      margin-bottom: 0;
+
+      .navbar-inner {
+        .nav-collapse.utility {
+          float: none;
+        }
       }
+    }
+
+    #content {
+      margin-top: 0;
     }
   }
 }

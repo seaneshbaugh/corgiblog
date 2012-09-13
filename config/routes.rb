@@ -3,13 +3,11 @@ Corgiblog::Application.routes.draw do
 
   devise_scope :user do
     get '/login' => 'devise/sessions#new'
-  end
-
-  devise_scope :user do
     delete '/logout' => 'devise/sessions#destroy'
+    get '/reset-password' => 'devise/passwords#new', :as => 'reset_password'
   end
 
-  resources :pages, :only => [:index, :show]
+  resources :pages, :only => [:show]
 
   resources :pictures, :only => [:index, :show]
 
@@ -36,4 +34,6 @@ Corgiblog::Application.routes.draw do
   end
 
   root :to => 'posts#index'
+
+  match ':id' => 'pages#show'
 end

@@ -1,0 +1,17 @@
+<div id="page-<%= @page.id %>" class="page">
+  <header class="page-header">
+    <h1 class="page-title">
+      <%= link_to @page.title, "/#{@page.slug}" %>
+    </h1>
+  </header>
+  <div class="page-content">
+    <% unless @page.style.blank? %>
+      <style scoped="scoped">
+        <%= @page.style.html_safe %>
+      </style>
+    <% end %>
+    <%= @page.body.html_safe %>
+  </div>
+  <footer class="page-footer">
+  </footer>
+</div>

@@ -1,4 +1,4 @@
-<article id="post-<%= @post.id %>" class="post span8 offset2">
+<article id="post-<%= @post.id %>" class="post">
   <header class="post-header">
     <h1 class="post-title">
       <%= link_to @post.title, @post, :title => "\"#{@post.title}\" posted on #{@post.created_at.strftime('%Y-%m-%d %H:%M:%S')}" %>

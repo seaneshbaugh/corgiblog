@@ -12,3 +12,11 @@
 #
 #    $(window).bind "popstate", ->
 #      $.getScript location.href
+
+$ ->
+  pictures = $("#masonry")
+  pictures.imagesLoaded ->
+    pictures.masonry
+      itemSelector: ".picture"
+      columnWidth: (containerWidth) ->
+        containerWidth / 4

@@ -1,0 +1,19 @@
+<!-- TODO: Maybe make this do some sort of fancy infinite scrolling a la Tumblr -->
+<div id="pictures">
+  <div id="masonry">
+    <% @pictures.each do |picture| %>
+      <div id="picture-<%= picture.id %>" class="picture">
+        <div class="image">
+          <%= link_to image_tag("/uploads/picture/image/#{picture.image_file_name}", :alt => picture.alt_text), "/uploads/picture/image/#{picture.image_file_name}" %>
+        </div>
+        <!--<div class="title">-->
+          <!--<%= picture.title %>-->
+        <!--</div>-->
+        <!--<div class="caption">-->
+          <!--<%= picture.caption %>-->
+        <!--</div>-->
+      </div>
+    <% end %>
+  </div>
+  <%= paginate @pictures %>
+</div>
