@@ -49,99 +49,121 @@ body {
   }
 
   #content {
+    background: #ffe1e6;
     margin-top: 39px;
+    padding: 10px;
 
     #pictures {
-      background: #ffe1e6;
       overflow: hidden;
-      padding: 10px;
-
-      .picture {
-        float: left;
-        margin: 10px;
-        width: 250px;
-      }
-    }
-
-    #posts {
-      background: #ffe1e6;
-      padding: 10px;
-
-      .post {
-        &:not(:last-child) {
-          margin-bottom: 10px;
-        }
-
-        .post-header {
-          overflow: hidden;
-
-          .post-title {
-            float: left;
-            font-family: "Lobster";
-            font-size: 35px;
-            font-weight: normal;
-
-            a {
-              text-decoration: none;
-            }
-          }
-
-          .post-author {
-            float: left;
-            font-family: "Georgia";
-            font-size: 22px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            line-height: 36px;
-            margin-left: 10px;
-            margin-top: 17px;
-          }
-
-          .post-date {
-            float: right;
-            padding-top: 3px;
-            position: relative;
-            width: 60px;
-
-            .day {
-              font-size: 30px;
-              text-align: center;
-            }
-
-            .month {
-              font-size: 20px;
-              text-align: center;
-            }
-
-            .year {
-              font-size: 9px;
-              letter-spacing: 3px;
-              text-align: center;
-            }
-          }
-        }
-
-        p {
-          font-size: 17px;
-        }
-      }
     }
 
     #page {
-      background: #ffe1e6;
-      padding: 10px;
+      .post-header {
+        overflow: hidden;
+
+        .post-title {
+          float: left;
+          font-family: "Lobster";
+          font-size: 35px;
+          font-weight: normal;
+
+          a {
+            text-decoration: none;
+          }
+        }
+      }
     }
 
-    #picture {
-      background: #ffe1e6;
-      padding: 10px;
+    #picture, .picture {
+      float: left;
+      margin: 16px;
+      width: 250px;
     }
 
-    #post {
-      background: #ffe1e6;
-      padding: 10px;
+    #post, .post {
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      .post-header {
+        overflow: hidden;
+
+        .post-title {
+          float: left;
+          font-family: "Lobster";
+          font-size: 35px;
+          font-weight: normal;
+
+          a {
+            text-decoration: none;
+          }
+        }
+
+        .post-author {
+          float: left;
+          font-family: "Georgia";
+          font-size: 22px;
+          font-weight: bold;
+          letter-spacing: 1px;
+          line-height: 36px;
+          margin-left: 10px;
+          margin-top: 17px;
+        }
+
+        .post-date {
+          float: right;
+          padding-top: 3px;
+          position: relative;
+          width: 60px;
+
+          .day {
+            font-size: 30px;
+            text-align: center;
+          }
+
+          .month {
+            font-size: 20px;
+            text-align: center;
+          }
+
+          .year {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-align: center;
+          }
+        }
+      }
+
+      p {
+        font-size: 17px;
+
+        &.center {
+          text-align: center;
+        }
+
+        &.left {
+          text-align: left;
+        }
+
+        &.right {
+          text-align: right;
+        }
+      }
     }
   }
+}
+
+body:before {
+  content: " ";
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  background: -webkit-radial-gradient(top center, ellipse cover, rgba(255,255,255,0.2) 0%,rgba(255, 65, 161, .6) 100%)  fixed 0 0 transparent;
+  background: -moz-radial-gradient(top center, ellipse cover, rgba(255,255,255,0.2) 0%,rgba(255, 65, 161, .6) 100%)  fixed 0 0 transparent;
+  background: radial-gradient(top center, ellipse cover, rgba(255,255,255,0.2) 0%,rgba(255, 65, 161, .6) 100%) fixed 0 0 transparent;
 }
 
 @media (max-width: 979px) {

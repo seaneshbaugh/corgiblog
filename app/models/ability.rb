@@ -35,7 +35,7 @@ class Ability
         can :read, Post
         can :read, :admin_panel
       else
-        cannot :read, all
+        cannot :read, :all
     end
   end
 end

@@ -1,4 +1,4 @@
-module RFC2822
+module RFC822
   EmailAddress = begin
     alpha = "a-zA-Z"
     digit = "0-9"

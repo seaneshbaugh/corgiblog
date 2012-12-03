@@ -16,3 +16,4 @@ database.yml
 /tmp
 /uploads
 /vendor/bundle
+/config/smtp.yml

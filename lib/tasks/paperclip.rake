@@ -164,4 +164,3 @@ namespace :paperclip do
     end
   end
 end
-
