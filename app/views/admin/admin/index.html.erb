@@ -14,14 +14,8 @@
       <% if can? :create, User, current_user %>
         <li><%= link_to image_tag(image_path("icons/32x32/user-add.png")) + t('admin.quick_links.add_user').html_safe, new_admin_user_path %></li>
       <% end %>
-      <% if can? :read, :analytics, current_user %>
-        <li><%= link_to image_tag(image_path("icons/32x32/chart.png")) + t('admin.quick_links.analytics').html_safe, admin_analytics_path %></li>
-      <% end %>
       <% if can? :export, :database, current_user %>
         <li><%= link_to image_tag(image_path("icons/32x32/database-down.png")) + t('admin.quick_links.export').html_safe, admin_export_path %></li>
-      <% end %>
-      <% if can? :reboot, :application, current_user %>
-        <li><%= link_to image_tag(image_path("icons/32x32/power.png")) + t('admin.quick_links.reboot').html_safe, admin_reboot_path %></li>
       <% end %>
     </ul>
   </div>

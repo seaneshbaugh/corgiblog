@@ -27,9 +27,9 @@
 
 /* SITE */
   Created On: 2012/01/01
-  Last Updated: 2012/09/13
+  Last Updated: 2012/12/02
   Language: English
   Doctype: HTML5
-  Lovingly Made In: RubyMine 4.5.3, TextMate 1.5.11 (1635)
+  Lovingly Made In: RubyMine 4.5.4
   Lovingly Made On: OSX 10.7 Lion
-  Lovingly Made With: Ruby, Ruby on Rails, ERB, HTML5, CSS3, SCSS, JavaScript, CoffeeScript, jQuery
+  Lovingly Made With: Ruby, Ruby on Rails, ERB, HTML5, CSS3, LESS, JavaScript, jQuery

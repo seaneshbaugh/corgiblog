@@ -11,12 +11,12 @@
   <!--[if lt IE 9]>
   <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <%= favicon_link_tag '/favicon.ico' %>
-  <link href="<%= image_path('apple-touch-icon-iphone.png') %>" rel="apple-touch-icon" />
-  <link href="<%= image_path('apple-touch-icon-ipad.png') %>" rel="apple-touch-icon" sizes="72x72" />
-  <link href="<%= image_path('apple-touch-icon-iphone4.png') %>" rel="apple-touch-icon" sizes="114x114" />
-  <!-- TODO: Add 144x144 apple-touch-icon -->
-  <link href="/humans.txt" rel="author" />
+  <link href="/favicon.ico" rel="shortcut icon">
+  <link href="<%= image_path('apple-touch-icon-iphone.png') %>" rel="apple-touch-icon" sizes="57x57">
+  <link href="<%= image_path('apple-touch-icon-ipad.png') %>" rel="apple-touch-icon" sizes="72x72">
+  <link href="<%= image_path('apple-touch-icon-iphone-retina.png') %>" rel="apple-touch-icon" sizes="114x114">
+  <link href="<%= image_path('apple-touch-icon-ipad-retina.png') %>" rel="apple-touch-icon" sizes="144x144">
+  <link href="/humans.txt" rel="author">
   <%= csrf_meta_tags %>
 </head>
 <body>

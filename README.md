@@ -21,6 +21,7 @@ The following gems are required to run this application:
 * exception_notification
 * highline
 * honeypot-captcha
+* httparty
 * kaminari
 * paper_trail
 * paperclip (~2.7)

@@ -5,211 +5,41 @@
 @iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
 @iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
 
-@btnPrimaryBackground: #f7941d;
+// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
+@fontAwesomeEotPath: '/assets/fontawesome-webfont.eot';
+@fontAwesomeWoffPath: '/assets/fontawesome-webfont.woff';
+@fontAwesomeTtfPath: '/assets/fontawesome-webfont.ttf';
+@fontAwesomeSvgPath: '/assets/fontawesome-webfont.svg';
 
-a:focus, a:active {
-  outline: none;
-}
+// Font Awesome
+@import "fontawesome";
 
-button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner { border: solid 1px transparent; }
-input[type="button"]:focus, input[type="reset"]:focus, input[type="submit"]:focus, input[type="file"] > intput[type="button"]:focus { outline: none; }
+@black:                 #000000;
+@grayDarker:            #272b30;
+@grayDark:              #3a3f44;
+@gray:                  #464646;
+@grayLight:             #757c82;
+@grayLighter:           #ebebeb;
+@white:                 #fdfdfd;
 
-body {
-  background: #ebebeb;
-  color: #464646;
-  overflow-y: scroll;
+@blue:                  #0088cc;
+@blueDark:              #005580;
+@green:                 #348117;
+@red:                   #9d261d;
+@yellow:                #F6D30D;
+@orange:                #f7941d;
+@pink:                  #c3325f;
+@purple:                #7a43b6;
 
-  h1 {
-    margin-top: 20px;
-  }
+@bodyBackground:        @grayLighter;
+@textColor:             @gray;
 
-  .navbar {
-    .navbar-inner {
-      background: #464646;
-      border-radius: 0;
-      min-height: 57px;
-      padding: 0;
+@linkColor:             @blue;
+@linkColorHover:        @blueDark;
 
-      .nav {
-        margin: 0;
+@navbarBrandColor:      @white;
 
-        a {
-          color: #ffffff;
-          font-size: 14px;
-          line-height: 37px;
-          padding-left: 30px;
-          padding-right: 30px;
-          text-shadow: none;
-        }
-        li {
-          &:hover {
-            background: #30a4b1;
-          }
-          .active {
-            background: #30a4b1;
-          }
-        }
-      }
-    }
-  }
+@btnPrimaryBackground:          @orange;
+@btnPrimaryBackgroundHighlight: @btnPrimaryBackground;
 
-  #content {
-    background: #ffffff;
-    border: 1px solid #bab9b9;
-    margin: 0;
-    padding-bottom: 25px;
-
-    .admin-content {
-      margin: 0 auto;
-      width: 90%;
-    }
-
-    h2 {
-      font-family: Georgia, serif;
-      font-size: 24px;
-      font-style: italic;
-
-      small {
-        font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-      }
-    }
-
-    .subnav {
-      background: #464646;
-      border-radius: 0;
-      min-height: 40px;
-      padding: 0;
-
-      .nav {
-        margin: 0;
-
-        a {
-          border-radius: 0;
-          color: #ffffff;
-          font-size: 14px;
-          line-height: 20px;
-          padding-left: 30px;
-          padding-right: 30px;
-
-          &:hover {
-            background: none;
-          }
-        }
-        li {
-          &:hover {
-            background: #30a4b1;
-          }
-
-          .active {
-            background: #30a4b1;
-          }
-        }
-      }
-
-      .nav-pills {
-        &:after {
-          clear: none;
-        }
-      }
-
-      form {
-        float: right;
-
-        input[type="text"] {
-          border: 1;
-          border-radius: 0;
-          font-size: 18px;
-          height: 30px;
-        }
-
-        button[type="submit"] {
-          background: #f7941d;
-          border: 0;
-          color: #ffffff;
-          font-size: 14px;
-          height: 40px;
-          padding-left: 20px;
-          padding-right: 20px;
-
-          &:hover {
-            background: #30a4b1;
-          }
-        }
-
-        a {
-          background: #f7941d;
-          color: #ffffff;
-          font-size: 14px;
-          float: right;
-          margin-left: 3px;
-          padding: 11px 20px;
-          text-decoration: none;
-
-          &:hover {
-            background: #30a4b1;
-          }
-        }
-      }
-    }
-
-    form {
-      textarea {
-        height: 125px;
-        width: 98%;
-      }
-    }
-  }
-
-  #routes {
-    pre {
-      line-height: 0px;
-    }
-  }
-
-  #quick-links ul {
-    list-style-type: none;
-    margin: 0;
-    overflow: hidden;
-    padding: 10px;
-    text-align: center;
-
-    li {
-      display: inline-block;
-      margin: 0 10px 15px;
-
-      a {
-        background: #ededed;
-        box-shadow: 3px 3px 5px #cccccc;
-        -moz-box-shadow: 3px 3px 5px #cccccc;
-        -webkit-box-shadow: 3px 3px 5px #cccccc;
-        display: inline-block;
-        padding: 30px;
-        height: 50px;
-        width: 50px;
-
-        &:hover {
-          background: #fdfdfd;
-          box-shadow: 5px 5px 5px #cccccc;
-          -moz-box-shadow: 5px 5px 5px #cccccc;
-          -webkit-box-shadow: 5px 5px 5px #cccccc;
-          color: #f7941d;
-          text-decoration: none;
-        }
-      }
-    }
-  }
-
-  .btn {
-    border-radius: 0;
-  }
-}
-
-@media (max-width: 979px) {
-  .navbar {
-    .navbar-inner {
-      .nav-collapse.pull-right {
-        float: none;
-      }
-    }
-  }
-}
+@monoFontFamily: "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
