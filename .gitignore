@@ -6,7 +6,6 @@
 .redcar/
 .sass-cache/
 database.yml
-/config/initializers/tumblr.rb
 /db/*.sqlite3
 /log/*.log
 /public/assets
@@ -17,3 +16,4 @@ database.yml
 /uploads
 /vendor/bundle
 /config/smtp.yml
+/config/tumblr.yml

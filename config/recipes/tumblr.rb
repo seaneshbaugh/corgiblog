@@ -1,17 +1,17 @@
 set :tumblr_blog_url, 'conneythecorgi.tumblr.com'
-set :tumblr_api_key, Capistrano::CLI.ui.ask('Tumblr API Key: ')
+set_default(:tumblr_api_key) { Capistrano::CLI.ui.ask('Tumblr API Key: ') }
 
-namespace :tmblr do
-  desc 'Generate the tumblr.rb initializer file.'
+namespace :tumblr do
+  desc 'Generate the tumblr.yml configuration file.'
   task :setup, :roles => :app do
-    run "mkdir -p #{shared_path}/config/initializers"
-    template 'tumblr.rb.erb', "#{shared_path}/config/initializers/tumblr.rb"
+    run "mkdir -p #{shared_path}/config"
+    template 'tumblr.yml.erb', "#{shared_path}/config/tumblr.yml"
   end
   after 'deploy:setup', 'tumblr:setup'
 
-  desc 'Symlink the tumblr.rb initializer file.'
+  desc 'Symlink the tumblr.yml file.'
   task :symlink, :roles => :app do
-    run "ln -nfs #{shared_path}/config/initializers/tumblr.rb #{release_path}/config/initializers/tumblr.rb"
+    run "ln -nfs #{shared_path}/config/tumblr.yml #{release_path}/config/tumblr.yml"
   end
   after 'deploy:finalize_update', 'tumblr:symlink'
 end

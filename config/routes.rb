@@ -13,17 +13,23 @@ Corgiblog::Application.routes.draw do
 
   resources :posts, :only => [:index, :show]
 
+  get '/sitemap' => 'sitemap#index', :as => 'sitemap'
+
   authenticate :user do
     namespace :admin do
       root :to => 'admin#index'
 
-      get 'reboot' => 'admin#reboot', :as => 'reboot'
       get 'export' => 'admin#export', :as => 'export'
-      get 'analytics' => 'admin#analytics', :as => 'analytics'
+
+      resource :account, :only => [:show, :edit, :update]
 
       resources :pages
 
-      resources :pictures
+      resources :pictures do
+        collection do
+          get :selector
+        end
+      end
 
       resources :posts
 

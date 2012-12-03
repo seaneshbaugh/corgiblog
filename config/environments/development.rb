@@ -36,9 +36,21 @@ Corgiblog::Application.configure do
   config.assets.debug = true
 
   # Send mail through mailcatcher
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
+  #config.action_mailer.delivery_method = :smtp
+  #config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
 
-  # Set mailer host to localhost:3000 for in email links
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => 'smtp.gmail.com',
+    :port                 => 587,
+    :domain               => '127.0.0.1:3000',
+    :user_name            => SMTP_SETTINGS['user_name'],
+    :password             => SMTP_SETTINGS['password'],
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
+  config.action_mailer.raise_delivery_errors = true
+
+  # Set mailer host to 127.0.0.1:3000 for in email links
+  config.action_mailer.default_url_options = { :host => '127.0.0.1:3000' }
 end

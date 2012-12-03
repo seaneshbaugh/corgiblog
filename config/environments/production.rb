@@ -17,7 +17,7 @@ Corgiblog::Application.configure do
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
 
-  config.assets.precompile += ['admin.css', 'admin.js.coffee']
+  config.assets.precompile += ['admin.css', 'admin.js']
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -68,9 +68,19 @@ Corgiblog::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => 'localhost' }
+  config.action_mailer.smtp_settings = {
+    :address              => 'smtp.gmail.com',
+    :port                 => 587,
+    :domain               => 'conneythecorgi.com',
+    :user_name            => SMTP_SETTINGS['user_name'],
+    :password             => SMTP_SETTINGS['password'],
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
+  config.action_mailer.raise_delivery_errors = true
 
   # Set mailer host to conneythecorgi.com for in email links
-  # change this to whatever it ends up actually being
   config.action_mailer.default_url_options = { :host => 'conneythecorgi.com' }
+
+  config.middleware.use ExceptionNotifier, :sender_address => 'seaneshbaugh@gmail.com', :exception_recipients => 'seaneshbaugh@gmail.com'
 end

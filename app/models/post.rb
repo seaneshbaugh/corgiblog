@@ -35,7 +35,7 @@ class Post < ActiveRecord::Base
     offset = 0
 
     begin
-      posts = HTTParty.get("http://api.tumblr.com/v2/blog/#{TUMBLR_BLOG_URL}/posts/?api_key=#{TUMBLR_API_KEY}&offset=#{offset}&reblog_info=false&notes_info=false")['response']['posts']
+      posts = HTTParty.get("http://api.tumblr.com/v2/blog/#{TUMBLR_SETTINGS['blog_url']}/posts/?api_key=#{TUMBLR_SETTINGS['api_key']}&offset=#{offset}&reblog_info=false&notes_info=false")['response']['posts']
 
       posts.each do |post|
         Post.create_from_tumblr_json post
@@ -46,7 +46,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.import_from_tumblr id
-    post = HTTParty.get("http://api.tumblr.com/v2/blog/#{TUMBLR_BLOG_URL}/posts/?api_key=#{TUMBLR_API_KEY}&id=#{id}&reblog_info=false&notes_info=false")['response']['posts'][0]
+    post = HTTParty.get("http://api.tumblr.com/v2/blog/#{TUMBLR_SETTINGS['blog_url']}/posts/?api_key=#{TUMBLR_SETTINGS['api_key']}&id=#{id}&reblog_info=false&notes_info=false")['response']['posts'][0]
 
     Post.create_from_tumblr_json post
   end
