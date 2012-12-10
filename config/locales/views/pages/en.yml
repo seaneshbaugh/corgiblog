@@ -21,8 +21,7 @@ en:
       deactivate: "Deactivate Page"
       activate: "Activate Page"
     sections:
-      data: "Post Data"
-      meta_data: "Post Meta-data"
+      information: "Page Information"
     index:
       title: "Pages"
     new:

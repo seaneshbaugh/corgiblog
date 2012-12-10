@@ -1,0 +1,36 @@
+<article id="post-<%= post.id %>" class="post span12">
+  <header class="post-header row">
+    <h1 class="post-title span9"><%= link_to post.title, post_path(post), :title => "\"#{post.title}\" posted on #{post.created_at.strftime('%Y-%m-%d %H:%M:%S')}" %></h1>
+    <div class="post-author span2 hidden-phone">by <%= post.user.first_name %></div>
+    <div class="post-date span1 hidden-phone">
+      <div class="row hidden-phone">
+        <div class="day span1">
+          <%= post.created_at.strftime('%d') %>
+        </div>
+        <div class="month span1">
+          <%= post.created_at.strftime('%b') %>
+        </div>
+        <div class="year span1">
+          <%= post.created_at.strftime('%Y') %>
+        </div>
+      </div>
+    </div>
+    <div class="post-metadata span3 visible-phone">
+      by <%= post.user.first_name %> on <%= post.created_at.strftime("%B #{post.created_at.day.ordinalize}, %Y") %>
+    </div>
+  </header>
+  <div class="post-body row">
+    <div class="span12">
+      <% unless post.style.blank? %>
+        <style scoped="scoped">
+          <%= post.style.html_safe %>
+        </style>
+      <% end %>
+      <%= post.body.html_safe %>
+    </div>
+  </div>
+  <footer class="post-footer row">
+    <div class="span12">
+    </div>
+  </footer>
+</article>

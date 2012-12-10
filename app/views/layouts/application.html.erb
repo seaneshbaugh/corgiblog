@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en-US" xmlns="http://www.w3.org/1999/html">
+<html dir="ltr" lang="en-US">
 <head>
-  <meta charset="utf-8" />
-  <title><%= page_title %></title>
-  <meta name="description" content="<%= page_description %>" />
-  <meta name="author" content="<%= t('application.author') %>" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <title><% if content_for?(:page_title) %><%= yield(:page_title).strip %><% else %><%= t('application.title') %><% end %></title>
+  <meta name="description" content="<% if content_for?(:meta_description) %><%= yield(:meta_description).strip %><% else %><%= t('application.description') %><% end %>">
+  <meta name="author" content="<%= t('application.author') %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag 'application', :media => 'all' %>
   <%= javascript_include_tag 'application' %>
   <!--[if lt IE 9]>
-  <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <% if Rails.env.production? && current_user.nil? %>
+    <script>
+      var _gaq = _gaq || [];
+      _gaq.push(["_setAccount", "UA-28027997-1"]);
+      _gaq.push(["_trackPageview"]);
+      _gaq.push(["_setDomainName", window.location.hostname]);
+      (function() {
+        var ga = document.createElement("script"); ga.type = "text/javascript"; ga.async = true;
+        ga.src = ("https:" === document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
+        var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  <% end %>
   <link href="/favicon.ico" rel="shortcut icon">
   <link href="<%= image_path('apple-touch-icon-iphone.png') %>" rel="apple-touch-icon" sizes="57x57">
   <link href="<%= image_path('apple-touch-icon-ipad.png') %>" rel="apple-touch-icon" sizes="72x72">
@@ -23,57 +36,43 @@
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-        </a>
+        </button>
         <%= link_to t('application.title'), root_path, :class => 'brand' %>
-        <div class="nav-collapse">
-          <ul class="nav">
+        <div class="nav-collapse collapse">
+          <ul class="nav" role="navigation">
             <li><%= link_to t('activerecord.models.picture').pluralize, pictures_path %></li>
-            <% Page.published.top_level.each do |page| %>
+            <% @pages.each do |page| %>
               <li><%= link_to page.title, "/#{page.slug}" %></li>
             <% end %>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="nav-collapse pull-right utility">
-          <ul class="nav">
-            <% if user_signed_in? %>
-             <li><%= link_to t('navigation.sign_out'), logout_path, :method => :delete %></li>
-              <% if can? :read, :admin_panel, current_user %><li><%= link_to t('navigation.admin_panel'), admin_root_path %></li><% end %>
-            <% else %>
-              <li><%= link_to t('navigation.sign_in'), login_path %></li>
+            <li><%= link_to 'Contact', contact_path %></li>
+            <% if current_user.present? %>
+              <li class="admin-nav-link hidden-desktop"><%= link_to 'Admin Panel', admin_root_path %></li>
+              <li class="logout-nav-link hidden-desktop"><%= link_to t('navigation.sign_out'), logout_path, :method => :delete %></li>
             <% end %>
           </ul>
         </div>
+        <% if current_user.present? %>
+          <div class="nav-collapse collapse pull-right visible-desktop">
+            <ul class="nav">
+              <li class="admin-nav-link hidden-desktop"><%= link_to 'Admin Panel', admin_root_path %></li>
+              <li class="logout-nav-link hidden-desktop"><%= link_to t('navigation.sign_out'), logout_path, :method => :delete %></li>
+            </ul>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
   <div class="container">
-    <%= flash_messages %>
-    <div id="content" class="row">
+    <div id="content">
       <%= yield %>
     </div>
-    <div class="row">
-      <footer>
-        <p><%= t('application.footer').html_safe %></p>
-      </footer>
-    </div>
+    <footer class="main">
+      <%= t('application.footer').html_safe %>
+    </footer>
   </div>
-  <% if !user_signed_in? and request.host != '127.0.0.1' %>
-    <script>
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-28027997-1']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-  <% end %>
 </body>
 </html>

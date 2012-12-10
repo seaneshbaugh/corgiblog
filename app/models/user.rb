@@ -3,9 +3,9 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :role, :first_name, :last_name, :remember_me
 
-  has_many :posts, :dependent => :destroy
+  has_paper_trail :only => [:email, :role, :first_name, :last_name]
 
-  has_paper_trail
+  has_many :posts, :dependent => :destroy
 
   validates_format_of     :email, :with => Devise.email_regexp, :allow_blank => true
   validates_presence_of   :email
@@ -18,14 +18,15 @@ class User < ActiveRecord::Base
   validates_inclusion_of :role, :in => Ability::ROLES.map { |key, value| value }
   validates_presence_of  :role
 
+  validates_presence_of :first_name
+
+  validates_presence_of :last_name
+
   before_save :define_role
 
-  default_scope :order => 'last_name ASC'
-
-  scope :sysadmins, where(:role => Ability::ROLES[:sysadmin].downcase)
-  scope :admins, where(:role => Ability::ROLES[:admin].downcase)
-  scope :contributors, where(:role => Ability::ROLES[:contributor].downcase)
-  scope :regular_users, where(:role => Ability::ROLES[:read_only].downcase)
+  Ability::ROLES.each do |k, v|
+    class_eval %Q"scope :#{k.to_s.pluralize}, where(:role => Ability::ROLES[:#{k.to_s}].downcase)"
+  end
 
   def full_name
     "#{self.first_name} #{self.last_name}"

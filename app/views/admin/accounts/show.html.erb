@@ -1,0 +1,62 @@
+<div id="show-account" class="admin-content">
+  <h2><%= t('accounts.show.title') %> <small><%= @account.email %></small></h2>
+  <h3><%= t('users.sections.contact_information') %></h3>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.first_name') %></th>
+        <td><%= @account.first_name %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.last_name') %></th>
+        <td><%= @account.last_name %></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3><%= t('users.sections.account_information') %></h3>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.email') %></th>
+        <td><%= @account.email %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.created_at') %></th>
+        <td><%= @account.created_at.to_s(:normal) %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.updated_at') %></th>
+        <td><%= @account.updated_at.to_s(:normal) %></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3><%= t('users.sections.login_activity') %></h3>
+  <table class="table table-condensed table-striped">
+    <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.sign_in_count') %></th>
+        <td><%= @account.sign_in_count %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.current_sign_in_at') %></th>
+        <td><%= @account.current_sign_in_at.blank? ? t('na') : @account.current_sign_in_at.to_s(:normal) %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.last_sign_in_at') %></th>
+        <td><%= @account.last_sign_in_at.blank? ? t('na') : @account.last_sign_in_at.to_s(:normal) %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.current_sign_in_ip') %></th>
+        <td><%= @account.current_sign_in_ip.blank? ? t('na') : @account.current_sign_in_ip %></td>
+      </tr>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.user.last_sign_in_ip') %></th>
+        <td><%= @account.last_sign_in_ip.blank? ? t('na') : @account.last_sign_in_ip %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-actions">
+    <%= link_to t('back'), admin_root_path, :class => 'btn' %>
+    <%= link_to t('accounts.edit.title'), edit_admin_account_path, :class => 'btn btn-primary' %>
+  </div>
+</div>

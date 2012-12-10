@@ -1,16 +1,11 @@
 class PagesController < ApplicationController
   def show
-    @page = Page.where(:slug => params[:id]).first
+    @page = Page.where(:slug => params[:id], :visible => true).first
 
     if @page.nil?
-      flash[:type] = "error"
+      flash[:error] = t('messages.pages.could_not_find')
 
-      flash[:notice] = t('messages.pages.could_not_find')
-
-      redirect_to root_url and return
+      redirect_to root_url
     end
-
-    @page_title = "#{@page.title} - #{t('application.title')}"
-    @page_description = @page.meta_description
   end
 end

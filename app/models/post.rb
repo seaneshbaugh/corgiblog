@@ -1,7 +1,7 @@
 require 'nokogiri'
 
 class Post < ActiveRecord::Base
-  attr_accessible :title, :body, :style, :meta_description, :meta_keywords, :user_id, :status, :private
+  attr_accessible :title, :body, :style, :meta_description, :meta_keywords, :user_id, :visible
 
   belongs_to :user, :validate => true
 
@@ -15,21 +15,15 @@ class Post < ActiveRecord::Base
   validates_presence_of   :slug
   validates_uniqueness_of :slug
 
-  validates_inclusion_of    :status, :in => [0, 1, 2, 3]
-  validates_numericality_of :status
-  validates_presence_of     :status
-
   validates_uniqueness_of :tumblr_id, :allow_blank => true
 
   validate :user_exists
 
   before_validation :generate_slug
 
-  after_initialize :initialize_defaults
-
-  default_scope :order => 'created_at DESC'
-
-  scope :published, where(:status => 1)
+  def published?
+    visible
+  end
 
   def self.import_all_from_tumblr
     offset = 0
@@ -266,11 +260,6 @@ class Post < ActiveRecord::Base
   end
 
   protected
-
-  def initialize_defaults
-    self.status ||= 0
-    self.private = true if self.private.nil?
-  end
 
   def generate_slug
     if self.title.blank?

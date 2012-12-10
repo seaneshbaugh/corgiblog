@@ -1,1 +1,11 @@
-<%= render 'show' %>
+<% if @picture.title.present? %>
+  <% content_for :page_title do %>
+    <%= "#{@picture.title} - #{t('application.title')}" %>
+  <% end %>
+<% end %>
+<% if @picture.caption.present? %>
+  <% content_for :meta_description do %>
+    <%= picture.caption %>
+  <% end %>
+<% end %>
+<%= render 'show', :picture => @picture %>

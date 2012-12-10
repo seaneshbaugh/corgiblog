@@ -1,26 +1,17 @@
 class PicturesController < ApplicationController
   def index
-    if params[:q].present? && params[:q][:s].present?
-      @search = Picture.unscoped.search(params[:q])
-    else
-      @search = Picture.search(params[:q])
-    end
+    @search = Picture.search(params[:q])
 
-    @pictures = @search.result.page(params[:page]).per(100)
+    @pictures = @search.result.page(params[:page]).per(100).order('created_at DESC')
   end
 
   def show
     @picture = Picture.where(:id => params[:id]).first
 
     if @picture.nil?
-      flash[:type] = "error"
+      flash[:error] = t('messages.pictures.could_not_find')
 
-      flash[:notice] = t('messages.pictures.could_not_find')
-
-      redirect_to pictures_url and return
+      redirect_to pictures_url
     end
-
-    @page_title = "#{@picture.title} - #{t('application.title')}"
-    @page_description = @picture.caption
   end
 end

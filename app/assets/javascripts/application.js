@@ -52,15 +52,4 @@ $(function() {
             $(this).fadingLinks("#005580");
         }
     });
-
-    var pictures = $("#masonry");
-
-    pictures.imagesLoaded(function() {
-        return pictures.masonry({
-            itemSelector: ".picture",
-            columnWidth: function(containerWidth) {
-                return containerWidth / 4;
-            }
-        });
-    });
 });

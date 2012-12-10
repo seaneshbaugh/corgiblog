@@ -1,1 +1,8 @@
-<%= render 'index' %>
+<div id="posts" class="row">
+  <% @posts.each do |post| %>
+    <%= render 'post', :post => post %>
+  <% end %>
+  <div class="span12">
+    <%= paginate @posts %>
+  </div>
+</div>

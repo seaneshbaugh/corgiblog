@@ -1,26 +1,19 @@
-<div class="block">
-  <div class="block_head">
-    <h2><%= t("pictures.#{@picture.persisted? ? 'edit' : 'new'}.title") %></h2>
-  </div>
-  <div class="block_content">
-    <%= simple_form_for [:admin, @picture], :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
-      <fieldset>
-        <div class="picture-header">
-          <h3><%= t('pictures.sections.data') %></h3>
-        </div>
-        <%= f.input :title %>
-        <%= f.input :alt_text %>
-        <%= f.input :caption %>
-        <% if @picture.persisted? %>
-          <%= f.input :image, :as => :file %>
-        <% else %>
-          <%= f.input :image, :as => :file, :input_html => { :multiple => true } %>
-        <% end %>
-        <div class="form-actions">
-          <%= f.submit nil, :class => 'btn btn-primary right' %>
-          <%= link_to t('pictures.links.back_to_index'), admin_pictures_path, :class => 'btn right' %>
-        </div>
-      </fieldset>
+<h2><%= t("pictures.#{@picture.persisted? ? 'edit' : 'new'}.title") %></h2>
+<%= simple_form_for [:admin, @picture], :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= t('pictures.sections.information') %></legend>
+    <%= f.input :title, :as => :string %>
+    <%= f.input :alt_text, :as => :string %>
+    <%= f.input :caption %>
+    <%= f.input :image, :as => :file %>
+  </fieldset>
+  <div class="form-actions">
+    <%= link_to t('pictures.links.back_to_index'), admin_pictures_path, :class => 'btn' %>
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <% unless @picture.persisted? %>
+      <label class="checkbox inline">
+        <%= check_box_tag 'redirect_to_new', 1, true %> <%= t('helpers.submit.picture.redirect_to_new') %>
+      </label>
     <% end %>
   </div>
-</div>
+<% end %>

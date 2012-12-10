@@ -2,34 +2,22 @@ class PostsController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        if params[:q].present? && params[:q][:s].present?
-          @search = Post.unscoped.search(params[:q])
-        else
-          @search = Post.search(params[:q])
-        end
-
-        @posts = @search.result.published.page(params[:page])
+        @posts = Post.where(:visible => true).page(params[:page]).per(25).order('created_at DESC')
       end
 
       format.rss do
-        @posts = Post.published
-        render :layout => false
+        @posts = Post.where(:visible => true).order('created_at DESC')
       end
     end
   end
 
   def show
-    @post = Post.where(:slug => params[:id]).first
+    @post = Post.where(:slug => params[:id], :visible => true).first
 
     if @post.nil?
-      flash[:type] = "error"
+      flash[:error] = t('messages.posts.could_not_find')
 
-      flash[:notice] = t('messages.posts.could_not_find')
-
-      redirect_to root_url and return
+      redirect_to root_url
     end
-
-    @page_title = "#{@post.title} - #{t('application.title')}"
-    @page_description = @post.meta_description
   end
 end

@@ -16,7 +16,6 @@ en:
       updated: "Picture has been updated."
       deleted: "Picture has been deleted."
       none: "There are no pictures yet. Click 'New Picture' to get started."
-      multiple_errors: "Could not save %{filename} for the following reasons:"
   pictures:
     links:
       back_to_index: "Back to Pictures"

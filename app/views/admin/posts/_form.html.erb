@@ -1,29 +1,20 @@
-<div class="block">
-  <div class="block_head">
-    <h2><%= t("posts.#{@post.persisted? ? 'edit' : 'new'}.title") %></h2>
-  </div>
-  <div class="block_content">
-    <%= simple_form_for [:admin, @post], :html => { :class => 'form-horizontal' } do |f| %>
-      <fieldset>
-        <div class="page-header">
-          <h3><%= t('posts.sections.data') %></h3>
-        </div>
-        <%= f.input :title %>
-        <%= f.input :body %>
-        <%= f.input :style %>
-        <div class="page-header">
-          <h3><%= t('posts.sections.meta_data') %></h3>
-        </div>
-        <%= f.input :meta_description %>
-        <%= f.input :meta_keywords %>
-        <% if current_user.sysadmin? || current_user.admin? %>
-          <%= f.association :user, :collection => User.all, :label_method => :full_name, :input_html => { :class => 'input-xlarge chzn-select' } %>
-        <% end %>
-        <div class="form-actions">
-          <%= f.submit nil, :class => 'btn btn-primary right' %>
-          <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn right ajax-link' %>
-        </div>
-      </fieldset>
+<h2><%= t("posts.#{@post.persisted? ? 'edit' : 'new'}.title") %></h2>
+<%= simple_form_for [:admin, @post], :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= t('posts.sections.information') %></legend>
+    <%= f.input :title %>
+    <%= f.input :body %>
+    <%= f.input :style %>
+    <%= f.input :visible %>
+    <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
+  </fieldset>
+  <div class="form-actions">
+    <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn' %>
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <% unless @post.persisted? %>
+      <label class="checkbox inline">
+        <%= check_box_tag 'redirect_to_new', 1, true %> <%= t('helpers.submit.post.redirect_to_new') %>
+      </label>
     <% end %>
   </div>
-</div>
+<% end %>

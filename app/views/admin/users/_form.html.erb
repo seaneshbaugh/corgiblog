@@ -1,27 +1,24 @@
-<div class="block">
-  <div class="block_head">
-    <h2><%= t("users.#{@user.persisted? ? 'edit' : 'new'}.title") %></h2>
-  </div>
-  <div class="block_content">
-    <%= simple_form_for [:admin, @user], :html => { :class => 'form-horizontal' } do |f| %>
-      <fieldset>
-        <div class="page-header">
-          <h3><%= t("users.sections.contact_information") %></h3>
-        </div>
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
-        <%= f.input :email %>
-        <div class="page-header">
-          <h3><%= t("users.sections.account_information") %></h3>
-        </div>
-        <%= f.input :role, :collection => Ability::ROLES.map { |k, v| [v.humanize.titleize, k.to_s] }, :include_blank => false, :input_html => { :class => 'input-xlarge chzn-select' } %>
-        <%= f.input :password %>
-        <%= f.input :password_confirmation %>
-        <div class="form-actions">
-          <%= f.submit nil, :class => 'btn btn-primary right' %>
-          <%= link_to t('users.links.back_to_index'), admin_users_path, :class => 'btn right' %>
-        </div>
-      </fieldset>
+<h2><%= t("users.#{@user.persisted? ? 'edit' : 'new'}.title") %></h2>
+<%= simple_form_for [:admin, @user], :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= t('users.sections.contact_information') %></legend>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+  </fieldset>
+  <fieldset>
+    <legend><%= t('users.sections.account_information') %></legend>
+    <%= f.input :email %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+    <%= f.input :role, :as => :select, :collection => Ability.valid_roles(current_user).map { |key, value| [value.titleize, value] } %>
+  </fieldset>
+  <div class="form-actions">
+    <%= link_to t('users.links.back_to_index'), admin_users_path, :class => 'btn' %>
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <% unless @user.persisted? %>
+      <label class="checkbox inline">
+        <%= check_box_tag 'redirect_to_new', 1, true %> <%= t('helpers.submit.user.redirect_to_new') %>
+      </label>
     <% end %>
   </div>
-</div>
+<% end %>

@@ -4,6 +4,7 @@ en:
     site_home: "Site Home"
   admin:
     sections:
+      quick_links: "Quick Links"
       quick_post: "Quick Post"
       rails_info: "Rails Info"
       routes: "Routes"

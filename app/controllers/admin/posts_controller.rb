@@ -8,7 +8,7 @@ class Admin::PostsController < Admin::AdminController
       @search = Post.search(params[:q])
     end
 
-    @posts = @search.result.page(params[:page])
+    @posts = @search.result.page(params[:page]).order('created_at DESC')
   end
 
   def show

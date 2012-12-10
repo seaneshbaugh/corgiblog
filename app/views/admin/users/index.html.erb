@@ -1,42 +1,40 @@
 <div id="users" class="admin-content">
-  <h2>
-    <%= t("users.index.title") %>
-    <small><%= @users.total_count %></small>
-  </h2>
-  <div class="subnav">
-    <ul class="nav nav-pills">
-      <% if can? :create, User, current_user %><li><%= link_to t('users.new.title'), new_admin_user_path %></li><% end %>
-    </ul>
-    <%= search_form_for @search, :url => admin_users_path, :html => { :method => :get, :class => 'form-search hidden-phone' } do |f| %>
-      <fieldset>
-        <%= f.text_field :first_name_or_last_name_or_email_cont, :placeholder => t('activerecord.attributes.user.full_name') %>
-        <%= hidden_field_tag 'page', params[:page] %>
-        <%= f.button t('search'), :type => :submit %>
-        <%= link_to t('clear_search'), admin_users_path %>
-      </fieldset>
-    <% end %>
-  </div>
-  <table class="table table-striped">
-    <thead>
-      <th scope="col"><%= sort_link @search, :last_name, t('activerecord.attributes.user.full_name') %></th>
-      <th scope="col"><%= sort_link @search, :email, t('activerecord.attributes.user.email') %></th>
-      <th scope="col"><%= sort_link @search, :created_at %></th>
-      <th scope="col"><%= sort_link @search, :updated_at %></th>
-      <% if can? :update, User, current_user %><th class="icon">&nbsp;</th><% end %>
-      <% if can? :update, User, current_user %><th class="icon">&nbsp;</th><% end %>
-    </thead>
-    <tbody>
-      <% @users.each do |user| %>
+  <h2><%= t('activerecord.models.user').pluralize %></h2>
+  <%= search_form_for @search, :url => admin_users_path, :html => { :method => :get, :class => 'form-search well' } do |f| %>
+    <%= f.text_field :first_name_or_last_name_cont, :placeholder => t('activerecord.attributes.user.full_name') %>
+    <%= f.email_field :email_cont, :placeholder => t('activerecord.attributes.user.email') %>
+    <%= f.select :role_eq, Ability::ROLES.map { |key, value| [value.titleize, value] }, { :include_blank => "Select #{t('activerecord.attributes.user.role')}" } %>
+    <%= f.button '<i class="icon-search"></i> Search'.html_safe, :type => :submit, :class => 'btn btn-primary' %>
+    <%= link_to '<i class="icon-remove"></i>'.html_safe, admin_users_path, :class => 'btn', :rel => 'tooltip', :title => t('clear_search') %>
+  <% end %>
+  <% if can? :create, User, current_user %>
+    <div class="clearfix">
+      <%= link_to t('users.new.title'), new_admin_user_path, :class => 'btn btn-primary pull-right' %>
+    </div>
+  <% end %>
+  <% if @users.any? %>
+    <table class="table table-striped">
+      <thead>
         <tr>
-          <td><%= link_to user.full_name, admin_user_url(user) %></td>
-          <td><%= user.email %></td>
-          <td><%= user.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <td><%= user.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <% if can? :update, User, current_user %><td class="icon"><%= icon_edit_link(edit_admin_user_path(user)) %></td><% end %>
-          <% if can? :update, User, current_user %><td class="icon"><%= icon_delete_link(admin_user_path(user)) %></td><% end %>
+          <th><%= sort_link @search, :first_name, t('activerecord.attributes.user.full_name') %></th>
+          <th><%= sort_link @search, :email %></th>
+          <% if can? :edit, User, current_user %><th class="icon">&nbsp;</th><% end %>
+          <% if can? :destroy, User, current_user %><th class="icon">&nbsp;</th><% end %>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= paginate @users %>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to user.full_name, admin_user_path(user) %></td>
+            <td><%= user.email %> <%= link_to '<i class="icon-envelope">'.html_safe, "mailto:#{user.email}", :rel => 'tooltip', :title => 'Send Email' %></td>
+            <% if can? :update, user, current_user %><td class="icon"><%= icon_edit_link edit_admin_user_path(user) %></td><% elsif can? :update, User, current_user %><td>&nbsp;</td><% end %>
+            <% if can? :destroy, user, current_user %><td class="icon"><%= icon_delete_link admin_user_path(user) %></td><% elsif can? :update, User, current_user %><td>&nbsp;</td><% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @users %>
+  <% else %>
+    <p class="lead"><%= t('messages.users.none') %></p>
+  <% end %>
 </div>

@@ -1,9 +1,9 @@
 class CreatePictures < ActiveRecord::Migration
   def change
     create_table :pictures do |t|
-      t.text :title,               :null => false, :default => ''
-      t.text :alt_text,            :null => false, :default => ''
-      t.text :caption,             :null => false, :default => ''
+      t.text :title,                    :null => false, :default => ''
+      t.text :alt_text,                 :null => false, :default => ''
+      t.text :caption,                  :null => false, :default => ''
       t.string :image_file_name
       t.string :image_content_type
       t.integer :image_file_size
@@ -14,6 +14,7 @@ class CreatePictures < ActiveRecord::Migration
       t.integer :image_medium_height,   :null => false, :default => 1
       t.integer :image_thumb_width,     :null => false, :default => 1
       t.integer :image_thumb_height,    :null => false, :default => 1
+      t.datetime :image_updated_at
       t.timestamps
     end
 
@@ -28,6 +29,7 @@ class CreatePictures < ActiveRecord::Migration
       t.index :image_medium_height
       t.index :image_thumb_width
       t.index :image_thumb_height
+      t.index :image_updated_at
       t.index :created_at
       t.index :updated_at
     end

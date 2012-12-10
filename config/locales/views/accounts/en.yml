@@ -1,0 +1,17 @@
+en:
+  navigation:
+    account: "Account"
+  messages:
+    accounts:
+      created: "Account has been created."
+      updated: "Account has been updated."
+      destroyed: "Account has been deleted."
+  accounts:
+    links:
+      back_to_account: "Back to Account"
+    edit:
+      title: "Edit Account"
+    update:
+      title: "Update Account"
+    show:
+      title: "Account"

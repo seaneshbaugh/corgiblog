@@ -1,40 +1,39 @@
 <div id="pages" class="admin-content">
-  <h2>
-    <%= t("pages.index.title") %>
-    <small><%= @pages.total_count %></small>
-  </h2>
-  <div class="subnav">
-    <ul class="nav nav-pills">
-      <% if can? :create, User, current_user %><li><%= link_to t('pages.new.title'), new_admin_page_path %></li><% end %>
-    </ul>
-    <%= search_form_for @search, :url => admin_pages_path, :html => { :method => :get, :class => 'form-search hidden-phone' } do |f| %>
-      <fieldset>
-        <%= f.text_field :title_cont, :placeholder => t('activerecord.attributes.page.title') %>
-        <%= hidden_field_tag 'page', params[:page] %>
-        <%= f.button t('search'), :type => :submit %>
-        <%= link_to t('clear_search'), admin_pages_path %>
-      </fieldset>
-    <% end %>
-  </div>
-  <table class="table table-striped">
-    <thead>
-      <th scope="col"><%= sort_link @search, :title %></th>
-      <th scope="col"><%= sort_link @search, :created_at %></th>
-      <th scope="col"><%= sort_link @search, :updated_at %></th>
-      <% if can? :update, Page, current_user %><th class="icon">&nbsp;</th><% end %>
-      <% if can? :update, Page, current_user %><th class="icon">&nbsp;</th><% end %>
-    </thead>
-    <tbody>
-      <% @pages.each do |page| %>
+  <h2><%= t('activerecord.models.page').pluralize %></h2>
+  <%= search_form_for @search, :url => admin_pages_path, :html => { :method => :get, :class => 'form-search well' } do |f| %>
+    <%= f.text_field :title_cont, :placeholder => t('activerecord.attributes.page.title') %>
+    <%= f.text_field :body_cont, :placeholder => t('activerecord.attributes.page.body') %>
+    <%= f.button '<i class="icon-search"></i> Search'.html_safe, :type => :submit, :class => 'btn btn-primary' %>
+    <%= link_to '<i class="icon-remove"></i>'.html_safe, admin_pages_path, :class => 'btn', :rel => 'tooltip', :title => t('clear_search') %>
+  <% end %>
+  <% if can? :create, Page, current_user %>
+    <div class="clearfix">
+      <%= link_to t('pages.new.title'), new_admin_page_path, :class => 'btn btn-primary pull-right' %>
+    </div>
+  <% end %>
+  <% if @pages.any? %>
+    <table class="table table-striped">
+      <thead>
         <tr>
-          <td><%= link_to truncate(page.title, :length => 64), admin_page_url(page) %></td>
-          <td><%= page.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <td><%= page.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <% if can? :update, Page, current_user %><td class="icon"><%= icon_edit_link(edit_admin_page_path(page)) %></td><% end %>
-          <% if can? :update, Page, current_user %><td class="icon"><%= icon_delete_link(admin_page_path(page)) %></td><% end %>
+          <th><%= sort_link @search, :name %></th>
+          <th><%= sort_link @search, :slug %></th>
+          <% if can? :edit, Page, current_user %><th class="icon">&nbsp;</th><% end %>
+          <% if can? :destroy, Page, current_user %><th class="icon">&nbsp;</th><% end %>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= paginate @pages %>
+      </thead>
+      <tbody>
+        <% @pages.each do |page| %>
+          <tr>
+            <td><%= link_to truncate(page.title, :length => 64).html_safe, admin_page_path(page) %></td>
+            <td><%= page.slug %> <%= link_to '<i class="icon-share"></i>'.html_safe, "/#{page.slug}", :target => '_blank' %></td>
+            <% if can? :edit, Page, current_user %><td class="icon"><%= icon_edit_link edit_admin_page_path(page) %></td><% end %>
+            <% if can? :destroy, Page, current_user %><td class="icon"><%= icon_delete_link admin_page_path(page) %></td><% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @pages %>
+  <% else %>
+    <p class="lead"><%= t('messages.pages.none') %></p>
+  <% end %>
 </div>

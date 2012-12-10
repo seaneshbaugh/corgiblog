@@ -2,10 +2,14 @@ Corgiblog::Application.routes.draw do
   devise_for :users, :only => [:sessions, :passwords]
 
   devise_scope :user do
-    get '/login' => 'devise/sessions#new'
-    delete '/logout' => 'devise/sessions#destroy'
+    get '/login' => 'devise/sessions#new', :as => 'login'
+    delete '/logout' => 'devise/sessions#destroy', :as => 'logout'
     get '/reset-password' => 'devise/passwords#new', :as => 'reset_password'
   end
+
+  get '/contact' => 'contact#new', :as => 'contact'
+
+  post '/contact' => 'contact#create'
 
   resources :pages, :only => [:show]
 

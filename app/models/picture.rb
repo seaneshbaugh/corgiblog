@@ -20,8 +20,6 @@ class Picture < ActiveRecord::Base
   before_post_process :image?
   after_post_process :save_image_dimensions
 
-  default_scope :order => 'created_at DESC'
-
   protected
 
   def modify_image_file_name

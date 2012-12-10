@@ -1,66 +1,40 @@
 <div id="post" class="admin-content">
-  <h2><%= t('posts.show.title') %></h2>
-  <div class="page-header">
-    <h3><%= t('posts.sections.data') %></h3>
-  </div>
+  <h1><%= t('posts.show.title') %></h1>
   <table class="table table-condensed table-striped">
     <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.post.slug') %></th>
+        <td><%= @post.slug %> <%= link_to '<i class="icon-share"></i>'.html_safe, post_path(@post), :target => '_blank' %></td>
+      </tr>
       <tr>
         <th class="span3"><%= t('activerecord.attributes.post.title') %></th>
         <td><%= @post.title %></td>
       </tr>
       <tr>
         <th class="span3"><%= t('activerecord.attributes.post.body') %></th>
-        <td><%= @post.body %></td>
+        <td><pre><%= @post.body.html_safe %></pre></td>
       </tr>
       <tr>
         <th class="span3"><%= t('activerecord.attributes.post.style') %></th>
-        <td><%= @post.style %></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="page-header">
-    <h3><%= t('posts.sections.meta_data') %></h3>
-  </div>
-  <table class="table table-condensed table-striped">
-    <tbody>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.slug') %></th>
-        <td><%= @post.slug %></td>
+        <td><pre><%= @post.style.html_safe %></pre></td>
       </tr>
       <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.user_id') %></th>
-        <td><%= @post.user.full_name unless @post.user.blank? %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.meta_description') %></th>
-        <td><%= @post.meta_description %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.meta_keywords') %></th>
-        <td><%= @post.meta_keywords %></td>
+        <th class="span3"><%= t('activerecord.attributes.post.visible') %></th>
+        <td><%= @post.visible ? t('yes') : t('no') %></td>
       </tr>
       <tr>
         <th class="span3"><%= t('activerecord.attributes.post.created_at') %></th>
-        <td><%= @post.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= @post.created_at %></td>
       </tr>
       <tr>
         <th class="span3"><%= t('activerecord.attributes.post.updated_at') %></th>
-        <td><%= @post.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.status') %></th>
-        <td><%= @post.status %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.private') %></th>
-        <td><%= @post.private ? 'Yes' : 'No' %></td>
+        <td><%= @post.updated_at %></td>
       </tr>
     </tbody>
   </table>
   <div class="form-actions">
-    <% if can? :update, Post, current_user %><%= link_to t('posts.edit.title'), edit_admin_post_path(@post), :class => 'btn right' %><% end %>
-    <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn right ajax-link' %>
-    <% if can? :destroy, User, current_user %><%= link_to t('posts.delete.title'), admin_post_path(@post), :method => 'delete', :data => { :confirm => t('confirm_delete') }, :class => 'btn btn-primary right' %><% end %>
+    <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn' %>
+    <% if can? :edit, Post, current_user %><%= link_to t('posts.edit.title'), edit_admin_post_path(@post), :class => 'btn' %><% end %>
+    <% if can? :destroy, Post, current_user %><%= link_to t('posts.delete.title'), admin_post_path(@post), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
   </div>
 </div>

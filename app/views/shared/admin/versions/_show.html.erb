@@ -1,0 +1,48 @@
+<% if can?(:revert, object.class, current_user) && object.persisted? && object.versions.present? %>
+  <h2>Previous Versions</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Version ID</th>
+        <th>Event</th>
+        <% attributes.each do |attribute| %>
+          <% case attribute
+               when Hash %>
+            <% if attribute[:title].present? %>
+              <th><%= attribute[:title] %></th>
+            <% else %>
+              <th><%= attribute[:attribute].to_s.titleize %></th>
+            <% end %>
+          <% else %>
+            <th><%= attribute.to_s.titleize %></th>
+          <% end %>
+        <% end %>
+        <th>Version Created At</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% object.versions.order('created_at DESC').each do |version| %>
+        <tr>
+          <% reified_object = version.reify %>
+          <td><%= version.id %></td>
+          <td><%= version.event %></td>
+          <% attributes.each do |attribute| %>
+            <% case attribute
+                 when Hash %>
+              <% if attribute[:lambda] %>
+                <td><%= reified_object.present? ? attribute[:lambda].call(reified_object) : '' %></td>
+              <% else %>
+                <td><%= reified_object.present? ? reified_object.send(attribute[:attribute]) : '' %></td>
+              <% end %>
+            <% else %>
+              <td><%= reified_object.present? ? reified_object.send(attribute) : '' %></td>
+            <% end %>
+          <% end %>
+          <td><%= version.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+          <td><%= link_to '<i class="icon-arrow-left"></i>'.html_safe, admin_revert_version_path(version), :method => :post, :class => 'btn btn-mini', :rel => 'tooltip', :title => 'Revert' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

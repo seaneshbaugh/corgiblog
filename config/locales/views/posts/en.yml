@@ -21,8 +21,7 @@ en:
       deactivate: "Deactivate Post"
       activate: "Activate Post"
     sections:
-      data: "Post Data"
-      meta_data: "Post Meta-data"
+      information: "Post Information"
     index:
       title: "Posts"
     new:

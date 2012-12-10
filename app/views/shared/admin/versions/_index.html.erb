@@ -1,0 +1,48 @@
+<% if can?(:revert, object_type, current_user) && collection.present? %>
+  <div id="deleted-<%= object_type.to_s.parameterize %>">
+    <h2>Deleted <%= t("activerecord.models.#{object_type.to_s.underscore}").pluralize %><small></small></h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Version ID</th>
+          <% attributes.each do |attribute| %>
+            <% case attribute
+                 when Hash %>
+              <% if attribute[:title].present? %>
+                <th><%= attribute[:title] %></th>
+              <% else %>
+                <th><%= attribute[:attribute].to_s.titleize %></th>
+              <% end %>
+            <% else %>
+              <th><%= attribute.to_s.titleize %></th>
+            <% end %>
+          <% end %>
+          <th>Version Created At</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% collection.each do |version| %>
+          <tr>
+            <% reified_object = version.reify %>
+            <td><%= version.id %></td>
+            <% attributes.each do |attribute| %>
+              <% case attribute
+                   when Hash %>
+                <% if attribute[:lambda] %>
+                  <td><%= reified_object.present? ? attribute[:lambda].call(reified_object) : '' %></td>
+                <% else %>
+                  <td><%= reified_object.present? ? reified_object.send(attribute[:attribute]) : '' %></td>
+                <% end %>
+              <% else %>
+                <td><%= reified_object.present? ? reified_object.send(attribute) : '' %></td>
+              <% end %>
+            <% end %>
+            <td><%= version.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= link_to '<i class="icon-arrow-left"></i>'.html_safe, admin_revert_version_path(version), :method => :post, :class => 'btn btn-mini', :rel => 'tooltip', :title => 'Restore' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

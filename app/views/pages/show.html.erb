@@ -1,1 +1,26 @@
-<%= render 'show' %>
+<% if @page.title.present? %>
+  <% content_for :page_title do %>
+    <% "#{@page.title} - #{t('application.title')}" %>
+  <% end %>
+<% end %>
+<% if @page.meta_description.present? %>
+  <% content_for :meta_description do %>
+    <%= @page.meta_description %>
+  <% end %>
+<% end %>
+<% if @page.meta_keywords.present? %>
+  <% content_for :meta_keywords do %>
+    <%= @page.meta_keywords %>
+  <% end %>
+<% end %>
+<div id="page-<%= @page.slug %>" class="page row">
+  <h1 class="page-title span12"><%= @page.title %></h1>
+  <div class="page-body span12">
+    <% if @page.style.present? %>
+      <style scoped>
+        <%= @page.style.html_safe %>
+      </style>
+    <% end %>
+    <%= @page.body.html_safe %>
+  </div>
+</div>

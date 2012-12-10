@@ -1,62 +1,40 @@
 <div id="page" class="admin-content">
-  <h2><%= t('pages.show.title') %></h2>
-  <div class="page-header">
-    <h3><%= t('pages.sections.data') %></h3>
-  </div>
+  <h2><%= t('pages.show.title') %> <small><%= @page.title.html_safe %></small></h2>
   <table class="table table-condensed table-striped">
     <tbody>
+      <tr>
+        <th class="span3"><%= t('activerecord.attributes.page.slug') %></th>
+        <td><%= @page.slug %> <%= link_to '<i class="icon-share"></i>'.html_safe, "/#{@page.slug}", :target => '_blank' %></td>
+      </tr>
       <tr>
         <th class="span3"><%= t('activerecord.attributes.page.title') %></th>
         <td><%= @page.title %></td>
       </tr>
       <tr>
         <th class="span3"><%= t('activerecord.attributes.page.body') %></th>
-        <td><%= @page.body %></td>
+        <td><pre><%= @page.body.html_safe %></pre></td>
       </tr>
       <tr>
         <th class="span3"><%= t('activerecord.attributes.page.style') %></th>
-        <td><%= @page.style %></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="page-header">
-    <h3><%= t('pages.sections.meta_data') %></h3>
-  </div>
-  <table class="table table-condensed table-striped">
-    <tbody>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.page.slug') %></th>
-        <td><%= @page.slug %></td>
+        <td><pre><%= @page.style.html_safe %></pre></td>
       </tr>
       <tr>
-        <th class="span3"><%= t('activerecord.attributes.page.meta_description') %></th>
-        <td><%= @page.meta_description %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.page.meta_keywords') %></th>
-        <td><%= @page.meta_keywords %></td>
+        <th class="span3"><%= t('activerecord.attributes.page.visible') %></th>
+        <td><%= @page.visible ? t('yes') : t('no') %></td>
       </tr>
       <tr>
         <th class="span3"><%= t('activerecord.attributes.page.created_at') %></th>
-        <td><%= @page.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= @page.created_at %></td>
       </tr>
       <tr>
         <th class="span3"><%= t('activerecord.attributes.page.updated_at') %></th>
-        <td><%= @page.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.page.status') %></th>
-        <td><%= @page.status %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.page.private') %></th>
-        <td><%= @page.private ? t('yes') : t('no') %></td>
+        <td><%= @page.updated_at %></td>
       </tr>
     </tbody>
   </table>
   <div class="form-actions">
-    <% if can? :update, Page, current_user %><%= link_to t('pages.edit.title'), edit_admin_page_path(@page), :class => 'btn right' %><% end %>
-    <%= link_to t('pages.links.back_to_index'), admin_pages_path, :class => 'btn right ajax-link' %>
-    <% if can? :destroy, Page, current_user %><%= link_to t('pages.delete.title'), admin_page_path(@page), :method => 'delete', :data => { :confirm => t('confirm_delete') }, :class => 'btn btn-primary right' %><% end %>
+    <%= link_to t('pages.links.back_to_index'), admin_pages_path, :class => 'btn' %>
+    <% if can? :edit, Page, current_user %><%= link_to t('pages.edit.title'), edit_admin_page_path(@page), :class => 'btn' %><% end %>
+    <% if can? :destroy, Page, current_user %><%= link_to t('pages.delete.title'), admin_page_path(@page), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
   </div>
 </div>

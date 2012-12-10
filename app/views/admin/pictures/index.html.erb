@@ -1,42 +1,52 @@
 <div id="pictures" class="admin-content">
-  <h2>
-    <%= t("pictures.index.title") %>
-    <small><%= @pictures.total_count %></small>
-  </h2>
-  <div class="subnav">
-    <ul class="nav nav-pills">
-      <% if can? :create, User, current_user %><li><%= link_to t('pictures.new.title'), new_admin_picture_path %></li><% end %>
-    </ul>
-    <%= search_form_for @search, :url => admin_pictures_path, :html => { :method => :get, :class => 'form-search hidden-phone' } do |f| %>
-      <fieldset>
-        <%= f.text_field :title_cont, :placeholder => t('activerecord.attributes.picture.title') %>
-        <%= hidden_field_tag 'picture', params[:picture] %>
-        <%= f.button t('search'), :type => :submit %>
-        <%= link_to t('clear_search'), admin_pictures_path %>
-      </fieldset>
-    <% end %>
-  </div>
-  <table class="table table-striped">
+  <h2><%= t('activerecord.models.picture').pluralize %></h2>
+  <%= search_form_for @search, :url => admin_pictures_path, :html => { :method => :get, :class => 'form-search well' } do |f| %>
+    <%= f.text_field :title_cont, :placeholder => t('activerecord.attributes.picture.title') %>
+    <%= f.text_field :alt_text_cont, :placeholder => t('activerecord.attributes.picture.alt_text') %>
+    <%= f.text_field :caption_cont, :placeholder => t('activerecord.attributes.picture.caption') %>
+    <%= f.button '<i class="icon-search"></i> Search'.html_safe, :type => :submit, :class => 'btn btn-primary' %>
+    <%= link_to '<i class="icon-remove"></i>'.html_safe, admin_pictures_path, :class => 'btn', :rel => 'tooltip', :title => t('clear_search') %>
+  <% end %>
+  <% if can? :create, Picture, current_user %>
+    <div class="clearfix">
+      <%= link_to t('pictures.new.title'), new_admin_picture_path, :class => 'btn btn-primary pull-right' %>
+    </div>
+  <% end %>
+  <%= form_for [:admin, Picture.new], :html => { :data => { :accept => 'gif|jpe?g|png' } } do |f| %>
+    <%= f.file_field :image, :multiple => true, :name => 'picture[image]', :class => 'hidden' %>
+  <% end %>
+  <table class="table table-striped<% unless @pictures.any? %> hidden<% end %>">
     <thead>
-      <th scope="col">&nbsp;</th>
-      <th scope="col" class="hidden-phone"><%= sort_link @search, :title %></th>
-      <th scope="col" class="hidden-phone"><%= sort_link @search, :created_at %></th>
-      <th scope="col" class="hidden-phone"><%= sort_link @search, :updated_at %></th>
-      <% if can? :update, Picture, current_user %><th scope="col" class="icon">&nbsp;</th><% end %>
-      <% if can? :update, Picture, current_user %><th scope="col" class="icon">&nbsp;</th><% end %>
+      <tr>
+        <th>Thumbnail</th>
+        <th class="hidden-phone"><%= sort_link @search, :title %></th>
+        <th class="hidden-phone"><%= sort_link @search, :created_at %></th>
+        <th class="hidden-phone"><%= sort_link @search, :updated_at %></th>
+        <% if can? :edit, Picture, current_user %><th class="icon">&nbsp;</th><% end %>
+        <% if can? :destroy, Picture, current_user %><th class="icon">&nbsp;</th><% end %>
+      </tr>
     </thead>
     <tbody>
       <% @pictures.each do |picture| %>
         <tr>
-          <td style="text-align: center;"><%= link_to image_tag(picture.image.url(:thumb), :style => "max-height: 50px;"), admin_picture_url(picture) %></td>
-          <td class="hidden-phone"><%= link_to truncate(picture.title, :length => 64), admin_picture_url(picture) %></td>
-          <td class="hidden-phone"><%= picture.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <td class="hidden-phone"><%= picture.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <% if can? :update, Picture, current_user %><td class="icon"><%= icon_edit_link(edit_admin_picture_path(picture)) %></td><% end %>
-          <% if can? :update, Picture, current_user %><td class="icon"><%= icon_delete_link(admin_picture_path(picture)) %></td><% end %>
+          <td style="text-align: center;"><%= link_to image_tag(picture.image.url(:thumb), :style => "max-height: 50px;"), admin_picture_path(picture) %></td>
+          <td class="hidden-phone"><%= link_to truncate(picture.title, :length => 64), admin_picture_path(picture) %></td>
+          <td class="hidden-phone"><%= picture.created_at %></td>
+          <td class="hidden-phone"><%= picture.updated_at %></td>
+          <% if can? :edit, Picture, current_user %><td class="icon"><%= icon_edit_link edit_admin_picture_path(picture) %></td><% end %>
+          <% if can? :destroy, Picture, current_user %><td class="icon"><%= icon_delete_link admin_picture_path(picture) %></td><% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
   <%= paginate @pictures %>
+  <% unless @pictures.any? %>
+    <p class="lead"><%= t('messages.pictures.none') %></p>
+  <% end %>
 </div>
+<script id="template-upload" type="text/x-tmpl">
+  <div class="upload">
+    {%=o.name%}
+    <div class="progress progress-info progress-striped active"><div class="bar" style="width: 0%"></div></div>
+  </div>
+</script>

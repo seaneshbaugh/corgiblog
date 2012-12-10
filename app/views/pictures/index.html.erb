@@ -1,1 +1,18 @@
-<%= render 'index' %>
+<% content_for :page_title do %>
+  <% "Pictures - #{t('application.title')}" %>
+<% end %>
+<% content_for :meta_description do %>
+  LOL CONNEY'S SO SILLY
+<% end %>
+<div id="pictures" class="row">
+  <% @pictures.each do |picture| %>
+    <div class="picture">
+      <%= link_to image_tag("/uploads/picture/image/#{picture.image_file_name}", :alt => picture.alt_text), "/uploads/picture/image/#{picture.image_file_name}" %>
+    </div>
+  <% end %>
+</div>
+<div class="row">
+  <div class="span12">
+    <%= paginate @pictures %>
+  </div>
+</div>
