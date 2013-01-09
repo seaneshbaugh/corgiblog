@@ -8,14 +8,16 @@ class Admin::PagesController < Admin::AdminController
       @search = Page.search(params[:q])
     end
 
-    @pages = @search.result.page(params[:page]).order('pages.order ASC')
+    @pages = @search.result.page(params[:page]).order('pages.order ASC').per(25)
   end
 
   def show
     @page = Page.where(:slug => params[:id]).first
 
     if @page.nil?
-      redirect_to admin_pages_url, :notice => t('messages.pages.could_not_find')
+      flash[:error] = t('messages.pages.could_not_find')
+
+      redirect_to admin_pages_url
     end
   end
 
@@ -27,8 +29,16 @@ class Admin::PagesController < Admin::AdminController
     @page = Page.new(params[:page])
 
     if @page.save
-      redirect_to admin_pages_url, :notice => t('messages.pages.created')
+      flash[:success] = t('messages.pages.created')
+
+      if params[:redirect_to_new].present?
+        redirect_to new_admin_page_url
+      else
+        redirect_to admin_pages_url
+      end
     else
+      flash[:error] = @page.errors.full_messages.uniq.join('. ') + '.'
+
       render 'new'
     end
   end
@@ -37,7 +47,9 @@ class Admin::PagesController < Admin::AdminController
     @page = Page.where(:slug => params[:id]).first
 
     if @page.nil?
-      redirect_to admin_pages_url, :notice => t('messages.pages.could_not_find')
+      flash[:error] = t('messages.pages.could_not_find')
+
+      redirect_to admin_pages_url
     end
   end
 
@@ -45,12 +57,18 @@ class Admin::PagesController < Admin::AdminController
     @page = Page.where(:slug => params[:id]).first
 
     if @page.nil?
-      redirect_to admin_pages_url, :notice => t('messages.pages.could_not_find') and return
+      flash[:error] = t('messages.pages.could_not_find')
+
+      redirect_to admin_pages_url and return
     end
 
     if @page.update_attributes(params[:page])
-      redirect_to edit_admin_page_url(@page), :notice => t('messages.pages.updated')
+      flash[:success] = t('messages.pages.updated')
+
+      redirect_to edit_admin_page_url(@page)
     else
+      flash[:error] = @page.errors.full_messages.uniq.join('. ') + '.'
+
       render 'edit'
     end
   end
@@ -59,11 +77,15 @@ class Admin::PagesController < Admin::AdminController
     @page = Page.where(:slug => params[:id]).first
 
     if @page.nil?
-      redirect_to admin_pages_url, :notice => t('messages.pages.could_not_find') and return
+      flash[:error] = t('messages.pages.could_not_find')
+
+      redirect_to admin_pages_url and return
     end
 
     @page.destroy
 
-    redirect_to admin_pages_url, :notice => t('messages.pages.deleted')
+    flash[:success] = t('messages.pages.deleted')
+
+    redirect_to admin_pages_url
   end
 end

@@ -8,14 +8,16 @@ class Admin::UsersController < Admin::AdminController
       @search = User.search(params[:q])
     end
 
-    @users = @search.result.page(params[:page])
+    @users = @search.result.page(params[:page]).order('last_name ASC', 'first_name ASC').per(25)
   end
 
   def show
     @user = User.where(:id => params[:id]).first
 
     if @user.nil?
-      redirect_to admin_users_url, :notice => t('messages.users.could_not_find')
+      flash[:error] = t('messages.users.could_not_find')
+
+      redirect_to admin_users_url
     end
   end
 
@@ -27,8 +29,16 @@ class Admin::UsersController < Admin::AdminController
     @user = User.new(params[:user])
 
     if @user.save
-      redirect_to admin_users_url, :notice => t('messages.users.created')
+      flash[:success] = t('messages.users.created')
+
+      if params[:redirect_to_new].present?
+        redirect_to new_admin_user_url
+      else
+        redirect_to admin_users_url
+      end
     else
+      flash[:error] = @user.errors.full_messages.uniq.join('. ') + '.'
+
       render 'new'
     end
   end
@@ -37,7 +47,9 @@ class Admin::UsersController < Admin::AdminController
     @user = User.where(:id => params[:id]).first
 
     if @user.nil?
-      redirect_to admin_users_url, :notice => t('messages.users.could_not_find')
+      flash[:error] = t('messages.users.could_not_find')
+
+      redirect_to admin_users_url
     end
   end
 
@@ -45,12 +57,18 @@ class Admin::UsersController < Admin::AdminController
     @user = User.where(:id => params[:id]).first
 
     if @user.nil?
-      redirect_to admin_users_url, :notice => t('messages.users.could_not_find') and return
+      flash[:error] = t('messages.users.could_not_find')
+
+      redirect_to admin_users_url and return
     end
 
     if @user.update_attributes(params[:user])
-      redirect_to edit_admin_user_url(@user), :notice => t('messages.users.updated')
+      flash[:success] = t('messages.users.updated')
+
+      redirect_to edit_admin_user_url(@user)
     else
+      flash[:error] = @user.errors.full_messages.uniq.join('. ') + '.'
+
       render 'edit'
     end
   end
@@ -59,11 +77,15 @@ class Admin::UsersController < Admin::AdminController
     @user = User.where(:id => params[:id]).first
 
     if @user.nil?
-      redirect_to admin_users_url, :notice => t('messages.users.could_not_find') and return
+      flash[:error] = t('messages.users.could_not_find')
+
+      redirect_to admin_users_url and return
     end
 
     @user.destroy
 
-    redirect_to admin_users_url, :notice => t('messages.users.deleted')
+    flash[:success] = t('messages.users.deleted')
+
+    redirect_to admin_users_url
   end
 end

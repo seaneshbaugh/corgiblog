@@ -14,7 +14,7 @@
     <div class="clearfix" id="pictures">
       <% @pictures.each do |picture| %>
         <div class="picture" data-size="<%= 1 + rand(3) %>" data-time="<%= picture.created_at.to_i %>">
-          <%= link_to image_tag("/uploads/picture/image/medium_#{picture.image_file_name}", :alt => picture.alt_text), "/uploads/picture/image/#{picture.image_file_name}" %>
+          <%= link_to image_tag(picture.image.url(:medium), :alt => picture.alt_text), picture.image.url %>
         </div>
       <% end %>
     </div>

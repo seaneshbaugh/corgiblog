@@ -2,9 +2,9 @@ class Picture < ActiveRecord::Base
   attr_accessible :title, :alt_text, :caption, :image
 
   has_attached_file :image, { :convert_options => { :thumb => '-quality 75 -strip', :medium => '-quality 85 -strip' },
-                              :path => ":rails_root/public/uploads/#{Rails.env.test? ? 'test/' : ''}:class_singular/:attachment/:style_prefix:basename.:extension",
+                              :path => ":rails_root/public/uploads/#{Rails.env.test? ? 'test/' : ''}:class/:style_prefix:basename.:extension",
                               :styles => { :thumb => '100x100', :medium => '300x300' },
-                              :url => "/uploads/#{Rails.env.test? ? 'test/' : ''}:class_singular/:attachment/:style_prefix:basename.:extension" }
+                              :url => "/uploads/#{Rails.env.test? ? 'test/' : ''}:class/:style_prefix:basename.:extension" }
 
   validates_presence_of :title
 

@@ -8,14 +8,16 @@ class Admin::PostsController < Admin::AdminController
       @search = Post.search(params[:q])
     end
 
-    @posts = @search.result.page(params[:page]).order('created_at DESC')
+    @posts = @search.result.page(params[:page]).order('posts.created_at DESC').per(25)
   end
 
   def show
     @post = Post.where(:slug => params[:id]).first
 
     if @post.nil?
-      redirect_to admin_posts_url, :notice => t('messages.posts.could_not_find')
+      flash[:error] = t('messages.posts.could_not_find')
+
+      redirect_to admin_pages_url
     end
   end
 
@@ -31,8 +33,16 @@ class Admin::PostsController < Admin::AdminController
     end
 
     if @post.save
-      redirect_to admin_posts_url, :notice => t('messages.posts.created')
+      flash[:success] = t('messages.posts.created')
+
+      if params[:redirect_to_new].present?
+        redirect_to new_admin_post_url
+      else
+        redirect_to admin_posts_url
+      end
     else
+      flash[:error] = @post.errors.full_messages.uniq.join('. ') + '.'
+
       render 'new'
     end
   end
@@ -41,24 +51,32 @@ class Admin::PostsController < Admin::AdminController
     @post = Post.where(:slug => params[:id]).first
 
     if @post.nil?
-      redirect_to admin_posts_url, :notice => t('messages.posts.could_not_find')
+      flash[:error] = t('messages.posts.could_not_find')
+
+      redirect_to admin_postss_url
     end
   end
 
   def update
     @post = Post.where(:slug => params[:id]).first
 
-    unless current_user.sysadmin? || current_user.admin? || @post.user.nil?
+    if @post.nil?
+      flash[:error] = t('messages.posts.could_not_find')
+
+      redirect_to admin_posts_url and return
+    end
+
+    if !(current_user.sysadmin? || current_user.admin?) || @post.user.nil?
       @post.user = current_user
     end
 
-    if @post.nil?
-      redirect_to admin_posts_url, :notice => t('messages.posts.could_not_find') and return
-    end
-
     if @post.update_attributes(params[:post])
-      redirect_to edit_admin_post_url(@post), :notice => t('messages.posts.updated')
+      flash[:success] = t('messages.posts.updated')
+
+      redirect_to edit_admin_post_url(@post)
     else
+      flash[:error] = @post.errors.full_messages.uniq.join('. ') + '.'
+
       render 'edit'
     end
   end
@@ -67,11 +85,15 @@ class Admin::PostsController < Admin::AdminController
     @post = Post.where(:slug => params[:id]).first
 
     if @post.nil?
-      redirect_to admin_posts_url, :notice => t('messages.posts.could_not_find') and return
+      flash[:error] = t('messages.posts.could_not_find')
+
+      redirect_to admin_posts_url and return
     end
 
     @post.destroy
 
-    redirect_to admin_posts_url, :notice => t('messages.posts.deleted')
+    flash[:success] = t('messages.posts.deleted')
+
+    redirect_to admin_posts_url
   end
 end

@@ -8,14 +8,16 @@ class Admin::PicturesController < Admin::AdminController
       @search = Picture.search(params[:q])
     end
 
-    @pictures = @search.result.page(params[:page])
+    @pictures = @search.result.page(params[:page]).order('pictures.created_at DESC').per(25)
   end
 
   def show
     @picture = Picture.where(:id => params[:id]).first
 
     if @picture.nil?
-      redirect_to admin_pictures_url, :notice => t('messages.pictures.could_not_find')
+      flash[:error] = t('messages.pictures.could_not_find')
+
+      redirect_to admin_pictures_url
     end
   end
 
@@ -23,48 +25,28 @@ class Admin::PicturesController < Admin::AdminController
     @picture = Picture.new
   end
 
-  #TODO: Clean this up!
   def create
-    if params[:picture].present? && params[:picture][:image].present?
-      if params[:picture][:image].size == 1
+    respond_to do |format|
+      format.html {
         @picture = Picture.new(params[:picture])
 
         if @picture.save
-          redirect_to admin_pictures_url, :notice => t('messages.pictures.created')
-        else
-          render 'new'
-        end
-      else
-        errors = []
+          flash[:success] = t('messages.pictures.created')
 
-        params[:picture][:image].each do |file|
-          p = params[:picture]
-
-          p[:image] = file
-
-          picture = Picture.new(p)
-
-          unless picture.save
-            error = "#{t('messages.pictures.multiple_errors', :filename => p[:image].original_filename)}<br /><ul>"
-
-            error += picture.errors.to_a.map { |e| "<li>#{e}</li>"}.join('') + "</ul>"
-
-            errors << error
+          if params[:redirect_to_new].present?
+            redirect_to new_admin_picture_url
+          else
+            redirect_to admin_pictures_url
           end
-        end
-
-        if errors.blank?
-          redirect_to admin_pictures_url, :notice => t('messages.pictures.created_plural')
         else
-          @picture = Picture.new(params[:picture])
-
-          flash[:notice] = errors.join('')
+          flash[:error] = @picture.errors.full_messages.uniq.join('. ') + '.'
 
           render 'new'
         end
-      end
-    else
-      render 'new'
+      }
+      format.js {
+        @picture = Picture.create(params[:picture])
+      }
     end
   end
 
@@ -72,7 +54,9 @@ class Admin::PicturesController < Admin::AdminController
     @picture = Picture.where(:id => params[:id]).first
 
     if @picture.nil?
-      redirect_to admin_pictures_url, :notice => t('messages.pictures.could_not_find')
+      flash[:error] = t('messages.pictures.could_not_find')
+
+      redirect_to admin_pictures_url
     end
   end
 
@@ -80,12 +64,18 @@ class Admin::PicturesController < Admin::AdminController
     @picture = Picture.where(:id => params[:id]).first
 
     if @picture.nil?
-      redirect_to admin_pictures_url, :notice => t('messages.pictures.could_not_find') and return
+      flash[:error] = t('messages.pictures.could_not_find')
+
+      redirect_to admin_pictures_url and return
     end
 
     if @picture.update_attributes(params[:picture])
-      redirect_to edit_admin_picture_url(@picture), :notice => t('messages.pictures.updated')
+      flash[:success] = t('messages.pictures.updated')
+
+      redirect_to edit_admin_picture_url(@picture)
     else
+      flash[:error] = @picture.errors.full_messages.uniq.join('. ') + '.'
+
       render 'edit'
     end
   end
@@ -94,11 +84,21 @@ class Admin::PicturesController < Admin::AdminController
     @picture = Picture.where(:id => params[:id]).first
 
     if @picture.nil?
-      redirect_to admin_pictures_url, :notice => t('messages.pictures.could_not_find') and return
+      flash[:error] = t('messages.pictures.could_not_find')
+
+      redirect_to admin_pictures_url and return
     end
 
     @picture.destroy
 
-    redirect_to admin_pictures_url, :notice => t('messages.pictures.deleted')
+    flash[:success] = t('messages.pictures.deleted')
+
+    redirect_to admin_pictures_url
+  end
+
+  def selector
+    @pictures = Picture.order('created_at DESC')
+
+    render :layout => false
   end
 end
