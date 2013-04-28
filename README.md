@@ -8,13 +8,13 @@ This application is intended to be run on Ruby 1.8.7-p173. Due to limitations of
 
 ## Rails Version
 
-This application uses Rails 3.2.9
+This application uses Rails 3.2.13
 
 ## Required Gems
 
 The following gems are required to run this application:
 
-* rails (3.2.9)
+* rails (3.2.13)
 * mysql2
 * cancan
 * devise
