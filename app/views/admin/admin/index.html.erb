@@ -25,7 +25,7 @@
   <% end %>
   <% if can? :read, :system_information %>
     <div id="rails-info">
-      <h2><%= t('admin.sections.rails_info') %><% if Rails.env.production? %> <small>Deployed On: <% Time.parse(Rails.root.to_s.split('/').last).strftime('%m-%d-%Y %H:%M:%S') %></small><% end %></h2>
+      <h2><%= t('admin.sections.rails_info') %><% if Rails.env.production? %> <small>Deployed On: <%= Time.parse(Rails.root.to_s.split('/').last).strftime('%m-%d-%Y %H:%M:%S') %></small><% end %></h2>
       <%= Rails::Info.to_html.html_safe %>
     </div>
     <div id="routes">
