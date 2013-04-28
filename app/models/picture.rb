@@ -6,16 +6,35 @@ class Picture < ActiveRecord::Base
                               :styles => { :thumb => '100x100', :medium => '300x300' },
                               :url => "/uploads/#{Rails.env.test? ? 'test/' : ''}:class/:style_prefix:basename.:extension" }
 
+  validates_length_of   :title, :maximum => 65535
   validates_presence_of :title
 
-  validates_uniqueness_of :image_fingerprint
+  validates_length_of :alt_text, :maximum => 65535
+
+  validates_length_of :caption, :maximum => 65535
+
+  validates_uniqueness_of :image_fingerprint, :if => Proc.new { !Rails.env.test? }
 
   validates_attachment_presence :image
   validates_attachment_size :image, :less_than => 1024.megabytes
   validates_attachment_content_type :image, :content_type => ['image/gif', 'image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/svg+xml', 'image/tiff', 'image/x-png']
 
-  before_validation :modify_image_file_name
+  after_initialize do
+    if self.new_record?
+      self.title ||= ''
+      self.alt_text ||= ''
+      self.caption ||= ''
+      self.image_original_width ||= 1
+      self.image_original_height ||= 1
+      self.image_medium_width ||= 1
+      self.image_medium_height ||= 1
+      self.image_thumb_width ||= 1
+      self.image_thumb_height ||= 1
+    end
+  end
+
   before_validation :set_default_title
+  before_validation :modify_image_file_name
 
   before_post_process :image?
   after_post_process :save_image_dimensions
@@ -39,7 +58,6 @@ class Picture < ActiveRecord::Base
           extension = '.tiff'
         end
 
-        self.asset_content_type = 'application/pdf' if extension.match /pdf/
         self.image.instance_write :file_name, "#{basename}#{extension}"
       end
     end
@@ -50,7 +68,8 @@ class Picture < ActiveRecord::Base
   end
 
   def image?
-    #TODO: Add error message here. Currently this causes the save to fail no reason at all is indicated.
+    self.errors.add :image, 'is not an image'
+
     !(image_content_type =~ /^image.*/).nil?
   end
 
