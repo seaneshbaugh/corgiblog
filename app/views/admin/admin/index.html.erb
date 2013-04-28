@@ -23,22 +23,37 @@
       <% end %>
     </div>
   <% end %>
-  <div id="rails-info">
-    <h2><%= t('admin.sections.rails_info') %><% if Rails.env.production? %> <small>Deployed On: <% Time.parse(Rails.root.to_s.split('/').last).strftime('%m-%d-%Y %H:%M:%S') %></small><% end %></h2>
-    <%= Rails::Info.to_html.html_safe %>
-  </div>
-  <div id="routes">
-    <h2><%= t('admin.sections.routes') %></h2>
-    <pre>
-      <ul class="unstyled">
-        <%
-           routes = Rails.application.routes.routes
-           inspector = Rails::Application::RouteInspector.new
-        %>
-        <% inspector.format(routes, ENV['CONTROLLER']).each do |route| %>
-          <li><%= route %></li>
+  <% if can? :read, :system_information %>
+    <div id="rails-info">
+      <h2><%= t('admin.sections.rails_info') %><% if Rails.env.production? %> <small>Deployed On: <% Time.parse(Rails.root.to_s.split('/').last).strftime('%m-%d-%Y %H:%M:%S') %></small><% end %></h2>
+      <%= Rails::Info.to_html.html_safe %>
+    </div>
+    <div id="routes">
+      <h2><%= t('admin.sections.routes') %></h2>
+      <pre>
+        <ul class="unstyled">
+          <% Rails::Application::RouteInspector.new.format(Rails.application.routes.routes, ENV['CONTROLLER']).each do |route| %>
+            <li><%= route %></li>
+          <% end %>
+        </ul>
+      </pre>
+    </div>
+    <div id="gems">
+      <h2><%= t('admin.sections.gems') %></h2>
+      <ul>
+        <% get_gem_dependencies.each do |gem| %>
+          <li>
+            <%= gem[:name] %> (<%= gem[:version] %>)
+            <% if gem[:dependencies].present? %>
+              <ul>
+                <% gem[:dependencies].each do |dependency| %>
+                  <li><%= dependency[:name] %> (<%= dependency[:requirement] %>)</li>
+                <% end %>
+              </ul>
+            <% end %>
+          </li>
         <% end %>
       </ul>
-    </pre>
-  </div>
+    </div>
+  <% end %>
 </div>
