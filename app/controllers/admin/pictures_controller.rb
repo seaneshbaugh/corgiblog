@@ -2,13 +2,13 @@ class Admin::PicturesController < Admin::AdminController
   authorize_resource
 
   def index
-    if params[:q].present? && params[:q][:s].present?
-      @search = Picture.unscoped.search(params[:q])
-    else
-      @search = Picture.search(params[:q])
-    end
+    @search = Picture.search(params[:q])
 
-    @pictures = @search.result.page(params[:page]).order('pictures.created_at DESC').per(25)
+    if params[:all]
+      @pictures = @search.result.order('created_at DESC').page(1).per(Picture.count)
+    else
+      @pictures = @search.result.order('created_at DESC').page(params[:page])
+    end
   end
 
   def show
@@ -27,7 +27,7 @@ class Admin::PicturesController < Admin::AdminController
 
   def create
     respond_to do |format|
-      format.html {
+      format.html do
         @picture = Picture.new(params[:picture])
 
         if @picture.save
@@ -43,10 +43,11 @@ class Admin::PicturesController < Admin::AdminController
 
           render 'new'
         end
-      }
-      format.js {
+      end
+
+      format.js do
         @picture = Picture.create(params[:picture])
-      }
+      end
     end
   end
 

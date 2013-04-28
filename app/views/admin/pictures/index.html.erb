@@ -13,7 +13,7 @@
     </div>
   <% end %>
   <%= form_for [:admin, Picture.new], :html => { :data => { :accept => 'gif|jpe?g|png' } } do |f| %>
-    <%= f.file_field :image, :multiple => true, :name => 'picture[image]', :class => 'hidden' %>
+    <%= f.file_field :image, :name => 'picture[image]', :class => 'hidden' %>
   <% end %>
   <table class="table table-striped<% unless @pictures.any? %> hidden<% end %>">
     <thead>

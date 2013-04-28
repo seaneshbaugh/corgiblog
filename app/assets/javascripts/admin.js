@@ -147,7 +147,7 @@ $(function() {
             file = data.files[0];
 
             if (types.test(file.type) || types.test(file.name)) {
-                data.context = $(tmpl("template-upload", file));
+                data.context = $($.trim(tmpl("template-upload", file)));
 
                 $(this).append(data.context);
 
@@ -169,7 +169,7 @@ $(function() {
             if (data.context) {
                 data.context.find(".bar").css("width", "100%");
 
-                setTimeout(function(){
+                setTimeout(function() {
                     data.context.find(".progress").removeClass("progress-info active").delay(500).addClass("progress-success").parent().fadeOut(4000);
                 }, 500);
             }
