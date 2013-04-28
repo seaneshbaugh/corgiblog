@@ -70,7 +70,7 @@
   </table>
   <div class="form-actions">
     <%= link_to t('pictures.links.back_to_index'), admin_pictures_path, :class => 'btn' %>
-    <% if can? :edit, Picture, current_user %><%= link_to t('pictures.edit.title'), edit_admin_picture_path(@picture), :class => 'btn' %><% end %>
-    <% if can? :destroy, Picture, current_user %><%= link_to t('pictures.delete.title'), admin_picture_path(@picture), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
+    <% if can? :edit, Picture %><%= link_to t('pictures.edit.title'), edit_admin_picture_path(@picture), :class => 'btn' %><% end %>
+    <% if can? :destroy, Picture %><%= link_to t('pictures.delete.title'), admin_picture_path(@picture), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
   </div>
 </div>

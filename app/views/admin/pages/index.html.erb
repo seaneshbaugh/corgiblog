@@ -6,7 +6,7 @@
     <%= f.button '<i class="icon-search"></i> Search'.html_safe, :type => :submit, :class => 'btn btn-primary' %>
     <%= link_to '<i class="icon-remove"></i>'.html_safe, admin_pages_path, :class => 'btn', :rel => 'tooltip', :title => t('clear_search') %>
   <% end %>
-  <% if can? :create, Page, current_user %>
+  <% if can? :create, Page %>
     <div class="clearfix">
       <%= link_to t('pages.new.title'), new_admin_page_path, :class => 'btn btn-primary pull-right' %>
     </div>
@@ -17,8 +17,8 @@
         <tr>
           <th><%= sort_link @search, :name %></th>
           <th><%= sort_link @search, :slug %></th>
-          <% if can? :edit, Page, current_user %><th class="icon">&nbsp;</th><% end %>
-          <% if can? :destroy, Page, current_user %><th class="icon">&nbsp;</th><% end %>
+          <% if can? :edit, Page %><th class="icon">&nbsp;</th><% end %>
+          <% if can? :destroy, Page %><th class="icon">&nbsp;</th><% end %>
         </tr>
       </thead>
       <tbody>
@@ -26,8 +26,8 @@
           <tr>
             <td><%= link_to truncate(page.title, :length => 64).html_safe, admin_page_path(page) %></td>
             <td><%= page.slug %> <%= link_to '<i class="icon-share"></i>'.html_safe, "/#{page.slug}", :target => '_blank' %></td>
-            <% if can? :edit, Page, current_user %><td class="icon"><%= icon_edit_link edit_admin_page_path(page) %></td><% end %>
-            <% if can? :destroy, Page, current_user %><td class="icon"><%= icon_delete_link admin_page_path(page) %></td><% end %>
+            <% if can? :edit, Page %><td class="icon"><%= icon_edit_link edit_admin_page_path(page) %></td><% end %>
+            <% if can? :destroy, Page %><td class="icon"><%= icon_delete_link admin_page_path(page) %></td><% end %>
           </tr>
         <% end %>
       </tbody>

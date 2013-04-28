@@ -1,4 +1,4 @@
-<% if can?(:revert, object_type, current_user) && collection.present? %>
+<% if can?(:revert, object_type) && collection.present? %>
   <div id="deleted-<%= object_type.to_s.parameterize %>">
     <h2>Deleted <%= t("activerecord.models.#{object_type.to_s.underscore}").pluralize %><small></small></h2>
     <table class="table table-striped">

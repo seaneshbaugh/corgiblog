@@ -34,7 +34,7 @@
   </table>
   <div class="form-actions">
     <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn' %>
-    <% if can? :edit, Post, current_user %><%= link_to t('posts.edit.title'), edit_admin_post_path(@post), :class => 'btn' %><% end %>
-    <% if can? :destroy, Post, current_user %><%= link_to t('posts.delete.title'), admin_post_path(@post), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
+    <% if can? :edit, Post %><%= link_to t('posts.edit.title'), edit_admin_post_path(@post), :class => 'btn' %><% end %>
+    <% if can? :destroy, Post %><%= link_to t('posts.delete.title'), admin_post_path(@post), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
   </div>
 </div>

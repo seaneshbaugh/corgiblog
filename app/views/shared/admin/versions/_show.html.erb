@@ -1,4 +1,4 @@
-<% if can?(:revert, object.class, current_user) && object.persisted? && object.versions.present? %>
+<% if can?(:revert, object.class) && object.persisted? && object.versions.present? %>
   <h2>Previous Versions</h2>
   <table class="table table-striped">
     <thead>

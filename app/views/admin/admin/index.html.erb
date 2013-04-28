@@ -2,13 +2,13 @@
   <div id="quick-links" class="clearfix">
     <h2><%= t('admin.sections.quick_links') %></h2>
     <ul class="unstyled">
-      <% if can? :create, Post, current_user %><li class="posts-nav-link"><%= link_to (image_tag(image_path("icons/32x32/blog-post-add.png")) + '<br>'.html_safe + t('posts.new.title')), new_admin_post_path %></li><% end %>
-      <% if can? :create, Page, current_user %><li class="pages-nav-link"><%= link_to (image_tag(image_path("icons/32x32/page-add.png")) + '<br>'.html_safe + t('pages.new.title')), new_admin_page_path %></li><% end %>
-      <% if can? :create, Picture, current_user %><li class="pictures-nav-link"><%= link_to (image_tag(image_path("icons/32x32/image-add.png")) + '<br>'.html_safe + t('pictures.new.title')), new_admin_picture_path %></li><% end %>
-      <% if can? :create, User, current_user %><li class="users-nav-link"><%= link_to (image_tag(image_path("icons/32x32/user-add.png")) + '<br>'.html_safe + t('users.new.title')), new_admin_user_path %></li><% end %>
+      <% if can? :create, Post %><li class="posts-nav-link"><%= link_to (image_tag(image_path("icons/32x32/blog-post-add.png")) + '<br>'.html_safe + t('posts.new.title')), new_admin_post_path %></li><% end %>
+      <% if can? :create, Page %><li class="pages-nav-link"><%= link_to (image_tag(image_path("icons/32x32/page-add.png")) + '<br>'.html_safe + t('pages.new.title')), new_admin_page_path %></li><% end %>
+      <% if can? :create, Picture %><li class="pictures-nav-link"><%= link_to (image_tag(image_path("icons/32x32/image-add.png")) + '<br>'.html_safe + t('pictures.new.title')), new_admin_picture_path %></li><% end %>
+      <% if can? :create, User %><li class="users-nav-link"><%= link_to (image_tag(image_path("icons/32x32/user-add.png")) + '<br>'.html_safe + t('users.new.title')), new_admin_user_path %></li><% end %>
     </ul>
   </div>
-  <% if can? :create, Post, current_user %>
+  <% if can? :create, Post %>
     <div id="quick-post">
       <h2><%= t("admin.sections.quick_post") %></h2>
       <%= simple_form_for [:admin, Post.new], :html => { :class => 'form-horizontal' } do |f| %>

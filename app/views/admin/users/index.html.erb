@@ -7,7 +7,7 @@
     <%= f.button '<i class="icon-search"></i> Search'.html_safe, :type => :submit, :class => 'btn btn-primary' %>
     <%= link_to '<i class="icon-remove"></i>'.html_safe, admin_users_path, :class => 'btn', :rel => 'tooltip', :title => t('clear_search') %>
   <% end %>
-  <% if can? :create, User, current_user %>
+  <% if can? :create, User %>
     <div class="clearfix">
       <%= link_to t('users.new.title'), new_admin_user_path, :class => 'btn btn-primary pull-right' %>
     </div>
@@ -18,8 +18,8 @@
         <tr>
           <th><%= sort_link @search, :first_name, t('activerecord.attributes.user.full_name') %></th>
           <th><%= sort_link @search, :email %></th>
-          <% if can? :edit, User, current_user %><th class="icon">&nbsp;</th><% end %>
-          <% if can? :destroy, User, current_user %><th class="icon">&nbsp;</th><% end %>
+          <% if can? :edit, User %><th class="icon">&nbsp;</th><% end %>
+          <% if can? :destroy, User %><th class="icon">&nbsp;</th><% end %>
         </tr>
       </thead>
       <tbody>
@@ -27,8 +27,8 @@
           <tr>
             <td><%= link_to user.full_name, admin_user_path(user) %></td>
             <td><%= user.email %> <%= link_to '<i class="icon-envelope">'.html_safe, "mailto:#{user.email}", :rel => 'tooltip', :title => 'Send Email' %></td>
-            <% if can? :update, user, current_user %><td class="icon"><%= icon_edit_link edit_admin_user_path(user) %></td><% elsif can? :update, User, current_user %><td>&nbsp;</td><% end %>
-            <% if can? :destroy, user, current_user %><td class="icon"><%= icon_delete_link admin_user_path(user) %></td><% elsif can? :update, User, current_user %><td>&nbsp;</td><% end %>
+            <% if can? :update, user %><td class="icon"><%= icon_edit_link edit_admin_user_path(user) %></td><% elsif can? :update, User %><td>&nbsp;</td><% end %>
+            <% if can? :destroy, user %><td class="icon"><%= icon_delete_link admin_user_path(user) %></td><% elsif can? :update, User %><td>&nbsp;</td><% end %>
           </tr>
         <% end %>
       </tbody>

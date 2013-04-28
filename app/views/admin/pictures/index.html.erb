@@ -7,7 +7,7 @@
     <%= f.button '<i class="icon-search"></i> Search'.html_safe, :type => :submit, :class => 'btn btn-primary' %>
     <%= link_to '<i class="icon-remove"></i>'.html_safe, admin_pictures_path, :class => 'btn', :rel => 'tooltip', :title => t('clear_search') %>
   <% end %>
-  <% if can? :create, Picture, current_user %>
+  <% if can? :create, Picture %>
     <div class="clearfix">
       <%= link_to t('pictures.new.title'), new_admin_picture_path, :class => 'btn btn-primary pull-right' %>
     </div>
@@ -22,8 +22,8 @@
         <th class="hidden-phone"><%= sort_link @search, :title %></th>
         <th class="hidden-phone"><%= sort_link @search, :created_at %></th>
         <th class="hidden-phone"><%= sort_link @search, :updated_at %></th>
-        <% if can? :edit, Picture, current_user %><th class="icon">&nbsp;</th><% end %>
-        <% if can? :destroy, Picture, current_user %><th class="icon">&nbsp;</th><% end %>
+        <% if can? :edit, Picture %><th class="icon">&nbsp;</th><% end %>
+        <% if can? :destroy, Picture %><th class="icon">&nbsp;</th><% end %>
       </tr>
     </thead>
     <tbody>
@@ -33,8 +33,8 @@
           <td class="hidden-phone"><%= link_to truncate(picture.title, :length => 64), admin_picture_path(picture) %></td>
           <td class="hidden-phone"><%= picture.created_at %></td>
           <td class="hidden-phone"><%= picture.updated_at %></td>
-          <% if can? :edit, Picture, current_user %><td class="icon"><%= icon_edit_link edit_admin_picture_path(picture) %></td><% end %>
-          <% if can? :destroy, Picture, current_user %><td class="icon"><%= icon_delete_link admin_picture_path(picture) %></td><% end %>
+          <% if can? :edit, Picture %><td class="icon"><%= icon_edit_link edit_admin_picture_path(picture) %></td><% end %>
+          <% if can? :destroy, Picture %><td class="icon"><%= icon_delete_link admin_picture_path(picture) %></td><% end %>
         </tr>
       <% end %>
     </tbody>

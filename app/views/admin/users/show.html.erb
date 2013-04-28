@@ -57,7 +57,7 @@
   </table>
   <div class="form-actions">
     <%= link_to t('users.links.back_to_index'), admin_users_path, :class => 'btn' %>
-    <% if can? :edit, User, current_user %><%= link_to t('users.edit.title'), edit_admin_user_path(@user), :class => 'btn' %><% end %>
-    <% if can? :destroy, User, current_user %><%= link_to t('users.delete.title'), admin_user_path(@user), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
+    <% if can? :edit, User %><%= link_to t('users.edit.title'), edit_admin_user_path(@user), :class => 'btn' %><% end %>
+    <% if can? :destroy, User %><%= link_to t('users.delete.title'), admin_user_path(@user), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
   </div>
 </div>

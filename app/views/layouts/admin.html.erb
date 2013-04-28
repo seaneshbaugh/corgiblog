@@ -34,10 +34,10 @@
           <div class="nav-collapse collapse">
             <ul class="nav" role="navigation">
               <li><%= link_to t('navigation.admin_home'), admin_root_path, :class => is_active_controller?('admin/admin') %></li>
-              <% if can? :read, Post, current_user %><li class="post-nav-link"><%= link_to t('navigation.posts'), admin_posts_path, :class => is_active_controller?('admin/posts') %></li><% end %>
-              <% if can? :read, Page, current_user %><li class="page-nav-link"><%= link_to t('navigation.pages'), admin_pages_path, :class => is_active_controller?('admin/pages') %></li><% end %>
-              <% if can? :read, Picture, current_user %><li class="picture-nav-link"><%= link_to t('navigation.pictures'), admin_pictures_path, :class => is_active_controller?('admin/pictures') %></li><% end %>
-              <% if can? :read, User, current_user %><li class="user-nav-link"><%= link_to t('navigation.users'), admin_users_path, :class => is_active_controller?('admin/users') %></li><% end %>
+              <% if can? :read, Post %><li class="post-nav-link"><%= link_to t('navigation.posts'), admin_posts_path, :class => is_active_controller?('admin/posts') %></li><% end %>
+              <% if can? :read, Page %><li class="page-nav-link"><%= link_to t('navigation.pages'), admin_pages_path, :class => is_active_controller?('admin/pages') %></li><% end %>
+              <% if can? :read, Picture %><li class="picture-nav-link"><%= link_to t('navigation.pictures'), admin_pictures_path, :class => is_active_controller?('admin/pictures') %></li><% end %>
+              <% if can? :read, User %><li class="user-nav-link"><%= link_to t('navigation.users'), admin_users_path, :class => is_active_controller?('admin/users') %></li><% end %>
               <li class="site-home-nav-link"><%= link_to t('navigation.site_home'), root_path %></li>
               <li class="account-nav-link hidden-desktop"><%= link_to t('accounts.edit.title'), edit_admin_account_path, :class => is_active_controller?('admin/accounts') %></li>
               <li class="logout-nav-link hidden-desktop"><%= link_to t('navigation.sign_out'), logout_path, :method => :delete %></li>
