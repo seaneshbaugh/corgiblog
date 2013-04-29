@@ -14,6 +14,7 @@
       <%= simple_form_for [:admin, Post.new], :html => { :class => 'form-horizontal' } do |f| %>
         <fieldset>
           <%= f.input :title %>
+          <%= insert_picture_button 'post_body' %>
           <%= f.input :body %>
           <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
         </fieldset>
