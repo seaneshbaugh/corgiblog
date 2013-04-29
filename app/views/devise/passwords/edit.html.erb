@@ -1,4 +1,4 @@
-<div id="reset-password">
+<div id="reset-password" class="devise">
   <h1><%= t('devise.passwords.update_your_password') %></h1>
   <%= simple_form_for resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' } do |f| %>
     <fieldset>

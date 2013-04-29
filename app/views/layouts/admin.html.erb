@@ -40,13 +40,13 @@
               <% if can? :read, User %><li class="user-nav-link"><%= link_to t('navigation.users'), admin_users_path, :class => is_active_controller?('admin/users') %></li><% end %>
               <li class="site-home-nav-link"><%= link_to t('navigation.site_home'), root_path %></li>
               <li class="account-nav-link hidden-desktop"><%= link_to t('accounts.edit.title'), edit_admin_account_path, :class => is_active_controller?('admin/accounts') %></li>
-              <li class="logout-nav-link hidden-desktop"><%= link_to t('navigation.sign_out'), logout_path, :method => :delete %></li>
+              <li class="logout-nav-link hidden-desktop"><%= link_to t('navigation.sign_out'), destroy_user_session_path, :method => :delete %></li>
             </ul>
           </div>
           <div class="nav-collapse collapse pull-right visible-desktop">
             <ul class="nav">
               <li class="account-nav-link"><%= link_to t('accounts.edit.title'), edit_admin_account_path, :class => is_active_controller?('admin/accounts') %></li>
-              <li class="logout-nav-link"><%= link_to t('navigation.sign_out'), logout_path, :method => :delete %></li>
+              <li class="logout-nav-link"><%= link_to t('navigation.sign_out'), destroy_user_session_path, :method => :delete %></li>
             </ul>
           </div>
         </div>

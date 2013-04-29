@@ -154,6 +154,36 @@ footer.main {
   }
 }
 
+.devise {
+  margin-top: 45px;
+  padding: 0 25px 0 25px;
+
+  h1 {
+    color: #f60069;
+    font-family: "Lobster";
+    font-size: 35px;
+    font-weight: normal;
+    margin-left: 180px;
+  }
+
+  .form-actions {
+    background: transparent;
+    border-top: none;
+  }
+
+  .shared-links {
+    margin-left: 180px;
+
+    ul {
+      li {
+        a {
+          background: none;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 979px) {
   body {
     margin-top: 0;
@@ -176,6 +206,23 @@ footer.main {
       font-size: 20px;
       line-height: 20px;
       margin: 2px 0;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .devise {
+    h1 {
+      margin-left: 0;
+    }
+
+    .form-actions {
+      padding-left: 0;
+      padding-top: 0;
+    }
+
+    .shared-links {
+      margin-left: 0;
     }
   }
 }

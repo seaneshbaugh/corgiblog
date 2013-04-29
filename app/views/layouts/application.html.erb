@@ -51,7 +51,7 @@
             <li><%= link_to 'Contact', contact_path %></li>
             <% if current_user.present? %>
               <li class="admin-nav-link hidden-desktop"><%= link_to 'Admin Panel', admin_root_path %></li>
-              <li class="logout-nav-link hidden-desktop"><%= link_to t('navigation.sign_out'), logout_path, :method => :delete %></li>
+              <li class="logout-nav-link hidden-desktop"><%= link_to t('navigation.sign_out'), destroy_user_session_path, :method => :delete %></li>
             <% end %>
           </ul>
         </div>
@@ -59,7 +59,7 @@
           <div class="nav-collapse collapse pull-right visible-desktop">
             <ul class="nav">
               <li class="admin-nav-link hidden-desktop"><%= link_to 'Admin Panel', admin_root_path %></li>
-              <li class="logout-nav-link hidden-desktop"><%= link_to t('navigation.sign_out'), logout_path, :method => :delete %></li>
+              <li class="logout-nav-link hidden-desktop"><%= link_to t('navigation.sign_out'), destroy_user_session_path, :method => :delete %></li>
             </ul>
           </div>
         <% end %>
