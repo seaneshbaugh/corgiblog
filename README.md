@@ -50,9 +50,9 @@ Clone the repository.
 
     $ git clone git@github.com:seaneshbaugh/corgiblog.git corgiblog
 
-cd into the project directory. If you are using RVM you will be asked to trust the rvmrc. If you don't have ruby-1.8.7-p173 already you will want to install it before doing this.
+cd into the project directory. If you don't have ruby-1.8.7-p173 already you will want to install it before doing this.
 
-    $ cd portfolio
+    $ cd corgiblog
 
 Install the necessary gems.
 
