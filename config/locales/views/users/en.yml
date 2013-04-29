@@ -4,6 +4,7 @@ en:
   helpers:
     submit:
       user:
+        redirect_to_new: "Create and Add Another"
         create: "Add User"
         update: "Update User"
     button:

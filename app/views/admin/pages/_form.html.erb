@@ -3,10 +3,7 @@
   <fieldset>
     <legend><%= t('pages.sections.information') %></legend>
     <%= f.input :title %>
-    <div class="input string optional">
-      <label class="string optional control-label"></label>
-      <a href="javascript:void(0);" class="picture-selector-button btn">Insert Picture</a>
-    </div>
+    <%= insert_picture_button 'page_body' %>
     <%= f.input :body %>
     <%= f.input :style %>
     <%= f.input :meta_description %>

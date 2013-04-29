@@ -7,53 +7,42 @@
 //= require shared
 //= require_self
 
-$.fn.extend({
-    insertAtCaret: function(myValue) {
-        this.each(function(index) {
+jQuery.fn.extend({
+    insertAtCursor: function(myValue) {
+        return this.each(function() {
+            var selection, startPos, endPos, scrollTop;
+
             if (document.selection) {
                 this.focus();
 
-                var selection = document.selection.createRange();
+                selection = document.selection.createRange();
 
                 selection.text = myValue;
 
                 this.focus();
             } else {
-                if (this.selectionStart || this.selectionStart === "0") {
-                    var startPosition = this.selectionStart;
-                    var endPosition = this.selectionEnd;
-                    var scrollTop = this.scrollTop;
+                if (this.selectionStart || this.selectionStart == "0") {
+                    startPos = this.selectionStart;
 
-                    this.value = this.value.substring(0, startPosition) + myValue + this.value.substring(endPosition, this.value.length);
+                    endPos = this.selectionEnd;
+
+                    scrollTop = this.scrollTop;
+
+                    this.value = this.value.substring(0, startPos) + myValue + this.value.substring(endPos, this.value.length);
 
                     this.focus();
 
-                    this.selectionStart = startPosition + myValue.length;
+                    this.selectionStart = startPos + myValue.length;
 
-                    this.selectionEnd = startPosition + myValue.length;
+                    this.selectionEnd = startPos + myValue.length;
 
                     this.scrollTop = scrollTop;
                 } else {
                     this.value += myValue;
 
-                    this.selectionStart = myValue.length;
-
-                    this.selectionEnd = myValue.length;
-
                     this.focus();
                 }
             }
-        });
-    },
-    insertImageTagAtCaret: function(url, altText, title, isLink) {
-        this.each(function(index) {
-            var imageTag = "<img src=\"" + url.substr(0, url.indexOf("?")).trim() + "\" alt=\"" + altText.trim() + "\" title=\"" + title.trim() + "\">";
-
-            if (isLink) {
-                imageTag = "<a href=\"" + url.trim() + "\">" + imageTag.trim() + "</a>";
-            }
-
-            $(this).insertAtCaret(imageTag);
         });
     }
 });
@@ -109,33 +98,73 @@ $(function() {
         lastTextArea = this;
     });
 
-    $("body").on("click", ".picture-selector-button", function(event) {
+    $("body").on("click", ".insert-picture-button", function(event) {
+        var target;
+
         event.preventDefault();
 
-        if ($("#picture-selector").length === 0) {
-            $.get("/admin/pictures/selector", null, function(data, textStatus, jqXHR) {
-                $("body").append('<div id="picture-selector-container" class="hidden"></div>');
+        target = $(this).data("target");
 
-                $("#picture-selector-container").append('<a href="#picture-selector" id="picture-selector-activator" class="btn">Show Picture Selector</a>');
+        $.get("/admin/pictures/selector", null, function(data, textStatus, jqXHR) {
+            var container;
 
-                $("#picture-selector-container").append($(data));
+            container = $('<div id="insert-picture-container"></div>');
 
-                $("#picture-selector-activator").colorbox({height: "75%", inline: true, open: true, width: "75%"});
+            $(container).append($(data));
 
-            }, "html");
-        } else {
-            $("#picture-selector-activator").colorbox({height: "75%", inline: true, open: true, width: "75%"});
-        }
+            $(container).data("target", target);
+
+            $.colorbox({height: "75%", html: container, width: "75%"});
+        });
     });
 
-    $("body").on("click", ".picture-selector-picture img", function() {
-        if (lastTextArea !== undefined) {
-            $(lastTextArea).insertImageTagAtCaret($(this).data("url"), $(this).attr("alt"), $(this).attr("title"), false);
+    $("body").on("click", ".picture-selector-picture", function(event) {
+        var src, alt, title, img;
+
+        event.preventDefault();
+
+        src = $(this).data("picture-url");
+
+        if (src.indexOf("?") !== -1) {
+            src = src.substring(0, src.indexOf("?"));
         }
+
+        alt = $(this).data("picture-alt-text");
+
+        title = $(this).data("picture-title");
+
+        img = "<img src=\"" + src + "\" alt=\"" + alt + "\" title=\"" + title + "\">";
+
+//        if ($("#insert-picture-container").hasClass("ace")) {
+//            $($("#insert-picture-container").data("target")).data("editor").insert(img);
+//        } else {
+            $($("#insert-picture-container").data("target")).insertAtCursor(img);
+//        }
 
         $.colorbox.close();
     });
 
+    $("body").on("submit", "#picture-selector-filter", function(event) {
+        event.preventDefault();
+    });
+
+    $("body").on("keyup", "#filter-by-title", function(event) {
+        var filter;
+
+        if ($(this).val().length > 0) {
+            filter = $(this).val();
+
+            $(".picture-selector-picture").each(function() {
+                if ($(this).data("picture-title").toString().toLowerCase().match(filter.toLowerCase())) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        } else {
+            $(".picture-selector-picture").show();
+        }
+    });
 
     $("#pictures #new_picture").fileupload({
         dataType: "script",

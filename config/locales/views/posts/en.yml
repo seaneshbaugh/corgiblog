@@ -4,6 +4,7 @@ en:
   helpers:
     submit:
       post:
+        redirect_to_new: "Create and Add Another"
         create: "Add Post"
         update: "Update Post"
     button:

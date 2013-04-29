@@ -4,7 +4,8 @@ en:
   helpers:
     submit:
       picture:
-        create: "Add Picture(s)"
+        redirect_to_new: "Create and Add Another"
+        create: "Add Picture"
         update: "Update Picture"
     button:
       picture:

@@ -131,25 +131,36 @@ textarea {
   }
 }
 
-.picture-selector-button {
-  margin-left: 20px;
-}
-
-.picture-selector-preview {
-  margin: 10px 0 10px 180px;
-  width: 200px;
-}
-
-.picture-selector-picture{
-  float: left;
-  height: 200px;
-  margin: 10px;
+#picture-selector {
+  overflow: hidden;
   text-align: center;
-  width: 20%;
 
-  img {
-    cursor: pointer;
-    max-height: 180px;
+  #picture-selector-filter {
+    background: #ffffff;
+    display: block;
+    margin-bottom: 15px;
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    width: 100%;
+
+    label {
+      display: inline;
+    }
+  }
+
+  .picture-selector-picture {
+    display: inline-block;
+    height: 200px;
+    margin: 10px;
+    text-align: center;
+    width: 20%;
+    word-wrap: break-word;
+
+    img {
+      cursor: pointer;
+      max-height: 200px;
+    }
   }
 }
 

@@ -1,7 +1,11 @@
 <div id="picture-selector">
+  <form id="picture-selector-filter">
+    <label for="filter-by-title">Search: </label>
+    <input id="filter-by-title" name="filter-by-title" type="text">
+  </form>
   <% @pictures.each do |picture| %>
-    <div class="picture-selector-picture">
-      <%= image_tag picture.image.url(:medium), :alt => picture.alt_text, :title => picture.title, :data => { 'url' => picture.image.url, 'picture-id' => picture.id.to_s } %><br>
+    <div class="picture-selector-picture" data-picture-url="<%= picture.image.url %>" data-picture-alt-text="<%= picture.alt_text %>" data-picture-title="<%= picture.title %>">
+      <%= image_tag picture.image.url(:medium), :alt => picture.alt_text, :title => picture.title %><br>
       <%= picture.title %>
     </div>
   <% end %>
