@@ -2,15 +2,15 @@ class Admin::AccountsController < Admin::AdminController
   before_filter :authenticate_user!
 
   def show
-    @account = User.where(:id => current_user.id).first
+    @account = current_user
   end
 
   def edit
-    @account = User.where(:id => current_user.id).first
+    @account = current_user
   end
 
   def update
-    @account = User.where(:id => current_user.id).first
+    @account = current_user
 
     params[:account].delete(:role) if params[:account]
 
@@ -19,7 +19,7 @@ class Admin::AccountsController < Admin::AdminController
 
       flash[:success] = t('messages.accounts.updated')
 
-      redirect_to account_path
+      redirect_to admin_account_path
     else
       flash[:error] = @account.errors.full_messages.uniq.join('. ') + '.'
 

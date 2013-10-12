@@ -4,166 +4,114 @@
 //= require jquery-fileupload/vendor/tmpl
 //= require twitter/bootstrap
 //= require vendor_assets
+//= require ace
 //= require shared
 //= require_self
 
-jQuery.fn.extend({
-    insertAtCursor: function(myValue) {
-        return this.each(function() {
-            var selection, startPos, endPos, scrollTop;
-
-            if (document.selection) {
-                this.focus();
-
-                selection = document.selection.createRange();
-
-                selection.text = myValue;
-
-                this.focus();
-            } else {
-                if (this.selectionStart || this.selectionStart == "0") {
-                    startPos = this.selectionStart;
-
-                    endPos = this.selectionEnd;
-
-                    scrollTop = this.scrollTop;
-
-                    this.value = this.value.substring(0, startPos) + myValue + this.value.substring(endPos, this.value.length);
-
-                    this.focus();
-
-                    this.selectionStart = startPos + myValue.length;
-
-                    this.selectionEnd = startPos + myValue.length;
-
-                    this.scrollTop = scrollTop;
-                } else {
-                    this.value += myValue;
-
-                    this.focus();
-                }
-            }
-        });
-    }
-});
-
 $(function() {
-    $("[rel*=tooltip]").tooltip({placement: "top"});
-    $("[rel*=popover]").popover({trigger: "hover"});
-
-//    if (history && history.pushState) {
-//        $(document).on("click", ".ajax-link", function(event) {
-//            var ajaxTarget, href;
-//            event.preventDefault();
-//            ajaxTarget = "";
-//            if ($(this).data("ajax-target") !== void 0 && $(this).data("ajax-target") !== "") {
-//                ajaxTarget = $(this).data("ajax-taget");
-//            } else {
-//                ajaxTarget = "#content";
-//            }
-//            href = this.href;
-//            $(ajaxTarget).fadeOut(500, function() {
-//                return $.getScript(href, function() {
-//                    return $(ajaxTarget).fadeIn(500);
-//                });
-//            });
-//            return history.pushState(null, document.title, href);
-//        });
-//        $(document).on("submit", "#search", function(event) {
-//            var action, ajaxTarget, params;
-//            event.preventDefault();
-//            ajaxTarget = "";
-//            if ($(this).data("ajax-target") !== undefined) {
-//                ajaxTarget = $(this).data("ajax-target");
-//            } else {
-//                ajaxTarget = "#content";
-//            }
-//            action = this.action;
-//            params = $(this).serialize();
-//            $(ajaxTarget).fadeOut(400, function() {
-//                return $.getScript(action, params, null, function() {
-//                    return $(ajaxTarget).fadeIn(400);
-//                });
-//            });
-//            return history.pushState(null, document.title, action + "?" + params);
-//        });
-//        $(window).bind("popstate", function() {
-//            return $.getScript(location.href);
-//        });
-//    }
-
-    var lastTextArea = $("textarea").first();
-
-    $("textarea").on("focus", function() {
-        lastTextArea = this;
+    $("body").tooltip({
+        placement: "top",
+        selector: "[rel*=tooltip]"
     });
 
-    $("body").on("click", ".insert-picture-button", function(event) {
-        var target;
-
-        event.preventDefault();
-
-        target = $(this).data("target");
-
-        $.get("/admin/pictures/selector", null, function(data, textStatus, jqXHR) {
-            var container;
-
-            container = $('<div id="insert-picture-container"></div>');
-
-            $(container).append($(data));
-
-            $(container).data("target", target);
-
-            $.colorbox({height: "75%", html: container, width: "75%"});
-        });
+    $("body").popover({
+        selector: "[rel*=popover]",
+        trigger: "hover"
     });
 
-    $("body").on("click", ".picture-selector-picture", function(event) {
-        var src, alt, title, img;
+    $(".ace-editor").each(function() {
+        var editorContainer, editorID, editorName, textarea, mode, theme, editor;
 
-        event.preventDefault();
+        editorContainer = $(this);
 
-        src = $(this).data("picture-url");
+        editorID = editorContainer.attr("id");
 
-        if (src.indexOf("?") !== -1) {
-            src = src.substring(0, src.indexOf("?"));
+        // This expects the editor ID to be in the form of "model_name_attribute-editor"
+        editorName = "#" + editorID.split("-")[0];
+
+        textarea = $(editorName);
+
+        mode = editorContainer.data("mode").toLowerCase();
+
+        if (mode === "erb") {
+            mode = "rhtml";
         }
 
-        alt = $(this).data("picture-alt-text");
+        if (textarea.length === 1 && ["coffee", "css", "html", "javascript", "json", "less", "rhtml", "ruby", "text"].indexOf(mode) !== -1) {
+            $(textarea).hide();
 
-        title = $(this).data("picture-title");
+            editor = ace.edit(editorID);
 
-        img = "<img src=\"" + src + "\" alt=\"" + alt + "\" title=\"" + title + "\">";
+            $("#" + editorID).data("editor", editor);
 
-//        if ($("#insert-picture-container").hasClass("ace")) {
-//            $($("#insert-picture-container").data("target")).data("editor").insert(img);
-//        } else {
-            $($("#insert-picture-container").data("target")).insertAtCursor(img);
-//        }
+            theme = editorContainer.data("theme");
 
-        $.colorbox.close();
+            if (theme) {
+                theme = theme.toLowerCase();
+            } else {
+                theme = "pastel_on_dark";
+            }
+
+            editor.setTheme("ace/theme/" + theme);
+
+            editor.getSession().setMode("ace/mode/" + mode);
+
+            editor.getSession().setValue($(textarea).val());
+
+            editor.getSession().setTabSize(2);
+
+            editor.getSession().setUseSoftTabs(true);
+
+            editor.getSession().on("change", function() {
+                $(textarea).val(editor.getSession().getValue());
+            });
+        }
     });
 
-    $("body").on("submit", "#picture-selector-filter", function(event) {
+    $("body").on("submit", "#picture-selector-search-form", function(event) {
         event.preventDefault();
     });
 
-    $("body").on("keyup", "#filter-by-title", function(event) {
-        var filter;
+    $("body").on("keyup", "#filter-by-title", function() {
+        var filterTextBox, filterText;
 
-        if ($(this).val().length > 0) {
-            filter = $(this).val();
+        filterTextBox = $(this);
 
+        filterText = filterTextBox.val();
+
+        if (filterText.length > 0) {
             $(".picture-selector-picture").each(function() {
-                if ($(this).data("picture-title").toString().toLowerCase().match(filter.toLowerCase())) {
-                    $(this).show();
+                var picture;
+
+                picture = $(this);
+
+                if (picture.data("picture-title") && picture.data("picture-title").toString().toLowerCase().match(filterText.toLowerCase())) {
+                    picture.show();
                 } else {
-                    $(this).hide();
+                    picture.hide();
                 }
             });
         } else {
             $(".picture-selector-picture").show();
         }
+    });
+
+    $("body").on("click", ".picture-selector-picture", function(event) {
+        var picture, target, img;
+
+        event.preventDefault();
+
+        picture = $(this);
+
+        target = $(picture.closest(".modal").data("target"));
+
+        if (target.length > 0 && target.data("editor")) {
+            img = "<img src=\"" + picture.data("picture-url") + "\" alt=\"" + picture.data("picture-alt-text") + "\">";
+
+            target.data("editor").insert(img);
+        }
+
+        $("#picture-selector-modal").modal("hide");
     });
 
     $("#pictures #new_picture").fileupload({
@@ -191,21 +139,21 @@ $(function() {
             if (data.context) {
                 progress = parseInt(data.loaded / data.total * 100, 10);
 
-                data.context.find(".bar").css("width", progress + "%");
+                data.context.find(".progress-bar").css("width", progress + "%").attr("aria-valuenow", progress.toString());
             }
         },
         done: function(event, data) {
             if (data.context) {
-                data.context.find(".bar").css("width", "100%");
+                data.context.find(".progress-bar").css("width", "100%").attr("aria-valuenow", "100");
 
-                setTimeout(function() {
-                    data.context.find(".progress").removeClass("progress-info active").delay(500).addClass("progress-success").parent().fadeOut(4000);
+                setTimeout(function(){
+                    data.context.find(".progress").removeClass("active").find(".progress-bar").removeClass("progress-bar-info").delay(500).addClass("progress-bar-success").closest(".upload").fadeOut(4000);
                 }, 500);
             }
         },
         fail: function(event, data) {
             if (data.context) {
-                data.context.find(".progress").removeClass("progress-info active").delay(500).addClass("progress-danger");
+                data.context.find(".progress").removeClass("active").find(".progress-bar").removeClass("progress-bar-info").delay(500).addClass("progress-bar-danger");
             }
         }
     });

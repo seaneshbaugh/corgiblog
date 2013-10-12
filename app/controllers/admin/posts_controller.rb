@@ -1,14 +1,12 @@
 class Admin::PostsController < Admin::AdminController
+  before_filter :authenticate_user!
+
   authorize_resource
 
   def index
-    if params[:q].present? && params[:q][:s].present?
-      @search = Post.unscoped.search(params[:q])
-    else
-      @search = Post.search(params[:q])
-    end
+    @search = Post.search(params[:q])
 
-    @posts = @search.result.page(params[:page]).order('posts.created_at DESC').per(25)
+    @posts = @search.result.page(params[:page]).per(25).order('`posts`.`created_at` DESC')
   end
 
   def show
@@ -53,7 +51,7 @@ class Admin::PostsController < Admin::AdminController
     if @post.nil?
       flash[:error] = t('messages.posts.could_not_find')
 
-      redirect_to admin_postss_url
+      redirect_to admin_posts_url
     end
   end
 
@@ -66,8 +64,10 @@ class Admin::PostsController < Admin::AdminController
       redirect_to admin_posts_url and return
     end
 
-    if !(current_user.sysadmin? || current_user.admin?) || @post.user.nil?
-      @post.user = current_user
+    if !current_user.sysadmin? && !current_user.admin? && @post.user != current_user
+      flash[:error] = t('messages.posts.not_your_post')
+
+      redirect_to admin_posts_url and return
     end
 
     if @post.update_attributes(params[:post])
@@ -86,6 +86,12 @@ class Admin::PostsController < Admin::AdminController
 
     if @post.nil?
       flash[:error] = t('messages.posts.could_not_find')
+
+      redirect_to admin_posts_url and return
+    end
+
+    if !current_user.sysadmin? && !current_user.admin? && @post.user != current_user
+      flash[:error] = t('messages.posts.not_your_post')
 
       redirect_to admin_posts_url and return
     end

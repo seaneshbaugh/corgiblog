@@ -1,5 +1,5 @@
 Corgiblog::Application.routes.draw do
-  devise_for :users, :only => [:sessions, :passwords]
+  devise_for :users, :skip => [:sessions, :passwords, :registrations, :confirmations, :unlocks]
 
   devise_scope :user do
     get 'login' => 'devise/sessions#new', :as => :new_user_session
@@ -20,7 +20,9 @@ Corgiblog::Application.routes.draw do
 
   resources :posts, :only => [:show]
 
-  get '/sitemap' => 'sitemap#index', :as => :sitemap
+  get '/posts.rss' => 'posts#index', :format => :rss
+
+  get '/sitemap.xml' => 'sitemap#index', :as => :sitemap
 
   authenticate :user do
     namespace :admin do
@@ -41,9 +43,9 @@ Corgiblog::Application.routes.draw do
       resources :users
     end
 
-    delete 'versions/:id/destroy' => 'versions#destroy', :as => 'destroy_version'
+    delete 'versions/:id/destroy' => 'versions#destroy', :as => :destroy_version
 
-    post 'versions/:id/revert' => 'versions#revert', :as => 'revert_version'
+    post 'versions/:id/revert' => 'versions#revert', :as => :revert_version
   end
 
   root :to => 'posts#index'

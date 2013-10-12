@@ -1,14 +1,12 @@
 class Admin::PicturesController < Admin::AdminController
+  before_filter :authenticate_user!
+
   authorize_resource
 
   def index
     @search = Picture.search(params[:q])
 
-    if params[:all]
-      @pictures = @search.result.order('created_at DESC').page(1).per(Picture.count)
-    else
-      @pictures = @search.result.order('created_at DESC').page(params[:page])
-    end
+    @pictures = @search.result.page(params[:page]).per(25).order('`pictures`.`created_at` DESC')
   end
 
   def show
@@ -27,7 +25,7 @@ class Admin::PicturesController < Admin::AdminController
 
   def create
     respond_to do |format|
-      format.html do
+      format.html {
         @picture = Picture.new(params[:picture])
 
         if @picture.save
@@ -43,11 +41,10 @@ class Admin::PicturesController < Admin::AdminController
 
           render 'new'
         end
-      end
-
-      format.js do
+      }
+      format.js {
         @picture = Picture.create(params[:picture])
-      end
+      }
     end
   end
 
@@ -98,7 +95,7 @@ class Admin::PicturesController < Admin::AdminController
   end
 
   def selector
-    @pictures = Picture.order('created_at DESC')
+    @pictures = Picture.order('`pictures`.`created_at` DESC')
 
     render :layout => false
   end

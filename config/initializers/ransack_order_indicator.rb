@@ -3,9 +3,9 @@ module Ransack
     module FormHelper
       def order_indicator_for(order)
         if order == 'asc'
-          '<i class="icon-arrow-up"></i>'
+          '<span class="glyphicon glyphicon-chevron-up"></span>'
         elsif order == 'desc'
-          '<i class="icon-arrow-down"></i>'
+          '<span class="glyphicon glyphicon-chevron-down"></span>'
         else
           nil
         end

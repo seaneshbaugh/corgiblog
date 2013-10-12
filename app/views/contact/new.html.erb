@@ -5,17 +5,21 @@
   Tell Conney what's up.
 <% end %>
 <div id="contact" class="page row">
-  <h1 class="page-title span12">Contact</h1>
-  <div class="page-body span12">
-  <p>Conney loves hearing how cute she is.</p>
+  <header class="page-header col-xs-12">
+    <h1>Contact</h1>
+  </header>
+  <div class="page-body col-xs-12">
+    <p>Conney loves hearing how cute she is.</p>
     <%= simple_form_for @contact, :url => 'contact', :method => :post, :html => { :class => 'form-horizontal', :honeypot => true } do |f| %>
-      <fieldset>
-        <%= f.input :name, :as => :string %>
-        <%= f.input :email, :as => :email %>
-        <%= f.input :subject, :as => :string %>
-        <%= f.input :body, :as => :text %>
-      </fieldset>
-      <%= f.submit 'Submit', :class => 'btn btn-primary' %>
+      <%= f.input :name, :as => :string %>
+      <%= f.input :email, :as => :email %>
+      <%= f.input :subject, :as => :string %>
+      <%= f.input :body, :as => :text, :input_html => { :rows => '5' } %>
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+          <%= f.button :submit, 'Submit', :class => 'btn btn-primary' %>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>

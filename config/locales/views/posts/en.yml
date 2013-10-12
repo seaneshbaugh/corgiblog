@@ -12,6 +12,7 @@ en:
   messages:
     posts:
       could_not_find: "Could not find the specified post."
+      not_your_post: "You cannot edit other user's posts."
       created: "Post has been created."
       updated: "Post has been updated."
       deleted: "Post has been deleted."

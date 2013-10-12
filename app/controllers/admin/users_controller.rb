@@ -1,14 +1,12 @@
 class Admin::UsersController < Admin::AdminController
+  before_filter :authenticate_user!
+
   authorize_resource
 
   def index
-    if params[:q].present? && params[:q][:s].present?
-      @search = User.unscoped.search(params[:q])
-    else
-      @search = User.search(params[:q])
-    end
+    @search = User.search(params[:q])
 
-    @users = @search.result.page(params[:page]).order('last_name ASC', 'first_name ASC').per(25)
+    @users = @search.result.page(params[:page]).per(25).order('`users`.`last_name` ASC')
   end
 
   def show

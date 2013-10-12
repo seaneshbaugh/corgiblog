@@ -4,24 +4,12 @@
 <% content_for :meta_description do %>
   LOL CONNEY'S SO SILLY
 <% end %>
-<div class="row">
-  <div class="span12">
-    <div id="sort">
-      Sort by:
-      <button id="sort-date" class="btn btn-primary sort" data-sort-by="date">Date</button>
-      <button id="shuffle" class="btn btn-primary">Shuffle</button>
-    </div>
-    <div class="clearfix" id="pictures">
-      <% @pictures.each do |picture| %>
-        <div class="picture" data-size="<%= 1 + rand(3) %>" data-time="<%= picture.created_at.to_i %>">
-          <%= link_to image_tag(picture.image.url(:medium), :alt => picture.alt_text), picture.image.url %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="span12">
-    <%= paginate @pictures %>
-  </div>
+<div id="pictures">
+  <ul id="tiles">
+    <% @pictures.each do |picture| %>
+      <li>
+        <%= link_to image_tag(picture.image.url(:medium), :alt => picture.alt_text, :width => '190', :height => picture.scale_height(190)), picture.image.url %>
+      </li>
+    <% end %>
+  </ul>
 </div>

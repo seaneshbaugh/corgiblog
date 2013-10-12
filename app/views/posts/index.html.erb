@@ -1,8 +1,6 @@
-<div id="posts" class="row">
+<div id="posts">
   <% @posts.each do |post| %>
     <%= render 'post', :post => post %>
   <% end %>
-  <div class="span12">
-    <%= paginate @posts %>
-  </div>
+  <%= paginate @posts, :route => :root_path %>
 </div>

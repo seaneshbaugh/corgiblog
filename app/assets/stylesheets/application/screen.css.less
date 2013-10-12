@@ -1,16 +1,39 @@
+@import "twitter/bootstrap/variables.less";
+@import "application/variables.less";
+@import "twitter/bootstrap/mixins.less";
+@import "application/mixins.less";
+
 @font-face {
-  font-family: 'Lobster';
-  src: font-url('Lobster/Lobster.eot');
-  src: font-url('Lobster/Lobster.eot?#iefix') format('embedded-opentype'),
-  font-url('Lobster/Lobster.woff') format('woff'),
-  font-url('Lobster/Lobster.ttf') format('truetype');
+  font-family: "Lobster";
+  src: font-url("Lobster/Lobster.eot");
+  src: font-url("Lobster/Lobster.eot?#iefix") format("embedded-opentype"),
+  font-url("Lobster/Lobster.woff") format("woff"),
+  font-url("Lobster/Lobster.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
-body {
-  margin-top: 65px;
-  overflow-y: scroll;
+html, body {
+  height: 100%;
+}
+
+#content-wrap {
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -40px;
+  min-height: 100%;
+  padding: 60px 0 60px;
+}
+
+#main-footer {
+  background: transparent;
+  height: 40px;
+
+  p {
+    border-top: 3px #f9d4d4 dotted;
+    font-size: 10px;
+    text-align: center;
+  }
 }
 
 body:before {
@@ -32,72 +55,72 @@ a {
   }
 }
 
-.navbar-fixed-top, .navbar-fixed-bottom {
-  background: #ff41a1;
+.navbar {
+  > .container {
+    .navbar-brand {
+      font-size: 20px;
+      font-weight: 200;
+    }
+  }
+}
 
-  .brand {
-    color: #ffeaf2;
-    text-shadow: none;
+.navbar-default {
+  .navbar-nav {
+    > .active{
+      > a, > a:hover {
+        background: #ff41a1;
+        color: #ffffff;
+        text-shadow: -1px 1px 10px #f60069, 1px -1px 10px #ffffff;
+      }
+    }
+  }
+}
+
+.page {
+  .page-header {
+    border-bottom: none;
+    margin-bottom: 0;
+    margin-top: 0;
+
+    .page-title {
+      color: #f60069;
+      font-family: Lobster;
+      font-size: 35px;
+      font-weight: normal;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
   }
 
-  .navbar-inner {
-    background: none;
-    border: none;
-    box-shadow: none;
-    filter: none;
-  }
+  .page-body {
+    font-size: 16px;
+    font-weight: 200;
+    text-align: justify;
 
-  .nav > li > a {
-    color: #ffeaf2;
-    text-shadow: none;
+    .center {
+      text-align: center;
+    }
   }
 }
 
 .post {
-  &:not(:last-child) {
-    margin-bottom: 10px;
-  }
+  margin-bottom: 10px;
 
   .post-header {
+    margin-bottom: 10px;
+
     .post-title {
-      font-family: "Lobster";
-      font-size: 35px;
+      font-family: Lobster;
+      font-size: 24px;
       font-weight: normal;
-    }
-
-    .post-author {
-      font-family: "Georgia";
-      font-size: 22px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      line-height: 40px;
-      margin-bottom: 10px;
-      margin-top: 10px;
-    }
-
-    .post-date {
-      text-align: center;
-
-      .day {
-        font-size: 30px;
-        text-align: center;
-      }
-
-      .month {
-        font-size: 20px;
-        text-align: center;
-      }
-
-      .year {
-        font-size: 9px;
-        letter-spacing: 3px;
-        text-align: center;
-      }
+      line-height: 24px;
+      margin-bottom: 0;
+      margin-top: 0;
     }
 
     .post-metadata {
-      font-family: "Georgia";
-      font-size: 12px;
+      font-family: Georgia, serif;
+      font-size: 14px;
       font-weight: bold;
       letter-spacing: 1px;
     }
@@ -105,40 +128,20 @@ a {
 
   .post-body {
     font-size: 16px;
+    font-weight: 200;
+    text-align: justify;
+
+    img {
+      max-width: 100%;
+    }
+
+    .center {
+      text-align: center;
+    }
   }
 }
 
-.page {
-  .page-title {
-    color: #f60069;
-    font-family: "Lobster";
-    font-size: 35px;
-    font-weight: normal;
-  }
-
-  .page-body {
-    font-size: 16px;
-  }
-}
-
-#contact {
-  textarea {
-    height: 175px;
-    width: 80%;
-  }
-}
-
-footer.main {
-  border-top: 3px #f9d4d4 dotted;
-  font-size: 10px;
-  text-align: center;
-}
-
-.center {
-  text-align: center;
-}
-
-.video-pictures {
+.video-container {
   height: 0;
   overflow: hidden;
   padding-bottom: 56.25%;
@@ -154,164 +157,111 @@ footer.main {
   }
 }
 
-.devise {
-  margin-top: 45px;
-  padding: 0 25px 0 25px;
+#pictures {
+  margin: 30px 0;
+  position: relative;
 
-  h1 {
-    color: #f60069;
-    font-family: "Lobster";
-    font-size: 35px;
-    font-weight: normal;
-    margin-left: 180px;
+  #tiles {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    li {
+      background-color: #ffffff;
+      border: 1px solid #dedede;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      -webkit-border-radius: 2px;
+      cursor: pointer;
+      display: none;
+      padding: 4px;
+      width: 200px;
+
+      &.inactive {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      img {
+        display: block;
+      }
+
+      p {
+        color: #666666;
+        font-size: 12px;
+        margin: 7px 0 0 7px;
+      }
+    }
   }
+}
 
-  .form-actions {
-    background: transparent;
-    border-top: none;
-  }
+.wookmark-placeholder {
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  background-color: #eeeeee;
+  border: 1px solid #dedede;
+  z-index: -1;
+}
 
-  .shared-links {
-    margin-left: 180px;
+@media (min-width: @screen-xs) {
 
-    ul {
-      li {
-        a {
-          background: none;
+}
+
+@media (min-width: @screen-sm) {
+  .post {
+    .post-header {
+      .post-title {
+        font-size: 30px;
+        line-height: 30px;
+      }
+
+      .post-author {
+        font-family: Georgia, serif;
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 30px;
+      }
+
+      .post-date {
+        text-align: center;
+
+        .day {
+          font-size: 26px;
+          line-height: 20px;
+        }
+
+        .month {
+          font-size: 17px;
+          line-height: 13px;
+        }
+
+        .year {
+          font-size: 9px;
+          letter-spacing: 3px;
         }
       }
     }
   }
 }
 
-@media (max-width: 979px) {
-  body {
-    margin-top: 0;
-  }
-}
-
-@media (max-width: 767px) {
+@media (min-width: @screen-md) {
   .post {
     .post-header {
       .post-title {
-        font-size: 20px;
-        line-height: 20px;
-        margin: 2px 0;
+        font-size: 36px;
+        line-height: 36px;
+      }
+
+      .post-author {
+        font-size: 26px;
+        line-height: 36px;
       }
     }
   }
-
-  .page {
-    .page-title {
-      font-size: 20px;
-      line-height: 20px;
-      margin: 2px 0;
-    }
-  }
 }
 
-@media (max-width: 480px) {
-  .devise {
-    h1 {
-      margin-left: 0;
-    }
+@media (min-width: @screen-lg) {
 
-    .form-actions {
-      padding-left: 0;
-      padding-top: 0;
-    }
-
-    .shared-links {
-      margin-left: 0;
-    }
-  }
-}
-
-.isotope-item {
-  z-index: 2;
-}
-
-.isotope-hidden.isotope-item {
-  pointer-events: none;
-  z-index: 1;
-}
-
-.isotope,
-.isotope .isotope-item {
-  -webkit-transition-duration: 0.8s;
-  -moz-transition-duration: 0.8s;
-  -ms-transition-duration: 0.8s;
-  -o-transition-duration: 0.8s;
-  transition-duration: 0.8s;
-}
-
-.isotope {
-  -webkit-transition-property: height, width;
-  -moz-transition-property: height, width;
-  -ms-transition-property: height, width;
-  -o-transition-property: height, width;
-  transition-property: height, width;
-}
-
-.isotope .isotope-item {
-  -webkit-transition-property: -webkit-transform, opacity;
-  -moz-transition-property:    -moz-transform, opacity;
-  -ms-transition-property:     -ms-transform, opacity;
-  -o-transition-property:      -o-transform, opacity;
-  transition-property:         transform, opacity;
-}
-
-.isotope.no-transition,
-.isotope.no-transition .isotope-item,
-.isotope .isotope-item.no-transition {
-  -webkit-transition-duration: 0s;
-  -moz-transition-duration: 0s;
-  -ms-transition-duration: 0s;
-  -o-transition-duration: 0s;
-  transition-duration: 0s;
-}
-
-.isotope.infinite-scrolling {
-  -webkit-transition: none;
-  -moz-transition: none;
-  -ms-transition: none;
-  -o-transition: none;
-  transition: none;
-}
-
-html, body {
-  height: 100%;
-}
-
-#pictures {
-  padding: 5px;
-  margin-bottom: 20px;
-}
-
-.picture {
-  width: 104px;
-  margin: 5px;
-  float: left;
-  overflow: hidden;
-  position: relative;
-
-  img {
-    width: 104px;
-  }
-}
-
-.picture.width2 {
-  width: 218px;
-
-  img {
-    width: 218px;
-  }
-}
-
-.picture.width3 {
-  width: 332px;
-
-  img {
-    width: 332px;
-  }
 }

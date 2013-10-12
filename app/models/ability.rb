@@ -7,7 +7,7 @@ class Ability
     :sysadmin => 'sysadmin'
   }
 
-  def initialize user
+  def initialize(user)
     user ||= User.new
 
     cannot :manage, :all
@@ -28,7 +28,7 @@ class Ability
     end
   end
 
-  def self.valid_roles user
+  def self.valid_roles(user)
     roles = {}
 
     if user.role == ROLES[:admin]

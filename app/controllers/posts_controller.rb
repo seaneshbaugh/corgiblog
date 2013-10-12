@@ -2,11 +2,11 @@ class PostsController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @posts = Post.where(:visible => true).page(params[:page]).per(25).order('created_at DESC')
+        @posts = Post.where(:visible => true).includes(:user).page(params[:page]).per(25).order('`posts`.`created_at` DESC')
       end
 
       format.rss do
-        @posts = Post.where(:visible => true).order('created_at DESC')
+        @posts = Post.where(:visible => true).includes(:user).order('`posts`.`created_at` DESC')
       end
     end
   end

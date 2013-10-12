@@ -18,12 +18,11 @@ gem 'simple_form'
 gem 'yaml_db'
 
 group :assets do
-  gem 'coffee-rails'
   gem 'jquery-fileupload-rails'
   gem 'jquery-rails'
   gem 'less-rails'
+  gem 'less-rails-bootstrap'
   gem 'therubyracer'
-  gem 'twitter-bootstrap-rails'
   gem 'uglifier'
 end
 

@@ -1,23 +1,44 @@
-require 'nokogiri'
-
 class Post < ActiveRecord::Base
   attr_accessible :title, :body, :style, :meta_description, :meta_keywords, :user_id, :visible
 
-  belongs_to :user, :validate => true
-
   has_paper_trail
 
-  paginates_per 10
+  belongs_to :user, :validate => true
 
+  validates_length_of     :title, :maximum => 255
   validates_presence_of   :title
   validates_uniqueness_of :title
 
+  validates_length_of     :slug, :maximum => 255
   validates_presence_of   :slug
   validates_uniqueness_of :slug
 
+  validates_length_of :body, :maximum => 65535
+
+  validates_length_of :style, :maximum => 65535
+
+  validates_length_of :meta_description, :maximum => 65535
+
+  validates_length_of :meta_keywords, :maximum => 65535
+
   validates_uniqueness_of :tumblr_id, :allow_blank => true
 
-  validate :user_exists
+  validates_associated  :user
+  validates_presence_of :user_id
+
+  after_initialize do
+    if self.new_record?
+      self.title ||= ''
+      self.body ||= ''
+      self.style ||= ''
+      self.meta_description ||= ''
+      self.meta_keywords ||= ''
+
+      if self.visible.nil?
+        self.visible = true
+      end
+    end
+  end
 
   before_validation :generate_slug
 
@@ -39,14 +60,15 @@ class Post < ActiveRecord::Base
     end while posts.present?
   end
 
-  def self.import_from_tumblr id
+  def self.import_from_tumblr(id)
     post = HTTParty.get("http://api.tumblr.com/v2/blog/#{TUMBLR_SETTINGS['blog_url']}/posts/?api_key=#{TUMBLR_SETTINGS['api_key']}&id=#{id}&reblog_info=false&notes_info=false")['response']['posts'][0]
 
     Post.create_from_tumblr_json post
   end
 
-  def self.create_from_tumblr_json post
+  def self.create_from_tumblr_json(post)
     title = Tumblr.parse_title_from_hash(post)
+
     body = Tumblr.parse_body_from_hash(post)
 
     #case post['type']
@@ -189,10 +211,12 @@ class Post < ActiveRecord::Base
     t = title
     n = 1
 
-    begin
-      duplicate = Post.where('title = ? AND tumblr_id != ?', t, post['id']).first
+    duplicate = nil
 
-      if !duplicate.nil?
+    begin
+      duplicate = Post.where('`posts`.`title` = ? AND `posts`.`tumblr_id` != ?', t, post['id']).first
+
+      unless duplicate.nil?
         t = title + " #{n}"
         n += 1
       end
@@ -247,10 +271,12 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def first_image
-    body_doc = Nokogiri::HTML(self.body)
+  def truncated?
+    self.body.length > self.more.length
+  end
 
-    images = body_doc.xpath('//img')
+  def first_image
+    images = Nokogiri::HTML(self.body).xpath('//img')
 
     if images.length > 0
       images[0]['src']
@@ -267,10 +293,5 @@ class Post < ActiveRecord::Base
     else
       self.slug = self.title.gsub(/'/, '').parameterize
     end
-  end
-
-  def user_exists
-    #TODO: i18n this
-    errors.add(:user_id, 'Must be a user that exists.') if self.user_id && self.user.nil?
   end
 end

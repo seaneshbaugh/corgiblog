@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
 
   has_many :posts, :dependent => :destroy
 
+  validates_length_of     :username, :maximum => 255
+  validates_presence_of   :username
+  validates_uniqueness_of :username
+
   validates_format_of     :email, :with => Devise.email_regexp, :allow_blank => true
   validates_presence_of   :email
   validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
@@ -18,9 +22,23 @@ class User < ActiveRecord::Base
   validates_inclusion_of :role, :in => Ability::ROLES.map { |key, value| value }
   validates_presence_of  :role
 
+  validates_length_of   :first_name, :maximum => 255
   validates_presence_of :first_name
 
+  validates_length_of   :last_name, :maximum => 255
   validates_presence_of :last_name
+
+  after_initialize do
+    if self.new_record?
+      self.username ||= ''
+      self.email ||= ''
+      self.encrypted_password ||= ''
+      self.role ||= ''
+      self.first_name ||= ''
+      self.last_name ||= ''
+      self.sign_in_count ||= 0
+    end
+  end
 
   before_save :define_role
 

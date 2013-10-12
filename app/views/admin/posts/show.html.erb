@@ -1,40 +1,48 @@
-<div id="post" class="admin-content">
-  <h1><%= t('posts.show.title') %></h1>
-  <table class="table table-condensed table-striped">
-    <tbody>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.slug') %></th>
-        <td><%= @post.slug %> <%= link_to '<i class="icon-share"></i>'.html_safe, post_path(@post), :target => '_blank' %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.title') %></th>
-        <td><%= @post.title %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.body') %></th>
-        <td><pre><%= @post.body.html_safe %></pre></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.style') %></th>
-        <td><pre><%= @post.style.html_safe %></pre></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.visible') %></th>
-        <td><%= @post.visible ? t('yes') : t('no') %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.created_at') %></th>
-        <td><%= @post.created_at %></td>
-      </tr>
-      <tr>
-        <th class="span3"><%= t('activerecord.attributes.post.updated_at') %></th>
-        <td><%= @post.updated_at %></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="form-actions">
-    <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn' %>
-    <% if can? :edit, Post %><%= link_to t('posts.edit.title'), edit_admin_post_path(@post), :class => 'btn' %><% end %>
+<div id="post-<%= @post.id %>" class="admin-content">
+  <h2><%= t('posts.show.title') %> <small><%= truncate(@post.title, :length => 48) %></small></h2>
+  <div class="clearfix">
+    <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn btn-default' %>
+    <% if can? :edit, Post %><%= link_to t('posts.edit.title'), edit_admin_post_path(@post), :class => 'btn btn-primary' %><% end %>
+    <% if can? :destroy, Post %><%= link_to t('posts.delete.title'), admin_post_path(@post), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
+  </div>
+  <h3><%= t('posts.sections.information') %></h3>
+  <div class="table-responsive">
+    <table class="table table-condensed table-striped">
+      <tbody>
+        <tr>
+          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.title') %></th>
+          <td class="col-xs-8 col-sm-10"><%= @post.title %></td>
+        </tr>
+        <tr>
+          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.slug') %></th>
+          <td class="col-xs-8 col-sm-10"><%= @post.slug %> <%= link_to '<span class="glyphicon glyphicon-share"></span>'.html_safe, post_path(@post), :target => '_blank' %></td>
+        </tr>
+        <tr>
+          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.body') %></th>
+          <td class="col-xs-8 col-sm-10"><% if @post.body.present? %><pre><%= @post.body %></pre><% else %>&nbsp;<% end %></td>
+        </tr>
+        <tr>
+          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.style') %></th>
+          <td class="col-xs-8 col-sm-10"><% if @post.style.present? %><pre><%= @post.style %></pre><% else %>&nbsp;<% end %></td>
+        </tr>
+        <tr>
+          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.visible') %></th>
+          <td class="col-xs-8 col-sm-10"><%= @post.visible ? t('yes') : t('no') %></td>
+        </tr>
+        <tr>
+          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.created_at') %></th>
+          <td class="col-xs-8 col-sm-10"><%= @post.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        </tr>
+        <tr>
+          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.updated_at') %></th>
+          <td class="col-xs-8 col-sm-10"><%= @post.updated_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="clearfix">
+    <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn btn-default' %>
+    <% if can? :edit, Post %><%= link_to t('posts.edit.title'), edit_admin_post_path(@post), :class => 'btn btn-primary' %><% end %>
     <% if can? :destroy, Post %><%= link_to t('posts.delete.title'), admin_post_path(@post), :method => 'delete', :class => 'btn btn-danger', :data => { :confirm => t('confirm_delete') } %><% end %>
   </div>
 </div>

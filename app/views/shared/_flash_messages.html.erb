@@ -1,14 +1,14 @@
 <% flash.each do |name, message| %>
   <% if name == :debug %>
-    <div class="alert alert-info alert-block">
-      <button type="button" class="close" data-dismiss="alert">x</button>
+    <div class="alert alert-info alert-block alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <h4>Debug Info</h4>
       <br>
       <pre><%= message %></pre>
     </div>
   <% else %>
-    <div class="alert alert-<%= name.to_s %>">
-      <button type="button" class="close" data-dismiss="alert">x</button>
+    <div class="alert alert-<%= %w(success info warning danger).include?(name.to_s) ? name.to_s : 'info' %> alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <strong><%= name.to_s.capitalize %>!</strong> <%= message %>
     </div>
   <% end %>

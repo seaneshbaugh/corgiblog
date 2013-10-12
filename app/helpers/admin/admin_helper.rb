@@ -1,6 +1,6 @@
 module Admin::AdminHelper
-  def insert_picture_button(target)
-    render :partial => 'shared/insert_picture_button', :locals => { :target => target }
+  def picture_inserter(target)
+    render :partial => 'shared/admin/picture_inserter', :locals => { :target => target }
   end
 
   def get_gem_dependencies

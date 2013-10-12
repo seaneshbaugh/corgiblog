@@ -17,7 +17,7 @@ class Picture < ActiveRecord::Base
 
   validates_attachment_presence :image
   validates_attachment_size :image, :less_than => 1024.megabytes
-  validates_attachment_content_type :image, :content_type => ['image/gif', 'image/jpeg', 'image/jpg', 'image/pjpeg', 'image/png', 'image/svg+xml', 'image/tiff', 'image/x-png']
+  validates_attachment_content_type :image, :content_type => %w(image/gif image/jpeg image/jpg image/pjpeg image/png image/svg+xml image/tiff image/x-png)
 
   after_initialize do
     if self.new_record?
@@ -39,6 +39,22 @@ class Picture < ActiveRecord::Base
   before_post_process :image?
   after_post_process :save_image_dimensions
 
+  def scale_height(new_width)
+    new_width = new_width.to_f
+
+    ratio = self.image_original_width.to_f / self.image_original_height.to_f
+
+    (new_width / ratio).to_i
+  end
+
+  def scale_width(new_height)
+    new_height = new_height.to_f
+
+    ratio = self.image_original_height.to_f / self.image_original_width.to_f
+
+    (new_height / ratio).to_i
+  end
+
   protected
 
   def modify_image_file_name
@@ -46,7 +62,7 @@ class Picture < ActiveRecord::Base
       if image.dirty?
         current_time = Time.now
 
-        basename = (current_time.to_i.to_s + current_time.usec.to_s).ljust(16, '0')
+        basename = "#{current_time.to_i}#{current_time.usec}".ljust(16, '0')
 
         extension = File.extname(self.image_file_name).downcase
 
@@ -64,7 +80,7 @@ class Picture < ActiveRecord::Base
   end
 
   def set_default_title
-    self.title = File.basename(self.image_file_name, ".*").to_s if self.title.blank? && !self.image_file_name.blank?
+    self.title = File.basename(self.image_file_name, '.*').to_s if self.title.blank? && !self.image_file_name.blank?
   end
 
   def image?

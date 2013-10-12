@@ -1,12 +1,30 @@
-<div id="picture-selector">
-  <form id="picture-selector-filter">
-    <label for="filter-by-title">Search: </label>
-    <input id="filter-by-title" name="filter-by-title" type="text">
-  </form>
-  <% @pictures.each do |picture| %>
-    <div class="picture-selector-picture" data-picture-url="<%= picture.image.url %>" data-picture-alt-text="<%= picture.alt_text %>" data-picture-title="<%= picture.title %>">
-      <%= image_tag picture.image.url(:medium), :alt => picture.alt_text, :title => picture.title %><br>
-      <%= picture.title %>
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title">Select a picture</h4>
     </div>
-  <% end %>
+    <div class="modal-body">
+      <form id="picture-selector-search-form" class="form-inline">
+        <div class="form-group">
+          <label for="filter-by-title">Search: </label>
+          <input type="text" class="form-control" id="filter-by-title" name="filter-by-text">
+        </div>
+      </form>
+      <div id="picture-selector-pictures" class="row">
+        <% @pictures.each do |picture| %>
+          <div class="picture-selector-picture col-xs-6" data-picture-url="<%= picture.image.url %>" data-picture-title="<%= picture.title %>" data-picture-alt-text="<%= picture.alt_text %>" data-picture-caption="<%= picture.caption %>" data-picture-width="<%= picture.image_original_width %>" data-picture-height="<%= picture.image_original_height %>">
+            <div class="thumbnail">
+              <div class="image-wrap">
+                <%= image_tag picture.image.url(:medium), :alt => picture.alt_text, :title => picture.title, :data => { 'url' => picture.image.url, 'picture-id' => picture.id.to_s } %>
+              </div>
+              <div class="caption">
+                <h5><%= picture.title %></h5>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

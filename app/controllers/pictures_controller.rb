@@ -2,7 +2,7 @@ class PicturesController < ApplicationController
   def index
     @search = Picture.search(params[:q])
 
-    @pictures = @search.result.page(params[:page]).per(100).order('created_at DESC')
+    @pictures = @search.result.page(params[:page]).per(100).order('`pictures`.`created_at` DESC')
   end
 
   def show
