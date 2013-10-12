@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
 
   after_initialize do
     if self.new_record?
-      self.username ||= ''
       self.email ||= ''
       self.encrypted_password ||= ''
       self.role ||= ''
