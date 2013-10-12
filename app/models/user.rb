@@ -7,10 +7,6 @@ class User < ActiveRecord::Base
 
   has_many :posts, :dependent => :destroy
 
-  validates_length_of     :username, :maximum => 255
-  validates_presence_of   :username
-  validates_uniqueness_of :username
-
   validates_format_of     :email, :with => Devise.email_regexp, :allow_blank => true
   validates_presence_of   :email
   validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => true
