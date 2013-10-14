@@ -18,9 +18,11 @@
     <div class="col-lg-offset-2 col-lg-10">
       <%= link_to t('posts.links.back_to_index'), admin_posts_path, :class => 'btn btn-default' %>
       <%= f.button :submit, 'Submit', :class => 'btn btn-primary' %>
-      <label for="redirect_to_new">
-        <%= check_box_tag 'redirect_to_new', 1, true %> <%= t('helpers.submit.post.redirect_to_new') %>
-      </label>
+      <% unless @post.persisted? %>
+        <label for="redirect_to_new">
+          <%= check_box_tag 'redirect_to_new', 1, true %> <%= t('helpers.submit.post.redirect_to_new') %>
+        </label>
+      <% end %>
     </div>
   </div>
 <% end %>
