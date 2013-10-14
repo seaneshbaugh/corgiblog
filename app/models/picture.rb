@@ -55,6 +55,26 @@ class Picture < ActiveRecord::Base
     (new_height / ratio).to_i
   end
 
+  def as_json(options = {})
+    json = super(options)
+
+    options[:image_url].each do |image_size|
+      json["#{image_size}_image_url"] = self.image.url(image_size)
+    end
+
+    if options[:scaled_width]
+      json['scaled_width'] = options[:scaled_width]
+
+      json['scaled_height'] = self.scale_height(options[:scaled_width])
+    elsif options[:scaled_height]
+      json['scaled_height'] = options[:scaled_height]
+
+      json['scaled_width'] = self.scale_width(options[:scaled_height])
+    end
+
+    json
+  end
+
   protected
 
   def modify_image_file_name

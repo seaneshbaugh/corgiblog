@@ -2,7 +2,15 @@ class PicturesController < ApplicationController
   def index
     @search = Picture.search(params[:q])
 
-    @pictures = @search.result.page(params[:page]).per(100).order('`pictures`.`created_at` DESC')
+    @pictures = @search.result.page(params[:page]).per(30).order('`pictures`.`created_at` DESC')
+
+    respond_to do |format|
+      format.html
+
+      format.json do
+        render :json => @pictures.to_json(:only => [:title, :alt_text, :caption, :image_file_name, :image_original_width, :image_original_height], :image_url => [:medium, :original], :scaled_width => 190)
+      end
+    end
   end
 
   def show
