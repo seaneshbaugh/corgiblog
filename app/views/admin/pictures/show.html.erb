@@ -18,7 +18,7 @@
           <td class="col-xs-8 col-sm-10"><%= @picture.title %></td>
         </tr>
         <tr>
-          <th class="span3"><%= t('activerecord.attributes.picture.alt_text') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.picture.alt_text') %></th>
           <td class="col-xs-8 col-sm-10"><%= @picture.alt_text %></td>
         </tr>
         <tr>
@@ -67,7 +67,7 @@
         </tr>
         <tr>
           <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.picture.created_at') %></th>
-          <td><%= @picture.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+          <td class="col-xs-8 col-sm-10"><%= @picture.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
         </tr>
         <tr>
           <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.picture.updated_at') %></th>

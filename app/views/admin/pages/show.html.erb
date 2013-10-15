@@ -10,47 +10,47 @@
     <table class="table table-condensed table-striped">
       <tbody>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.title') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.title') %></th>
           <td class="col-xs-8 col-sm-10"><%= @page.title %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.slug') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.slug') %></th>
           <td class="col-xs-8 col-sm-10"><%= @page.slug %> <%= link_to '<span class="glyphicon glyphicon-share"></span>'.html_safe, "/#{@page.slug}", :target => '_blank' %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.body') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.body') %></th>
           <td class="col-xs-8 col-sm-10"><% if @page.body.present? %><pre><%= @page.body %></pre><% else %>&nbsp;<% end %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.style') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.style') %></th>
           <td class="col-xs-8 col-sm-10"><% if @page.style.present? %><pre><%= @page.style %></pre><% else %>&nbsp;<% end %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.meta_description') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.meta_description') %></th>
           <td class="col-xs-8 col-sm-10"><%= @page.meta_description %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.meta_keywords') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.meta_keywords') %></th>
           <td class="col-xs-8 col-sm-10"><%= @page.meta_keywords %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.order') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.order') %></th>
           <td class="col-xs-8 col-sm-10"><%= @page.order %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.show_in_menu') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.show_in_menu') %></th>
           <td class="col-xs-8 col-sm-10"><%= @page.show_in_menu ? t('yes') : t('no') %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.visible') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.visible') %></th>
           <td class="col-xs-8 col-sm-10"><%= @page.visible ? t('yes') : t('no') %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.created_at') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.created_at') %></th>
           <td class="col-xs-8 col-sm-10"><%= @page.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.page.updated_at') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.page.updated_at') %></th>
           <td class="col-xs-8 col-sm-10"><%= @page.updated_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
         </tr>
       </tbody>

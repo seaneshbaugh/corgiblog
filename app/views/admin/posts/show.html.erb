@@ -10,31 +10,39 @@
     <table class="table table-condensed table-striped">
       <tbody>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.title') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.post.title') %></th>
           <td class="col-xs-8 col-sm-10"><%= @post.title %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.slug') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.post.slug') %></th>
           <td class="col-xs-8 col-sm-10"><%= @post.slug %> <%= link_to '<span class="glyphicon glyphicon-share"></span>'.html_safe, post_path(@post), :target => '_blank' %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.body') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.post.body') %></th>
           <td class="col-xs-8 col-sm-10"><% if @post.body.present? %><pre><%= @post.body %></pre><% else %>&nbsp;<% end %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.style') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.post.style') %></th>
           <td class="col-xs-8 col-sm-10"><% if @post.style.present? %><pre><%= @post.style %></pre><% else %>&nbsp;<% end %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.visible') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.post.meta_description') %></th>
+          <td class="col-xs-8 col-sm-10"><% if @post.meta_description.present? %><pre><%= @post.meta_description %></pre><% else %>&nbsp;<% end %></td>
+        </tr>
+        <tr>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.post.meta_keywords') %></th>
+          <td class="col-xs-8 col-sm-10"><% if @post.meta_keywords.present? %><pre><%= @post.meta_keywords %></pre><% else %>&nbsp;<% end %></td>
+        </tr>
+        <tr>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.post.visible') %></th>
           <td class="col-xs-8 col-sm-10"><%= @post.visible ? t('yes') : t('no') %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.created_at') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.post.created_at') %></th>
           <td class="col-xs-8 col-sm-10"><%= @post.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
         </tr>
         <tr>
-          <th class="col-xs-4 col-sm-"><%= t('activerecord.attributes.post.updated_at') %></th>
+          <th class="col-xs-4 col-sm-2"><%= t('activerecord.attributes.post.updated_at') %></th>
           <td class="col-xs-8 col-sm-10"><%= @post.updated_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
         </tr>
       </tbody>
