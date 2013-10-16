@@ -1,20 +1,16 @@
 <div id="edit-account" class="admin-content">
   <h2><%= t('accounts.edit.title') %> <small>(<%= @account.email %>)</small></h2>
   <%= simple_form_for @account, :as => :accounts, :url => admin_account_path, :html => { :class => 'form-horizontal' } do |f| %>
-    <fieldset>
-      <legend><%= t('users.sections.contact_information') %></legend>
-      <%= f.input :first_name %>
-      <%= f.input :last_name %>
-    </fieldset>
-    <fieldset>
-      <legend><%= t('users.sections.account_information') %></legend>
-      <%= f.input :email %>
-      <%= f.input :password %>
-      <%= f.input :password_confirmation %>
-    </fieldset>
-    <div class="form-actions">
-      <%= link_to t('accounts.links.back_to_account'), admin_account_path, :class => 'btn' %>
-      <%= f.submit t('accounts.update.title'), :class => 'btn btn-primary' %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :email %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= link_to t('accounts.links.back_to_account'), admin_account_path, :class => 'btn btn-default' %>
+        <%= f.button :submit, t('accounts.update.title'), :class => 'btn btn-primary' %>
+      </div>
     </div>
   <% end %>
 </div>

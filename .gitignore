@@ -17,3 +17,4 @@ database.yml
 /vendor/bundle
 /config/smtp.yml
 /config/tumblr.yml
+/config/devise.yml
