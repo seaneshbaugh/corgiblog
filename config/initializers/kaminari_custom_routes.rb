@@ -29,24 +29,34 @@ module Kaminari
   end
 
   module Helpers
+    PARAM_KEY_BLACKLIST = :authenticity_token, :commit, :utf8, :_method
+
     class Tag
       def initialize(template, options = {})
         @template, @options = template, options.dup
 
-        @param_name = @options.delete(:param_name)
+        @param_name = @options.delete(:param_name) || Kaminari.config.param_name
 
         @route = @options.delete(:route)
 
-        @theme = @options[:theme] ? "#{@options.delete(:theme)}/" : ''
+        @theme = @options.delete(:theme)
 
-        @params = @options[:params] ? template.params.merge(@options.delete :params) : template.params
+        @views_prefix = @options.delete(:views_prefix)
+
+        @params = template.params.except(*PARAM_KEY_BLACKLIST).merge(@options.delete(:params) || {})
+
+        if @params.instance_variable_defined?(:@parameters) && !@params.respond_to?(:deep_merge)
+          @params = @params.instance_variable_get :@parameters
+        else
+          @params = @params.with_indifferent_access
+        end
       end
 
       def page_url_for(page)
         if @route && @route.respond_to?(:to_sym)
-          @template.send(@route.to_sym, @params.merge(@param_name => (page <= 1 ? nil : page)))
+          @template.send @route.to_sym, @params.reject { |k, _| ['controller', 'action'].include?(k) }.merge(@param_name => (page <= 1 ? nil : page))
         else
-          @template.url_for @params.merge(@param_name => (page <= 1 ? nil : page))
+          @template.url_for @params.merge(@param_name => (page <= 1 ? nil : page), only_path: true)
         end
       end
     end
