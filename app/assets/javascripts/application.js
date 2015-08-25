@@ -1,9 +1,11 @@
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require vendor_assets
 //= require shared
 //= require_self
+//= require turbolinks
 
 $.fn.fadingLinks = function(color, duration) {
     if (!duration) {
