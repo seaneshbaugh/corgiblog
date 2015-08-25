@@ -12,7 +12,17 @@ module Kaminari
   module ActionViewExtension
     module InstanceMethods
       def paginate(scope, options = {}, &block)
-        paginator = Kaminari::Helpers::Paginator.new self, options.reverse_merge(:current_page => scope.current_page, :num_pages => scope.num_pages, :per_page => scope.limit_value, :param_name => Kaminari.config.param_name, :remote => false, :route => :url_for)
+        default_options = {
+          current_page: scope.current_page,
+          num_pages: scope.num_pages,
+          per_page: scope.limit_value,
+          param_name: Kaminari.config.param_name,
+          remote: false,
+          route: :url_for
+        }
+
+        paginator = Kaminari::Helpers::Paginator.new self, options.reverse_merge(default_options)
+
         paginator.to_s
       end
     end
@@ -22,9 +32,13 @@ module Kaminari
     class Tag
       def initialize(template, options = {})
         @template, @options = template, options.dup
+
         @param_name = @options.delete(:param_name)
+
         @route = @options.delete(:route)
+
         @theme = @options[:theme] ? "#{@options.delete(:theme)}/" : ''
+
         @params = @options[:params] ? template.params.merge(@options.delete :params) : template.params
       end
 
