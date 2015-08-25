@@ -1,36 +1,37 @@
-require 'active_record/validations'
-require 'active_model/errors'
-
 class Contact
+  include Virtus.model
   include ActiveModel::Conversion
   include ActiveRecord::Validations
 
-  attr_accessor :name
-  attr_accessor :email
-  attr_accessor :subject
-  attr_accessor :body
+  # Attributes
+  attribute :name, String
+  attribute :email, String
+  attribute :subject, String
+  attribute :body, String
 
   attr_reader :errors
 
+  # Validations
+  validates_length_of :name, maximum: 128
   validates_presence_of :name
 
+  validates :email, email: { strict_mode: true }, allow_blank: true
   validates_presence_of :email
-  validates_format_of   :email, :with => RFC822::EmailAddress
 
+  validates_length_of :subject, minimum: 4, maximum: 128
   validates_presence_of :subject
-  validates_length_of   :subject, :minimum => 4, :maximum => 128
 
+  validates_length_of :body, minimum: 8, maximum: 2048
   validates_presence_of :body
-  validates_length_of   :body, :minimum => 8, :maximum => 2048
 
-  def initialize(args = nil)
+  def self._reflect_on_association(_attribute)
+    nil
+  end
+
+  def initialize(_args = nil)
     @errors = ActiveModel::Errors.new(self)
 
-    if args
-      args.each do |key, value|
-        instance_variable_set("@#{key}", value) unless value.nil?
-      end
-    end
+    super
   end
 
   def save
@@ -43,10 +44,20 @@ class Contact
     false
   end
 
-  def update_attribute
+  def update_attribute(_name, _value)
   end
 
   def persisted?
     false
+  end
+
+  def sanitize!
+    self.email = email.downcase.strip
+
+    self.subject = Sanitize.clean(subject).gsub(/\n|\r|\t/, '').strip
+
+    self.body = Sanitize.clean(body).gsub(/\r|\t/, '').strip
+
+    self
   end
 end
