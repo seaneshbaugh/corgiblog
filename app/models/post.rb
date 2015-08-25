@@ -1,46 +1,59 @@
+# -*- coding: utf-8 -*-
 class Post < ActiveRecord::Base
-  attr_accessible :title, :body, :style, :meta_description, :meta_keywords, :user_id, :visible
+  include OptionsForSelect
+  include Slugable
 
-  has_paper_trail
+  # Scopes
+  scope :alphabetical, -> { order(:title) }
 
-  belongs_to :user, :validate => true
+  scope :chronological, -> { order(:created_at) }
 
-  validates_length_of     :title, :maximum => 255
-  validates_presence_of   :title
-  validates_uniqueness_of :title
+  scope :published, -> { where(visible: true) }
 
-  validates_length_of     :slug, :maximum => 255
-  validates_presence_of   :slug
-  validates_uniqueness_of :slug
+  scope :reverse_alphabetical, -> { order('posts.title DESC') }
 
-  validates_length_of :body, :maximum => 65535
+  scope :reverse_chronological, -> { order('posts.created_at DESC') }
 
-  validates_length_of :style, :maximum => 65535
+  # Associations
+  belongs_to :user
 
-  validates_length_of :meta_description, :maximum => 65535
-
-  validates_length_of :meta_keywords, :maximum => 65535
-
-  validates_uniqueness_of :tumblr_id, :allow_blank => true
-
-  validates_associated  :user
+  # Validations
   validates_presence_of :user_id
 
-  after_initialize do
-    if self.new_record?
-      self.title ||= ''
-      self.body ||= ''
-      self.style ||= ''
-      self.meta_description ||= ''
-      self.meta_keywords ||= ''
+  validates_length_of :title, maximum: 255
+  validates_presence_of :title
+  validates_uniqueness_of :title
 
-      if self.visible.nil?
-        self.visible = true
-      end
-    end
-  end
+  validates_length_of :body, maximum: 16_777_215
 
-  before_validation :generate_slug
+  validates_length_of :style, maximum: 4_194_303
+
+  validates_length_of :meta_description, maximum: 65535
+
+  validates_length_of :meta_keywords, maximum: 65535
+
+  validates_inclusion_of :visible, in: [true, false], message: 'must be true or false'
+
+  validates_associated :user
+
+  # Default Values
+  default_value_for :title, ''
+
+  default_value_for :slug, ''
+
+  default_value_for :body, ''
+
+  default_value_for :style, ''
+
+  default_value_for :meta_description, ''
+
+  default_value_for :meta_keywords, ''
+
+  default_value_for :visible, true
+
+  acts_as_taggable
+
+  has_paper_trail
 
   def published?
     visible
@@ -259,39 +272,25 @@ class Post < ActiveRecord::Base
     new_post.save
   end
 
-  def to_param
-    self.slug
-  end
-
   def more
-    if self.body.include?('<!--more-->')
-      self.body[0..self.body.index('<!--more-->') - 1]
+    if body.include?('<!--more-->')
+      body[0..body.index('<!--more-->') - 1]
     else
-      self.body
+      body
     end
   end
 
   def truncated?
-    self.body.length > self.more.length
+    body.length > more.length
   end
 
   def first_image
-    images = Nokogiri::HTML(self.body).xpath('//img')
+    images = Nokogiri::HTML(body).xpath('//img')
 
     if images.length > 0
       images[0]['src']
     else
       nil
-    end
-  end
-
-  protected
-
-  def generate_slug
-    if self.title.blank?
-      self.slug = self.id.to_s
-    else
-      self.slug = self.title.gsub(/'/, '').parameterize
     end
   end
 end
