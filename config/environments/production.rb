@@ -91,7 +91,6 @@ Rails.application.configure do
 
   config.action_mailer.raise_delivery_errors = true
 
-  # Set mailer host to seaneshbaugh.com for in email links
   config.action_mailer.default_url_options = { host: 'conneythecorgi.com' }
 
   config.middleware.use ExceptionNotifier, sender_address: 'exception@conneythecorgi.com', exception_recipients: 'seaneshbaugh@gmail.com'
