@@ -4,16 +4,20 @@ class ContactController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(params[:contact])
+    @contact = Contact.new(contact_params)
 
     if @contact.valid?
-      ContactMailer.contact_form_message(@contact).deliver
+      ContactJob.perform_later(@contact.to_json)
 
-      flash[:success] = 'Thank you for your message! Conney will get back to you soon.'
-
-      redirect_to root_url
+      render 'thanks'
     else
       render 'new'
     end
+  end
+
+  private
+
+  def contact_params
+    params.require(:contact).permit(:name, :email, :subject, :body)
   end
 end
