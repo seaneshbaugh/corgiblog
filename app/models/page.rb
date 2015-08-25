@@ -1,55 +1,60 @@
 class Page < ActiveRecord::Base
-  attr_accessible :title, :body, :style, :meta_description, :meta_keywords, :order, :show_in_menu, :visible
+  include OptionsForSelect
+  include Slugable
+
+  # Scopes
+  scope :alphabetical, -> { order(:title) }
+
+  scope :by_order, -> { order(:order) }
+
+  scope :in_menu, -> { where(show_in_menu: true) }
+
+  scope :published, -> { where(visible: true) }
+
+  scope :reverse_alphabetical, -> { order('pages.title DESC') }
+
+  validates_length_of :title, maximum: 255
+  validates_presence_of :title
+  validates_uniqueness_of :title
+
+  validates_length_of :body, maximum: 16_777_215
+
+  validates_length_of :style, maximum: 4_194_303
+
+  validates_length_of :meta_description, maximum: 65535
+
+  validates_length_of :meta_keywords, maximum: 65535
+
+  validates_inclusion_of :order, in: -2_147_483_648..2_147_483_647, message: 'is out of range'
+  validates_numericality_of :order, only_integer: true
+
+  validates_inclusion_of :show_in_menu, in: [true, false], message: 'must be true or false'
+
+  validates_inclusion_of :visible, in: [true, false], message: 'must be true or false'
+
+  # Default Values
+  default_value_for :title, ''
+
+  default_value_for :slug, ''
+
+  default_value_for :body, ''
+
+  default_value_for :style, ''
+
+  default_value_for :meta_description, ''
+
+  default_value_for :meta_keywords, ''
+
+  default_value_for :order, 0
+
+  default_value_for :show_in_menu, true
+
+  default_value_for :visible, true
 
   has_paper_trail
 
-  validates_length_of     :title, :maximum => 255
-  validates_presence_of   :title
-  validates_uniqueness_of :title
-
-  validates_length_of     :slug, :maximum => 255
-  validates_presence_of   :slug
-  validates_uniqueness_of :slug
-
-  validates_length_of :body, :maximum => 65535
-
-  validates_length_of :style, :maximum => 65535
-
-  validates_length_of :meta_description, :maximum => 65535
-
-  validates_length_of :meta_keywords, :maximum => 65535
-
-  after_initialize do
-    if self.new_record?
-      self.title ||= ''
-      self.body ||= ''
-      self.style ||= ''
-      self.meta_description ||= ''
-      self.meta_keywords ||= ''
-      self.order ||= 0
-
-      if self.show_in_menu.nil?
-        self.show_in_menu = true
-      end
-
-      if self.visible.nil?
-        self.visible = true
-      end
-    end
-  end
-
-  before_validation :generate_slug
-
-  def published?
-    visible
-  end
-
-  def to_param
-    self.slug
-  end
-
   def first_image
-    body_doc = Nokogiri::HTML(self.body)
+    body_doc = Nokogiri::HTML(body)
 
     images = body_doc.xpath('//img')
 
@@ -60,13 +65,7 @@ class Page < ActiveRecord::Base
     end
   end
 
-  protected
-
-  def generate_slug
-    if self.title.blank?
-      self.slug = self.id.to_s
-    else
-      self.slug = self.title.parameterize
-    end
+  def published?
+    visible
   end
 end
