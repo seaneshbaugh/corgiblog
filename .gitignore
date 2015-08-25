@@ -5,7 +5,6 @@
 .rbenv-version
 .redcar/
 .sass-cache/
-database.yml
 /db/*.sqlite3
 /log/*.log
 /public/assets
