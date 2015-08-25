@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h1 New Contact Form Message
+    %h2 Name
+    %p= @contact.name
+    %h2 Email
+    %p= @contact.email
+    %h2 Subject
+    %p= @contact.subject
+    %h2 Body
+    %p= @contact.body.split("\n").reject { |line| line.empty? }.join('<br><br>').html_safe

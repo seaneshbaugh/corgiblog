@@ -1,0 +1,18 @@
+New Contact Form Message
+\========================
+
+Name
+\------------------------
+= @contact.name
+
+Email
+\------------------------
+= @contact.email
+
+Subject
+\------------------------
+= @contact.subject
+
+Body
+\------------------------
+= @contact.body.split("\n").reject { |line| line.empty? }.join("\n\n")
