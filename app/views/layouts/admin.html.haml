@@ -36,7 +36,7 @@
             - if can? :read, User
               = nav_link_to 'Users', admin_users_path, {}, { segments: 2, wrapper: 'li' }
           %ul.nav.navbar-nav.navbar-right
-            %li= link_to 'Site Home', root_path
+            %li= link_to 'Site Home', root_path, data: { no_turbolink: true }
             = nav_link_to 'My Account', edit_admin_account_path, {}, { segments: 2, wrapper: 'li' }
             %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
     %main#content.container

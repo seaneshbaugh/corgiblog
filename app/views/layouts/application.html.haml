@@ -45,7 +45,7 @@
             - if current_user.present?
               %ul.nav.navbar-nav.navbar-right
                 %li
-                  = link_to 'Admin Panel', admin_root_path
+                  = link_to 'Admin Panel', admin_root_path, data: { no_turbolink: true }
                 %li
                   = link_to 'Sign Out', destroy_user_session_path, method: :delete
       %main#content.container
