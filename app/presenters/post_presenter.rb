@@ -61,9 +61,6 @@ class PostPresenter < BasePresenter
 
       body_content_tag + more_link
     else
-      puts @post.body.inspect
-      puts body_tag
-
       body_tag
     end
   end
