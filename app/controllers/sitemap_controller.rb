@@ -1,12 +1,12 @@
 class SitemapController < ApplicationController
   def index
-    @pages = Page.where(:visible => true).order('`pages`.`order` ASC')
+    @pages = Page.published.by_order
 
-    @posts = Post.where(:visible => true).order('`posts`.`created_at` DESC')
+    @posts = Post.published.reverse_chronological
 
     respond_to do |format|
       format.xml do
-        render :layout => false
+        render layout: false
 
         headers['Content-Type'] = 'application/xml'
       end

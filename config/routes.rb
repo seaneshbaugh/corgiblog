@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   get '/posts.rss' => 'posts#index', defaults: { format: :rss }
 
-  get '/sitemap.xml' => 'sitemap#index', as: :sitemap
+  get '/sitemap.xml' => 'sitemap#index', as: :sitemap, defaults: { format: :xml }
 
   authenticate :user do
     namespace :admin do
