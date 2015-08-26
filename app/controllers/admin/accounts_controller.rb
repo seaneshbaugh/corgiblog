@@ -1,23 +1,17 @@
 class Admin::AccountsController < Admin::AdminController
-  before_filter :authenticate_user!
+  before_action :set_account, only: [:show, :edit, :update]
 
   def show
-    @account = current_user
   end
 
   def edit
-    @account = current_user
   end
 
   def update
-    @account = current_user
+    if @account.update(account_params)
+      sign_in(@account, bypass: true)
 
-    params[:account].delete(:role) if params[:account]
-
-    if @account.update_attributes(params[:account])
-      sign_in(@account, :bypass => true)
-
-      flash[:success] = t('messages.accounts.updated')
+      flash[:success] = 'Your account was successfully updated.'
 
       redirect_to admin_account_path
     else
@@ -25,5 +19,15 @@ class Admin::AccountsController < Admin::AdminController
 
       render 'edit'
     end
+  end
+
+  private
+
+  def set_account
+    @account = current_user
+  end
+
+  def account_params
+    params.required(:account).permit(:email, :password, :password_confirmation, :first_name, :last_name)
   end
 end
