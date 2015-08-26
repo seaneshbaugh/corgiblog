@@ -83,6 +83,12 @@ class PostPresenter < BasePresenter
     @post.body.include?('<!--more-->')
   end
 
+  def tumblr_link
+    return unless @post.tumblr_id.present?
+
+    link_to 'Originally posted by Casie on Tumblr', "http://conneythecorgi.tumblr.com/#{@post.tumblr_id}"
+  end
+
   def updated_at(format = nil)
     return unless @post.updated_at
 
