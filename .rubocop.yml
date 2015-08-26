@@ -1,0 +1,30 @@
+AllCops:
+  Exclude:
+    - bin/**/*
+    - config/**/*
+    - db/**/*
+    - script/**/*
+
+AbcSize:
+  Enabled: false
+
+ClassLength:
+  Enabled: false
+
+CyclomaticComplexity:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+MethodLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+NumericLiterals:
+  MinDigits: 6
+
+PerceivedComplexity:
+  Enabled: false
