@@ -4,11 +4,6 @@ class Picture < ActiveRecord::Base
                     styles: -> (_) { attachment_styles },
                     url: :attachment_url
 
-                    # has_attached_file :image, { :convert_options => { :thumb => '-quality 75 -strip', :medium => '-quality 85 -strip' },
-                    #           :path => ":rails_root/public/uploads/#{Rails.env.test? ? 'test/' : ''}:class/:style_prefix:basename.:extension",
-                    #           :styles => { :thumb => '100x100', :medium => '300x300' },
-                    #           :url => "/uploads/#{Rails.env.test? ? 'test/' : ''}:class/:style_prefix:basename.:extension" }
-
   # Scopes
   scope :chronological, -> { order(:created_at) }
 
@@ -58,12 +53,14 @@ class Picture < ActiveRecord::Base
     {
       thumb: {
         geometry: '100x100',
-        format: :jpg,
         convert_options: '-quality 75 -strip'
+      },
+      small: {
+        geometry: '300x300',
+        convert_options: '-quality 80 -strip'
       },
       medium: {
         geometry: '800x800',
-        format: :jpg,
         convert_options: '-quality 85 -strip'
       }
     }
