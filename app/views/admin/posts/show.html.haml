@@ -1,0 +1,55 @@
+- present @post do |post_presenter|
+  %h2= post_presenter.title
+  .admin-actions
+    = link_to 'Back to Index', admin_posts_path, class: 'btn btn-default'
+    - if can? :edit, @post
+      = link_to 'Edit', edit_admin_post_path(@post), class: 'btn btn-primary'
+    - if can? :destroy, @post
+      = link_to 'Delete', admin_post_path(@post), class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
+  %h3 Post Attributes
+  .post.attributes
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.title Title
+      .col-xs-12.col-sm-10.attribute-value.title= post_presenter.title
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.slug Slug
+      .col-xs-12.col-sm-10.attribute-value.slug
+        = post_presenter.slug
+        = post_presenter.share_link target: '_blank'
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.body Body
+      .col-xs-12.col-sm-10.attribute-value.body
+        - if post_presenter.body.present?
+          %pre= post_presenter.body
+        - else
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.style Style
+      .col-xs-12.col-sm-10.attribute-value.style
+        - if post_presenter.style.present?
+          %pre= post_presenter.style
+        - else
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.meta-description Meta Description
+      .col-xs-12.col-sm-10.attribute-value.meta-description= post_presenter.meta_description
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.meta-keywords Meta Keywords
+      .col-xs-12.col-sm-10.attribute-value.meta-keywords= post_presenter.meta_keywords
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.visible Visible?
+      .col-xs-12.col-sm-10.attribute-value.visible= post_presenter.visible
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attrubute-name.tumblr-id Tumblr ID
+      .col-xs-12.col-sm-10.attribute-value.tumblr-id= post_presenter.tumblr_link
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.tags Tags
+      .col-xs-12.col-sm-10.attribute-value.tags
+        - if post_presenter.tag_list.present?
+          = post_presenter.tag_list.join(', ')
+        - else
+          &nbsp;
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.created-at Created At
+      .col-xs-12.col-sm-10.attribute-value.created-at= post_presenter.created_at
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.updated-at Updated At
+      .col-xs-12.col-sm-10.attribute-value.updated-at= post_presenter.updated_at

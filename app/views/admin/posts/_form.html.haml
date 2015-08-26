@@ -1,0 +1,13 @@
+= bootstrap_form_for [:admin, @post], builder: AceBuilder, layout: :horizontal do |f|
+  = f.text_field :title
+  = f.picture_inserter :body
+  = f.ace_editor :body, mode: 'rhtml'
+  = f.ace_editor :style, mode: 'css'
+  = f.text_area :meta_description, rows: '2'
+  = f.text_area :meta_keywords, rows: '2'
+  = f.text_field :tag_list, class: 'tokenfield'
+  = f.form_group :visible do
+    = f.check_box :visible
+  = f.form_group do
+    = f.primary
+    = link_to 'Cancel', admin_posts_path, class: 'btn btn-default'
