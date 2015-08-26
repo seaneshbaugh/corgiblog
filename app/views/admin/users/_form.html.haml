@@ -1,0 +1,10 @@
+= bootstrap_form_for [:admin, @user], layout: :horizontal do |f|
+  = f.text_field :first_name, label: 'First Name'
+  = f.text_field :last_name, label: 'Last Name'
+  = f.email_field :email
+  = f.password_field :password
+  = f.password_field :password_confirmation, label: 'Password Confirmation'
+  = f.select :role, Ability.valid_roles(current_user).map { |_, value| [value.titleize, value] }
+  = f.form_group do
+    = f.primary
+    = link_to 'Cancel', admin_users_path, class: 'btn btn-default'

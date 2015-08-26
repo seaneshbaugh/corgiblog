@@ -1,0 +1,41 @@
+%h2 Users
+.well
+  = search_form_for @search, url: admin_users_path, builder: BootstrapForm::FormBuilder, html: { class: 'form-inline', method: :get } do |f|
+    = f.text_field :first_name_or_last_name_cont, placeholder: 'Name', skip_label: true
+    = f.text_field :email_cont, placeholder: 'Email', skip_label: true
+    = f.select :role_eq, Ability::ROLES.map { |_, value| [value.titleize, value] }, include_blank: 'Select Role', skip_label: true
+    = f.button '<span class="glyphicon glyphicon-search"></span> Search'.html_safe, class: 'btn btn-primary'
+    = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, admin_users_path, class: 'btn btn-default', rel: 'tooltip', title: 'Clear Search'
+- if can? :create, User
+  .clearfix
+    = link_to 'New User', new_admin_user_path, class: 'btn btn-primary pull-right'
+- if @users.present?
+  .table-responsive
+    %table.table.table-striped.table-hover
+      %thead
+        %tr.row
+          %th.col-xs-3= sort_link @search, :last_name_first_name, 'Name'
+          %th.col-xs-3= sort_link @search, :email
+          %th.col-xs-2= sort_link @search, :role
+          %th.col-xs-2= sort_link @search, :created_at
+          %th.col-xs-1
+          %th.col-xs-1
+      %tbody
+        - @users.each do |user|
+          - present user do |user_presenter|
+            %tr.row.user
+              %td.col-xs-3.name= link_to user_presenter.full_name, admin_user_path(user)
+              %td.col-xs-3.email
+                = user_presenter.email
+                = user_presenter.email_link
+              %td.col-xs-2.role= user_presenter.role
+              %td.col-xs-2.created-at= user_presenter.created_at
+              %td.col-xs-1.edit
+                - if can? :edit, user
+                  = icon_edit_link edit_admin_user_path(user)
+              %td.col-xs-1.delete
+                - if can? :destroy, user
+                  = icon_delete_link admin_user_path(user)
+  = paginate @users
+- else
+  %p.lead There are no users yet. Click 'New User' to get started.
