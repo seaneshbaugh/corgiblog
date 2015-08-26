@@ -11,6 +11,10 @@ class PostPresenter < BasePresenter
     @post = post
   end
 
+  def by
+    "by #{@post.user.first_name}"
+  end
+
   def created_at(format = nil)
     return unless @post.created_at
 
@@ -21,10 +25,30 @@ class PostPresenter < BasePresenter
     end
   end
 
+  def date
+    day = content_tag('div', class: 'day') do
+      @post.created_at.strftime('%d')
+    end
+
+    month = content_tag('div', class: 'month') do
+      @post.created_at.strftime('%b')
+    end
+
+    year = content_tag('div', class: 'year') do
+      @post.created_at.strftime('%Y')
+    end
+
+    (day + month + year).html_safe
+  end
+
   def first_image
     images = Nokogiri::HTML(@post.body).xpath('//img')
 
     images[0]['src'] if images.length > 0
+  end
+
+  def metadata
+    "by #{@post.user.first_name} on #{@post.created_at.strftime("%B #{@post.created_at.day.ordinalize}, %Y")}"
   end
 
   def more
@@ -37,6 +61,9 @@ class PostPresenter < BasePresenter
 
       body_content_tag + more_link
     else
+      puts @post.body.inspect
+      puts body_tag
+
       body_tag
     end
   end
@@ -49,6 +76,10 @@ class PostPresenter < BasePresenter
 
   def tag_links
     @post.tag_list.map { |tag| link_to tag, root_path(tag: tag) }.join(', ').html_safe
+  end
+
+  def title_text
+    "\"#{@post.title}\" posted on #{@post.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
   end
 
   def truncated?
