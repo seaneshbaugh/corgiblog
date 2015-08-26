@@ -1,18 +1,19 @@
 /*!
- * imagesLoaded PACKAGED v3.0.4
+ * imagesLoaded PACKAGED v3.1.8
  * JavaScript is all like "You images are done yet or what?"
+ * MIT License
  */
 
+
 /*!
- * EventEmitter v4.2.0 - git.io/ee
+ * EventEmitter v4.2.6 - git.io/ee
  * Oliver Caldwell
  * MIT license
  * @preserve
  */
 
 (function () {
-	// Place the script in strict mode
-	'use strict';
+	
 
 	/**
 	 * Class for managing events.
@@ -23,9 +24,9 @@
 	function EventEmitter() {}
 
 	// Shortcuts to improve speed and size
-
-	// Easy access to the prototype
 	var proto = EventEmitter.prototype;
+	var exports = this;
+	var originalGlobalValue = exports.EventEmitter;
 
 	/**
 	 * Finds the index of the listener for the event in it's storage array.
@@ -44,6 +45,19 @@
 		}
 
 		return -1;
+	}
+
+	/**
+	 * Alias a method while keeping the context correct, to allow for overwriting of target method.
+	 *
+	 * @param {String} name The name of the target method.
+	 * @return {Function} The aliased method
+	 * @api private
+	 */
+	function alias(name) {
+		return function aliasClosure() {
+			return this[name].apply(this, arguments);
+		};
 	}
 
 	/**
@@ -142,7 +156,7 @@
 	/**
 	 * Alias of addListener
 	 */
-	proto.on = proto.addListener;
+	proto.on = alias('addListener');
 
 	/**
 	 * Semi-alias of addListener. It will add a listener that will be
@@ -162,7 +176,7 @@
 	/**
 	 * Alias of addOnceListener.
 	 */
-	proto.once = proto.addOnceListener;
+	proto.once = alias('addOnceListener');
 
 	/**
 	 * Defines an event name. This is required if you want to use a regex to add a listener to multiple events at once. If you don't do this then how do you expect it to know what event to add to? Should it just add to every possible match for a regex? No. That is scary and bad.
@@ -218,7 +232,7 @@
 	/**
 	 * Alias of removeListener
 	 */
-	proto.off = proto.removeListener;
+	proto.off = alias('removeListener');
 
 	/**
 	 * Adds listeners in bulk using the manipulateListeners method.
@@ -332,6 +346,13 @@
 	};
 
 	/**
+	 * Alias of removeEvent.
+	 *
+	 * Added to mirror the node API.
+	 */
+	proto.removeAllListeners = alias('removeEvent');
+
+	/**
 	 * Emits an event of your choice.
 	 * When emitted, every listener attached to that event will be executed.
 	 * If you pass the optional argument array then those arguments will be passed to every listener upon execution.
@@ -358,9 +379,15 @@
 					// If the listener returns true then it shall be removed from the event
 					// The function is executed either with a basic call or an apply if there is an args array
 					listener = listeners[key][i];
+
+					if (listener.once === true) {
+						this.removeListener(evt, listener.listener);
+					}
+
 					response = listener.listener.apply(this, args || []);
-					if (response === this._getOnceReturnValue() || listener.once === true) {
-						this.removeListener(evt, listeners[key][i].listener);
+
+					if (response === this._getOnceReturnValue()) {
+						this.removeListener(evt, listener.listener);
 					}
 				}
 			}
@@ -372,7 +399,7 @@
 	/**
 	 * Alias of emitEvent
 	 */
-	proto.trigger = proto.emitEvent;
+	proto.trigger = alias('emitEvent');
 
 	/**
 	 * Subtly different from emitEvent in that it will pass its arguments on to the listeners, as opposed to taking a single array of arguments to pass on.
@@ -427,13 +454,23 @@
 		return this._events || (this._events = {});
 	};
 
+	/**
+	 * Reverts the global {@link EventEmitter} to its previous value and returns a reference to this version.
+	 *
+	 * @return {Function} Non conflicting EventEmitter class.
+	 */
+	EventEmitter.noConflict = function noConflict() {
+		exports.EventEmitter = originalGlobalValue;
+		return EventEmitter;
+	};
+
 	// Expose the class either via AMD, CommonJS or the global object
 	if (typeof define === 'function' && define.amd) {
-		define(function () {
+		define('eventEmitter/EventEmitter',[],function () {
 			return EventEmitter;
 		});
 	}
-	else if (typeof module !== 'undefined' && module.exports){
+	else if (typeof module === 'object' && module.exports){
 		module.exports = EventEmitter;
 	}
 	else {
@@ -442,7 +479,7 @@
 }.call(this));
 
 /*!
- * eventie v1.0.3
+ * eventie v1.0.4
  * event binding helper
  *   eventie.bind( elem, 'click', myFn )
  *   eventie.unbind( elem, 'click', myFn )
@@ -453,11 +490,18 @@
 
 ( function( window ) {
 
-'use strict';
+
 
 var docElem = document.documentElement;
 
 var bind = function() {};
+
+function getIEEvent( obj ) {
+  var event = window.event;
+  // add event.target
+  event.target = event.target || event.srcElement || obj;
+  return event;
+}
 
 if ( docElem.addEventListener ) {
   bind = function( obj, type, fn ) {
@@ -467,15 +511,11 @@ if ( docElem.addEventListener ) {
   bind = function( obj, type, fn ) {
     obj[ type + fn ] = fn.handleEvent ?
       function() {
-        var event = window.event;
-        // add event.target
-        event.target = event.target || event.srcElement;
+        var event = getIEEvent( obj );
         fn.handleEvent.call( fn, event );
       } :
       function() {
-        var event = window.event;
-        // add event.target
-        event.target = event.target || event.srcElement;
+        var event = getIEEvent( obj );
         fn.call( obj, event );
       };
     obj.attachEvent( "on" + type, obj[ type + fn ] );
@@ -508,7 +548,7 @@ var eventie = {
 // transport
 if ( typeof define === 'function' && define.amd ) {
   // AMD
-  define( eventie );
+  define( 'eventie/eventie',eventie );
 } else {
   // browser global
   window.eventie = eventie;
@@ -517,13 +557,47 @@ if ( typeof define === 'function' && define.amd ) {
 })( this );
 
 /*!
- * imagesLoaded v3.0.4
+ * imagesLoaded v3.1.8
  * JavaScript is all like "You images are done yet or what?"
+ * MIT License
  */
 
-( function( window ) {
+( function( window, factory ) { 
+  // universal module definition
 
-'use strict';
+  /*global define: false, module: false, require: false */
+
+  if ( typeof define === 'function' && define.amd ) {
+    // AMD
+    define( [
+      'eventEmitter/EventEmitter',
+      'eventie/eventie'
+    ], function( EventEmitter, eventie ) {
+      return factory( window, EventEmitter, eventie );
+    });
+  } else if ( typeof exports === 'object' ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('wolfy87-eventemitter'),
+      require('eventie')
+    );
+  } else {
+    // browser global
+    window.imagesLoaded = factory(
+      window,
+      window.EventEmitter,
+      window.eventie
+    );
+  }
+
+})( window,
+
+// --------------------------  factory -------------------------- //
+
+function factory( window, EventEmitter, eventie ) {
+
+
 
 var $ = window.jQuery;
 var console = window.console;
@@ -562,9 +636,7 @@ function makeArray( obj ) {
   return ary;
 }
 
-// --------------------------  -------------------------- //
-
-function defineImagesLoaded( EventEmitter, eventie ) {
+  // -------------------------- imagesLoaded -------------------------- //
 
   /**
    * @param {Array, Element, NodeList, String} elem
@@ -623,6 +695,11 @@ function defineImagesLoaded( EventEmitter, eventie ) {
         this.addImage( elem );
       }
       // find children
+      // no non-element nodes, #143
+      var nodeType = elem.nodeType;
+      if ( !nodeType || !( nodeType === 1 || nodeType === 9 || nodeType === 11 ) ) {
+        continue;
+      }
       var childElems = elem.querySelectorAll('img');
       // concat childElems to filterFound array
       for ( var j=0, jLen = childElems.length; j < jLen; j++ ) {
@@ -677,7 +754,7 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     var _this = this;
     setTimeout( function() {
       _this.emit( 'progress', _this, image );
-      if ( _this.jqDeferred ) {
+      if ( _this.jqDeferred && _this.jqDeferred.notify ) {
         _this.jqDeferred.notify( _this, image );
       }
     });
@@ -710,8 +787,6 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   // --------------------------  -------------------------- //
 
-  var cache = {};
-
   function LoadingImage( img ) {
     this.img = img;
   }
@@ -720,13 +795,11 @@ function defineImagesLoaded( EventEmitter, eventie ) {
 
   LoadingImage.prototype.check = function() {
     // first check cached any previous images that have same src
-    var cached = cache[ this.img.src ];
-    if ( cached ) {
-      this.useCached( cached );
+    var resource = cache[ this.img.src ] || new Resource( this.img.src );
+    if ( resource.isConfirmed ) {
+      this.confirm( resource.isLoaded, 'cached was confirmed' );
       return;
     }
-    // add this to cache
-    cache[ this.img.src ] = this;
 
     // If complete is true and browser supports natural sizes,
     // try to check for image status manually.
@@ -737,73 +810,84 @@ function defineImagesLoaded( EventEmitter, eventie ) {
     }
 
     // If none of the checks above matched, simulate loading on detached element.
-    var proxyImage = this.proxyImage = new Image();
-    eventie.bind( proxyImage, 'load', this );
-    eventie.bind( proxyImage, 'error', this );
-    proxyImage.src = this.img.src;
-  };
+    var _this = this;
+    resource.on( 'confirm', function( resrc, message ) {
+      _this.confirm( resrc.isLoaded, message );
+      return true;
+    });
 
-  LoadingImage.prototype.useCached = function( cached ) {
-    if ( cached.isConfirmed ) {
-      this.confirm( cached.isLoaded, 'cached was confirmed' );
-    } else {
-      var _this = this;
-      cached.on( 'confirm', function( image ) {
-        _this.confirm( image.isLoaded, 'cache emitted confirmed' );
-        return true; // bind once
-      });
-    }
+    resource.check();
   };
 
   LoadingImage.prototype.confirm = function( isLoaded, message ) {
-    this.isConfirmed = true;
     this.isLoaded = isLoaded;
     this.emit( 'confirm', this, message );
   };
 
+  // -------------------------- Resource -------------------------- //
+
+  // Resource checks each src, only once
+  // separate class from LoadingImage to prevent memory leaks. See #115
+
+  var cache = {};
+
+  function Resource( src ) {
+    this.src = src;
+    // add to cache
+    cache[ src ] = this;
+  }
+
+  Resource.prototype = new EventEmitter();
+
+  Resource.prototype.check = function() {
+    // only trigger checking once
+    if ( this.isChecked ) {
+      return;
+    }
+    // simulate loading on detached element
+    var proxyImage = new Image();
+    eventie.bind( proxyImage, 'load', this );
+    eventie.bind( proxyImage, 'error', this );
+    proxyImage.src = this.src;
+    // set flag
+    this.isChecked = true;
+  };
+
+  // ----- events ----- //
+
   // trigger specified handler for event type
-  LoadingImage.prototype.handleEvent = function( event ) {
+  Resource.prototype.handleEvent = function( event ) {
     var method = 'on' + event.type;
     if ( this[ method ] ) {
       this[ method ]( event );
     }
   };
 
-  LoadingImage.prototype.onload = function() {
+  Resource.prototype.onload = function( event ) {
     this.confirm( true, 'onload' );
-    this.unbindProxyEvents();
+    this.unbindProxyEvents( event );
   };
 
-  LoadingImage.prototype.onerror = function() {
+  Resource.prototype.onerror = function( event ) {
     this.confirm( false, 'onerror' );
-    this.unbindProxyEvents();
+    this.unbindProxyEvents( event );
   };
 
-  LoadingImage.prototype.unbindProxyEvents = function() {
-    eventie.unbind( this.proxyImage, 'load', this );
-    eventie.unbind( this.proxyImage, 'error', this );
+  // ----- confirm ----- //
+
+  Resource.prototype.confirm = function( isLoaded, message ) {
+    this.isConfirmed = true;
+    this.isLoaded = isLoaded;
+    this.emit( 'confirm', this, message );
+  };
+
+  Resource.prototype.unbindProxyEvents = function( event ) {
+    eventie.unbind( event.target, 'load', this );
+    eventie.unbind( event.target, 'error', this );
   };
 
   // -----  ----- //
 
   return ImagesLoaded;
-}
 
-// -------------------------- transport -------------------------- //
-
-if ( typeof define === 'function' && define.amd ) {
-  // AMD
-  define( [
-      'eventEmitter/EventEmitter',
-      'eventie/eventie'
-    ],
-    defineImagesLoaded );
-} else {
-  // browser global
-  window.imagesLoaded = defineImagesLoaded(
-    window.EventEmitter,
-    window.eventie
-  );
-}
-
-})( window );
+});
