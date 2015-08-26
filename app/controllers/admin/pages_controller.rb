@@ -34,7 +34,7 @@ class Admin::PagesController < Admin::AdminController
   end
 
   def update
-    if @page.update(params[:page])
+    if @page.update(page_params)
       flash[:success] = 'Page was successfully updated.'
 
       redirect_to edit_admin_page_url(@page)
