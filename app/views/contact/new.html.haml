@@ -10,7 +10,7 @@
   = bootstrap_form_for @contact, url: '/contact', layout: :horizontal, html: { honeypot: true } do |f|
     = f.text_field :name
     = f.email_field :email
-    = f.text_field, :subject
-    = f.text_area, :body, roles: '5'
+    = f.text_field :subject
+    = f.text_area :body, roles: '5'
     = f.form_group do
       = f.primary 'Submit'
