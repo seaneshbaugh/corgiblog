@@ -1,0 +1,40 @@
+- present post do |post_presenter|
+  %article.post{ id: "post-#{post.id}" }
+    %header.post-header.row
+      %h1.post-title.col-xs-12.col-sm-9
+        = link_to post_presenter.title, post_path(post), title: post_presenter.title_text
+      .post-author.col-sm-2.hidden-xs
+        = post_presenter.by
+      .post-date.col-sm-1.hidden-xs
+        = post_presenter.date
+      .post-metadata.col-xs-12.visible-xs
+        = post_presenter.metadata
+    .post-body.row
+      .col-xs-12
+        = post_presenter.style_tag
+        = post_presenter.more
+    %footer.post-footer.row
+
+
+-#   <div class="post-body row">
+-#     <div class="col-xs-12">
+-#       <% if post.style.present? %>
+-#         <style>
+-#           <%= post.style.html_safe %>
+-#         </style>
+-#       <% end %>
+-#       <% if params[:action] == 'index' %>
+-#         <%= post.more.html_safe %>
+-#         <% if post.truncated? %>
+-#           <div class="read-more">
+-#             <%= link_to t('read_more'), post %>
+-#           </div>
+-#         <% end %>
+-#       <% else %>
+-#         <%= post.body.html_safe %>
+-#       <% end %>
+-#     </div>
+-#   </div>
+-#   <footer class="post-footer row">
+-#   </footer>
+-# </article>
