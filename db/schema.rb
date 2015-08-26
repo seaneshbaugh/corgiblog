@@ -17,55 +17,81 @@ ActiveRecord::Schema.define(version: 20150825194218) do
   enable_extension "plpgsql"
 
   create_table "pages", force: :cascade do |t|
-    t.string   "title",            limit: 510, default: "", null: false
-    t.string   "slug",             limit: 510, default: "", null: false
-    t.text     "body",                                      null: false
-    t.text     "style",                                     null: false
-    t.text     "meta_description",                          null: false
-    t.text     "meta_keywords",                             null: false
-    t.integer  "order",                        default: 0,  null: false
-    t.integer  "show_in_menu",                 default: 1,  null: false
-    t.integer  "visible",                      default: 1,  null: false
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.string   "title",            default: "",   null: false
+    t.string   "slug",             default: "",   null: false
+    t.text     "body",             default: "",   null: false
+    t.text     "style",            default: "",   null: false
+    t.text     "meta_description", default: "",   null: false
+    t.text     "meta_keywords",    default: "",   null: false
+    t.integer  "order",            default: 0,    null: false
+    t.boolean  "show_in_menu",     default: true, null: false
+    t.boolean  "visible",          default: true, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "pages", ["created_at"], name: "index_pages_on_created_at", using: :btree
+  add_index "pages", ["order"], name: "index_pages_on_order", using: :btree
+  add_index "pages", ["show_in_menu"], name: "index_pages_on_show_in_menu", using: :btree
+  add_index "pages", ["slug"], name: "index_pages_on_slug", using: :btree
+  add_index "pages", ["title"], name: "index_pages_on_title", using: :btree
+  add_index "pages", ["updated_at"], name: "index_pages_on_updated_at", using: :btree
+  add_index "pages", ["visible"], name: "index_pages_on_visible", using: :btree
 
   create_table "pictures", force: :cascade do |t|
-    t.text     "title",                                         null: false
-    t.text     "alt_text",                                      null: false
-    t.text     "caption",                                       null: false
-    t.string   "image_file_name",       limit: 510
-    t.string   "image_content_type",    limit: 510
+    t.text     "title",                 default: "", null: false
+    t.text     "alt_text",              default: "", null: false
+    t.text     "caption",               default: "", null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
     t.integer  "image_file_size"
-    t.string   "image_fingerprint",     limit: 510
-    t.integer  "image_original_width",              default: 1, null: false
-    t.integer  "image_original_height",             default: 1, null: false
-    t.integer  "image_medium_width",                default: 1, null: false
-    t.integer  "image_medium_height",               default: 1, null: false
-    t.integer  "image_thumb_width",                 default: 1, null: false
-    t.integer  "image_thumb_height",                default: 1, null: false
+    t.string   "image_fingerprint"
+    t.integer  "image_original_width",  default: 1,  null: false
+    t.integer  "image_original_height", default: 1,  null: false
+    t.integer  "image_medium_width",    default: 1,  null: false
+    t.integer  "image_medium_height",   default: 1,  null: false
+    t.integer  "image_thumb_width",     default: 1,  null: false
+    t.integer  "image_thumb_height",    default: 1,  null: false
     t.datetime "image_updated_at"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "pictures", ["created_at"], name: "index_pictures_on_created_at", using: :btree
+  add_index "pictures", ["image_content_type"], name: "index_pictures_on_image_content_type", using: :btree
+  add_index "pictures", ["image_file_name"], name: "index_pictures_on_image_file_name", using: :btree
+  add_index "pictures", ["image_file_size"], name: "index_pictures_on_image_file_size", using: :btree
+  add_index "pictures", ["image_fingerprint"], name: "index_pictures_on_image_fingerprint", using: :btree
+  add_index "pictures", ["image_medium_height"], name: "index_pictures_on_image_medium_height", using: :btree
+  add_index "pictures", ["image_medium_width"], name: "index_pictures_on_image_medium_width", using: :btree
+  add_index "pictures", ["image_original_height"], name: "index_pictures_on_image_original_height", using: :btree
+  add_index "pictures", ["image_original_width"], name: "index_pictures_on_image_original_width", using: :btree
+  add_index "pictures", ["image_thumb_height"], name: "index_pictures_on_image_thumb_height", using: :btree
+  add_index "pictures", ["image_thumb_width"], name: "index_pictures_on_image_thumb_width", using: :btree
+  add_index "pictures", ["image_updated_at"], name: "index_pictures_on_image_updated_at", using: :btree
+  add_index "pictures", ["updated_at"], name: "index_pictures_on_updated_at", using: :btree
 
   create_table "posts", force: :cascade do |t|
-    t.string   "title",            limit: 510, default: "", null: false
-    t.string   "slug",             limit: 510, default: "", null: false
-    t.text     "body",                                      null: false
-    t.text     "style",                                     null: false
-    t.text     "meta_description",                          null: false
-    t.text     "meta_keywords",                             null: false
-    t.integer  "user_id",                                   null: false
-    t.integer  "visible",                      default: 1,  null: false
-    t.string   "tumblr_id",        limit: 510
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.string   "title",            default: "",   null: false
+    t.string   "slug",             default: "",   null: false
+    t.text     "body",             default: "",   null: false
+    t.text     "style",            default: "",   null: false
+    t.text     "meta_description", default: "",   null: false
+    t.text     "meta_keywords",    default: "",   null: false
+    t.integer  "user_id",                         null: false
+    t.boolean  "visible",          default: true, null: false
+    t.string   "tumblr_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "posts", ["slug"], name: "posts_slug_key", unique: true, using: :btree
-  add_index "posts", ["title"], name: "posts_title_key", unique: true, using: :btree
-  add_index "posts", ["tumblr_id"], name: "posts_tumblr_id_key", unique: true, using: :btree
+  add_index "posts", ["created_at"], name: "index_posts_on_created_at", using: :btree
+  add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
+  add_index "posts", ["title"], name: "index_posts_on_title", unique: true, using: :btree
+  add_index "posts", ["tumblr_id"], name: "index_posts_on_tumblr_id", unique: true, using: :btree
+  add_index "posts", ["updated_at"], name: "index_posts_on_updated_at", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+  add_index "posts", ["visible"], name: "index_posts_on_visible", using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -88,35 +114,50 @@ ActiveRecord::Schema.define(version: 20150825194218) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 510, default: "", null: false
-    t.string   "encrypted_password",     limit: 510, default: "", null: false
-    t.string   "role",                   limit: 510, default: "", null: false
-    t.string   "first_name",             limit: 510, default: "", null: false
-    t.string   "last_name",              limit: 510, default: "", null: false
-    t.string   "reset_password_token",   limit: 510
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "role",                   default: "", null: false
+    t.string   "first_name",             default: "", null: false
+    t.string   "last_name",              default: "", null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 510
-    t.string   "last_sign_in_ip",        limit: 510
-    t.string   "authentication_token",   limit: 510
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "users", ["authentication_token"], name: "users_authentication_token_key", unique: true, using: :btree
-  add_index "users", ["email"], name: "users_email_key", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "users_reset_password_token_key", unique: true, using: :btree
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
+  add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
+  add_index "users", ["current_sign_in_at"], name: "index_users_on_current_sign_in_at", using: :btree
+  add_index "users", ["current_sign_in_ip"], name: "index_users_on_current_sign_in_ip", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["encrypted_password"], name: "index_users_on_encrypted_password", using: :btree
+  add_index "users", ["first_name"], name: "index_users_on_first_name", using: :btree
+  add_index "users", ["last_name"], name: "index_users_on_last_name", using: :btree
+  add_index "users", ["last_sign_in_at"], name: "index_users_on_last_sign_in_at", using: :btree
+  add_index "users", ["last_sign_in_ip"], name: "index_users_on_last_sign_in_ip", using: :btree
+  add_index "users", ["remember_created_at"], name: "index_users_on_remember_created_at", using: :btree
+  add_index "users", ["reset_password_sent_at"], name: "index_users_on_reset_password_sent_at", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["role"], name: "index_users_on_role", using: :btree
+  add_index "users", ["sign_in_count"], name: "index_users_on_sign_in_count", using: :btree
+  add_index "users", ["updated_at"], name: "index_users_on_updated_at", using: :btree
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",  limit: 510, null: false
-    t.integer  "item_id",                null: false
-    t.string   "event",      limit: 510, null: false
-    t.string   "whodunnit",  limit: 510
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"
   end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end
