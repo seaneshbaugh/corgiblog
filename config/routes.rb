@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:show]
 
-  get '/posts.rss' => 'posts#index', format: :rss
+  get '/posts.rss' => 'posts#index', defaults: { format: :rss }
 
   get '/sitemap.xml' => 'sitemap#index', as: :sitemap
 
