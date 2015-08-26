@@ -31,7 +31,7 @@ class Admin::PostsController < Admin::AdminController
 
       redirect_to admin_post_url(@post)
     else
-      flash[:error] = @post.errors.full_messages.uniq.join('. ') + '.'
+      flash[:error] = view_context.error_messages_for(@post)
 
       render 'new'
     end
@@ -49,7 +49,7 @@ class Admin::PostsController < Admin::AdminController
 
       redirect_to edit_admin_post_url(@post)
     else
-      flash[:error] = @post.errors.full_messages.uniq.join('. ') + '.'
+      flash[:error] = view_context.error_messages_for(@post)
 
       render 'edit'
     end

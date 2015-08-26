@@ -15,7 +15,7 @@ class Admin::AccountsController < Admin::AdminController
 
       redirect_to admin_account_path
     else
-      flash[:error] = @account.errors.full_messages.uniq.join('. ') + '.'
+      flash[:error] = view_context.error_messages_for(@account)
 
       render 'edit'
     end

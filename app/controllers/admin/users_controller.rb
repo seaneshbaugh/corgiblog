@@ -27,7 +27,7 @@ class Admin::UsersController < Admin::AdminController
 
       redirect_to admin_user_url(@user)
     else
-      flash[:error] = @user.errors.full_messages.uniq.join('. ') + '.'
+      flash[:error] = view_context.error_messages_for(@user)
 
       render 'new'
     end
@@ -39,7 +39,7 @@ class Admin::UsersController < Admin::AdminController
 
       redirect_to edit_admin_user_url(@user)
     else
-      flash[:error] = @user.errors.full_messages.uniq.join('. ') + '.'
+      flash[:error] = view_context.error_messages_for(@user)
 
       render 'edit'
     end
