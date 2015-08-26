@@ -3,12 +3,28 @@ module ApplicationHelper
     object.errors.full_messages.uniq.join('. ') + '.'
   end
 
-  def icon_edit_link(url_or_path)
-    link_to('<span class="glyphicon glyphicon-edit"></span>'.html_safe, url_or_path, class: 'btn btn-mini', rel: 'tooltip', edit: 'Edit').html_safe
+  def flash_messages
+    render partial: 'shared/flash_messages'
   end
 
   def icon_delete_link(url_or_path)
     link_to('<span class="glyphicon glyphicon-remove"></span>'.html_safe, url_or_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini', rel: 'tooltip', title: 'Delete').html_safe
+  end
+
+  def icon_edit_link(url_or_path)
+    link_to('<span class="glyphicon glyphicon-edit"></span>'.html_safe, url_or_path, class: 'btn btn-mini', rel: 'tooltip', edit: 'Edit').html_safe
+  end
+
+  def is_active_action?(action_name)
+    params[:action] == action_name
+  end
+
+  def is_active_controller?(controller_name)
+    params[:controller] == controller_name
+  end
+
+  def is_active_page?(page_name)
+    params[:controller] == 'pages' && params[:action] == 'show' && params[:id] == page_name
   end
 
   def nav_link_to(*args, &block)
@@ -23,19 +39,19 @@ module ApplicationHelper
     NavLinkGenerator.new(request, body, path, html_options, options).to_html
   end
 
-  def page_title(title)
-    if title.present?
-      title.strip
-    else
-      'Conney the Corgi!'
-    end
-  end
-
   def page_meta_description(meta_description)
     if meta_description.present?
       meta_description.strip
     else
       'A blog about an ornery corgi named Conney and her adorable adventures.'
+    end
+  end
+
+  def page_title(title)
+    if title.present?
+      title.strip
+    else
+      'Conney the Corgi!'
     end
   end
 
@@ -47,22 +63,6 @@ module ApplicationHelper
     yield presenter if block_given?
 
     presenter
-  end
-
-  def is_active_controller?(controller_name)
-    params[:controller] == controller_name
-  end
-
-  def is_active_action?(action_name)
-    params[:action] == action_name
-  end
-
-  def is_active_page?(page_name)
-    params[:controller] == 'pages' && params[:action] == 'show' && params[:id] == page_name
-  end
-
-  def flash_messages
-    render :partial => 'shared/flash_messages'
   end
 
   class NavLinkGenerator
