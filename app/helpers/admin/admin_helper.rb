@@ -3,7 +3,7 @@ module Admin::AdminHelper
     render partial: 'shared/admin/picture_inserter', locals: { target: target }
   end
 
-  def get_gem_dependencies
+  def gem_dependencies
     lockfile = Bundler::LockfileParser.new(Bundler.read_file(Rails.root.join('Gemfile.lock')))
 
     lockfile.specs.map do |spec|
