@@ -1,0 +1,14 @@
+- if @picture.title.present?
+  - content_for :page_title do
+    = "#{@picture.title} - Conney the Corgi!"
+- if @picture.caption.present?
+  - content_for :meta_description do
+    = picture.caption
+- present @picture do |picture_presenter|
+  .picture{ id: "picture-#{@picture.id}" }
+    .image
+      = link_to image_tag(@picture.image.url, alt: @picture.alt_text), @picture.image.url
+    .picture-title
+      = picture_presenter.title
+    .picture-caption
+      = picture_presenter.caption

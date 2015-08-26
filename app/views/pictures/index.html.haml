@@ -1,0 +1,9 @@
+- content_for :page_title do
+  Pictures - Conney the Corgi!
+- content_for :meta_description do
+  LOL CONNEY'S SO SILLY
+#pictures
+  %ul#tiles
+    - @pictures.each do |picture|
+      %li
+        = link_to image_tag(picture.image.url(:medium), alt: picture.alt_text, width: '190', height: picture.scale_height(190)), picture.image.url
