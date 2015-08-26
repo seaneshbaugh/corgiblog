@@ -1,0 +1,10 @@
+%h2 Edit Account
+= bootstrap_form_for @account, url: admin_account_path, as: :account, layout: :horizontal do |f|
+  = f.text_field :first_name
+  = f.text_field :last_name
+  = f.email_field :email
+  = f.password_field :password
+  = f.password_field :password_confirmation
+  = f.form_group do
+    = f.primary 'Update Account'
+    = link_to 'Cancel', admin_account_path, class: 'btn btn-default'
