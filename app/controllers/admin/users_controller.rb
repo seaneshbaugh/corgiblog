@@ -1,39 +1,31 @@
 class Admin::UsersController < Admin::AdminController
-  before_filter :authenticate_user!
-
   authorize_resource
+
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
     @search = User.search(params[:q])
 
-    @users = @search.result.page(params[:page]).per(25).order('`users`.`last_name` ASC')
+    @users = @search.result.page(params[:page]).per(25).alphabetical
   end
 
   def show
-    @user = User.where(:id => params[:id]).first
-
-    if @user.nil?
-      flash[:error] = t('messages.users.could_not_find')
-
-      redirect_to admin_users_url
-    end
   end
 
   def new
     @user = User.new
   end
 
+  def edit
+  end
+
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     if @user.save
-      flash[:success] = t('messages.users.created')
+      flash[:success] = 'User was successfully created.'
 
-      if params[:redirect_to_new].present?
-        redirect_to new_admin_user_url
-      else
-        redirect_to admin_users_url
-      end
+      redirect_to admin_user_url(@user)
     else
       flash[:error] = @user.errors.full_messages.uniq.join('. ') + '.'
 
@@ -41,27 +33,9 @@ class Admin::UsersController < Admin::AdminController
     end
   end
 
-  def edit
-    @user = User.where(:id => params[:id]).first
-
-    if @user.nil?
-      flash[:error] = t('messages.users.could_not_find')
-
-      redirect_to admin_users_url
-    end
-  end
-
   def update
-    @user = User.where(:id => params[:id]).first
-
-    if @user.nil?
-      flash[:error] = t('messages.users.could_not_find')
-
-      redirect_to admin_users_url and return
-    end
-
-    if @user.update_attributes(params[:user])
-      flash[:success] = t('messages.users.updated')
+    if @user.update(user_params)
+      flash[:success] = 'User was successfully updated.'
 
       redirect_to edit_admin_user_url(@user)
     else
@@ -72,18 +46,22 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def destroy
-    @user = User.where(:id => params[:id]).first
-
-    if @user.nil?
-      flash[:error] = t('messages.users.could_not_find')
-
-      redirect_to admin_users_url and return
-    end
-
     @user.destroy
 
-    flash[:success] = t('messages.users.deleted')
+    flash[:success] = 'User was successfully deleted.'
 
     redirect_to admin_users_url
+  end
+
+  private
+
+  def set_user
+    @user = User.where(id: params[:id]).first
+
+    fail ActiveRecord::RecordNotFound if @user.nil?
+  end
+
+  def user_params
+    params.required(:user).permit(:email, :password, :password_confirmation, :role, :first_name, :last_name)
   end
 end
