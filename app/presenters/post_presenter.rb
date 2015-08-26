@@ -83,10 +83,12 @@ class PostPresenter < BasePresenter
     @post.body.include?('<!--more-->')
   end
 
-  def tumblr_link
+  def tumblr_link(text = nil)
     return unless @post.tumblr_id.present?
 
-    link_to 'Originally posted by Casie on Tumblr', "http://conneythecorgi.tumblr.com/#{@post.tumblr_id}"
+    text = @post.tumblr_id if text.blank?
+
+    link_to text, "http://conneythecorgi.tumblr.com/#{@post.tumblr_id}"
   end
 
   def updated_at(format = nil)
@@ -101,6 +103,14 @@ class PostPresenter < BasePresenter
 
   def user_full_name
     @post.user.full_name
+  end
+
+  def visible
+    if @post.visible
+      'Yes'
+    else
+      'No'
+    end
   end
 
   private
