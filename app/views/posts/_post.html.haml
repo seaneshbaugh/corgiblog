@@ -16,26 +16,3 @@
     %footer.post-footer.row
       .col-xs-12
         = post_presenter.tumblr_link
-
--#   <div class="post-body row">
--#     <div class="col-xs-12">
--#       <% if post.style.present? %>
--#         <style>
--#           <%= post.style.html_safe %>
--#         </style>
--#       <% end %>
--#       <% if params[:action] == 'index' %>
--#         <%= post.more.html_safe %>
--#         <% if post.truncated? %>
--#           <div class="read-more">
--#             <%= link_to t('read_more'), post %>
--#           </div>
--#         <% end %>
--#       <% else %>
--#         <%= post.body.html_safe %>
--#       <% end %>
--#     </div>
--#   </div>
--#   <footer class="post-footer row">
--#   </footer>
--# </article>
