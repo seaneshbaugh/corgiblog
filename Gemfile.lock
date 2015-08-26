@@ -343,6 +343,7 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.3)
       rack (>= 1.0)
+    yaml_db (0.2.3)
 
 PLATFORMS
   ruby
@@ -404,6 +405,7 @@ DEPENDENCIES
   uglifier
   unicorn
   virtus
+  yaml_db
 
 BUNDLED WITH
    1.10.6

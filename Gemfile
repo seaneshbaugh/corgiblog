@@ -43,6 +43,7 @@ gem 'twitter-typeahead-rails'
 gem 'uglifier'
 gem 'unicorn'
 gem 'virtus'
+gem 'yaml_db'
 
 group :development do
   gem 'better_errors'
