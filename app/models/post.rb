@@ -271,26 +271,4 @@ class Post < ActiveRecord::Base
 
     new_post.save
   end
-
-  def more
-    if body.include?('<!--more-->')
-      body[0..body.index('<!--more-->') - 1]
-    else
-      body
-    end
-  end
-
-  def truncated?
-    body.length > more.length
-  end
-
-  def first_image
-    images = Nokogiri::HTML(body).xpath('//img')
-
-    if images.length > 0
-      images[0]['src']
-    else
-      nil
-    end
-  end
 end
