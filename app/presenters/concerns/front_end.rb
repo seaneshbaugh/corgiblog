@@ -13,10 +13,6 @@ module FrontEnd
     "#{@object.title} - seaneshbaugh.com"
   end
 
-  def script_tag
-    content_tag(:script, @object.script.html_safe) if @object.script.present?
-  end
-
   def style_tag
     content_tag(:style, @object.style.html_safe) if @object.style.present?
   end
