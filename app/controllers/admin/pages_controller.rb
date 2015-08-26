@@ -1,89 +1,67 @@
 class Admin::PagesController < Admin::AdminController
-  before_filter :authenticate_user!
-
   authorize_resource
+
+  before_action :set_page, only: [:show, :edit, :update, :destroy]
 
   def index
     @search = Page.search(params[:q])
 
-    @pages = @search.result.page(params[:page]).per(25).order('`pages`.`order` ASC')
+    @pages = @search.result.page(params[:page]).per(25).by_order
   end
 
   def show
-    @page = Page.where(:slug => params[:id]).first
-
-    if @page.nil?
-      flash[:error] = t('messages.pages.could_not_find')
-
-      redirect_to admin_pages_url
-    end
   end
 
   def new
     @page = Page.new
   end
 
+  def edit
+  end
+
   def create
-    @page = Page.new(params[:page])
+    @page = Page.new(page_params)
 
     if @page.save
-      flash[:success] = t('messages.pages.created')
+      flash[:success] = 'Page was successfully created.'
 
-      if params[:redirect_to_new].present?
-        redirect_to new_admin_page_url
-      else
-        redirect_to admin_pages_url
-      end
+      redirect_to admin_page_url(@page)
     else
-      flash[:error] = @page.errors.full_messages.uniq.join('. ') + '.'
+      flash[:error] = error_messages_for(@page)
 
       render 'new'
     end
   end
 
-  def edit
-    @page = Page.where(:slug => params[:id]).first
-
-    if @page.nil?
-      flash[:error] = t('messages.pages.could_not_find')
-
-      redirect_to admin_pages_url
-    end
-  end
-
   def update
-    @page = Page.where(:slug => params[:id]).first
-
-    if @page.nil?
-      flash[:error] = t('messages.pages.could_not_find')
-
-      redirect_to admin_pages_url and return
-    end
-
-    if @page.update_attributes(params[:page])
-      flash[:success] = t('messages.pages.updated')
+    if @page.update(params[:page])
+      flash[:success] = 'Page was successfully updated.'
 
       redirect_to edit_admin_page_url(@page)
     else
-      flash[:error] = @page.errors.full_messages.uniq.join('. ') + '.'
+      flash[:error] = error_messages_for(@page)
 
       render 'edit'
     end
   end
 
   def destroy
-    @page = Page.where(:slug => params[:id]).first
-
-    if @page.nil?
-      flash[:error] = t('messages.pages.could_not_find')
-
-      redirect_to admin_pages_url and return
-    end
-
     @page.destroy
 
-    flash[:success] = t('messages.pages.deleted')
+    flash[:success] = 'Page was successfully deleted.'
 
     redirect_to admin_pages_url
+  end
+
+  private
+
+  def set_page
+    @page = Page.where(slug: params[:id]).first
+
+    fail ActiveRecord::RecordNotFound if @page.nil?
+  end
+
+  def page_params
+    params.require(:page).permit(:title, :body, :style, :script, :meta_description, :meta_keywords, :order, :color, :show_in_menu, :visible)
   end
 end
