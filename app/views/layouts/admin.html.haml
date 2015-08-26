@@ -1,0 +1,44 @@
+!!!
+%html{ dir: 'ltr', lang: 'en-US' }
+  %head
+    %meta{ charset: 'utf-8' }
+    %title conneythecorgi.com Admin Panel
+    %meta{ content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no', name: 'viewport' }
+    %meta{ content: 'conneythecorgi.com Admin Panel', name: 'description' }
+    %meta{ content: 'Sean Eshbaugh', name: 'author' }
+    = stylesheet_link_tag 'admin', media: 'all'
+    = javascript_include_tag 'admin'
+    %link{ href: '/favicon.ico', rel: 'shortcut icon' }
+    %link{ href: image_path('apple-touch-icon-iphone.png'), rel: 'apple-touch-icon', sizes: '57x57' }
+    %link{ href: image_path('apple-touch-icon-ipad.png'), rel: 'apple-touch-icon', sizes: '72x72' }
+    %link{ href: image_path('apple-touch-icon-iphone-retina.png'), rel: 'apple-touch-icon', sizes: '114x114' }
+    %link{ href: image_path('apple-touch-icon-ipad-retina.png'), rel: 'apple-touch-icon', sizes: '144x144' }
+    %link{ href: '/humans.txt', rel: 'author' }
+    = csrf_meta_tags
+  %body
+    %header#main-header.container
+      %h1#title conneythecorgi.com Admin Panel
+      .navbar.navbar-default
+        .navbar-header
+          %button.navbar-toggle{ 'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse', type: 'button' }
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to 'Admin Home', admin_root_path, class: 'navbar-brand'
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            - if can? :read, Post
+              = nav_link_to 'Posts', admin_posts_path, {}, { segments: 2, wrapper: 'li' }
+            - if can? :read, Page
+              = nav_link_to 'Pages', admin_pages_path, {}, { segments: 2, wrapper: 'li' }
+            - if can? :read, Picture
+              = nav_link_to 'Pictures', admin_pictures_path, {}, { segments: 2, wrapper: 'li' }
+            - if can? :read, User
+              = nav_link_to 'Users', admin_users_path, {}, { segments: 2, wrapper: 'li' }
+          %ul.nav.navbar-nav.navbar-right
+            %li= link_to 'Site Home', root_path
+            = nav_link_to 'My Account', edit_admin_account_path, {}, { segments: 2, wrapper: 'li' }
+            %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
+    %main#content.container
+      = flash_messages
+      = yield
