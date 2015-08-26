@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 20150825194218) do
     t.text     "meta_description",                          null: false
     t.text     "meta_keywords",                             null: false
     t.integer  "order",                        default: 0,  null: false
-    t.boolean  "show_in_menu",                              null: false
-    t.boolean  "visible",                                   null: false
+    t.integer  "show_in_menu",                 default: 1,  null: false
+    t.integer  "visible",                      default: 1,  null: false
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
   end
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150825194218) do
     t.text     "meta_description",                          null: false
     t.text     "meta_keywords",                             null: false
     t.integer  "user_id",                                   null: false
-    t.boolean  "visible",                                   null: false
+    t.integer  "visible",                      default: 1,  null: false
     t.string   "tumblr_id",        limit: 510
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
