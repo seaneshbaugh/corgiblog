@@ -1,5 +1,5 @@
 - present @user do |user_presenter|
-  %h2= user_presenter.full_name
+  %h2= "User: #{user_presenter.full_name}"
   .admin-actions
     = link_to 'Back to Index', admin_users_path, class: 'btn btn-default'
     - if can? :edit, @user

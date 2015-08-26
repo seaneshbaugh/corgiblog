@@ -1,5 +1,5 @@
 - present @post do |post_presenter|
-  %h2= post_presenter.title
+  %h2= "Post: #{post_presenter.title}"
   .admin-actions
     = link_to 'Back to Index', admin_posts_path, class: 'btn btn-default'
     - if can? :edit, @post
