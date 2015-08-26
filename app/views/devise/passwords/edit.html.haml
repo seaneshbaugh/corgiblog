@@ -7,5 +7,6 @@
       = f.full_error :reset_password_token
       = f.password_field :password, label: 'New Password'
       = f.password_field :password_confirmation, label: 'Confirm New Password'
-      = f.submit 'Change Your Password'
+      = f.form_group do
+        = f.submit 'Change Your Password'
     = render 'devise/shared/links'

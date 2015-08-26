@@ -3,6 +3,7 @@
     %h1 Forgot Your Password?
   .page-body
     = bootstrap_form_for resource, as: resource_name, url: password_path(resource_name), layout: :horizontal do |f|
-      = f.email_field, :email
-      = f.submit 'Send Password Reset Instructions'
+      = f.email_field :email
+      = f.form_group do
+        = f.submit 'Send Password Reset Instructions'
     = render 'devise/shared/links'
