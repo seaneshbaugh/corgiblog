@@ -1,0 +1,19 @@
+- flash.each do |name, message|
+  - if name == :debug
+    .alert.alert-info.alert-block.alert-dismissable
+      %button.close{ "aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} &times;
+      %h4 Debug Info
+      %br/
+      %pre= message
+  - else
+    - class_name = name.to_s
+    - if class_name == 'error'
+      - class_name = 'danger'
+    - elsif class_name == 'alert'
+      - class_name = 'danger'
+      - name = :error
+    %div{ class: "alert alert-#{%w(success info warning danger).include?(class_name) ? class_name : 'info'} alert-dismissable" }
+      %button.close{ "aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} &times;
+      %strong
+        = "#{name.to_s.capitalize}!"
+      = message
