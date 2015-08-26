@@ -1,43 +1,35 @@
 class Admin::PostsController < Admin::AdminController
-  before_filter :authenticate_user!
-
   authorize_resource
+
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
     @search = Post.search(params[:q])
 
-    @posts = @search.result.page(params[:page]).per(25).order('`posts`.`created_at` DESC')
+    @posts = @search.result.page(params[:page]).per(25).reverse_chronological
   end
 
   def show
-    @post = Post.where(:slug => params[:id]).first
-
-    if @post.nil?
-      flash[:error] = t('messages.posts.could_not_find')
-
-      redirect_to admin_pages_url
-    end
   end
 
   def new
     @post = Post.new
   end
 
+  def edit
+  end
+
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(post_params)
 
     if !(current_user.sysadmin? || current_user.admin?) || @post.user.nil?
       @post.user = current_user
     end
 
     if @post.save
-      flash[:success] = t('messages.posts.created')
+      flash[:success] = 'Post was successfully created.'
 
-      if params[:redirect_to_new].present?
-        redirect_to new_admin_post_url
-      else
-        redirect_to admin_posts_url
-      end
+      redirect_to admin_post_url(@post)
     else
       flash[:error] = @post.errors.full_messages.uniq.join('. ') + '.'
 
@@ -45,33 +37,15 @@ class Admin::PostsController < Admin::AdminController
     end
   end
 
-  def edit
-    @post = Post.where(:slug => params[:id]).first
-
-    if @post.nil?
-      flash[:error] = t('messages.posts.could_not_find')
-
-      redirect_to admin_posts_url
-    end
-  end
-
   def update
-    @post = Post.where(:slug => params[:id]).first
-
-    if @post.nil?
-      flash[:error] = t('messages.posts.could_not_find')
-
-      redirect_to admin_posts_url and return
-    end
-
     if !current_user.sysadmin? && !current_user.admin? && @post.user != current_user
-      flash[:error] = t('messages.posts.not_your_post')
+      flash[:error] = 'You cannot edit another user\'s posts.'
 
       redirect_to admin_posts_url and return
     end
 
-    if @post.update_attributes(params[:post])
-      flash[:success] = t('messages.posts.updated')
+    if @post.update(post_params)
+      flash[:success] = 'Post was successfully updated.'
 
       redirect_to edit_admin_post_url(@post)
     else
@@ -82,24 +56,28 @@ class Admin::PostsController < Admin::AdminController
   end
 
   def destroy
-    @post = Post.where(:slug => params[:id]).first
-
-    if @post.nil?
-      flash[:error] = t('messages.posts.could_not_find')
-
-      redirect_to admin_posts_url and return
-    end
-
     if !current_user.sysadmin? && !current_user.admin? && @post.user != current_user
-      flash[:error] = t('messages.posts.not_your_post')
+      flash[:error] = 'You cannot edit another user\'s posts.'
 
       redirect_to admin_posts_url and return
     end
 
     @post.destroy
 
-    flash[:success] = t('messages.posts.deleted')
+    flash[:success] = 'Post was successfully deleted.'
 
     redirect_to admin_posts_url
+  end
+
+  private
+
+  def set_post
+    @post = Post.where(slug: params[:id]).first
+
+    fail ActiveRecord::RecordNotFound if @post.nil?
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :body, :style, :meta_description, :meta_keywords, :visible)
   end
 end
