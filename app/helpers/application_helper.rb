@@ -7,14 +7,6 @@ module ApplicationHelper
     render partial: 'shared/flash_messages'
   end
 
-  def icon_delete_link(url_or_path)
-    link_to('<span class="glyphicon glyphicon-remove"></span>'.html_safe, url_or_path, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini', rel: 'tooltip', title: 'Delete').html_safe
-  end
-
-  def icon_edit_link(url_or_path)
-    link_to('<span class="glyphicon glyphicon-edit"></span>'.html_safe, url_or_path, class: 'btn btn-mini', rel: 'tooltip', edit: 'Edit').html_safe
-  end
-
   def is_active_action?(action_name)
     params[:action] == action_name
   end
