@@ -14,7 +14,7 @@
       = bootstrap_form_for [:admin, Post.new], builder: AceBuilder, layout: :horizontal do |f|
         = f.text_field :title
         = f.picture_inserter :body
-        = f.ace_editor :body
+        = f.ace_editor :body, mode: 'rhtml'
         = f.form_group do
           = f.submit 'Submit'
 %section#rails-info.row.hidden-xs.hidden-sm
