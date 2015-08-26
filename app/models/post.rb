@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 class Post < ActiveRecord::Base
   include OptionsForSelect
   include Slugable
@@ -87,22 +86,22 @@ class Post < ActiveRecord::Base
     #case post['type']
     #  when 'text' then
     #    unless post['title'].blank?
-    #      #title = post['title'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”|\"/, '\"')
+    #      #title = post['title'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;\"/, '\"')
     #      title = Tumblr.sanitize_title(post['title'])
     #    end
     #
     #    unless post['body'].blank?
-    #      body = post['body'].gsub(/’|&#8217;/, '\'').gsub(/“|”/, '\"')
+    #      body = post['body'].gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;/, '\"')
     #    end
     #
     #  when 'quote' then
     #    unless post['text'].blank?
-    #      #title = post['text'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”|\"/, '\"').truncate(48)
+    #      #title = post['text'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;\"/, '\"').truncate(48)
     #      title = Tumblr.sanitize_title(post['text'])
     #    end
     #
     #    unless post['text'].blank?
-    #      body = "<p><strong>#{post['text'].gsub(/’|&#8217;/, '\'').gsub(/“|”/, '&quot;')}</strong></p>"
+    #      body = "<p><strong>#{post['text'].gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;/, '&quot;')}</strong></p>"
     #
     #      unless post['source'].blank?
     #        body += "<p>&mdash; #{post['source']}</p>"
@@ -111,7 +110,7 @@ class Post < ActiveRecord::Base
     #
     #  when 'link' then
     #    unless post['title'].blank?
-    #      #title = post['title'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”|\"/, '\"')
+    #      #title = post['title'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;\"/, '\"')
     #      title = Tumblr.sanitize_title(post['title'])
     #    end
     #
@@ -124,22 +123,22 @@ class Post < ActiveRecord::Base
     #    end
     #
     #    unless post['description'].blank?
-    #      body += post['description'].gsub(/’|&#8217;/, '\'').gsub(/“|”/, '\"')
+    #      body += post['description'].gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;/, '\"')
     #    end
     #
     #  when 'answer' then
     #    unless post['question'].blank?
-    #      #title = ActionController::Base.helpers.strip_tags(post['question'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”|\"/, '&quot;')).truncate(48)
+    #      #title = ActionController::Base.helpers.strip_tags(post['question'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;\"/, '&quot;')).truncate(48)
     #      title = Tumblr.sanitize_title(post['question'])
     #    end
     #
     #    unless post['question'].blank? || post['asking_name'].blank? || post['answer'].blank?
-    #      body = "<p><strong><a href=\"#{post['asking_url']}\">#{post['asking_name']}</a> asked: #{post['question'].gsub(/’|&#8217;/, '\'')}</strong></p>#{post['answer'].gsub(/’|&#8217;/, '\'')}"
+    #      body = "<p><strong><a href=\"#{post['asking_url']}\">#{post['asking_name']}</a> asked: #{post['question'].gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'')}</strong></p>#{post['answer'].gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'')}"
     #    end
     #
     #  when 'video' then
     #    unless post['caption'].blank?
-    #      #title = ActionController::Base.helpers.strip_tags(post['caption'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”|\"/, '&quot;')).truncate(48)
+    #      #title = ActionController::Base.helpers.strip_tags(post['caption'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;\"/, '&quot;')).truncate(48)
     #      title = Tumblr.sanitize_title(post['caption'])
     #    end
     #
@@ -147,13 +146,13 @@ class Post < ActiveRecord::Base
     #      body = "#{post['player']}"
     #
     #      unless post['caption'].blank?
-    #        body +="#{post['caption'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”/, '&quot;')}"
+    #        body +="#{post['caption'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;/, '&quot;')}"
     #      end
     #    end
     #
     #  when 'audio' then
     #    unless post['caption'].blank?
-    #      #title = ActionController::Base.helpers.strip_tags(post['caption'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”|\"/, '&quot;')).truncate(48)
+    #      #title = ActionController::Base.helpers.strip_tags(post['caption'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;\"/, '&quot;')).truncate(48)
     #      title = Tumblr.sanitize_title(post['caption'])
     #    end
     #
@@ -163,21 +162,21 @@ class Post < ActiveRecord::Base
     #      end
     #
     #      unless post['caption'].blank?
-    #        body += "#{post['caption'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”/, '&quot;')}"
+    #        body += "#{post['caption'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;/, '&quot;')}"
     #      end
     #    end
     #
     #  when 'photo' then
     #    unless post['caption'].blank?
-    #      #title = ActionController::Base.helpers.strip_tags(post['caption'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”|\"/, '&quot;')).truncate(48)
+    #      #title = ActionController::Base.helpers.strip_tags(post['caption'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;\"/, '&quot;')).truncate(48)
     #      title = Tumblr.sanitize_title(post['caption'])
     #    end
     #
     #    unless post['photos'].blank?
     #      post['photos'].each do |photo|
     #        if photo['caption'].present?
-    #          photo_alt_text = photo['caption'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”|\"/, '&quot;')
-    #          photo_title_text = photo['caption'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”|\"/, '&quot;')
+    #          photo_alt_text = photo['caption'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;\"/, '&quot;')
+    #          photo_title_text = photo['caption'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;\"/, '&quot;')
     #        else
     #          photo_alt_text = 'Cross Posted from Tumblr'
     #          photo_title_text = 'Cross Posted from Tumblr'
@@ -186,18 +185,18 @@ class Post < ActiveRecord::Base
     #        body += "<p class=\"center\"><img src=\"#{photo['original_size']['url']}\" alt=\"#{photo_alt_text}\" title=\"#{photo_title_text}\" /></p>"
     #
     #        unless photo['caption'].blank?
-    #          body += "<p class=\"center\">#{photo['caption'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”/, '\"')}</p>"
+    #          body += "<p class=\"center\">#{photo['caption'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;/, '\"')}</p>"
     #        end
     #      end
     #    end
     #
     #    unless post['caption'].blank?
-    #      body += "<p class=\"center\">#{post['caption'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”/, '\""')}</p>"
+    #      body += "<p class=\"center\">#{post['caption'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;/, '\""')}</p>"
     #    end
     #
     #  when 'chat' then
     #    unless post['title'].blank?
-    #      #title = post['title'].gsub(/\s+/, ' ').gsub(/’|&#8217;/, '\'').gsub(/“|”|\"/, '\"')
+    #      #title = post['title'].gsub(/\s+/, ' ').gsub(/\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;/, '\'').gsub(/\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;\"/, '\"')
     #      title = Tumblr.sanitize_title(post['title'])
     #    end
     #
