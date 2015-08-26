@@ -15,6 +15,10 @@ class PicturePresenter < BasePresenter
     image_tag @picture.image.url, alt: @picture.alt_text, class: 'original', title: @picture.title
   end
 
+  def small_image
+    image_tag @picture.image.url(:small), alt: @picture.alt_text, class: 'small', title: @picture.title
+  end
+
   def thumbnail_image
     image_tag @picture.image.url(:thumb), alt: @picture.alt_text, class: 'thumb', style: 'max-height: 50px;', title: @picture.title
   end
