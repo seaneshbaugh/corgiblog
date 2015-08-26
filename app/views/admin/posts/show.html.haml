@@ -22,12 +22,14 @@
         - if post_presenter.body.present?
           %pre= post_presenter.body
         - else
+          &nbsp;
     .row.attribute
       %strong.col-xs-12.col-sm-2.attribute-name.style Style
       .col-xs-12.col-sm-10.attribute-value.style
         - if post_presenter.style.present?
           %pre= post_presenter.style
         - else
+          &nsbp;
     .row.attribute
       %strong.col-xs-12.col-sm-2.attribute-name.meta-description Meta Description
       .col-xs-12.col-sm-10.attribute-value.meta-description= post_presenter.meta_description
