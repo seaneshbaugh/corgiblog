@@ -17,6 +17,7 @@
 
 # Ignore simplecov output.
 /public/coverage
+/coverage
 
 # Ignore config files.
 /config/application.yml

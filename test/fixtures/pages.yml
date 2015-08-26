@@ -1,0 +1,12 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+about:
+  title: "About"
+  slug: "about"
+  body: "<p>Conney is a very ornery corgi.</p>"
+  style: ""
+  meta_description: ""
+  meta_keywords: ""
+  order: 0
+  show_in_menu: true
+  visible: true

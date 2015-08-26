@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+first_post:
+  user: sean_eshbaugh
+  title: "First Post"
+  slug: "first-post"
+  body: "<p>My first post.</p>"
+  style: ""
+  meta_description: ""
+  meta_keywords: ""
+  visible: true
+
+second_post:
+  user: sean_eshbaugh
+  title: "Second Post"
+  slug: "second-post"
+  body: "<p>My second post.</p>"
+  style: ""
+  meta_description: ""
+  meta_keywords: ""
+  visible: true
