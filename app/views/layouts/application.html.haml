@@ -32,12 +32,11 @@
               %span.icon-bar
               %span.icon-bar
               %span.icon-bar
-            = link_to 'Conney the Corig!', root_path, class: 'navbar-brand'
+            = link_to 'Conney the Corgi!', root_path, class: 'navbar-brand'
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
               %li{ class: is_active_controller?('pictures') ? 'active' : nil }
                 = link_to 'Pictures', pictures_path
-              = nav_link_to 'Pictures', pictures_path, {}. { segments: 1, wrapper: 'li' }
               - @pages.each do |page|
                 %li{ class: is_active_page?(page.slug) ? 'active' : nil }
                   = link_to page.title, "/#{page.slug}"
