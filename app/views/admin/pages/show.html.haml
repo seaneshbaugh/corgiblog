@@ -1,0 +1,53 @@
+- present @page do |page_presenter|
+  %h2= "Page: #{page_presenter.title}"
+  .admin-actions
+    = link_to 'Back to Index', admin_pages_path, class: 'btn btn-default'
+    - if can? :edit, @page
+      = link_to 'Edit', edit_admin_page_path(@page), class: 'btn btn-primary'
+    - if can? :destroy, @page
+      = link_to 'Delete', admin_page_path(@page), method: 'delete', class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
+  %h3 Page Attributes
+  .page.attributes
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.title Title
+      .col-xs-12.col-sm-10.attribute-value.title= page_presenter.title
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.slug Slug
+      .col-xs-12.col-sm-10.attribute-value.slug
+        = page_presenter.slug
+        = page_presenter.share_link target: '_blank'
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.body Body
+      .col-xs-12.col-sm-10.attribute-value.body
+        - if page_presenter.body.present?
+          %pre= page_presenter.body
+        - else
+          &nbsp;
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.style Style
+      .col-xs-12.col-sm-10.attribute-value.style
+        - if page_presenter.style.present?
+          %pre= page_presenter.style
+        - else
+          &nbsp;
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.meta-description Meta Description
+      .col-xs-12.col-sm-10.attribute-value.meta-description= page_presenter.meta_description
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.meta-keywords Meta Keywords
+      .col-xs-12.col-sm-10.attribute-value.meta-keywords= page_presenter.meta_keywords
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.order Order
+      .col-xs-12.col-sm-10.attribute-value.order= page_presenter.order
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.show-in-menu Show in Menu?
+      .col-xs-12.col-sm-10.attribute-value.show-in-menu= page_presenter.show_in_menu
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.visible Visible?
+      .col-xs-12.col-sm-10.attribute-value.visible= page_presenter.visible
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.created-at Created At
+      .col-xs-12.col-sm-10.attribute-value.created-at= page_presenter.created_at
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.updated-at Updated At
+      .col-xs-12.col-sm-10.attribute-value.updated-at= page_presenter.updated_at
