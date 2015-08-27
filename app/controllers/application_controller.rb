@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter -> { @pages = Page.published.in_menu.by_order }
+  before_action -> { @pages = Page.published.in_menu.by_order }
 
   def after_sign_out_path_for(_resource_or_scope)
     root_url
