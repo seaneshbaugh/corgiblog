@@ -63,7 +63,7 @@ module Admin
     end
 
     def page_params
-      params.require(:page).permit(:title, :body, :style, :script, :meta_description, :meta_keywords, :order, :color, :show_in_menu, :visible)
+      params.require(:page).permit(:title, :body, :style, :meta_description, :meta_keywords, :order, :color, :show_in_menu, :visible)
     end
   end
 end
