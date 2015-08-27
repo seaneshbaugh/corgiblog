@@ -30,6 +30,8 @@ $ ->
     selector: "[rel*=popover]"
     trigger: "hover"
 
+  ace.config.set("basePath", "/assets/ace")
+
   $(".ace-editor").each ->
     editorContainer = $(this)
 
@@ -60,6 +62,8 @@ $ ->
       $(textarea).hide()
 
       editor = ace.edit(editorID)
+
+      editor.$blockScrolling = Infinity
 
       $("#" + editorID).data "editor", editor
 
