@@ -96,6 +96,15 @@ $ ->
     allowDuplicates: false
     createTokensOnBlur: true
 
+  $("body").on "click", ".picture-inserter-button", (event) ->
+    event.preventDefault()
+
+    pictureInserterButton = $(this)
+
+    modal = $(pictureInserterButton.data("target"))
+
+    modal.load pictureInserterButton.attr("href")
+
   $("body").on "submit", "#picture-selector-search-form", (event) ->
     event.preventDefault()
 
@@ -120,14 +129,16 @@ $ ->
 
     picture = $(this)
 
-    target = $(picture.closest(".modal").data("target"))
+    modal = picture.closest(".modal")
+
+    target = $(modal.data("target"))
 
     if target.length > 0 and target.data("editor")
       img = "<img src=\"" + picture.data("picture-url") + "\" alt=\"" + picture.data("picture-alt-text") + "\">"
 
       target.data("editor").insert img
 
-    $("#picture-selector-modal").modal "hide"
+    modal.modal "hide"
 
   $("#new_picture-fileupload").fileupload
     dataType: "script"

@@ -22,12 +22,14 @@ class AceBuilder < BootstrapForm::FormBuilder
 
     link_class = options.delete(:class) || 'btn btn-default'
 
+    link_class += ' picture-inserter-button'
+
     modal_id = "#{object_name}_#{method}-picture-selector-modal"
 
     form_group_builder(method, options.merge(skip_label: true)) do
       link = link_to(link_body, '/admin/pictures/selector', class: link_class, data: { toggle: 'modal', target: "\##{modal_id}" })
 
-      modal = content_tag(:div, '', id: modal_id, class: 'modal fade', role: 'dialog', data: { target: ace_editor_id_for(method) })
+      modal = content_tag(:div, '', id: modal_id, class: 'modal fade', role: 'dialog', data: { target: "\##{ace_editor_id_for(method)}" })
 
       link + modal
     end
