@@ -1,0 +1,8 @@
+= bootstrap_form_for [:admin, @picture], layout: :horizontal do |f|
+  = f.text_field :title
+  = f.text_field :alt_text
+  = f.text_field :caption
+  = f.file_field :image
+  = f.form_group do
+    = f.primary
+    = link_to 'Cancel', admin_pictures_path, class: 'btn btn-default'

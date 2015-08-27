@@ -1,0 +1,11 @@
+- present @picture do |picture_presenter|
+  %tr.row.picture
+    %td.col-xs-2.thumb= link_to picture_presenter.thumbnail_image, admin_picture_path(@picture)
+    %td.col-xs-6.title= link_to picture_presenter.title, admin_picture_path(@picture)
+    %td.col-xs-2.created-at= picture_presenter.created_at
+    %td.col-xs-1.edit
+      - if can? :edit, @picture
+        = icon_edit_link edit_admin_picture_path(@picture)
+    %td.col-xs-1.delete
+      - if can? :destroy, @picture
+        = icon_delete_link admin_picture_path(@picture)
