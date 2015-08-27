@@ -1,8 +1,10 @@
-class Admin::AdminController < ApplicationController
-  before_filter :authenticate_user!
+module Admin
+  class AdminController < ApplicationController
+    before_filter :authenticate_user!
 
-  layout 'admin'
+    layout 'admin'
 
-  def index
+    def index
+    end
   end
 end

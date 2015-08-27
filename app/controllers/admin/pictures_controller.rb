@@ -1,81 +1,83 @@
-class Admin::PicturesController < Admin::AdminController
-  authorize_resource
+module Admin
+  class PicturesController < AdminController
+    authorize_resource
 
-  before_action :set_picture, only: [:show, :edit, :update, :destroy]
+    before_action :set_picture, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @search = Picture.search(params[:q])
+    def index
+      @search = Picture.search(params[:q])
 
-    @pictures = @search.result.page(params[:page]).per(25).reverse_chronological
-  end
+      @pictures = @search.result.page(params[:page]).per(25).reverse_chronological
+    end
 
-  def show
-  end
+    def show
+    end
 
-  def new
-    @picture = Picture.new
-  end
+    def new
+      @picture = Picture.new
+    end
 
-  def edit
-  end
+    def edit
+    end
 
-  def create
-    respond_to do |format|
-      format.html do
-        @picture = Picture.new(picture_params)
+    def create
+      respond_to do |format|
+        format.html do
+          @picture = Picture.new(picture_params)
 
-        if @picture.save
-          flash[:success] = 'Picture was successfully created.'
+          if @picture.save
+            flash[:success] = 'Picture was successfully created.'
 
-          redirect_to admin_picture_url(@picture)
-        else
-          flash[:error] = view_context.error_messages_for(@picture)
+            redirect_to admin_picture_url(@picture)
+          else
+            flash[:error] = view_context.error_messages_for(@picture)
 
-          render 'new'
+            render 'new'
+          end
+        end
+
+        format.js do
+          @picture = Picture.create(picture_params)
         end
       end
+    end
 
-      format.js do
-        @picture = Picture.create(picture_params)
+    def update
+      if @picture.update(picture_params)
+        flash[:success] = 'Picture was successfully updated.'
+
+        redirect_to edit_admin_picture_url(@picture)
+      else
+        flash[:error] = view_context.error_messages_for(@picture)
+
+        render 'edit'
       end
     end
-  end
 
-  def update
-    if @picture.update(picture_params)
-      flash[:success] = 'Picture was successfully updated.'
+    def destroy
+      @picture.destroy
 
-      redirect_to edit_admin_picture_url(@picture)
-    else
-      flash[:error] = view_context.error_messages_for(@picture)
+      flash[:success] = 'Picture was successfully deleted.'
 
-      render 'edit'
+      redirect_to admin_pictures_url
     end
-  end
 
-  def destroy
-    @picture.destroy
+    def selector
+      @pictures = Picture.reverse_chronological
 
-    flash[:success] = 'Picture was successfully deleted.'
+      render layout: false
+    end
 
-    redirect_to admin_pictures_url
-  end
+    private
 
-  def selector
-    @pictures = Picture.reverse_chronological
+    def set_picture
+      @picture = Picture.where(id: params[:id]).first
 
-    render layout: false
-  end
+      fail ActiveRecord::RecordNotFound if @picture.nil?
+    end
 
-  private
-
-  def set_picture
-    @picture = Picture.where(id: params[:id]).first
-
-    fail ActiveRecord::RecordNotFound if @picture.nil?
-  end
-
-  def picture_params
-    params.require(:picture).permit(:title, :alt_text, :caption, :image)
+    def picture_params
+      params.require(:picture).permit(:title, :alt_text, :caption, :image)
+    end
   end
 end

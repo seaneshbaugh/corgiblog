@@ -1,67 +1,69 @@
-class Admin::PagesController < Admin::AdminController
-  authorize_resource
+module Admin
+  class PagesController < AdminController
+    authorize_resource
 
-  before_action :set_page, only: [:show, :edit, :update, :destroy]
+    before_action :set_page, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @search = Page.search(params[:q])
+    def index
+      @search = Page.search(params[:q])
 
-    @pages = @search.result.page(params[:page]).per(25).by_order
-  end
-
-  def show
-  end
-
-  def new
-    @page = Page.new
-  end
-
-  def edit
-  end
-
-  def create
-    @page = Page.new(page_params)
-
-    if @page.save
-      flash[:success] = 'Page was successfully created.'
-
-      redirect_to admin_page_url(@page)
-    else
-      flash[:error] = view_context.error_messages_for(@page)
-
-      render 'new'
+      @pages = @search.result.page(params[:page]).per(25).by_order
     end
-  end
 
-  def update
-    if @page.update(page_params)
-      flash[:success] = 'Page was successfully updated.'
-
-      redirect_to edit_admin_page_url(@page)
-    else
-      flash[:error] = view_context.error_messages_for(@page)
-
-      render 'edit'
+    def show
     end
-  end
 
-  def destroy
-    @page.destroy
+    def new
+      @page = Page.new
+    end
 
-    flash[:success] = 'Page was successfully deleted.'
+    def edit
+    end
 
-    redirect_to admin_pages_url
-  end
+    def create
+      @page = Page.new(page_params)
 
-  private
+      if @page.save
+        flash[:success] = 'Page was successfully created.'
 
-  def set_page
-    @page = Page.where(slug: params[:id]).first
+        redirect_to admin_page_url(@page)
+      else
+        flash[:error] = view_context.error_messages_for(@page)
 
-    fail ActiveRecord::RecordNotFound if @page.nil?
-  end
+        render 'new'
+      end
+    end
 
-  def page_params
-    params.require(:page).permit(:title, :body, :style, :script, :meta_description, :meta_keywords, :order, :color, :show_in_menu, :visible)
+    def update
+      if @page.update(page_params)
+        flash[:success] = 'Page was successfully updated.'
+
+        redirect_to edit_admin_page_url(@page)
+      else
+        flash[:error] = view_context.error_messages_for(@page)
+
+        render 'edit'
+      end
+    end
+
+    def destroy
+      @page.destroy
+
+      flash[:success] = 'Page was successfully deleted.'
+
+      redirect_to admin_pages_url
+    end
+
+    private
+
+    def set_page
+      @page = Page.where(slug: params[:id]).first
+
+      fail ActiveRecord::RecordNotFound if @page.nil?
+    end
+
+    def page_params
+      params.require(:page).permit(:title, :body, :style, :script, :meta_description, :meta_keywords, :order, :color, :show_in_menu, :visible)
+    end
   end
 end
