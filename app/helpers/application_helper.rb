@@ -4,7 +4,31 @@ module ApplicationHelper
   end
 
   def flash_messages
-    render partial: 'shared/flash_messages'
+    return unless flash.present?
+
+    flashes = flash.map do |name, message|
+      name = name.to_s
+
+      class_name = name
+
+      if class_name == 'error'
+        class_name = 'danger'
+      elsif class_name == 'alert'
+        class_name = 'danger'
+
+        name = 'error'
+      elsif class_name == 'notice'
+        class_name = 'success'
+
+        name = 'success'
+      elsif !%w(success info warning danger).include?(class_name)
+        class_name = 'info'
+      end
+
+      { name: name, message: message, class_name: class_name }
+    end
+
+    render partial: 'shared/flash_messages', locals: { flashes: flashes }
   end
 
   def is_active_action?(action_name)
