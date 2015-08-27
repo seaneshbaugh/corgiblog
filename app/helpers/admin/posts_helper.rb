@@ -1,2 +1,4 @@
-module Admin::PostsHelper
+module Admin
+  module PostsHelper
+  end
 end

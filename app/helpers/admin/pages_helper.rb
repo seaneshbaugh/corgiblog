@@ -1,2 +1,4 @@
-module Admin::PagesHelper
+module Admin
+  module PagesHelper
+  end
 end

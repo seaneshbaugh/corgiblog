@@ -1,2 +1,4 @@
-module Admin::PicturesHelper
+module Admin
+  module PicturesHelper
+  end
 end
