@@ -5,14 +5,14 @@ module Admin
 
       lockfile.specs.map do |spec|
         {
-         name: spec.name,
-         version: spec.version.version,
-         dependencies: spec.dependencies.map do |dependency|
-           {
-            name: dependency.name,
-            requirement: dependency.requirement
-           }
-         end
+          name: spec.name,
+          version: spec.version.version,
+          dependencies: spec.dependencies.map do |dependency|
+            {
+              name: dependency.name,
+              requirement: dependency.requirement
+            }
+          end
         }
       end
     end
