@@ -18,10 +18,6 @@ class PostsController < ApplicationController
   def show
     @post = Post.published.where(slug: params[:id]).first
 
-    if @post.nil?
-      flash[:error] = t('messages.posts.could_not_find')
-
-      redirect_to root_url
-    end
+    fail ActiveRecord::RecordNotFound if @post.nil?
   end
 end
