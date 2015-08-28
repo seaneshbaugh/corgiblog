@@ -141,6 +141,10 @@ class Picture < ActiveRecord::Base
     self.image_medium_width = medium_geometry.width
     self.image_medium_height = medium_geometry.height
 
+    small_geometry = Paperclip::Geometry.from_file(image.queued_for_write[:small])
+    self.image_small_width = small_geometry.width
+    self.image_small_height = small_geometry.height
+
     thumb_geometry = Paperclip::Geometry.from_file(image.queued_for_write[:thumb])
     self.image_thumb_width = thumb_geometry.width
     self.image_thumb_height = thumb_geometry.height
