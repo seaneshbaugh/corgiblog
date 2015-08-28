@@ -16,10 +16,6 @@ class PicturesController < ApplicationController
   def show
     @picture = Picture.where(id: params[:id]).first
 
-    if @picture.nil?
-      flash[:error] = t('messages.pictures.could_not_find')
-
-      redirect_to pictures_url
-    end
+    fail ActiveRecord::RecordNotFound if @picture.nil?
   end
 end
