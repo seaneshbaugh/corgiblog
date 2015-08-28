@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Admin::AdminHelperTest < ActionView::TestCase
+module Admin
+  class AdminHelperTest < ActionView::TestCase
+  end
 end

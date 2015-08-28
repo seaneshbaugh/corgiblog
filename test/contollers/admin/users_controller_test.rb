@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Admin::UsersControllerTest < ActionController::TestCase
+module Admin
+  class UsersControllerTest < ActionController::TestCase
+  end
 end
