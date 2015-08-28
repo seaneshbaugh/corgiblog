@@ -45,6 +45,10 @@ class Picture < ActiveRecord::Base
 
   default_value_for :image_medium_height, 1
 
+  default_value_for :image_small_width, 1
+
+  default_value_for :image_small_height, 1
+
   default_value_for :image_thumb_width, 1
 
   default_value_for :image_thumb_height, 1
