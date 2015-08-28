@@ -20,7 +20,7 @@ module Slugable
     if title.blank?
       self.slug = id.to_s
     else
-      self.slug = CGI.unescapeHTML(Sanitize.clean(title)).gsub(/'|"/, '').gsub(' & ', 'and').gsub('&', '').squeeze(' ').parameterize
+      self.slug = CGI.unescapeHTML(Sanitize.clean(title)).gsub(/'|"/, '').gsub(' & ', 'and').delete('&').squeeze(' ').parameterize
     end
   end
 end
