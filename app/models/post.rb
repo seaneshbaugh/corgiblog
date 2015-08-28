@@ -61,7 +61,7 @@ class Post < ActiveRecord::Base
   def self.import_all_from_tumblr
     offset = 0
 
-    begin
+    loop do
       posts = HTTParty.get("http://api.tumblr.com/v2/blog/#{TUMBLR_SETTINGS['blog_url']}/posts/?api_key=#{TUMBLR_SETTINGS['api_key']}&offset=#{offset}&reblog_info=false&notes_info=false")['response']['posts']
 
       posts.each do |post|
@@ -69,7 +69,9 @@ class Post < ActiveRecord::Base
       end
 
       offset += 20
-    end while posts.present?
+
+      break unless posts.present?
+    end
   end
 
   def self.import_from_tumblr(id)
@@ -221,18 +223,20 @@ class Post < ActiveRecord::Base
     #end
 
     t = title
+
     n = 1
 
-    duplicate = nil
-
-    begin
+    loop do
       duplicate = Post.where('`posts`.`title` = ? AND `posts`.`tumblr_id` != ?', t, post['id']).first
 
       unless duplicate.nil?
-        t = title + " #{n}"
+        t = "#{title} #{n}"
+
         n += 1
       end
-    end while !duplicate.nil?
+
+      break if duplicate.nil?
+    end
 
     title = t
 
@@ -246,7 +250,7 @@ class Post < ActiveRecord::Base
       meta_keywords = ''
     end
 
-    user_id = User.where(:role => 'sysadmin').first.id
+    user_id = User.where(role: 'sysadmin').first.id
 
     tumblr_id = post['id'].to_s
 
@@ -259,13 +263,21 @@ class Post < ActiveRecord::Base
     new_post = Post.new
 
     new_post.title = title
+
     new_post.body = body
+
     new_post.style = style
+
     new_post.meta_description = meta_description
+
     new_post.meta_keywords = meta_keywords
+
     new_post.user_id = user_id
+
     new_post.tumblr_id = tumblr_id
+
     new_post.created_at = created_at
+
     new_post.updated_at = updated_at
 
     new_post.save
