@@ -3,3 +3,11 @@
 sean_eshbaugh:
   email: "sean@conneythecorgi.com"
   role: "sysadmin"
+
+casie_clark:
+  email: "casie@conneythecorgi.com"
+  role: "admin"
+
+conney_the_corgi:
+  email: "conney@conneythecorgi.com"
+  role: "read_only"

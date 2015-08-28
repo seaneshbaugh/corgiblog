@@ -32,15 +32,14 @@ class Ability
     end
   end
 
-  def self.valid_roles(user)
-    roles = {}
-
-    if user.role == ROLES[:admin]
-      roles = ROLES.reject { |key, _| key == :sysadmin }
-    elsif user.role == ROLES[:sysadmin]
-      roles = ROLES
+  def self.valid_roles_for(user)
+    case user.role
+    when ROLES[:sysadmin]
+      ROLES
+    when ROLES[:admin]
+      ROLES.reject { |key, _| key == :sysadmin }
+    else
+      {}
     end
-
-    roles
   end
 end

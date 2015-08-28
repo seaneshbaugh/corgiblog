@@ -4,7 +4,7 @@
   = f.email_field :email
   = f.password_field :password
   = f.password_field :password_confirmation, label: 'Password Confirmation'
-  = f.select :role, Ability.valid_roles(current_user).map { |_, value| [value.titleize, value] }
+  = f.select :role, Ability.valid_roles_for(current_user).map { |_, value| [value.titleize, value] }
   = f.form_group do
     = f.primary
     = link_to 'Cancel', admin_users_path, class: 'btn btn-default'
