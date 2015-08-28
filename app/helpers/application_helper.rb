@@ -31,15 +31,15 @@ module ApplicationHelper
     render partial: 'shared/flash_messages', locals: { flashes: flashes }
   end
 
-  def is_active_action?(action_name)
+  def active_action?(action_name)
     params[:action] == action_name
   end
 
-  def is_active_controller?(controller_name)
+  def active_controller?(controller_name)
     params[:controller] == controller_name
   end
 
-  def is_active_page?(page_name)
+  def active_page?(page_name)
     params[:controller] == 'pages' && params[:action] == 'show' && params[:id] == page_name
   end
 

@@ -35,12 +35,12 @@
             = link_to 'Conney the Corgi!', root_path, class: 'navbar-brand'
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
-              %li{ class: is_active_controller?('pictures') ? 'active' : nil }
+              %li{ class: active_controller?('pictures') ? 'active' : nil }
                 = link_to 'Pictures', pictures_path
               - @pages.each do |page|
-                %li{ class: is_active_page?(page.slug) ? 'active' : nil }
+                %li{ class: active_page?(page.slug) ? 'active' : nil }
                   = link_to page.title, "/#{page.slug}"
-              %li{ class: is_active_controller?('contact') ? 'active' : nil }
+              %li{ class: active_controller?('contact') ? 'active' : nil }
                 = link_to 'Contact', contact_path
             - if current_user.present?
               %ul.nav.navbar-nav.navbar-right
