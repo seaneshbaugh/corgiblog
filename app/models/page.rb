@@ -58,11 +58,7 @@ class Page < ActiveRecord::Base
 
     images = body_doc.xpath('//img')
 
-    if images.length > 0
-      images[0]['src']
-    else
-      nil
-    end
+    images.first['src'] if images.length > 0
   end
 
   def published?
