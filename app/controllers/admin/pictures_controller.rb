@@ -30,7 +30,7 @@ module Admin
 
             redirect_to admin_picture_url(@picture)
           else
-            flash[:error] = view_context.error_messages_for(@picture)
+            flash.now[:error] = view_context.error_messages_for(@picture)
 
             render 'new'
           end
@@ -48,7 +48,7 @@ module Admin
 
         redirect_to edit_admin_picture_url(@picture)
       else
-        flash[:error] = view_context.error_messages_for(@picture)
+        flash.now[:error] = view_context.error_messages_for(@picture)
 
         render 'edit'
       end

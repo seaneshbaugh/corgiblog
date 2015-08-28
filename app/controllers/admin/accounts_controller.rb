@@ -16,7 +16,7 @@ module Admin
 
         redirect_to admin_account_path
       else
-        flash[:error] = view_context.error_messages_for(@account)
+        flash.now[:error] = view_context.error_messages_for(@account)
 
         render 'edit'
       end

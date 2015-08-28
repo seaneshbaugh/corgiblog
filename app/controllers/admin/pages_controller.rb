@@ -28,7 +28,7 @@ module Admin
 
         redirect_to admin_page_url(@page)
       else
-        flash[:error] = view_context.error_messages_for(@page)
+        flash.now[:error] = view_context.error_messages_for(@page)
 
         render 'new'
       end
@@ -40,7 +40,7 @@ module Admin
 
         redirect_to edit_admin_page_url(@page)
       else
-        flash[:error] = view_context.error_messages_for(@page)
+        flash.now[:error] = view_context.error_messages_for(@page)
 
         render 'edit'
       end

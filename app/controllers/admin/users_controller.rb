@@ -28,7 +28,7 @@ module Admin
 
         redirect_to admin_user_url(@user)
       else
-        flash[:error] = view_context.error_messages_for(@user)
+        flash.now[:error] = view_context.error_messages_for(@user)
 
         render 'new'
       end
@@ -40,7 +40,7 @@ module Admin
 
         redirect_to edit_admin_user_url(@user)
       else
-        flash[:error] = view_context.error_messages_for(@user)
+        flash.now[:error] = view_context.error_messages_for(@user)
 
         render 'edit'
       end

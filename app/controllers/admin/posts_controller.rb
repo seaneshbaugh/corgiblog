@@ -32,7 +32,7 @@ module Admin
 
         redirect_to admin_post_url(@post)
       else
-        flash[:error] = view_context.error_messages_for(@post)
+        flash.now[:error] = view_context.error_messages_for(@post)
 
         render 'new'
       end
@@ -50,7 +50,7 @@ module Admin
 
         redirect_to edit_admin_post_url(@post)
       else
-        flash[:error] = view_context.error_messages_for(@post)
+        flash.now[:error] = view_context.error_messages_for(@post)
 
         render 'edit'
       end
@@ -58,7 +58,7 @@ module Admin
 
     def destroy
       if !current_user.sysadmin? && !current_user.admin? && @post.user != current_user
-        flash[:error] = 'You cannot edit another user\'s posts.'
+        flash[:error] = 'You cannot delete another user\'s posts.'
 
         redirect_to admin_posts_url and return
       end
