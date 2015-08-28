@@ -70,17 +70,17 @@ class Picture < ActiveRecord::Base
     json = super(options)
 
     options[:image_url].each do |image_size|
-      json["#{image_size}_image_url"] = self.image.url(image_size)
+      json["#{image_size}_image_url"] = image.url(image_size)
     end
 
     if options[:scaled_width]
       json['scaled_width'] = options[:scaled_width]
 
-      json['scaled_height'] = self.scale_height(options[:scaled_width])
+      json['scaled_height'] = scale_height(options[:scaled_width])
     elsif options[:scaled_height]
       json['scaled_height'] = options[:scaled_height]
 
-      json['scaled_width'] = self.scale_width(options[:scaled_height])
+      json['scaled_width'] = scale_width(options[:scaled_height])
     end
 
     json
@@ -97,7 +97,7 @@ class Picture < ActiveRecord::Base
   def scale_height(new_width)
     new_width = new_width.to_f
 
-    ratio = self.image_original_width.to_f / self.image_original_height.to_f
+    ratio = image_original_width.to_f / image_original_height.to_f
 
     (new_width / ratio).to_i
   end
@@ -105,7 +105,7 @@ class Picture < ActiveRecord::Base
   def scale_width(new_height)
     new_height = new_height.to_f
 
-    ratio = self.image_original_height.to_f / self.image_original_width.to_f
+    ratio = image_original_height.to_f / image_original_width.to_f
 
     (new_height / ratio).to_i
   end
