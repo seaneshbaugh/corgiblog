@@ -110,6 +110,8 @@ module Tumblr
 
       post.tumblr_id = @tumblr_id
 
+      post.created_at = @date
+
       post.tag_list = @tags
 
       post
