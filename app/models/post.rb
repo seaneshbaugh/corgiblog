@@ -33,6 +33,8 @@ class Post < ActiveRecord::Base
 
   validates_inclusion_of :visible, in: [true, false], message: 'must be true or false'
 
+  validates_uniqueness_of :tumblr_id
+
   validates_associated :user
 
   # Default Values
@@ -56,22 +58,6 @@ class Post < ActiveRecord::Base
 
   def published?
     visible
-  end
-
-  def self.import_all_from_tumblr
-    offset = 0
-
-    loop do
-      posts = HTTParty.get("http://api.tumblr.com/v2/blog/#{TUMBLR_SETTINGS['blog_url']}/posts/?api_key=#{TUMBLR_SETTINGS['api_key']}&offset=#{offset}&reblog_info=false&notes_info=false")['response']['posts']
-
-      posts.each do |post|
-        Post.create_from_tumblr_json post
-      end
-
-      offset += 20
-
-      break unless posts.present?
-    end
   end
 
   def self.import_from_tumblr(id)

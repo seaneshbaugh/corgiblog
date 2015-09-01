@@ -65,4 +65,6 @@ group :test do
   gem 'mini_backtrace'
   gem 'minitest-reporters'
   gem 'simplecov', require: false
+  gem 'vcr'
+  gem 'webmock'
 end

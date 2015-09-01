@@ -16,8 +16,15 @@ Minitest::Reporters.use!
 
 DatabaseCleaner.strategy = :transaction
 
+VCR.configure do |config|
+  config.cassette_library_dir = 'test/vcr_cassettes'
+  config.hook_into :webmock
+end
+
 module ActiveSupport
   class TestCase
+    include ActionDispatch::TestProcess
+
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 

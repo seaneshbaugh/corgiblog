@@ -39,6 +39,7 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
+    addressable (2.3.8)
     amq-protocol (2.0.0)
     ansi (1.5.0)
     arel (6.0.3)
@@ -94,6 +95,8 @@ GEM
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
     commonjs (0.2.7)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     crass (1.0.2)
     daemons (1.2.3)
     database_cleaner (1.4.1)
@@ -285,6 +288,7 @@ GEM
     ruby-progressbar (1.7.5)
     ruby_parser (3.7.1)
       sexp_processor (~> 4.1)
+    safe_yaml (1.0.4)
     sanitize (4.0.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
@@ -350,6 +354,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    vcr (2.9.3)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -357,6 +362,9 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.3)
       rack (>= 1.0)
+    webmock (1.21.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
     yaml_db (0.3.0)
       rails (>= 3.0, < 4.3)
       rake (>= 0.8.7)
@@ -421,7 +429,9 @@ DEPENDENCIES
   twitter-typeahead-rails
   uglifier
   unicorn
+  vcr
   virtus
+  webmock
   yaml_db
 
 BUNDLED WITH

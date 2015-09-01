@@ -25,7 +25,11 @@ module Corgiblog
 
     config.autoload_paths += Dir[Rails.root.join('app', 'builders')]
 
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
+
     config.autoload_paths += Dir[Rails.root.join('app', 'presenters', '{**}')]
+
+    config.autoload_paths += Dir[Rails.root.join('app', 'services', '{**}')]
 
     config.autoload_paths += Dir[Rails.root.join('app', 'validators')]
 
