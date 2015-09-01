@@ -102,7 +102,7 @@ module Tumblr
     def to_post
       post = ::Post.where(tumblr_id: @tumblr_id).first || ::Post.new
 
-      post.title = post_title
+      post.title = deduplicate(:title, post_title)
 
       post.body = post_body
 
@@ -116,6 +116,35 @@ module Tumblr
     end
 
     private
+
+    def deduplicate(attribute_name, attribute_value)
+      # Obviously deduping the primary key or the tumblr_id makes no sense. Only allowing
+      # attribute_value to be a String is a bit of an artificial restriction but I think
+      # for anything but strings what it means exactly to dedup the value in the database
+      # is not necessarily clear. Appending a number to a string to ensure it does not
+      # collide with existing strings is a pretty common idiom (e.g. copying and pasting
+      # a file to a directory that already has a similarly named file in Windows or OS X).
+      return attribute_value if attribute_name == :id || attribute_name == :tumblr_id || !attribute_value.is_a?(String)
+
+      n = 1
+
+      loop do
+        # This is only necessary for now while ActiveRecord does not support or queries
+        # directly. Starting in Rails 5 (late 2015) we'll be able to do something like:
+        # ::Post.where(attribute_name => attribute_value).and.not.where(tumblr_id: @tumblr_id).or.where(tumblr_id: nil)
+        # In the mean time we have to manually chain together AREL objects. The code is
+        # messy but still better than directly writing the SQL in my opinion.
+        duplicate = ::Post.where(::Post.arel_table[attribute_name].eq(attribute_value).and(::Post.arel_table[:tumblr_id].eq(@tumblr_id).not.or(::Post.arel_table[:tumblr_id].eq(nil)))).first
+
+        break if duplicate.nil?
+
+        attribute_value = "#{attribute_value} #{n}"
+
+        n += 1
+      end
+
+      attribute_value
+    end
 
     def post_body
       @body = ''

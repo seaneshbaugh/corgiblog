@@ -23,7 +23,11 @@ module Tumblr
     end
 
     def post_title
-      @title = sanitized_caption
+      @title = Sanitize.clean(@json['caption'], caption_sanitization_options).strip
+
+      super unless @title.present?
+
+      @title
     end
   end
 end

@@ -109,5 +109,63 @@ module Tumblr
         assert_equal existing_picture.image_fingerprint, photos.last.image_fingerprint
       end
     end
+
+    test 'it should deduplicate post titles' do
+      VCR.use_cassette('tumblr photo 2') do
+        first_json = {
+          'id' => 1234567890,
+          'type' => 'photo',
+          'date' => '2015-08-24 21:59:07 GMT',
+          'caption' => '<p>Friday!</p>',
+          'photos' => [
+            {
+              'caption' => '',
+              'original_size' => {
+                'width' => 640,
+                'height' => 640,
+                'url' => 'http://41.media.tumblr.com/104f17db6c48f7de41775c10d4e6da35/tumblr_nott7nUuOv1r9wamzo1_1280.jpg'
+              }
+            }
+          ]
+        }
+
+        second_json = {
+          'id' => 1234567891,
+          'type' => 'photo',
+          'date' => '2015-08-24 21:59:10 GMT',
+          'caption' => '<p>Friday!</p>',
+          'photos' => [
+            {
+              'caption' => '',
+              'original_size' => {
+                'width' => 960,
+                'height' => 1280,
+                'url' => 'http://40.media.tumblr.com/eb3de79a7383331a0cbf4aa2e836c058/tumblr_nq7q7pz8X91r9wamzo1_1280.jpg'
+               }
+             }
+          ]
+        }
+
+        first_tumblr_post = Tumblr::PostFactory.new(first_json)
+
+        second_tumblr_post = Tumblr::PostFactory.new(second_json)
+
+        first_tumblr_post.download_photos!
+
+        second_tumblr_post.download_photos!
+
+        first_post = first_tumblr_post.to_post
+
+        first_post.save!
+
+        second_post = second_tumblr_post.to_post
+
+        second_post.save!
+
+        assert_equal 'Friday!', first_post.title
+
+        assert_equal 'Friday! 1', second_post.title
+      end
+    end
   end
 end
