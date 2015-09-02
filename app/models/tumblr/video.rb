@@ -1,6 +1,6 @@
 module Tumblr
   class Video < PostFactory
-        def post_body
+    def post_body
       capture do
         concat(@json['player'].html_safe)
 
