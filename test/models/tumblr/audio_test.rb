@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Tumblr
   class AudioTest < ActiveSupport::TestCase
-    test 'it should use the audio source  title as the post title' do
+    test 'it should use the audio source title as the post title' do
       json = {
         'id' => 1234567890,
         'type' => 'audio',
@@ -20,7 +20,7 @@ module Tumblr
       assert_equal 'Audio Post', post.title
     end
 
-        test 'it should use the audio player and caption as the post body' do
+    test 'it should use the audio player and caption as the post body' do
       json = {
         'id' => 1234567890,
         'type' => 'audio',
