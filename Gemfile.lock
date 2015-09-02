@@ -143,6 +143,7 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
+    htmlentities (4.3.4)
     httparty (0.13.5)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -396,6 +397,7 @@ DEPENDENCIES
   haml-rails
   highline
   honeypot-captcha
+  htmlentities
   httparty
   jbuilder
   jquery-fileupload-rails
