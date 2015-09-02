@@ -18,7 +18,7 @@ module Tumblr
     end
 
     test 'it should use a truncated version of the text as the title' do
-            json = {
+      json = {
         'id' => 1234567890,
         'type' => 'quote',
         'date' => '2015-08-24 21:59:07 GMT',
