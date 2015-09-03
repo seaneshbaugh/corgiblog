@@ -7,9 +7,7 @@ module Tumblr
     def post_title
       @title = @json['title']
 
-      super unless @title.present?
-
-      @title
+      super
     end
   end
 end

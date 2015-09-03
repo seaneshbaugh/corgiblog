@@ -27,6 +27,39 @@ module Tumblr
       post_class.new(json)
     end
 
+    # The idea here is that some characters (namely right/left quotes) are so
+    # awful and so disruptive when copied/pasted that we never want to see them
+    # anywhere under any circumstances. This defines a map between regular
+    # expressions that match all possible bad characters or their HTML entities
+    # and the sane output character that we want to use, even if it gets turned
+    # into an HTML entity later.
+    def self.invalid_character_map
+      {
+        /\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;|&apos;/ => "'",
+        /\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;/ => "\"",
+        /\u00A0|&#160;|&#xA0;/ => ' '
+      }
+    end
+
+    def self.remove_invalid_characters(text)
+      invalid_character_map.inject(text) { |result, (regex, replacement)| result.gsub(regex, replacement) }
+    end
+
+    def self.sanitize_options
+      {
+        whitespace_elements: {
+          'br' => {
+            before: '',
+            after: ' '
+          },
+          'p' => {
+            before: '',
+            after: ' '
+          }
+        }
+      }
+    end
+
     def self.tumblr_user
       @tumblr_user ||= ::User.where(email: 'casie@conneythecorgi.com').first
     end
@@ -89,7 +122,7 @@ module Tumblr
 
         caption = @json['caption'] || '' if caption.blank?
 
-        title = Sanitize.clean(caption, caption_sanitization_options).strip
+        title = Sanitize.clean(caption, PostFactory.sanitize_options).strip.gsub(/\s/, ' ').squeeze(' ')
 
         new_picture = Picture.create(title: title, alt_text: title, caption: caption, image: temp_file)
 
@@ -153,22 +186,17 @@ module Tumblr
     end
 
     def post_title
-      @title = "Tumblr post from #{@date.strftime('%-m/%-d/%Y')} at #{@date.strftime('%l:%M:%S %p').strip}"
-    end
+      @title = "Tumblr post from #{@date.strftime('%-m/%-d/%Y')} at #{@date.strftime('%l:%M:%S %p').strip}" if @title.blank?
 
-    def caption_sanitization_options
-      {
-        whitespace_elements: {
-          'br' => {
-            before: '',
-            after: ' '
-          },
-          'p' => {
-            before: '',
-            after: ' '
-          }
-        }
-      }
+      @title = Sanitize.clean(@title, PostFactory.sanitize_options)
+
+      @title = PostFactory.remove_invalid_characters(@title).gsub(/\s/, ' ').squeeze(' ').strip
+
+      @title = truncate(@title.html_safe, escape: false, length: 64, omission: '', separator: ' ')
+
+      @title = HTMLEntities.new(:html4).encode(@title, :named, :hexadecimal).gsub('&#x27;', "'")
+
+      @title = truncate(@title, escape: false, length: 128, omission: '', separator: /\s|&.+;/)
     end
   end
 end

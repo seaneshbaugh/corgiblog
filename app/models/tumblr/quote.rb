@@ -13,11 +13,9 @@ module Tumblr
     end
 
     def post_title
-      @title = truncate(@json['text'].html_safe, escape: false, length: 40, omission: '', separator: ' ')
+      @title = @json['text']
 
-      super unless @title.present?
-
-      @title
+      super
     end
   end
 end

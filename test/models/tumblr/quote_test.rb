@@ -29,7 +29,7 @@ module Tumblr
 
       post = Tumblr::PostFactory.new(json)
 
-      assert_equal 'Accepting death &mdash; by understanding', post.to_post.title
+      assert_equal 'Accepting death &mdash; by understanding that every life comes to an', post.to_post.title
     end
   end
 end

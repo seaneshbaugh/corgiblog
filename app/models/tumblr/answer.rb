@@ -19,11 +19,9 @@ module Tumblr
     end
 
     def post_title
-      if @json['asking_name'].present?
-        @title = "#{@json['asking_name']} asked:"
-      else
-        super
-      end
+      @title = "#{@json['asking_name']} asked:" if @json['asking_name'].present?
+
+      super
     end
   end
 end
