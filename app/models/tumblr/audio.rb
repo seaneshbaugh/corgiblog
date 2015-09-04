@@ -9,7 +9,11 @@ module Tumblr
     end
 
     def post_title
-      @title = @json['source_title']
+      if @json['artist'] && @json['track_name']
+        @title = "#{@json['artist']} - #{@json['track_name']}"
+      elsif @json['track_name']
+        @title = @json['track_name']
+      end
 
       super
     end
