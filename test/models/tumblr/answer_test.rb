@@ -3,50 +3,28 @@ require 'test_helper'
 module Tumblr
   class AnswerTest < ActiveSupport::TestCase
     test 'it should use the asking name as the post title' do
-      json = {
-        'id' => 1234567890,
-        'type' => 'answer',
-        'date' => '2015-08-24 21:59:07 GMT',
-        'tags' => [],
-        'asking_name' => 'Sean',
-        'asking_url' => 'http://seaneshbaugh.com/',
-        'question' => 'Who is the best dog ever?',
-        'answer' => '<p>Conney is, <strong>duh</strong>.</p>'
-      }
-
-      tumblr_post = Tumblr::PostFactory.new(json)
+      tumblr_post = Tumblr::PostFactory.new(tumblr_json(:answer, 90000000002))
 
       post = tumblr_post.to_post
 
-      assert_equal 'Sean asked:', post.title
+      assert_equal 'seaneshbaugh asked:', post.title
     end
 
     test 'it should use the question and answer as the post body' do
-      json = {
-        'id' => 1234567890,
-        'type' => 'answer',
-        'date' => '2015-08-24 21:59:07 GMT',
-        'tags' => [],
-        'asking_name' => 'Sean',
-        'asking_url' => 'http://seaneshbaugh.com/',
-        'question' => 'Wiggle butt?',
-        'answer' => '<p><em>Wiggle butt.</em></p>'
-      }
-
-      tumblr_post = Tumblr::PostFactory.new(json)
+      tumblr_post = Tumblr::PostFactory.new(tumblr_json(:answer, 90000000001))
 
       post = tumblr_post.to_post
 
-      expected_body = '<div class="question">' +
-                      '<p class="asker">' +
-                      '<strong>Sean</strong> asked:' +
-                      '</p>' +
-                      '<p class="question-text">' +
-                      'Wiggle butt?' +
-                      '</p>' +
-                      '</div>' +
-                      '<div class="answer">' +
-                      '<p><em>Wiggle butt.</em></p>' +
+      expected_body = '<div class="question">' \
+                      '<p class="asker">' \
+                      '<strong>seaneshbaugh</strong> asked:' \
+                      '</p>' \
+                      '<p class="question-text">' \
+                      'Who is the best dog?' \
+                      '</p>' \
+                      '</div>' \
+                      '<div class="answer">' \
+                      '<p>Conney. <em>duh.<em></p>' \
                       '</div>'
 
       assert_equal expected_body, post.body

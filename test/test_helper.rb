@@ -1,5 +1,7 @@
 require 'simplecov'
 
+Dir[Rails.root.join('test', 'support', '**', '*.rb')].each { |file| require file }
+
 SimpleCov.start 'rails' do
   add_group 'Presenters', 'app/presenters'
   add_group 'Services', 'app/services'
@@ -24,6 +26,7 @@ end
 module ActiveSupport
   class TestCase
     include ActionDispatch::TestProcess
+    include TumblrTestHelper
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
