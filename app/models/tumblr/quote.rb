@@ -10,6 +10,8 @@ module Tumblr
           concat(@json['source'].html_safe)
         end)
       end
+
+      super
     end
 
     def post_title

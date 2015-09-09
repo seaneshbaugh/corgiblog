@@ -2,6 +2,8 @@ module Tumblr
   class Text < PostFactory
     def post_body
       @body = @json['body']
+
+      super
     end
 
     def post_title

@@ -1,7 +1,7 @@
 module Tumblr
   class Answer < PostFactory
     def post_body
-      capture do
+      @body = capture do
         concat(content_tag(:div, class: 'question') do
           concat(content_tag(:p, class: 'asker') do
             concat(content_tag(:strong, @json['asking_name']))
@@ -16,6 +16,8 @@ module Tumblr
           concat(@json['answer'].html_safe)
         end)
       end
+
+      super
     end
 
     def post_title

@@ -19,7 +19,9 @@ module Tumblr
         end
       end.compact.join("\n")
 
-      @body += "\n" + @json['caption']
+      @body += @json['caption']
+
+      super
     end
 
     def post_title

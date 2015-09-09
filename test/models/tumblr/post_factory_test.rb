@@ -31,7 +31,7 @@ module Tumblr
     end
 
     test 'it should download photos from tumblr' do
-      VCR.use_cassette('tumblr photo 1') do
+      VCR.use_cassette('tumblr post factory test 1') do
         json = {
           'id' => 1234567890,
           'type' => 'photo',
@@ -64,7 +64,7 @@ module Tumblr
     end
 
     test 'it should skip existing picutres' do
-      VCR.use_cassette('tumblr photo 2') do
+      VCR.use_cassette('tumblr post factory test 2') do
         assert_equal 0, Picture.count
 
         existing_picture = create_picture('images/friday.jpg', title: 'Friday!')
@@ -111,7 +111,7 @@ module Tumblr
     end
 
     test 'it should deduplicate post titles' do
-      VCR.use_cassette('tumblr photo 2') do
+    VCR.use_cassette('tumblr post factory test 2') do
         first_json = {
           'id' => 1234567890,
           'type' => 'photo',

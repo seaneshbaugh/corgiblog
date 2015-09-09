@@ -16,6 +16,8 @@ module Tumblr
           end)
         end
       end
+
+      super
     end
 
     def post_title

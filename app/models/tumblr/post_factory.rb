@@ -122,7 +122,17 @@ module Tumblr
 
         caption = @json['caption'] || '' if caption.blank?
 
-        title = Sanitize.clean(caption, PostFactory.sanitize_options).strip.gsub(/\s/, ' ').squeeze(' ')
+        caption = PostFactory.remove_invalid_characters(caption)
+
+        title = Sanitize.clean(caption, PostFactory.sanitize_options)
+
+        title = PostFactory.remove_invalid_characters(title).strip.gsub(/\s/, ' ').squeeze(' ')
+
+        title = truncate(title.html_safe, escape: false, length: 128, omission: '', separator: ' ')
+
+        title = HTMLEntities.new(:html4).encode(title, :named, :hexadecimal).gsub(/&#x27;|&#39;/, "'")
+
+        title = truncate(title, escape: false, length: 255, omission: '', separator: /\s|&.+;/)
 
         new_picture = Picture.create(title: title, alt_text: title, caption: caption, image: temp_file)
 
@@ -182,7 +192,9 @@ module Tumblr
     end
 
     def post_body
-      @body = ''
+      @body = '' if @body.nil?
+
+      @body = PostFactory.remove_invalid_characters(@body).gsub(/\s/, ' ').gsub(/&#x27;|&#39;/, "'").squeeze(' ').strip
     end
 
     def post_title
@@ -194,7 +206,7 @@ module Tumblr
 
       @title = truncate(@title.html_safe, escape: false, length: 64, omission: '', separator: ' ')
 
-      @title = HTMLEntities.new(:html4).encode(@title, :named, :hexadecimal).gsub('&#x27;', "'")
+      @title = HTMLEntities.new(:html4).encode(@title, :named, :hexadecimal).gsub(/&#x27;|&#39;/, "'")
 
       @title = truncate(@title, escape: false, length: 128, omission: '', separator: /\s|&.+;/)
     end
