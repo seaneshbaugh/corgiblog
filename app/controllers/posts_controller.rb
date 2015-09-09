@@ -3,9 +3,9 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html do
         if params[:tag].present?
-          @posts = Post.published.tagged_with(params[:tag]).includes(:user).page(params[:page]).per(25).reverse_chronological
+          @posts = Post.published.tagged_with(params[:tag]).includes(:user).page(params[:page]).per(25).sticky_first.reverse_chronological
         else
-          @posts = Post.published.includes(:user).page(params[:page]).per(25).reverse_chronological
+          @posts = Post.published.includes(:user).page(params[:page]).per(25).sticky_first.reverse_chronological
         end
       end
 

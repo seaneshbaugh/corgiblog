@@ -8,6 +8,9 @@
   = f.text_field :tag_list, label: 'Tags', class: 'tokenfield'
   = f.form_group :visible do
     = f.check_box :visible
+  = f.form_group :sticky do
+    = f.check_box :sticky
+  = f.text_field :tumblr_id, label: 'Tumblr ID'
   = f.form_group do
     = f.primary
     = link_to 'Cancel', admin_posts_path, class: 'btn btn-default'

@@ -79,7 +79,7 @@ module Admin
     end
 
     def post_params
-      params.require(:post).permit(:title, :body, :style, :meta_description, :meta_keywords, :visible)
+      params.require(:post).permit(:title, :body, :style, :meta_description, :meta_keywords, :visible, :sticky, :tumblr_id)
     end
   end
 end

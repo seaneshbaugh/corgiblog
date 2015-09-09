@@ -35,9 +35,14 @@ class Post < ActiveRecord::Base
 
   validates_inclusion_of :visible, in: [true, false], message: 'must be true or false'
 
-  validates_uniqueness_of :tumblr_id
+  validates_inclusion_of :sticky, in: [true, false], message: 'must be true or false'
+
+  validates_uniqueness_of :tumblr_id, allow_nil: true
 
   validates_associated :user
+
+  # Callbacks
+  before_validation :nilify_blank_tumblr_id
 
   # Default Values
   default_value_for :title, ''
@@ -54,11 +59,19 @@ class Post < ActiveRecord::Base
 
   default_value_for :visible, true
 
+  default_value_for :sticky, false
+
   acts_as_taggable
 
   has_paper_trail
 
   def published?
     visible
+  end
+
+  private
+
+  def nilify_blank_tumblr_id
+    self.tumblr_id = nil if tumblr_id.blank?
   end
 end

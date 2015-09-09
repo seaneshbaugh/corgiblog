@@ -113,6 +113,14 @@ class PostPresenter < BasePresenter
     end
   end
 
+  def sticky
+    if @post.sticky
+      'Yes'
+    else
+      'No'
+    end
+  end
+
   private
 
   def base_path

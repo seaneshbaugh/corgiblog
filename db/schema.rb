@@ -66,15 +66,15 @@ ActiveRecord::Schema.define(version: 20150825194218) do
   add_index "pictures", ["updated_at"], name: "index_pictures_on_updated_at", using: :btree
 
   create_table "posts", force: :cascade do |t|
-    t.string   "title",            default: "",   null: false
-    t.string   "slug",             default: "",   null: false
-    t.text     "body",             default: "",   null: false
-    t.text     "style",            default: "",   null: false
-    t.text     "meta_description", default: "",   null: false
-    t.text     "meta_keywords",    default: "",   null: false
-    t.integer  "user_id",                         null: false
-    t.boolean  "visible",          default: true, null: false
-    t.boolean  "sticky",           default: true, null: false
+    t.string   "title",            default: "",    null: false
+    t.string   "slug",             default: "",    null: false
+    t.text     "body",             default: "",    null: false
+    t.text     "style",            default: "",    null: false
+    t.text     "meta_description", default: "",    null: false
+    t.text     "meta_keywords",    default: "",    null: false
+    t.integer  "user_id",                          null: false
+    t.boolean  "visible",          default: true,  null: false
+    t.boolean  "sticky",           default: false, null: false
     t.string   "tumblr_id"
     t.datetime "created_at"
     t.datetime "updated_at"
