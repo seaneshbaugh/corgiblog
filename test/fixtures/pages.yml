@@ -10,3 +10,14 @@ about:
   order: 0
   show_in_menu: true
   visible: true
+
+page_with_images:
+  title: "Page with Imags"
+  slug: "page-with-images"
+  body: "<p><img src=\"http://conneythecorgi.com/image1.jpg\"><img src=\"http://conneythecorgi.com/image2.jpg\"></p>"
+  style: ""
+  meta_description: ""
+  meta_keywords: ""
+  order: 1
+  show_in_menu: false
+  visible: false

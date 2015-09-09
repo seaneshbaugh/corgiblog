@@ -5,26 +5,29 @@ AllCops:
     - db/**/*
     - script/**/*
 
-AbcSize:
-  Enabled: false
+# AbcSize:
+#   Enabled: false
 
-ClassLength:
-  Enabled: false
+# ClassLength:
+#   Enabled: false
 
-CyclomaticComplexity:
-  Enabled: false
+# CyclomaticComplexity:
+#   Enabled: false
 
 Documentation:
   Enabled: false
 
-MethodLength:
-  Enabled: false
+# MethodLength:
+#   Enabled: false
+
+# Metrics/LineLength:
+#   Enabled: false
 
 Metrics/LineLength:
-  Enabled: false
+  Max: 200
 
 NumericLiterals:
   MinDigits: 6
 
-PerceivedComplexity:
-  Enabled: false
+# PerceivedComplexity:
+#   Enabled: false
