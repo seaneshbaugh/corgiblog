@@ -2,7 +2,7 @@ module Tumblr
   class Video < PostFactory
     def post_body
       @body = capture do
-        concat(@json['player'].html_safe)
+        concat(@json['player'].sort_by { |player| player['width'] }.last['embed_code'].html_safe)
 
         concat(@json['caption'].html_safe)
       end
