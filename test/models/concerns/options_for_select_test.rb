@@ -6,6 +6,8 @@ class OptionsForSelectTest < ActiveSupport::TestCase
 
     second_post = posts(:second_post)
 
-    assert_equal Post.options_for_select, [[first_post.title, first_post.id], [second_post.title, second_post.id]]
+    third_post = posts(:sticky_post)
+
+    assert_equal Post.options_for_select, [[first_post.title, first_post.id], [second_post.title, second_post.id], [third_post.title, third_post.id]]
   end
 end

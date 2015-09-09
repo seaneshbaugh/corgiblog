@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20150825194218) do
     t.text     "meta_keywords",    default: "",   null: false
     t.integer  "user_id",                         null: false
     t.boolean  "visible",          default: true, null: false
+    t.boolean  "sticky",           default: true, null: false
     t.string   "tumblr_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -81,6 +82,7 @@ ActiveRecord::Schema.define(version: 20150825194218) do
 
   add_index "posts", ["created_at"], name: "index_posts_on_created_at", using: :btree
   add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
+  add_index "posts", ["sticky"], name: "index_posts_on_sticky", using: :btree
   add_index "posts", ["updated_at"], name: "index_posts_on_updated_at", using: :btree
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
   add_index "posts", ["visible"], name: "index_posts_on_visible", using: :btree

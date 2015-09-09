@@ -9,6 +9,7 @@ first_post:
   meta_description: ""
   meta_keywords: ""
   visible: true
+  sticky: false
 
 second_post:
   user: sean_eshbaugh
@@ -19,3 +20,15 @@ second_post:
   meta_description: ""
   meta_keywords: ""
   visible: true
+  sticky: false
+
+sticky_post:
+  user: sean_eshbaugh
+  title: "Sticky Post"
+  slug: "sticky-post"
+  body: "<p>Sticky!</p>"
+  style: ""
+  meta_description: ""
+  meta_keywords: ""
+  visible: true
+  sticky: true

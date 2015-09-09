@@ -13,6 +13,8 @@ class Post < ActiveRecord::Base
 
   scope :reverse_chronological, -> { order('posts.created_at DESC') }
 
+  scope :sticky_first, -> { order('posts.sticky DESC') }
+
   # Associations
   belongs_to :user
 

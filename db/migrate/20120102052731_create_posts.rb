@@ -9,6 +9,7 @@ class CreatePosts < ActiveRecord::Migration
       t.text :meta_keywords,    null: false, default: '', limit: 65535
       t.belongs_to :user,       null: false
       t.boolean :visible,       null: false, default: true
+      t.boolean :sticky,        null: false, default: true
       t.string :tumblr_id
       t.timestamps
     end
@@ -17,6 +18,7 @@ class CreatePosts < ActiveRecord::Migration
       t.index :slug,      unique: true
       t.index :user_id
       t.index :visible
+      t.index :sticky
       t.index :created_at
       t.index :updated_at
     end
