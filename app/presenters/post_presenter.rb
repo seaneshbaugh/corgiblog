@@ -72,7 +72,7 @@ class PostPresenter < BasePresenter
   end
 
   def tag_links
-    @post.tag_list.map { |tag| link_to tag, root_path(tag: tag) }.join(', ').html_safe
+    @post.tag_list.map { |tag| link_to tag, @template.root_path(tag: tag) }.join(', ').html_safe
   end
 
   def title_text
