@@ -87,14 +87,29 @@ $ ->
       editor.getSession().on "change", ->
         $(textarea).val editor.getSession().getValue()
 
+  engine = new Bloodhound
+    datumTokenizer: Bloodhound.tokenizers.whitespace
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+    remote:
+      url: '/admin/tags.json?q=%QUERY'
+      wildcard: '%QUERY'
+
+  engine.initialize
+
   $(".tokenfield").tokenfield
-    typeahead:
-      name: "tags"
-      remote:
-        url: "/admin/tags.json?q[name_cont]=%QUERY"
-        cache: false
     allowDuplicates: false
-    createTokensOnBlur: true
+    createTokensOnBlue: true
+    typeahead: [null, { source: engine.ttAdapter() }]
+
+
+  # $(".tokenfield").tokenfield
+  #   typeahead:
+  #     name: "tags"
+  #     remote:
+  #       url: "/admin/tags.json?q[name_cont]=%QUERY"
+  #       cache: false
+  #   allowDuplicates: false
+  #   createTokensOnBlur: true
 
   $("body").on "click", ".picture-inserter-button", (event) ->
     event.preventDefault()

@@ -41,11 +41,13 @@ Rails.application.routes.draw do
       resources :posts
 
       resources :users
+
+      get '/tags.json' => 'tags#index'
+
+      delete '/versions/:id/destroy' => 'versions#destroy', as: :destroy_version
+
+      post '/versions/:id/revert' => 'versions#revert', as: :revert_version
     end
-
-    delete 'versions/:id/destroy' => 'versions#destroy', as: :destroy_version
-
-    post 'versions/:id/revert' => 'versions#revert', as: :revert_version
   end
 
   root to: 'posts#index'
