@@ -18,6 +18,7 @@
 #= require ace/mode-ruby
 #= require ace/mode-text
 #= require ace/theme-pastel_on_dark
+#= require shared
 #= require_self
 #= require turbolinks
 
@@ -59,7 +60,7 @@ $ ->
         "text"
       ].indexOf(mode) != -1
 
-      $(textarea).hide()
+      textarea.hide()
 
       editor = ace.edit(editorID)
 
@@ -78,7 +79,7 @@ $ ->
 
       editor.getSession().setMode "ace/mode/" + mode
 
-      editor.getSession().setValue $(textarea).val()
+      editor.getSession().setValue textarea.val()
 
       editor.getSession().setTabSize 2
 
@@ -100,16 +101,6 @@ $ ->
     allowDuplicates: false
     createTokensOnBlue: true
     typeahead: [null, { source: engine.ttAdapter() }]
-
-
-  # $(".tokenfield").tokenfield
-  #   typeahead:
-  #     name: "tags"
-  #     remote:
-  #       url: "/admin/tags.json?q[name_cont]=%QUERY"
-  #       cache: false
-  #   allowDuplicates: false
-  #   createTokensOnBlur: true
 
   $("body").on "click", ".picture-inserter-button", (event) ->
     event.preventDefault()
