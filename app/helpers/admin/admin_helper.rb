@@ -22,7 +22,7 @@ module Admin
     end
 
     def icon_edit_link(url_or_path)
-      link_to('<span class="glyphicon glyphicon-edit"></span>'.html_safe, url_or_path, class: 'btn btn-mini', rel: 'tooltip', edit: 'Edit')
+      link_to('<span class="glyphicon glyphicon-edit"></span>'.html_safe, url_or_path, class: 'btn btn-mini', rel: 'tooltip', title: 'Edit')
     end
   end
 end
