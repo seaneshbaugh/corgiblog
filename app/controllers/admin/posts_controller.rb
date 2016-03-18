@@ -8,6 +8,8 @@ module Admin
       @search = Post.search(params[:q])
 
       @posts = @search.result.page(params[:page]).per(25).reverse_chronological
+
+      @deleted_pages = PaperTrail::Version.destroys.where(item_type: 'Post').reorder('versions.created_at DESC')
     end
 
     def show
@@ -79,7 +81,7 @@ module Admin
     end
 
     def post_params
-      params.require(:post).permit(:title, :body, :style, :meta_description, :meta_keywords, :visible, :sticky, :tumblr_id)
+      params.require(:post).permit(:title, :body, :style, :meta_description, :meta_keywords, :visible, :sticky, :tumblr_id, :tag_list)
     end
   end
 end
