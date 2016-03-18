@@ -8,6 +8,8 @@ module Admin
       @search = Page.search(params[:q])
 
       @pages = @search.result.page(params[:page]).per(25).by_order
+
+      @deleted_pages = PaperTrail::Version.destroys.where(item_type: 'Page').reorder('versions.created_at DESC')
     end
 
     def show
