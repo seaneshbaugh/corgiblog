@@ -1,5 +1,11 @@
 class BasePresenter
+  attr_reader :object, :template
+
   delegate :link_to, to: :@template
+
+  def self.display_method
+    :id
+  end
 
   def initialize(object, template)
     @object = object
