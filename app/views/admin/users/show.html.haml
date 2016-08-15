@@ -47,3 +47,4 @@
     .row.attribute
       %strong.col-xs-12.col-sm-2.attribute-name Last Sign In IP
       .col-xs-12.col-sm-10.attribute-value= user_presenter.last_sign_in_ip
+  = render 'shared/admin/versions/previous', object_class: User, current_object: @user, previous_versions: @previous_versions

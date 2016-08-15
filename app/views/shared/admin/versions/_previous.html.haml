@@ -1,0 +1,3 @@
+-if can?(:revert, current_object) && previous_versions.present?
+  %h3 Previous Versions
+  = render 'shared/admin/versions/versions', object_class: object_class, current_object: current_object, versions: previous_versions

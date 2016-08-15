@@ -5,7 +5,7 @@
     - if can? :edit, @page
       = link_to 'Edit', edit_admin_page_path(@page), class: 'btn btn-primary'
     - if can? :destroy, @page
-      = link_to 'Delete', admin_page_path(@page), method: 'delete', class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
+      = link_to 'Delete', admin_page_path(@page), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
   %h3 Page Attributes
   .page.attributes
     .row.attribute
@@ -51,3 +51,4 @@
     .row.attribute
       %strong.col-xs-12.col-sm-2.attribute-name.updated-at Updated At
       .col-xs-12.col-sm-10.attribute-value.updated-at= page_presenter.updated_at
+  = render 'shared/admin/versions/previous', object_class: Page, current_object: @page, previous_versions: @previous_versions

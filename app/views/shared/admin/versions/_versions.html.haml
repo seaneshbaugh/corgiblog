@@ -1,0 +1,21 @@
+.table-responsive
+  %table.table.table-striped.table-hover
+    %thead
+      %tr.row
+        %th.col-xs-1 Version ID
+        - "#{object_class.name}Presenter".constantize.version_display_attributes.each do |attribute|
+          %th{ class: attribute[:method].to_s.dasherize }= "#{object_class.name}Presenter".constantize.humanized_attribute_names[attribute[:method]]
+        %th.col-xs-2 Created At
+        %th.col-xs-1
+        %th.col-xs-1
+    %tbody
+      - versions.each do |version|
+        %tr{ class: "row #{object_class.name.underscore.dasherize}" }
+          - present version.reify do |reified_object_presenter|
+            %td.col-xs-1= link_to version.id, admin_version_path(version)
+            - reified_object_presenter.class.version_display_attributes.each do |attribute|
+              %td{ class: "#{attribute[:header_class]} #{attribute[:method].to_s.dasherize}" }
+                = reified_object_presenter.send(attribute[:method])
+            %td.col-xs-2.created-at= reified_object_presenter.created_at
+            %td.col-xs-1.revert= icon_revert_link revert_admin_version_path(version)
+            %td.col-xs-1.delete= icon_delete_link admin_version_path(version)

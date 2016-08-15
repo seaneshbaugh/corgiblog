@@ -1,0 +1,3 @@
+- if can?(:revert, object_class) && deleted_versions.present?
+  %h3= "Deleted #{object_class.name.underscore.humanize.titleize.pluralize}"
+  = render 'shared/admin/versions/versions', object_class: object_class, current_object: nil, versions: deleted_versions

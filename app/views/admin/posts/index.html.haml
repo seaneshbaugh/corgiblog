@@ -36,3 +36,4 @@
   = paginate @posts
 - else
   %p.lead There are no posts yet. Click 'New Post' to get started.
+= render 'shared/admin/versions/deleted', object_class: Post, deleted_versions: @deleted_posts

@@ -5,7 +5,7 @@
   = f.ace_editor :style, mode: 'css'
   = f.text_area :meta_description, label: 'Meta Description', rows: '2'
   = f.text_area :meta_keywords, label: 'Meta Keywords', rows: '2'
-  = f.text_field :tag_list, label: 'Tags', class: 'tokenfield'
+  = f.text_field :tag_list, label: 'Tags', class: 'tokenfield', value: f.object.tag_list.to_s
   = f.form_group :visible do
     = f.check_box :visible
   = f.form_group :sticky do

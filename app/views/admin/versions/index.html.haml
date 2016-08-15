@@ -1,0 +1,33 @@
+%h2 Versions
+.well
+  = search_form_for @search, url: admin_versions_path, builder: BootstrapForm::FormBuilder, html: { class: 'form-inline', method: :get } do |f|
+    = f.select :item_type_eq, PaperTrail::Version.uniq.pluck(:item_type).map { |item_type| [item_type, item_type] }, include_blank: 'Select Type', skip_label: true
+    = f.select :event_eq, [['create', 'create'], ['update', 'update'], ['destroy', 'destroy']], include_blank: 'Select Event', skip_label: true
+    = f.select :whodunnit_eq, User.options_for_select(display_method: :full_name, prompt: 'Select User'), skip_label: true
+    = f.button '<span class="glyphicon glyphicon-search"></span> Search'.html_safe, class: 'btn btn-primary'
+    = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, admin_versions_path, class: 'btn btn-default', rel: 'tooltip', title: 'Clear Search'
+- if @versions.present?
+  .table-responsive
+    %table.table.table-striped.table-hover
+      %thead
+        %tr.row
+          %th.col-xs-1= sort_link @search, :id, 'ID'
+          %th.col-xs-3 Original Object
+          %th.col-xs-1= sort_link @search, :item_type, 'Type'
+          %th.col-xs-1= sort_link @search, :event
+          %th.col-xs-2= sort_link @search, :whodunnit, 'User'
+          %th.col-xs-2= sort_link @search, :created_at
+          %th.col-xs-1
+          %th.col-xs-1
+      %tbody
+        - @versions.each do |version|
+          - present version do |version_presenter|
+            %tr.row.version
+              %td.col-xs-1.id= link_to version_presenter.id, admin_version_path(version)
+              %td.col-xs-3.item= version_presenter.item_path_link
+              %td.col-xs-1.item-type= version_presenter.item_type
+              %td.col-xs-1.event= version_presenter.event
+              %td.col-xs-2.user= version_presenter.whodunnit_path_link
+              %td.col-xs-2.created-at= version_presenter.created_at
+              %td.col-xs-1.revert= icon_revert_link revert_admin_version_path(version)
+              %td.col-xs-1.delete= icon_delete_link admin_version_path(version)

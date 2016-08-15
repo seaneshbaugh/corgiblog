@@ -14,10 +14,11 @@
       %thead
         %tr.row
           %th.col-xs-6= sort_link @search, :title
-          %th.col-xs-2= sort_link @search, :order
+          %th.col-xs-1= sort_link @search, :order
+          %th.col-xs-1= sort_link @search, :visible, 'Visible?'
           %th.col-xs-2= sort_link @search, :created_at
           %th.col-xs-1
-          %th.col-xs-1 
+          %th.col-xs-1
       %tbody
         - @pages.each do |page|
           - present page do |page_presenter|
@@ -25,7 +26,8 @@
               %td.col-xs-6.title
                 = link_to page_presenter.title, admin_page_path(page)
                 = page_presenter.share_link target: '_blank'
-              %td.col-xs-2.order= page_presenter.order
+              %td.col-xs-1.order= page_presenter.order
+              %td.col-xs-1.visibe= page_presenter.visible
               %td.col-xs-2.created-at= page_presenter.created_at
               %td.col-xs-1.edit
                 - if can? :edit, page
@@ -36,3 +38,4 @@
   = paginate @pages
 - else
   %p.lead There are no pages yet. Click 'New Page' to get started.
+= render 'shared/admin/versions/deleted', object_class: Page, deleted_versions: @deleted_pages

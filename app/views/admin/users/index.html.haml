@@ -39,3 +39,4 @@
   = paginate @users
 - else
   %p.lead There are no users yet. Click 'New User' to get started.
+= render 'shared/admin/versions/deleted', object_class: User, deleted_versions: @deleted_users

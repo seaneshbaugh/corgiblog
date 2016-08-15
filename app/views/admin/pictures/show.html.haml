@@ -5,7 +5,7 @@
     - if can? :edit, @picture
       = link_to 'Edit', edit_admin_picture_path(@picture), class: 'btn btn-primary'
     - if can? :destroy, @picture
-      = link_to 'Delete', admin_picture_path(@picture), method: 'delete', class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
+      = link_to 'Delete', admin_picture_path(@picture), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
   %h3 Picture Attributes
   .picture.attributes
     .row.attributes
