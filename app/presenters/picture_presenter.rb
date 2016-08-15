@@ -1,6 +1,10 @@
 class PicturePresenter < BasePresenter
   delegate :image_tag, to: :@template
 
+  def self.display_method
+    :title
+  end
+
   def initialize(picture, template)
     super
 

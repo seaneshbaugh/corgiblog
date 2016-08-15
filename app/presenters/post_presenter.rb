@@ -5,6 +5,41 @@ class PostPresenter < BasePresenter
   delegate :content_tag, to: :@template
   delegate :params, to: :@template
 
+  def self.display_method
+    :title
+  end
+
+  def self.humanized_attribute_names
+    @humanized_attribute_names ||= HashWithIndifferentAccess.new({
+      id: 'ID',
+      title: 'Title',
+      slug: 'Slug',
+      body: 'Body',
+      style: 'Style',
+      meta_description: 'Meta Description',
+      meta_keywords: 'Meta Keywords',
+      order: 'Order',
+      show_in_menu: 'Show in Menu?',
+      visible: 'Visible?',
+      created_at: 'Created At',
+      updated_at: 'Updated At',
+      user_link: 'User'
+    })
+  end
+
+  def self.version_display_attributes
+    [
+      {
+        method: :title,
+        header_class: 'col-xs-5',
+      },
+      {
+        method: :user_link,
+        header_class: 'col-xs-2'
+      }
+    ]
+  end
+
   def initialize(post, template)
     super
 
@@ -72,7 +107,7 @@ class PostPresenter < BasePresenter
   end
 
   def tag_links
-    @post.tag_list.map { |tag| link_to tag, @template.root_path(tag: tag) }.join(', ').html_safe
+    @post.tags.map { |tag| link_to tag.name, @template.root_path(tag: tag.name) }.join(', ').html_safe
   end
 
   def title_text
@@ -103,6 +138,10 @@ class PostPresenter < BasePresenter
 
   def user_full_name
     @post.user.full_name
+  end
+
+  def user_link
+    link_to user_full_name, @template.admin_user_path(@post.user)
   end
 
   def visible
