@@ -24,5 +24,9 @@ module Admin
     def icon_edit_link(url_or_path)
       link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, url_or_path, class: 'btn btn-mini', rel: 'tooltip', title: 'Edit'
     end
+
+    def icon_revert_link(url_or_path)
+      link_to '<span class="glyphicon glyphicon-ok"></span>'.html_safe, url_or_path, method: :patch, data: { confirm: 'Are you sure? This will permanantly remove the current version and all versions after this one!' }, class: 'btn btn-mini', rel: 'tooltip', title: 'Revert'
+    end
   end
 end
