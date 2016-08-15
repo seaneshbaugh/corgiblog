@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.1'
 
-gem 'rails', '4.2.4'
+gem 'rails', '5.0.0.1'
 gem 'pg'
 gem 'ace-rails-ap'
 gem 'acts-as-taggable-on'
@@ -10,7 +10,7 @@ gem 'autoprefixer-rails'
 gem 'bootstrap_form'
 gem 'bootstrap_tokenfield_rails'
 gem 'bunny'
-gem 'cancan'
+gem 'cancancan'
 gem 'coffee-rails'
 gem 'daemons'
 gem 'default_value_for'
@@ -55,8 +55,8 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
-  gem 'mailcatcher'
-  gem 'quiet_assets'
+#  gem 'mailcatcher'
+#  gem 'quiet_assets'
   gem 'rubocop', require: false
   gem 'thin'
 end
