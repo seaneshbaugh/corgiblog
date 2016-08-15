@@ -7,12 +7,13 @@ module Admin
     def index
       @search = Post.search(params[:q])
 
-      @posts = @search.result.page(params[:page]).per(25).reverse_chronological
+      @posts = @search.result.includes(:user).page(params[:page]).per(25).reverse_chronological
 
-      @deleted_pages = PaperTrail::Version.destroys.where(item_type: 'Post').reorder('versions.created_at DESC')
+      @deleted_posts = PaperTrail::Version.destroys.where(item_type: 'Post').reorder('versions.created_at DESC')
     end
 
     def show
+      @previous_versions = @post.versions.updates.reorder('versions.created_at DESC')
     end
 
     def new

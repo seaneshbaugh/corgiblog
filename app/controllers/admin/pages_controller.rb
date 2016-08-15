@@ -13,6 +13,7 @@ module Admin
     end
 
     def show
+      @previous_versions = @page.versions.updates.reorder('versions.created_at DESC')
     end
 
     def new

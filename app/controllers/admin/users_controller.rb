@@ -8,9 +8,12 @@ module Admin
       @search = User.search(params[:q])
 
       @users = @search.result.page(params[:page]).per(25).alphabetical
+
+      @deleted_users = PaperTrail::Version.destroys.where(item_type: 'User').reorder('versions.created_at DESC')
     end
 
     def show
+      @previous_versions = @user.versions.updates.reorder('versions.created_at DESC')
     end
 
     def new
