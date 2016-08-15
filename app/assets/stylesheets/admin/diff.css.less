@@ -1,0 +1,67 @@
+.diff {
+    font-family: courier;
+    overflow: auto;
+
+    ul {
+        background: #ffffff;
+        display: table;
+        font-size: 13px;
+        list-style: none;
+        margin: 0;
+        overflow: auto;
+        padding: 0;
+        width: 100%;
+
+        li {
+            display: table-row;
+            height: 1em;
+            margin: 0;
+            padding: 0;
+
+            &.ins {
+                background: #ddffdd;
+                color: #008800;
+
+                ins {
+                    display: block;
+                    text-decoration: none;
+                    white-space: pre-wrap;
+
+                    strong {
+                        background: #99ff99;
+                        font-weight: normal;
+                    }
+
+                }
+            }
+
+            &.del {
+                background: #ffeeee;
+                color: #bb0000;
+
+                del {
+                    display: block;
+                    text-decoration: none;
+                    white-space: pre-wrap;
+
+                    strong {
+                        background: #ffcccc;
+                        font-weight: normal;
+                    }
+                }
+            }
+
+            &:hover {
+                background: #ffffcc;
+            }
+
+            &.diff-block-comment {
+                display: none;
+            }
+
+            &.diff-block-info {
+                background: none repeat scroll 0 0 gray;
+            }
+        }
+    }
+}
