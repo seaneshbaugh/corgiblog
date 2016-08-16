@@ -1,3 +1,4 @@
+require 'fileutils'
 require 'simplecov'
 
 Dir[Rails.root.join('test', 'support', '**', '*.rb')].each { |file| require file }
@@ -38,6 +39,8 @@ module ActiveSupport
 
     teardown do
       DatabaseCleaner.clean
+
+      FileUtils.rm_r(Rails.root.join('public', 'uploads', 'test'))
     end
   end
 end
