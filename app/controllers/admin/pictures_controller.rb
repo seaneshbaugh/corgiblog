@@ -1,8 +1,8 @@
 module Admin
   class PicturesController < AdminController
-    authorize_resource
-
     before_action :set_picture, only: [:show, :edit, :update, :destroy]
+
+    authorize_resource
 
     def index
       @search = Picture.search(params[:q])

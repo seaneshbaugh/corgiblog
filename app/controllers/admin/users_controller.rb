@@ -1,8 +1,8 @@
 module Admin
   class UsersController < AdminController
-    authorize_resource
-
     before_action :set_user, only: [:show, :edit, :update, :destroy]
+
+    authorize_resource
 
     def index
       @search = User.search(params[:q])

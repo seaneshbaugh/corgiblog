@@ -1,8 +1,8 @@
 module Admin
   class VersionsController < AdminController
-    authorize_resource class: PaperTrail::Version
-
     before_action :set_version, only: [:show, :revert, :destroy]
+
+    authorize_resource class: PaperTrail::Version
 
     def index
       @search = PaperTrail::Version.search(params[:q])

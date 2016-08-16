@@ -1,8 +1,8 @@
 module Admin
   class PagesController < AdminController
-    authorize_resource
-
     before_action :set_page, only: [:show, :edit, :update, :destroy]
+
+    authorize_resource
 
     def index
       @search = Page.search(params[:q])

@@ -1,8 +1,8 @@
 module Admin
   class PostsController < AdminController
-    authorize_resource
-
     before_action :set_post, only: [:show, :edit, :update, :destroy]
+
+    authorize_resource
 
     def index
       @search = Post.search(params[:q])
