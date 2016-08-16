@@ -45,8 +45,8 @@ module ActiveSupport
   end
 end
 
-module ActionController
-  class TestCase
-    include Devise::Test::ControllerHelpers
+module ActionDispatch
+  class IntegrationTest
+    include Devise::Test::IntegrationHelpers
   end
 end
