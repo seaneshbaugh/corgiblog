@@ -13,7 +13,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should get an individual post' do
+  test 'should get post' do
     post = posts(:first_post)
 
     get post_url(id: post)
