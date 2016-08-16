@@ -40,7 +40,7 @@ module ActiveSupport
     teardown do
       DatabaseCleaner.clean
 
-      FileUtils.rm_r(Rails.root.join('public', 'uploads', 'test'))
+      FileUtils.rm_rf(Rails.root.join('public', 'uploads', 'test'))
     end
   end
 end
