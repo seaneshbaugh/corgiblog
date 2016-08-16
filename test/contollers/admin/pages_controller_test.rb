@@ -64,6 +64,10 @@ module Admin
       page = pages(:about)
 
       patch admin_page_url(id: page), params: { page: { title: '' } }
+
+      page.reload
+
+      assert_not_equal page.title, ''
     end
 
     test 'should destroy page' do
