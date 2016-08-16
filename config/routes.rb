@@ -54,5 +54,5 @@ Rails.application.routes.draw do
 
   root to: 'posts#index'
 
-  get ':id' => 'pages#show'
+  get ':id' => 'pages#show', as: :page
 end
