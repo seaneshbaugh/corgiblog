@@ -37,6 +37,26 @@ Seed the database.
 
     $ rails db:seed_fu
 
+## Running Locally
+
+### Rails Server
+
+    $ rails s
+
+### RabbitMQ Server
+
+    $ rabbitmq-server
+
+### RabbitMQ Job Processor
+
+    $ bin/rabbitmq_job_processor -q contact start
+
+    $ bin/rabbitmq_job_processor -q contact stop
+
+### RabbitMQ Management
+
+The RabbitMQ Management panel can be accessed at [localhost:15672](http://localhost:15672/). Username and password should be whatever is in your application.yml file. The default is "guest" and "guest".
+
 ## Contacts
 
 * [Sean Eshbaugh](mailto:seaneshbaugh@gmail.com)
