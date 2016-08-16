@@ -4,48 +4,11 @@ This is the repository for Conney the Corgi's blog.
 
 ## Ruby Version
 
-This application is intended to be run on Ruby 1.8.7-p173. Due to limitations of my current host Ruby 1.9 is not directly supported.
+This application is intended to be run on Ruby 2.3.1.
 
 ## Rails Version
 
-This application uses Rails 3.2.14
-
-## Required Gems
-
-The following gems are required to run this application:
-
-* rails (3.2.14)
-* mysql2
-* cancan
-* devise
-* exception_notification (~> 3.0.1)
-* highline
-* honeypot-captcha
-* httparty (~> 0.11.0)
-* kaminari
-* nokogiri (~> 1.5.10)
-* paper_trail
-* paperclip (~> 2.7)
-* ransack
-* sanitize (2.0.3)
-* simple_form
-* yaml_db
-* jquery-fileupload-rails
-* jquery-rails
-* less-rails
-* less-rails-bootstrap
-* therubyracer
-* uglifier
-* capistrano (~> 2.15.5)
-* capistrano-ext
-* mailcatcher
-* quiet_assets
-* capybara (~> 2.0.3)
-* database_cleaner
-* factory_girl_rails (~> 2.0)
-* rspec-rails
-* shoulda-matchers (~> 1.5.6)
-* simplecov
+This application uses Rails 5.0.0.1.
 
 ## Local Development Installation
 
@@ -53,7 +16,7 @@ Clone the repository.
 
     $ git clone git@github.com:seaneshbaugh/corgiblog.git corgiblog
 
-cd into the project directory. If you don't have ruby-1.8.7-p173 already you will want to install it before doing this.
+cd into the project directory. If you don't have ruby-2.3.1 already you will want to install it before doing this.
 
     $ cd corgiblog
 
@@ -67,12 +30,12 @@ Create the databases.
 
 Add the database tables.
 
-    $ rake db:migrate
-    $ RAILS_ENV=test rake db:migrate
+    $ rails db:migrate
+    $ RAILS_ENV=test rails db:migrate
 
 Seed the database.
 
-    $ rake db:seed
+    $ rails db:seed_fu
 
 ## Contacts
 
