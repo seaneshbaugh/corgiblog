@@ -44,6 +44,6 @@ end
 
 module ActionController
   class TestCase
-    include Devise::TestHelpers
+    include Devise::Test::ControllerHelpers
   end
 end
