@@ -10,7 +10,7 @@ module Admin
 
     def update
       if @account.update(account_params)
-        sign_in(@account, bypass: true)
+        bypass_sign_in(@account)
 
         flash[:success] = 'Your account was successfully updated.'
 
