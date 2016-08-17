@@ -1,36 +1,4 @@
 module ApplicationHelper
-  def error_messages_for(object)
-    object.errors.full_messages.uniq.join('. ') + '.'
-  end
-
-  def flash_messages
-    return unless flash.present?
-
-    flashes = flash.map do |name, message|
-      name = name.to_s
-
-      class_name = name
-
-      if class_name == 'error'
-        class_name = 'danger'
-      elsif class_name == 'alert'
-        class_name = 'danger'
-
-        name = 'error'
-      elsif class_name == 'notice'
-        class_name = 'success'
-
-        name = 'success'
-      elsif !%w(success info warning danger).include?(class_name)
-        class_name = 'info'
-      end
-
-      { name: name, message: message, class_name: class_name }
-    end
-
-    render partial: 'shared/flash_messages', locals: { flashes: flashes }
-  end
-
   def active_action?(action_name)
     params[:action] == action_name
   end
@@ -41,6 +9,44 @@ module ApplicationHelper
 
   def active_page?(page_name)
     params[:controller] == 'pages' && params[:action] == 'show' && params[:id] == page_name
+  end
+
+  def error_messages_for(object)
+    object.errors.full_messages.uniq.join('. ') + '.'
+  end
+
+  def flash_messages
+    return unless flash.present?
+
+    flashes = flash.map do |name, message|
+      name = name.to_s
+
+      { name: flash_name(name), message: message, class_name: flash_class_name(name) }
+    end
+
+    render partial: 'shared/flash_messages', locals: { flashes: flashes }
+  end
+
+  def flash_class_name(name)
+    if %w(error alert).include?(name)
+      'danger'
+    elsif name == 'notice'
+      'success'
+    elsif !%w(success info warning danger).include?(name)
+      'info'
+    else
+      name
+    end
+  end
+
+  def flash_name(name)
+    if name == 'alert'
+      'error'
+    elsif name == 'notice'
+      'success'
+    else
+      name
+    end
   end
 
   def nav_link_to(*args, &block)
