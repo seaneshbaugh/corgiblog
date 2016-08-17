@@ -12,7 +12,7 @@ module Admin
                 'a' => {
                   '0' => {
                     'name' => 'name'
-                  },
+                  }
                 },
                 'p' => 'cont_any',
                 'v' => tokens
