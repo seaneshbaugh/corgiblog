@@ -5,7 +5,7 @@ class Ability
     read_only: 'read_only',
     admin: 'admin',
     sysadmin: 'sysadmin'
-  }
+  }.freeze
 
   def initialize(user)
     user ||= User.new
