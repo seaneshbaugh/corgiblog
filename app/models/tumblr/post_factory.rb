@@ -5,7 +5,7 @@ module Tumblr
     include ActionView::Helpers::TextHelper
     include ActionView::Helpers::UrlHelper
 
-    VALID_POST_TYPES = %w(answer audio chat link photo quote text video)
+    VALID_POST_TYPES = %w(answer audio chat link photo quote text video).freeze
 
     class << self
       alias :__new__ :new
