@@ -8,11 +8,11 @@ module Tumblr
     VALID_POST_TYPES = %w(answer audio chat link photo quote text video).freeze
 
     class << self
-      alias :__new__ :new
+      alias __new__ new
 
       def inherited(subclass)
         class << subclass
-          alias :new :__new__
+          alias_method new __new__
         end
       end
     end
