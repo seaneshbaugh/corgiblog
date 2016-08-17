@@ -43,7 +43,7 @@ module Linkable
     elsif path_or_url == :path
       @template.send("#{method_name}_path".to_sym, *args)
     else
-      fail ArgumentError, 'expected path_or_url to be either :path or :url'
+      raise ArgumentError, 'expected path_or_url to be either :path or :url'
     end
   end
 end

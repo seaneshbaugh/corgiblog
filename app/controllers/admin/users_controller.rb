@@ -62,7 +62,7 @@ module Admin
     def set_user
       @user = User.where(id: params[:id]).first
 
-      fail ActiveRecord::RecordNotFound if @user.nil?
+      raise ActiveRecord::RecordNotFound if @user.nil?
     end
 
     def user_params

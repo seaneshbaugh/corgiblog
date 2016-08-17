@@ -62,7 +62,7 @@ module Admin
     def set_page
       @page = Page.where(slug: params[:id]).first
 
-      fail ActiveRecord::RecordNotFound if @page.nil?
+      raise ActiveRecord::RecordNotFound if @page.nil?
     end
 
     def page_params

@@ -78,7 +78,7 @@ module Admin
     def set_post
       @post = Post.where(slug: params[:id]).first
 
-      fail ActiveRecord::RecordNotFound if @post.nil?
+      raise ActiveRecord::RecordNotFound if @post.nil?
     end
 
     def post_params

@@ -20,7 +20,7 @@ module Tumblr
     def self.new(json)
       post_type = json['type']
 
-      fail ArgumentError, "Unknown post type #{post_type.inspect}." unless VALID_POST_TYPES.include?(post_type)
+      raise ArgumentError, "Unknown post type #{post_type.inspect}." unless VALID_POST_TYPES.include?(post_type)
 
       post_class = Kernel.const_get("Tumblr::#{post_type.capitalize}")
 
@@ -96,7 +96,7 @@ module Tumblr
 
         response = HTTParty.get(url)
 
-        fail "Error downloading \"#{url}\": #{response.code} - #{response.message}" unless response.code == 200
+        raise "Error downloading \"#{url}\": #{response.code} - #{response.message}" unless response.code == 200
 
         data = response.body
 

@@ -30,7 +30,7 @@ module Admin
     def set_version
       @version = PaperTrail::Version.where(id: params[:id]).first
 
-      fail ActiveRecord::RecordNotFound if @version.nil?
+      raise ActiveRecord::RecordNotFound if @version.nil?
     end
   end
 end

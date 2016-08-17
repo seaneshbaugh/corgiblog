@@ -18,6 +18,6 @@ class PostsController < ApplicationController
   def show
     @post = Post.published.where(slug: params[:id]).first
 
-    fail ActiveRecord::RecordNotFound if @post.nil?
+    raise ActiveRecord::RecordNotFound if @post.nil?
   end
 end

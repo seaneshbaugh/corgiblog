@@ -73,7 +73,7 @@ module Admin
     def set_picture
       @picture = Picture.where(id: params[:id]).first
 
-      fail ActiveRecord::RecordNotFound if @picture.nil?
+      raise ActiveRecord::RecordNotFound if @picture.nil?
     end
 
     def picture_params

@@ -16,6 +16,6 @@ class PicturesController < ApplicationController
   def show
     @picture = Picture.where(id: params[:id]).first
 
-    fail ActiveRecord::RecordNotFound if @picture.nil?
+    raise ActiveRecord::RecordNotFound if @picture.nil?
   end
 end
