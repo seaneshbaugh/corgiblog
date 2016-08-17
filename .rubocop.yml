@@ -31,3 +31,6 @@ NumericLiterals:
 
 # PerceivedComplexity:
 #   Enabled: false
+
+FrozenStringLiteralComment:
+  Enabled: false
