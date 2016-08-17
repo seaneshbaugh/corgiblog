@@ -80,7 +80,7 @@ module RabbitmqJobProcessor
       end
     end
 
-    def run(worker_name)
+    def run(_worker_name)
       Dir.chdir(root_dir)
 
       logger = Logger.new(File.join(@options[:log_dir], 'rabbitmq_job_processor.log'))
