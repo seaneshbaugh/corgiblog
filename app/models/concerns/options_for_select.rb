@@ -1,7 +1,7 @@
 module OptionsForSelect
   extend ActiveSupport::Concern
 
-  module ClassMethods
+  class_methods do
     def options_for_select(*args)
       options = args.extract_options!
 
