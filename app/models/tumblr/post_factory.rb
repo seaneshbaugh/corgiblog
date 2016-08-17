@@ -12,7 +12,7 @@ module Tumblr
 
       def inherited(subclass)
         class << subclass
-          alias_method new __new__
+          alias new __new__
         end
       end
     end
