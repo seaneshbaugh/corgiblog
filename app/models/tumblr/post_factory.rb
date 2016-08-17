@@ -36,7 +36,7 @@ module Tumblr
     def self.invalid_character_map
       {
         /\u2018|\u2019|&#8216;|&#8217;|&#x2018;|&#x2019;|&lsquo;|&rsquo;|&apos;/ => "'",
-        /\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;/ => "\"",
+        /\u201C|\u201D|&#8220;|&#8221;|&#x201c;|&#x201d;|&ldquo;|&rdquo;/ => '"',
         /\u00A0|&#160;|&#xA0;/ => ' '
       }
     end
