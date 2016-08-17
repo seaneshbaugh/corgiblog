@@ -15,19 +15,19 @@ module Tumblr
 
       post = tumblr_post.to_post
 
-      expected_body = '<ul class="conversation">' +
-                      '<li class="chat-odd">' +
-                      '<span class="label">Casie:</span>' +
-                      '&quot;I may quit out of rage fyi&quot;' +
-                      '</li>' +
-                      '<li class="chat-even">' +
-                      '<span class="label">Casie:</span>' +
-                      '&quot;😎&quot;' +
-                      '</li>' +
-                      '<li class="chat-odd">' +
-                      '<span class="label">Sean:</span>' +
-                      '&quot;give em hell&quot;' +
-                      '</li>' +
+      expected_body = '<ul class="conversation">' \
+                      '<li class="chat-odd">' \
+                      '<span class="label">Casie:</span>' \
+                      '&quot;I may quit out of rage fyi&quot;' \
+                      '</li>' \
+                      '<li class="chat-even">' \
+                      '<span class="label">Casie:</span>' \
+                      '&quot;😎&quot;' \
+                      '</li>' \
+                      '<li class="chat-odd">' \
+                      '<span class="label">Sean:</span>' \
+                      '&quot;give em hell&quot;' \
+                      '</li>' \
                       '</ul>'
 
       assert_equal expected_body, post.body

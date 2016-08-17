@@ -91,8 +91,8 @@ module Tumblr
                 'width' => 960,
                 'height' => 1280,
                 'url' => 'http://40.media.tumblr.com/eb3de79a7383331a0cbf4aa2e836c058/tumblr_nq7q7pz8X91r9wamzo1_1280.jpg'
-               }
-             }
+              }
+            }
           ]
         }
 
@@ -111,7 +111,7 @@ module Tumblr
     end
 
     test 'it should deduplicate post titles' do
-    VCR.use_cassette('tumblr post factory test 2') do
+      VCR.use_cassette('tumblr post factory test 2') do
         first_json = {
           'id' => 1234567890,
           'type' => 'photo',
@@ -141,8 +141,8 @@ module Tumblr
                 'width' => 960,
                 'height' => 1280,
                 'url' => 'http://40.media.tumblr.com/eb3de79a7383331a0cbf4aa2e836c058/tumblr_nq7q7pz8X91r9wamzo1_1280.jpg'
-               }
-             }
+              }
+            }
           ]
         }
 

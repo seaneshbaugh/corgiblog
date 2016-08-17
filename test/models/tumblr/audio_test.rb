@@ -23,10 +23,10 @@ module Tumblr
 
       post = tumblr_post.to_post
 
-      expected_body = "<embed type=\"application/x-shockwave-flash\" " \
-                      "src=\"https://secure.assets.tumblr.com/swf/audio_player.swf?" \
-                      "audio_file=https%3A%2F%2Fwww.tumblr.com%2Faudio_file%2Fconneythecorgi%2F90000000011%2Ftumblr_GiBIpP1tERl6mUCyr" \
-                      "&color=FFFFFF\" height=\"27\" width=\"207\" quality=\"best\" wmode=\"opaque\">" \
+      expected_body = '<embed type="application/x-shockwave-flash" ' \
+                      'src="https://secure.assets.tumblr.com/swf/audio_player.swf?' \
+                      'audio_file=https%3A%2F%2Fwww.tumblr.com%2Faudio_file%2Fconneythecorgi%2F90000000011%2Ftumblr_GiBIpP1tERl6mUCyr' \
+                      '&color=FFFFFF" height="27" width="207" quality="best" wmode="opaque">' \
                       '</embed>' \
                       '<p>Woof woof!</p>'
 

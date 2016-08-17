@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Tumblr
   class PhotoTest < ActiveSupport::TestCase
-
     test 'it should use the photo title as the post title' do
       VCR.use_cassette('tumblr photos test 1') do
         tumblr_post = Tumblr::PostFactory.new(tumblr_json(:photo, 123246991384))
