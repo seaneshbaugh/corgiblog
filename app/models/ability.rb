@@ -23,7 +23,7 @@ class Ability
       can :manage, :all
 
       cannot [:edit, :update, :destroy], User do |other_user|
-        other_user.sysadmin?
+        other_user.sysadmin? || other_user.admin?
       end
 
       cannot [:edit, :update, :destroy], Post do |post|
