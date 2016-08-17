@@ -50,6 +50,40 @@ module Admin
       assert_response :success
     end
 
+    test 'should not get edit if current_user is admin and post was made by sysadmin' do
+      sign_in users(:casie_clark)
+
+      post = posts(:first_post)
+
+      get edit_admin_post_url(id: post)
+
+      assert_redirected_to root_path
+
+      assert_equal flash[:error], 'You are not authorized to access this page.'
+    end
+
+    test 'should get edit if current_user is admin and post was made by another admin' do
+      sign_in users(:casie_clark)
+
+      other_admin = users(:conney_the_corgi)
+
+      other_admin.admin!
+
+      other_admin.save!
+
+      post = posts(:first_post)
+
+      post.user = other_admin
+
+      post.save!
+
+      get edit_admin_post_url(id: post)
+
+      assert_redirected_to root_path
+
+      assert_equal flash[:error], 'You are not authorized to access this page.'
+    end
+
     test 'should update post' do
       post = posts(:first_post)
 
@@ -68,6 +102,40 @@ module Admin
       post.reload
 
       assert_not_equal post.title, ''
+    end
+
+    test 'should not update post if current_user is admin and post was made by sysadmin' do
+      sign_in users(:casie_clark)
+
+      post = posts(:first_post)
+
+      patch admin_post_url(id: post), params: { post: { name: 'Updated Post' } }
+
+      assert_redirected_to root_path
+
+      assert_equal flash[:error], 'You are not authorized to access this page.'
+    end
+
+    test 'should not update post if current_user is admin and post was made by another admin' do
+      sign_in users(:casie_clark)
+
+      other_admin = users(:conney_the_corgi)
+
+      other_admin.admin!
+
+      other_admin.save!
+
+      post = posts(:first_post)
+
+      post.user = other_admin
+
+      post.save!
+
+      patch admin_post_url(id: post), params: { post: { name: 'Updated Post' } }
+
+      assert_redirected_to root_path
+
+      assert_equal flash[:error], 'You are not authorized to access this page.'
     end
 
     test 'should destroy post' do

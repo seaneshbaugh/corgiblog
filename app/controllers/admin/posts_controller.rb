@@ -42,12 +42,6 @@ module Admin
     end
 
     def update
-      if !current_user.sysadmin? && !current_user.admin? && @post.user != current_user
-        flash[:error] = 'You cannot edit another user\'s posts.'
-
-        redirect_to admin_posts_url and return
-      end
-
       if @post.update(post_params)
         flash[:success] = 'Post was successfully updated.'
 

@@ -16,14 +16,18 @@ class Ability
     when ROLES[:sysadmin] then
       can :manage, :all
 
-      cannot [:destroy], User do |u|
-        u.id == user.id
+      cannot [:destroy], User do |other_user|
+        other_user.id == user.id
       end
     when ROLES[:admin] then
       can :manage, :all
 
-      cannot [:update, :destroy], User do |u|
-        u.role == ROLES[:sysadmin]
+      cannot [:edit, :update, :destroy], User do |other_user|
+        other_user.sysadmin?
+      end
+
+      cannot [:edit, :update, :destroy], Post do |post|
+        post.user.sysadmin? || (post.user.admin? && post.user != user)
       end
     when ROLES[:read_only] then
       can :read, :all
