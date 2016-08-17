@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :posts, dependent: :destroy
 
   # Validations
-  validates :email, email: { strict_mode: true }, allow_blank: true
+  validates :email, email: true, allow_blank: true
   validates_presence_of :email
   validates_uniqueness_of :email, case_sensitive: false
 
