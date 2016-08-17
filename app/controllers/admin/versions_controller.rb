@@ -16,7 +16,7 @@ module Admin
     def revert
       object = @version.reify
 
-#      object.save
+      object.save
 
       redirect_to send("admin_#{object.class.to_s.downcase.underscore.pluralize}_path")
     end
