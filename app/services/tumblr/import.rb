@@ -8,7 +8,7 @@ module Tumblr
       authorize_path: '/oauth/authorize',
       access_token_path: '/oauth/access_token',
       http_method: :post
-    }
+    }.freeze
 
     def self.call
       get_oauth_token
@@ -21,8 +21,6 @@ module Tumblr
 
       save_and_update_posts!
     end
-
-    protected
 
     def self.get_client
       Tumblr.configure do |config|
@@ -57,7 +55,7 @@ module Tumblr
 
         offset += 20
 
-        # break unless posts.present?
+        # break unless tumblr_posts_json.present?
         break
       end
 
