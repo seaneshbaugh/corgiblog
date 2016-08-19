@@ -65,9 +65,7 @@ module Tumblr
     end
 
     def self.download_photos!
-      @tumblr_posts.each do |tumblr_post|
-        tumblr_post.download_photos!
-      end
+      @tumblr_posts.each(&:download_photos!)
     end
 
     def self.save_and_update_posts!
