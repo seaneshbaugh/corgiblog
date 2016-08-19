@@ -4,6 +4,7 @@ en:
       post: "Post"
     attributes:
       post:
+        id: "ID"
         title: "Title"
         slug: "Slug"
         body: "Body"
@@ -11,8 +12,8 @@ en:
         meta_description: "Meta Description"
         meta_keywords: "Meta Keywords"
         user_id: "User"
-        visible: "Visible"
-        sticky: "Sticky"
+        visible: "Visible?"
+        sticky: "Sticky?"
         tumblr_id: "Tumblr ID"
         created_at: "Created At"
         updated_at: "Updated At"

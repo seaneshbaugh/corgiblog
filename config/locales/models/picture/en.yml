@@ -4,6 +4,7 @@ en:
       picture: "Picture"
     attributes:
       picture:
+        id: "ID"
         title: "Title"
         alt_text: "Alt Text"
         caption: "Caption"

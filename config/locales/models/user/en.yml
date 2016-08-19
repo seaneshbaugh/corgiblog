@@ -4,6 +4,7 @@ en:
       user: "User"
     attributes:
       user:
+        id: "ID"
         email: "Email"
         encrypted_password: "Encrypted Password"
         role: "Role"

@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    models:
+      version: "Version"
+    attributes:
+      version:
+        id: "ID"
+        item_type: "Item Type"
+        item_id: "Item ID"
+        event: "Event"
+        whodunnit: "User"
+        object: "Object"
+        created_at: "Created At"
+        object_changes: "Object Changes"
