@@ -14,11 +14,11 @@ namespace :paperclip do
 
           file = io_adapter.binmode
 
-          if file
-            instance.send("#{name}_fingerprint=", Digest::MD5.hexdigest(file.read))
+          next unless file
 
-            instance.save(validate: false)
-          end
+          instance.send("#{name}_fingerprint=", Digest::MD5.hexdigest(file.read))
+
+          instance.save(validate: false)
         end
       end
     end
