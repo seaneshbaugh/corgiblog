@@ -4,6 +4,8 @@ class SitemapController < ApplicationController
 
     @posts = Post.published.reverse_chronological
 
+    @last_picture = Picture.reverse_chronological.first
+
     respond_to do |format|
       format.xml do
         render layout: false
