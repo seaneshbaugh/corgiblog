@@ -65,15 +65,15 @@ module ApplicationHelper
     if meta_description.present?
       meta_description.strip
     else
-      'A blog about an ornery corgi named Conney and her adorable adventures.'
+      t('layouts.application.meta_description')
     end
   end
 
   def page_title(title)
     if title.present?
-      title.strip
+      "#{title.strip} - #{t('layouts.application.page_title')}"
     else
-      'Conney the Corgi!'
+      t('layouts.application.page_title')
     end
   end
 

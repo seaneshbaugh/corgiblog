@@ -1,7 +1,7 @@
 - present @page do |page_presenter|
   - if page_presenter.title.present?
     - content_for :page_title do
-      - page_presenter.page_title
+      - page_presenter.title
   - if page_presenter.meta_description.present?
     - content_for :meta_description do
       = page_presenter.meta_description

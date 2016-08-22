@@ -32,25 +32,25 @@
               %span.icon-bar
               %span.icon-bar
               %span.icon-bar
-            = link_to 'Conney the Corgi!', root_path, class: 'navbar-brand'
+            = link_to t('.nav.home'), root_path, class: 'navbar-brand'
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
               %li{ class: active_controller?('pictures') ? 'active' : nil }
-                = link_to 'Pictures', pictures_path
+                = link_to t('.nav.pictures'), pictures_path
               - @pages.each do |page|
                 %li{ class: active_page?(page.slug) ? 'active' : nil }
                   = link_to page.title, "/#{page.slug}"
               %li{ class: active_controller?('contact') ? 'active' : nil }
-                = link_to 'Contact', contact_path
+                = link_to t('.nav.contact'), contact_path
             - if current_user.present?
               %ul.nav.navbar-nav.navbar-right
                 %li
-                  = link_to 'Admin Panel', admin_root_path, data: { no_turbolink: true }
+                  = link_to t('.nav.admin_panel'), admin_root_path, data: { no_turbolink: true }
                 %li
-                  = link_to 'Sign Out', destroy_user_session_path, method: :delete
+                  = link_to t('.nav.sign_out'), destroy_user_session_path, method: :delete
       %main#content.container
         = flash_messages
         = yield
     %footer#main-footer
       .container
-        %p Created with <a href="http://rubyonrails.org/">Ruby on Rails</a> by <a href="http://seaneshbaugh.com/">Sean Eshbaugh</a>. Fork me on <a href="https://github.com/seaneshbaugh/corgiblog">GitHub</a>!
+        %p= t('.footer_html')

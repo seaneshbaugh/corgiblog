@@ -1,0 +1,13 @@
+en:
+  layouts:
+    application:
+      page_title: "Conney the Corgi!"
+      meta_description: "A blog about an ornery corgi named Conney and her adorable adventures."
+      nav:
+        home: "Conney the Corgi!"
+        pictures: "Pictures"
+        contact: "Contact"
+        sign_in: "Sign In"
+        sign_out: "Sign Out"
+        admin_panel: "Admin Panel"
+      footer_html: 'Created with <a href="http://rubyonrails.org/">Ruby on Rails</a> by <a href="http://seaneshbaugh.com/">Sean Eshbaugh</a>. Fork me on <a href="https://github.com/seaneshbaugh/corgiblog">GitHub</a>!'
