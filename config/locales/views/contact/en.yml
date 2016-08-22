@@ -1,0 +1,17 @@
+en:
+  contact:
+    new:
+      page_title: "Contact"
+      meta_description: "Tell Conney what's up."
+      header:
+        title: "Contact Conney"
+      body:
+        content: "Conney loves hearing how cute she is."
+      form:
+        submit: "Submit"
+    thanks:
+      page_title: "Thanks!"
+      header:
+        title: "Thanks!"
+      body:
+        content: "Thank you for your message! Conney will get back to you soon."

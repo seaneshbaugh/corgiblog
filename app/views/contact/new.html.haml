@@ -1,16 +1,16 @@
 - content_for :page_title do
-  Contact - Conney the Corgi!
+  = t('.page_title')
 - content_for :meta_description do
-  Tell Conney what's up.
+  = t('.meta_description')
 #contact.page
   %header.page-header
-    %h1.page-title Contact Conney
+    %h1.page-title= t('.header.title')
   .page-body
-    %p Conney loves hearing how cute she is.
+    %p= t('.body.content')
   = bootstrap_form_for @contact, url: '/contact', layout: :horizontal, html: { honeypot: true } do |f|
     = f.text_field :name
     = f.email_field :email
     = f.text_field :subject
-    = f.text_area :body, roles: '5'
+    = f.text_area :body, rows: '5'
     = f.form_group do
-      = f.primary 'Submit'
+      = f.primary t('.form.submit')

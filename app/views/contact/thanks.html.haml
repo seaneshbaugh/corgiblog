@@ -1,7 +1,7 @@
 - content_for :page_title do
-  Thanks! - Conney the Corgi!
+  = t('.page_title')
 #contact.page
   %header.page-header
-    %h1.page-title Thanks!
+    %h1.page-title= t('.header.title')
   .page-body
-    %p Thank you for your message! Conney will get back to you soon.
+    %p= t('.body.content')
