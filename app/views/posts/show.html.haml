@@ -1,6 +1,6 @@
 - if @post.title.present?
   - content_for :page_title do
-    - "#{@post.title} - Conney the Corgi!"
+    - @post.title
 - if @post.meta_description.present?
   - content_for :meta_description do
     = @post.meta_description
