@@ -3,6 +3,7 @@ en:
     application:
       page_title: "Conney the Corgi!"
       meta_description: "A blog about an ornery corgi named Conney and her adorable adventures."
+      author: "Sean Eshbaugh"
       nav:
         home: "Conney the Corgi!"
         pictures: "Pictures"
