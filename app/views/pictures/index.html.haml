@@ -1,7 +1,7 @@
 - content_for :page_title do
-  Pictures - Conney the Corgi!
+  = t('.page_title')
 - content_for :meta_description do
-  LOL CONNEY'S SO SILLY
+  = t('.meta_description')
 #pictures
   %ul#tiles
     - @pictures.each do |picture|

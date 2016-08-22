@@ -1,41 +1,5 @@
 en:
-  navigation:
-    pictures: "Pictures"
-  helpers:
-    submit:
-      picture:
-        redirect_to_new: "Create and Add Another"
-        create: "Add Picture"
-        update: "Update Picture"
-    button:
-      picture:
-  messages:
-    pictures:
-      could_not_find: "Could not find the specified picture."
-      created: "Picture has been created."
-      created_plural: "Pictures have been created."
-      updated: "Picture has been updated."
-      deleted: "Picture has been deleted."
-      none: "There are no pictures yet. Click 'New Picture' to get started."
   pictures:
-    links:
-      back_to_index: "Back to Pictures"
-      deactivate: "Deactivate Picture"
-      activate: "Activate Picture"
-    sections:
-      preview: "Preview"
-      information: "Picture Information"
     index:
-      title: "Pictures"
-    new:
-      title: "New Picture"
-    edit:
-      title: "Edit Picture"
-    delete:
-      title: "Delete Picture"
-    show:
-      title: "Picture"
-    sizes:
-      thumb: "Small"
-      medium: "Medium"
-      original: "Large"
+      page_title: "Pictures"
+      meta_description: "LOL CONNEY'S SO SILLY"

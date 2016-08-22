@@ -1,6 +1,6 @@
 - if @picture.title.present?
   - content_for :page_title do
-    = "#{@picture.title} - Conney the Corgi!"
+    = @picture.title
 - if @picture.caption.present?
   - content_for :meta_description do
     = @picture.caption
