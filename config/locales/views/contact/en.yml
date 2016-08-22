@@ -1,4 +1,8 @@
 en:
+  helpers:
+    submit:
+      contact:
+        create: "Submit"
   contact:
     new:
       page_title: "Contact"
@@ -7,8 +11,6 @@ en:
         title: "Contact Conney"
       body:
         content: "Conney loves hearing how cute she is."
-      form:
-        submit: "Submit"
     thanks:
       page_title: "Thanks!"
       header:

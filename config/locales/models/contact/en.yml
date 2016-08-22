@@ -1,0 +1,10 @@
+en:
+  activemodel:
+    models:
+      contact: "Contact"
+    attributes:
+      contact:
+        name: "Name"
+        email: "Email"
+        subject: "Subject"
+        Body: "Body"
