@@ -1,0 +1,16 @@
+en:
+  admin:
+    admin:
+      index:
+        sections:
+          quick_links: "Quick Links"
+          quick_post: "Quick Post"
+          rails_info: "Rails Info"
+          gems: "Gems"
+        quick_links:
+          new_user: "New User"
+          new_page: "New Page"
+          new_post: "New Post"
+          new_picture: "New Picture"
+        rails_info:
+          deploy_time: "Deployed On: %{time}"

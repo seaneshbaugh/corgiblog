@@ -1,0 +1,15 @@
+en:
+  layouts:
+    admin:
+      page_title: "conneythecorgi.com Admin Panel"
+      meta_description: "conneythecorgi.com Admin Panel"
+      author: "Sean Eshbaugh"
+      nav:
+        home: "Admin Home"
+        posts: "Posts"
+        pages: "Pages"
+        pictures: "Pictures"
+        users: "Users"
+        site_home: "Site Home"
+        account: "My Account"
+        sign_out: "Sign Out"

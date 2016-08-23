@@ -1,5 +1,11 @@
 module Admin
   module AdminHelper
+    def deploy_time
+      l(Time.parse(Rails.root.to_s.split('/').last))
+    rescue ArgumentError, TypeError
+      t('na')
+    end
+
     def gem_dependencies
       lockfile = Bundler::LockfileParser.new(Bundler.read_file(Rails.root.join('Gemfile.lock')))
 

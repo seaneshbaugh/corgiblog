@@ -2,10 +2,10 @@
 %html{ dir: 'ltr', lang: 'en-US' }
   %head
     %meta{ charset: 'utf-8' }
-    %title conneythecorgi.com Admin Panel
+    %title= t('.page_title')
     %meta{ content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no', name: 'viewport' }
-    %meta{ content: 'conneythecorgi.com Admin Panel', name: 'description' }
-    %meta{ content: 'Sean Eshbaugh', name: 'author' }
+    %meta{ content: t('.meta_description'), name: 'description' }
+    %meta{ content: t('.author'), name: 'author' }
     = stylesheet_link_tag 'admin', media: 'all'
     = javascript_include_tag 'admin'
     %link{ href: '/favicon.ico', rel: 'shortcut icon' }
@@ -17,28 +17,28 @@
     = csrf_meta_tags
   %body
     %header#main-header.container
-      %h1#title conneythecorgi.com Admin Panel
+      %h1#title= t('.page_title')
       .navbar.navbar-default
         .navbar-header
           %button.navbar-toggle{ 'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse', type: 'button' }
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to 'Admin Home', admin_root_path, class: 'navbar-brand'
+          = link_to t('.nav.home'), admin_root_path, class: 'navbar-brand'
         .navbar-collapse.collapse
           %ul.nav.navbar-nav
             - if can? :read, Post
-              = nav_link_to 'Posts', admin_posts_path, {}, { segments: 2, wrapper: 'li' }
+              = nav_link_to t('.nav.posts'), admin_posts_path, {}, { segments: 2, wrapper: 'li' }
             - if can? :read, Page
-              = nav_link_to 'Pages', admin_pages_path, {}, { segments: 2, wrapper: 'li' }
+              = nav_link_to t('.nav.pages'), admin_pages_path, {}, { segments: 2, wrapper: 'li' }
             - if can? :read, Picture
-              = nav_link_to 'Pictures', admin_pictures_path, {}, { segments: 2, wrapper: 'li' }
+              = nav_link_to t('.nav.pictures'), admin_pictures_path, {}, { segments: 2, wrapper: 'li' }
             - if can? :read, User
-              = nav_link_to 'Users', admin_users_path, {}, { segments: 2, wrapper: 'li' }
+              = nav_link_to t('.nav.users'), admin_users_path, {}, { segments: 2, wrapper: 'li' }
           %ul.nav.navbar-nav.navbar-right
-            %li= link_to 'Site Home', root_path, data: { no_turbolink: true }
-            = nav_link_to 'My Account', edit_admin_account_path, {}, { segments: 2, wrapper: 'li' }
-            %li= link_to 'Sign Out', destroy_user_session_path, method: :delete
+            %li= link_to t('.nav.site_home'), root_path, data: { no_turbolink: true }
+            = nav_link_to t('.nav.account'), edit_admin_account_path, {}, { segments: 2, wrapper: 'li' }
+            %li= link_to t('.nav.sign_out'), destroy_user_session_path, method: :delete
     %main#content.container
       = flash_messages
       = yield

@@ -20,15 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  application:
-    title: "Conney the Corgi!"
-    description: "A blog about an ornery corgi named Conney and her adorable adventures."
-    author: "Sean Eshbaugh"
-    footer: Created with <a href="http://rubyonrails.org/">Ruby on Rails</a> by <a href="http://seaneshbaugh.com/">Sean Eshbaugh</a>. Fork me on <a href="https://github.com/seaneshbaugh/corgiblog">GitHub</a>!
-  navigation:
-    sign_in: "Sign In"
-    sign_out: "Sign Out"
-    admin_panel: "Admin Panel"
+  time:
+    am: "AM"
+    formats:
+      default: "%d-%m-%Y %H:%M:%S"
+      long: "%a, %d %b %Y %I:%M:%S %p %Z"
+      short: "%d-%m-%Y %H:%M:%S"
+    pm: "PM"
   na: "N/A"
   home: "Home"
   back: "Back"
