@@ -27,7 +27,7 @@ module Admin
       @page = Page.new(page_params)
 
       if @page.save
-        flash[:success] = 'Page was successfully created.'
+        flash[:success] = t('admin.pages.messages.created')
 
         redirect_to admin_page_url(@page)
       else
@@ -39,7 +39,7 @@ module Admin
 
     def update
       if @page.update(page_params)
-        flash[:success] = 'Page was successfully updated.'
+        flash[:success] = t('admin.pages.messages.updated')
 
         redirect_to edit_admin_page_url(@page)
       else
@@ -52,7 +52,7 @@ module Admin
     def destroy
       @page.destroy
 
-      flash[:success] = 'Page was successfully deleted.'
+      flash[:success] = t('admin.pages.messages.deleted')
 
       redirect_to admin_pages_url
     end

@@ -1,13 +1,13 @@
-%h2 Pages
+%h2= t('.header.title')
 .well
   = search_form_for @search, url: admin_pages_path, builder: BootstrapForm::FormBuilder, html: { class: 'form-inline', method: :get } do |f|
-    = f.text_field :title_cont, placeholder: 'Title', skip_label: true
-    = f.text_field :body_or_style_cont, placeholder: 'Body or Style', skip_label: true
-    = f.button '<span class="glyphicon glyphicon-search"></span> Search'.html_safe, class: 'btn btn-primary'
-    = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, admin_pages_path, class: 'btn btn-default', rel: 'tooltip', title: 'Clear Search'
+    = f.text_field :title_cont, placeholder: Page.human_attribute_name(:title), skip_label: true
+    = f.text_field :body_or_style_cont, placeholder: t('.search.body_or_style'), skip_label: true
+    = f.button t('admin.admin.search.search_html'), class: 'btn btn-primary'
+    = link_to t('admin.admin.search.clear_search_html'), admin_posts_path, class: 'btn btn-default', rel: 'tooltip', title: t('admin.admin.search.clear_search')
 - if can? :create, Page
   .clearfix
-    = link_to 'New Page', new_admin_page_path, class: 'btn btn-primary pull-right'
+    = link_to t('.links.new'), new_admin_page_path, class: 'btn btn-primary pull-right'
 - if @pages.present?
   .table-responsive
     %table.table.table-striped.table-hover
@@ -15,7 +15,7 @@
         %tr.row
           %th.col-xs-6= sort_link @search, :title
           %th.col-xs-1= sort_link @search, :order
-          %th.col-xs-1= sort_link @search, :visible, 'Visible?'
+          %th.col-xs-1= sort_link @search, :visible
           %th.col-xs-2= sort_link @search, :created_at
           %th.col-xs-1
           %th.col-xs-1
@@ -37,5 +37,5 @@
                   = icon_delete_link admin_page_path(page)
   = paginate @pages
 - else
-  %p.lead There are no pages yet. Click 'New Page' to get started.
+  %p.lead= t('.no_pages_html')
 = render 'shared/admin/versions/deleted', object_class: Page, deleted_versions: @deleted_pages

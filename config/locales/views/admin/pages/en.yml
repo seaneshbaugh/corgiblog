@@ -1,0 +1,30 @@
+en:
+  admin:
+    pages:
+      messages:
+        created: "Page was successfully created."
+        updated: "Page was successfully updated."
+        deleted: "Page was successfully deleted."
+      index:
+        header:
+          title: "Pages"
+        search:
+          body_or_style: "Body or Style"
+        links:
+          new: "New Page"
+        no_pages_html: "There are no pages yet. Click &quot;New Page&quot; to get started."
+      show:
+        header:
+          title: "Page: %{name}"
+        links:
+          back_to_index: "Back to Pages"
+          edit: "Edit"
+          delete: "Delete"
+        sections:
+          attributes: "Page Attributes"
+      new:
+        header:
+          title: "New Page"
+      edit:
+        header:
+          title: "Edit Page"
