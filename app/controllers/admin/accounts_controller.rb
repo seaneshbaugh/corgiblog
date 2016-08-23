@@ -12,7 +12,7 @@ module Admin
       if @account.update(account_params)
         bypass_sign_in(@account)
 
-        flash[:success] = 'Your account was successfully updated.'
+        flash[:success] = t('admin.accounts.messages.updated')
 
         redirect_to admin_account_path
       else
