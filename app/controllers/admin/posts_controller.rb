@@ -31,7 +31,7 @@ module Admin
       end
 
       if @post.save
-        flash[:success] = 'Post was successfully created.'
+        flash[:success] = t('admin.posts.messages.created')
 
         redirect_to admin_post_url(@post)
       else
@@ -43,7 +43,7 @@ module Admin
 
     def update
       if @post.update(post_params)
-        flash[:success] = 'Post was successfully updated.'
+        flash[:success] = t('admin.posts.messages.updated')
 
         redirect_to edit_admin_post_url(@post)
       else
@@ -54,15 +54,9 @@ module Admin
     end
 
     def destroy
-      if !current_user.sysadmin? && !current_user.admin? && @post.user != current_user
-        flash[:error] = 'You cannot delete another user\'s posts.'
-
-        redirect_to admin_posts_url and return
-      end
-
       @post.destroy
 
-      flash[:success] = 'Post was successfully deleted.'
+      flash[:success] = t('admin.posts.messages.deleted')
 
       redirect_to admin_posts_url
     end

@@ -1,0 +1,30 @@
+en:
+  admin:
+    posts:
+      messages:
+        created: "Post was successfully created."
+        updated: "Post was successfully updated."
+        deleted: "Post was successfully deleted."
+      index:
+        header:
+          title: "Posts"
+        search:
+          body_or_style: "Body or Style"
+        links:
+          new: "New Post"
+        no_posts_html: "There are no posts yet. Click &quot;New Post&quot; to get started."
+      show:
+        header:
+          title: "Post: %{name}"
+        links:
+          back_to_index: "Back to Posts"
+          edit: "Edit"
+          delete: "Delete"
+        sections:
+          attributes: "Post Attributes"
+      new:
+        header:
+          title: "New Post"
+      edit:
+        header:
+          title: "Edit Post"

@@ -1,60 +1,72 @@
 - present @post do |post_presenter|
-  %h2= "Post: #{post_presenter.title}"
+  %h2= t('.header.title', name: post_presenter.title)
   .admin-actions
-    = link_to 'Back to Index', admin_posts_path, class: 'btn btn-default'
+    = link_to t('.links.back_to_index'), admin_posts_path, class: 'btn btn-default'
     - if can? :edit, @post
-      = link_to 'Edit', edit_admin_post_path(@post), class: 'btn btn-primary'
+      = link_to t('.links.edit'), edit_admin_post_path(@post), class: 'btn btn-primary'
     - if can? :destroy, @post
-      = link_to 'Delete', admin_post_path(@post), class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
-  %h3 Post Attributes
+      = link_to t('.links.delete'), admin_post_path(@post), class: 'btn btn-danger', data: { confirm: t('confirm_delete') }
+  %h3= t('.sections.attributes')
   .post.attributes
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.title Title
+      %strong.col-xs-12.col-sm-2.attribute-name.title= Post.human_attribute_name(:title)
       .col-xs-12.col-sm-10.attribute-value.title= post_presenter.title
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.slug Slug
+      %strong.col-xs-12.col-sm-2.attribute-name.slug= Post.human_attribute_name(:slug)
       .col-xs-12.col-sm-10.attribute-value.slug
         = post_presenter.slug
         = post_presenter.share_link target: '_blank'
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.body Body
+      %strong.col-xs-12.col-sm-2.attribute-name.body= Post.human_attribute_name(:body)
       .col-xs-12.col-sm-10.attribute-value.body
-        - if post_presenter.body.present?
-          %pre= post_presenter.body
-        - else
-          &nbsp;
+        %pre= post_presenter.body
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.style Style
+      %strong.col-xs-12.col-sm-2.attribute-name.style= Post.human_attribute_name(:style)
       .col-xs-12.col-sm-10.attribute-value.style
         - if post_presenter.style.present?
           %pre= post_presenter.style
         - else
-          &nsbp;
+          &nbsp;
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.meta-description Meta Description
-      .col-xs-12.col-sm-10.attribute-value.meta-description= post_presenter.meta_description
+      %strong.col-xs-12.col-sm-2.attribute-name.meta-description= Post.human_attribute_name(:meta_description)
+      .col-xs-12.col-sm-10.attribute-value.meta-description
+        - if post_presenter.meta_description.present?
+          = post_presenter.meta_description
+        - else
+          &nbsp;
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.meta-keywords Meta Keywords
-      .col-xs-12.col-sm-10.attribute-value.meta-keywords= post_presenter.meta_keywords
+      %strong.col-xs-12.col-sm-2.attribute-name.meta-keywords= Post.human_attribute_name(:meta_keywords)
+      .col-xs-12.col-sm-10.attribute-value.meta-keywords
+        - if post_presenter.meta_keywords.present?
+          = post_presenter.meta_keywords
+        - else
+          &nbsp;
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.visible Visible?
+      %strong.col-xs-12.col-sm-2.attribute-name.user-id= Post.human_attribute_name(:user_id)
+      .col-xs-12.col-sm-10.attribute-value.user-id= link_to post_presenter.user_full_name, admin_user_path(@post.user)
+    .row.attribute
+      %strong.col-xs-12.col-sm-2.attribute-name.visible= Post.human_attribute_name(:visible)
       .col-xs-12.col-sm-10.attribute-value.visible= post_presenter.visible
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.sticky Sticky?
+      %strong.col-xs-12.col-sm-2.attribute-name.sticky= Post.human_attribute_name(:sticky)
       .col-xs-12.col-sm-10.attribute-value.sticky= post_presenter.sticky
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attrubute-name.tumblr-id Tumblr ID
-      .col-xs-12.col-sm-10.attribute-value.tumblr-id= post_presenter.tumblr_link
+      %strong.col-xs-12.col-sm-2.attrubute-name.tumblr-id= Post.human_attribute_name(:tumblr_id)
+      .col-xs-12.col-sm-10.attribute-value.tumblr-id
+        - if post_presenter.tumblr_id.present?
+          = post_presenter.tumblr_link
+        - else
+          &nbsp;
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.tags Tags
+      %strong.col-xs-12.col-sm-2.attribute-name.tags= Post.human_attribute_name(:tag_list)
       .col-xs-12.col-sm-10.attribute-value.tags
         - if post_presenter.tag_list.present?
           = post_presenter.tag_list.join(', ')
         - else
           &nbsp;
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.created-at Created At
+      %strong.col-xs-12.col-sm-2.attribute-name.created-at= Post.human_attribute_name(:created_at)
       .col-xs-12.col-sm-10.attribute-value.created-at= post_presenter.created_at
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.updated-at Updated At
+      %strong.col-xs-12.col-sm-2.attribute-name.updated-at= Post.human_attribute_name(:updated_at)
       .col-xs-12.col-sm-10.attribute-value.updated-at= post_presenter.updated_at

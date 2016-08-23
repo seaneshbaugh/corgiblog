@@ -1,20 +1,20 @@
-%h2 Posts
+%h2= t('.header.title')
 .well
   = search_form_for @search, url: admin_pages_path, builder: BootstrapForm::FormBuilder, html: { class: 'form-inline', method: :get } do |f|
-    = f.text_field :title_cont, placeholder: 'Title', skip_label: true
-    = f.text_field :body_or_style_cont, placeholder: 'Body or Style', skip_label: true
-    = f.button '<span class="glyphicon glyphicon-search"></span> Search'.html_safe, class: 'btn btn-primary'
-    = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, admin_posts_path, class: 'btn btn-default', rel: 'tooltip', title: 'Clear Search'
+    = f.text_field :title_cont, placeholder: Post.human_attribute_name(:title), skip_label: true
+    = f.text_field :body_or_style_cont, placeholder: t('.search.body_or_style'), skip_label: true
+    = f.button t('admin.admin.search.search_html'), class: 'btn btn-primary'
+    = link_to t('admin.admin.search.clear_search_html'), admin_posts_path, class: 'btn btn-default', rel: 'tooltip', title: t('admin.admin.search.clear_search')
 - if can? :create, Post
   .clearfix
-    = link_to 'New Post', new_admin_post_path, class: 'btn btn-primary pull-right'
+    = link_to t('.links.new'), new_admin_post_path, class: 'btn btn-primary pull-right'
 - if @posts.present?
   .table-responsive
     %table.table.table-striped.table-hover
       %thead
         %tr.row
           %th.col-xs-6= sort_link @search, :title
-          %th.col-xs-2= sort_link @search, :user_last_name_first_name, 'Poster'
+          %th.col-xs-2= sort_link @search, :user_last_name_first_name, User.human_attribute_name(:user_id)
           %th.col-xs-2= sort_link @search, :created_at
           %th.col-xs-1
           %th.col-xs-1
@@ -35,5 +35,5 @@
                   = icon_delete_link admin_post_path(post)
   = paginate @posts
 - else
-  %p.lead There are no posts yet. Click 'New Post' to get started.
+  %p.lead= t('.no_posts_html')
 = render 'shared/admin/versions/deleted', object_class: Post, deleted_versions: @deleted_posts
