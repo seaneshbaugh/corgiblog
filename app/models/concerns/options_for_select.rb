@@ -8,15 +8,7 @@ module OptionsForSelect
       display_method = options.delete(:display_method)
 
       if display_method.blank?
-        if column_names.include?('name')
-          display_method = :name
-        elsif column_names.include?('title')
-          display_method = :title
-        elsif column_names.include?('label')
-          display_method = :label
-        else
-          display_method = primary_key.to_sym
-        end
+        display_method = (['name', 'title', 'label', primary_key] & column_names).first.to_sym
       end
 
       prompt = options.delete(:prompt)
