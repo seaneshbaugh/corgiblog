@@ -1,20 +1,20 @@
-%h2 Users
+%h2= t('.header.title')
 .well
   = search_form_for @search, url: admin_users_path, builder: BootstrapForm::FormBuilder, html: { class: 'form-inline', method: :get } do |f|
-    = f.text_field :first_name_or_last_name_cont, placeholder: 'Name', skip_label: true
-    = f.text_field :email_cont, placeholder: 'Email', skip_label: true
-    = f.select :role_eq, Ability::ROLES.map { |_, value| [value.titleize, value] }, include_blank: 'Select Role', skip_label: true
-    = f.button '<span class="glyphicon glyphicon-search"></span> Search'.html_safe, class: 'btn btn-primary'
-    = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, admin_users_path, class: 'btn btn-default', rel: 'tooltip', title: 'Clear Search'
+    = f.text_field :first_name_or_last_name_cont, placeholder: User.human_attribute_name(:name), skip_label: true
+    = f.text_field :email_cont, placeholder: User.human_attribute_name(:email), skip_label: true
+    = f.select :role_eq, Ability::ROLES.map { |_, value| [value.titleize, value] }, include_blank: t('.search.select_role'), skip_label: true
+    = f.button t('admin.admin.search.search_html'), class: 'btn btn-primary'
+    = link_to t('admin.admin.search.clear_search_html'), admin_users_path, class: 'btn btn-default', rel: 'tooltip', title: t('admin.admin.search.clear_search')
 - if can? :create, User
   .clearfix
-    = link_to 'New User', new_admin_user_path, class: 'btn btn-primary pull-right'
+    = link_to t('.links.new'), new_admin_user_path, class: 'btn btn-primary pull-right'
 - if @users.present?
   .table-responsive
     %table.table.table-striped.table-hover
       %thead
         %tr.row
-          %th.col-xs-3= sort_link @search, :last_name_first_name, 'Name'
+          %th.col-xs-3= sort_link @search, :last_name_first_name, User.human_attribute_name(:name)
           %th.col-xs-3= sort_link @search, :email
           %th.col-xs-2= sort_link @search, :role
           %th.col-xs-2= sort_link @search, :created_at
@@ -38,5 +38,5 @@
                   = icon_delete_link admin_user_path(user)
   = paginate @users
 - else
-  %p.lead There are no users yet. Click 'New User' to get started.
+  %p.lead= t('.no_users_html')
 = render 'shared/admin/versions/deleted', object_class: User, deleted_versions: @deleted_users

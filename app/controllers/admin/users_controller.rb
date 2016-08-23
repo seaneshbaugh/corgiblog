@@ -27,7 +27,7 @@ module Admin
       @user = User.new(user_params)
 
       if @user.save
-        flash[:success] = 'User was successfully created.'
+        flash[:success] = t('admin.users.messages.created')
 
         redirect_to admin_user_url(@user)
       else
@@ -39,7 +39,7 @@ module Admin
 
     def update
       if @user.update(user_params)
-        flash[:success] = 'User was successfully updated.'
+        flash[:success] = t('admin.users.messages.updated')
 
         redirect_to edit_admin_user_url(@user)
       else
@@ -52,7 +52,7 @@ module Admin
     def destroy
       @user.destroy
 
-      flash[:success] = 'User was successfully deleted.'
+      flash[:success] = t('admin.users.messages.deleted')
 
       redirect_to admin_users_url
     end

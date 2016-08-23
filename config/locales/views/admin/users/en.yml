@@ -1,0 +1,32 @@
+en:
+  admin:
+    users:
+      messages:
+        created: "User was successfully created."
+        updated: "User was successfully updated."
+        deleted: "User was successfully deleted."
+      index:
+        header:
+          title: "Users"
+        search:
+          select_role: "Select Role"
+        links:
+          new: "New User"
+        no_users_html: "There are no users yet. Click &quot;New User&quot; to get started."
+      show:
+        header:
+          title: "User: %{name}"
+        links:
+          back_to_index: "Back to Users"
+          edit: "Edit"
+          delete: "Delete"
+        sections:
+          contact_information: "Contact Information"
+          account_information: "Account Information"
+          login_activity: "Login Activity"
+      new:
+        header:
+          title: "New User"
+      edit:
+        header:
+          title: "Edit User"

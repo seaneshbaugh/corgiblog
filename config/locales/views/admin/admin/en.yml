@@ -14,3 +14,7 @@ en:
           new_picture: "New Picture"
         rails_info:
           deploy_time: "Deployed On: %{time}"
+      search:
+        search_html: '<span class="glyphicon glyphicon-search"></span> Search'
+        clear_search_html: '<span class="glyphicon glyphicon-remove"></span>'
+        clear_search: "Clear Search"

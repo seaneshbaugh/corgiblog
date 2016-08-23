@@ -10,6 +10,7 @@ en:
         role: "Role"
         first_name: "First Name"
         last_name: "Last Name"
+        name: "Name"
         reset_password_token: "Reset Password Token"
         reset_password_sent_at: "Reset Password Sent At"
         remember_created_at: "Remember Created At"

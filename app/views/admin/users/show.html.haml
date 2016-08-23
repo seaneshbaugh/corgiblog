@@ -1,50 +1,50 @@
 - present @user do |user_presenter|
-  %h2= "User: #{user_presenter.full_name}"
+  %h2= t('.header.title', name: user_presenter.full_name)
   .admin-actions
-    = link_to 'Back to Index', admin_users_path, class: 'btn btn-default'
+    = link_to t('.links.back_to_index'), admin_users_path, class: 'btn btn-default'
     - if can? :edit, @user
-      = link_to 'Edit', edit_admin_user_path(@user), class: 'btn btn-primary'
+      = link_to t('.links.edit'), edit_admin_user_path(@user), class: 'btn btn-primary'
     - if can? :destroy, @user
-      = link_to 'Delete', admin_user_path(@user), class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
-  %h3 Contact Information
+      = link_to t('.links.delete'), admin_user_path(@user), class: 'btn btn-danger', data: { confirm: t('confirm_delete') }
+  %h3= t('.sections.contact_information')
   .user.attributes
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.first-name First Name
+      %strong.col-xs-12.col-sm-2.attribute-name.first-name= User.human_attribute_name(:first_name)
       .col-xs-12.col-sm-10.attribute-value.first-name= user_presenter.first_name
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name Last Name
+      %strong.col-xs-12.col-sm-2.attribute-name.last-name= User.human_attribute_name(:last_name)
       .col-xs-12.col-sm-10.attribute-value.last-name= user_presenter.last_name
-  %h3 Account Information
+  %h3= t('.sections.account_information')
   .user.attributes
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.email Email
+      %strong.col-xs-12.col-sm-2.attribute-name.email= User.human_attribute_name(:email)
       .col-xs-12.col-sm-10.attribute-value.email
         = user_presenter.email
         = user_presenter.email_link
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.role Role
+      %strong.col-xs-12.col-sm-2.attribute-name.role= User.human_attribute_name(:role)
       .col-xs-12.col-sm-10.attribute-value.role= user_presenter.role
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.created-at Created At
+      %strong.col-xs-12.col-sm-2.attribute-name.created-at= User.human_attribute_name(:created_at)
       .col-xs-12.col-sm-10.attribute-value.created-at= user_presenter.created_at
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.created-at Updated At
+      %strong.col-xs-12.col-sm-2.attribute-name.updated-at= User.human_attribute_name(:updated_at)
       .col-xs-12.col-sm-10.attribute-value.updated-at= user_presenter.updated_at
-  %h3 Login Activity
+  %h3= t('.sections.login_activity')
   .user.attributes
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name.sign-in-count Sign In Count
+      %strong.col-xs-12.col-sm-2.attribute-name.sign-in-count= User.human_attribute_name(:sign_in_count)
       .col-xs-12.col-sm-10.attribute-value.sign-in-count= user_presenter.sign_in_count
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name Current Sign In At
-      .col-xs-12.col-sm-10.attribute-value= user_presenter.current_sign_in_at
+      %strong.col-xs-12.col-sm-2.attribute-name.current-sign-in-at= User.human_attribute_name(:current_sign_in_at)
+      .col-xs-12.col-sm-10.attribute-value.current-sign-in-at= user_presenter.current_sign_in_at
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name Last Sign In At
-      .col-xs-12.col-sm-10.attribute-value= user_presenter.last_sign_in_at
+      %strong.col-xs-12.col-sm-2.attribute-name.last-sign-in-at= User.human_attribute_name(:last_sign_in_at)
+      .col-xs-12.col-sm-10.attribute-value.last-sign-in-at= user_presenter.last_sign_in_at
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name Current Sign In IP
-      .col-xs-12.col-sm-10.attribute-value= user_presenter.current_sign_in_ip
+      %strong.col-xs-12.col-sm-2.attribute-name.current-sign-in-ip= User.human_attribute_name(:current_sign_in_ip)
+      .col-xs-12.col-sm-10.attribute-value.current-sign-in-up= user_presenter.current_sign_in_ip
     .row.attribute
-      %strong.col-xs-12.col-sm-2.attribute-name Last Sign In IP
-      .col-xs-12.col-sm-10.attribute-value= user_presenter.last_sign_in_ip
+      %strong.col-xs-12.col-sm-2.attribute-name.last-sign-in-ip= User.human_attribute_name(:last_sign_in_ip)
+      .col-xs-12.col-sm-10.attribute-value.last-sign-in-ip= user_presenter.last_sign_in_ip
   = render 'shared/admin/versions/previous', object_class: User, current_object: @user, previous_versions: @previous_versions
