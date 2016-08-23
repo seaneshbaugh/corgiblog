@@ -2,10 +2,10 @@
   .modal-content
     .modal-header
       %button.close{ 'aria-hidden' => 'true', 'data-dismiss' => 'modal', type: 'button' } &times;
-      %h4.modal-title Select a picture
+      %h4.modal-title= t('.header.title')
     .modal-body
       #picture-selector-search-form
-        %label{ for: 'filter-by-title' } Search:
+        %label{ for: 'filter-by-title' }= t('.search.prompt')
         %input#filter-by-title.form-control{ name: 'filter-by-text', type: 'text' }/
       #picture-selector-pictures.row
         - @pictures.each do |picture|

@@ -1,0 +1,37 @@
+en:
+  admin:
+    pictures:
+      messages:
+        created: "Picture was successfully created."
+        updated: "Picture was successfully updated."
+        deleted: "Picture was successfully deleted."
+      index:
+        header:
+          title: "Pictures"
+        search:
+          body_or_style: "Body or Style"
+        links:
+          new: "New Picture"
+        no_pictures_html: "There are no pictures yet. Click &quot;New Picture&quot; to get started."
+      show:
+        header:
+          title: "Picture: %{name}"
+        links:
+          back_to_index: "Back to Pictures"
+          edit: "Edit"
+          delete: "Delete"
+        sections:
+          attributes: "Picture Attributes"
+      new:
+        header:
+          title: "New Picture"
+      create:
+        error_html: "Failed to upload picture: %{message}."
+      edit:
+        header:
+          title: "Edit Picture"
+      selector:
+        header:
+          title: "Select a picture"
+        search:
+          prompt: "Search:"

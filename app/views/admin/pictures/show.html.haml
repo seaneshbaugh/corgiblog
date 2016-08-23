@@ -1,59 +1,70 @@
 - present @picture do |picture_presenter|
-  %h2= picture_presenter.title
+  %h2= t('header.title', name: picture_presenter.title)
   .admin-actions
-    = link_to 'Back to Index', admin_pictures_path, class: 'btn btn-default'
+    = link_to t('.links.back_to_index'), admin_pictures_path, class: 'btn btn-default'
     - if can? :edit, @picture
-      = link_to 'Edit', edit_admin_picture_path(@picture), class: 'btn btn-primary'
+      = link_to t('.links.edit'), edit_admin_picture_path(@picture), class: 'btn btn-primary'
     - if can? :destroy, @picture
-      = link_to 'Delete', admin_picture_path(@picture), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
-  %h3 Picture Attributes
+      = link_to t('.links.delete'), admin_picture_path(@picture), method: :delete, class: 'btn btn-danger', data: { confirm: t('confirm_delete') }
+  %h3= t('.sections.attributes')
   .picture.attributes
     .row.attributes
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.preview Preview
+        %strong.col-xs-12.col-sm-2.attribute-name.preview= Picture.human_attribute_name(:preview)
         .col-xs-12.col-sm-10.attribute-value.preview= link_to picture_presenter.medium_image, @picture.image.url, target: '_blank'
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.title Title
+        %strong.col-xs-12.col-sm-2.attribute-name.title= Picture.human_attribute_name(:title)
         .col-xs-12.col-sm-10.attribute-value.title= picture_presenter.title
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.alt-text Alt Text
-        .col-xs-12.col-sm-10.attribute-value.alt-text= picture_presenter.alt_text
+        %strong.col-xs-12.col-sm-2.attribute-name.alt-text= Picture.human_attribute_name(:alt_text)
+        .col-xs-12.col-sm-10.attribute-value.alt-text
+          - if picture_presenter.alt_text.present?
+            = picture_presenter.alt_text
+          - else
+            &nbsp;
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.caption Caption
-        .col-xs-12.col-sm-10.attribute-value.caption= picture_presenter.caption
+        %strong.col-xs-12.col-sm-2.attribute-name.caption= Picture.human_attribute_name(:caption)
+        .col-xs-12.col-sm-10.attribute-value.caption
+          - if picture_presenter.caption.present?
+            = picture_presenter.caption
+          - else
+            &nbsp;
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.image-file-name File Name
+        %strong.col-xs-12.col-sm-2.attribute-name.image-file-name= Picture.human_attribute_name(:image_file_name)
         .col-xs-12.col-sm-10.attribute-value.image-file-name= picture_presenter.image_file_name
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.image-content-type Content Type
+        %strong.col-xs-12.col-sm-2.attribute-name.image-content-type= Picture.human_attribute_name(:image_content_type)
         .col-xs-12.col-sm-10.attribute-value.image-content-type= picture_presenter.image_content_type
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.image-file-size File Size
+        %strong.col-xs-12.col-sm-2.attribute-name.image-file-size= Picture.human_attribute_name(:image_file_size)
         .col-xs-12.col-sm-10.attribute-value.image-file-size= picture_presenter.image_file_size
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.image-fingerprint Fingerprint
+        %strong.col-xs-12.col-sm-2.attribute-name.image-fingerprint= Picture.human_attribute_name(:image_fingerprint)
         .col-xs-12.col-sm-10.attribute-value.image-fingerprint= picture_presenter.image_fingerprint
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.image-orginal-width Original Width
+        %strong.col-xs-12.col-sm-2.attribute-name.image-orginal-width= Picture.human_attribute_name(:image_original_width)
         .col-xs-12.col-sm-10.attribute-value.image-orginal-width= picture_presenter.image_original_width
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.image-original-height Original Height
+        %strong.col-xs-12.col-sm-2.attribute-name.image-original-height= Picture.human_attribute_name(:image_original_height)
         .col-xs-12.col-sm-10.attribute-value.image-original-height= picture_presenter.image_original_height
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.image-medium-width Medium Width
+        %strong.col-xs-12.col-sm-2.attribute-name.image-medium-width= Picture.human_attribute_name(:image_medium_width)
         .col-xs-12.col-sm-10.attribute-value.image-medium-width= picture_presenter.image_medium_width
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.image-medium-height Medium Height
+        %strong.col-xs-12.col-sm-2.attribute-name.image-medium-height= Picture.human_attribute_name(:image_medium_height)
         .col-xs-12.col-sm-10.attribute-value.image-medium-heigh= picture_presenter.image_medium_height
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.image-thumb-width Thumbnail Width
+        %strong.col-xs-12.col-sm-2.attribute-name.image-thumb-width= Picture.human_attribute_name(:image_thumb_width)
         .col-xs-12.col-sm-10.attribute-value.image-thumb-width= picture_presenter.image_thumb_width
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.image-thumb-height Thumbnail Height
+        %strong.col-xs-12.col-sm-2.attribute-name.image-thumb-height= Picture.human_attribute_name(:image_thumb_height)
         .col-xs-12.col-sm-10.attribute-value.image-thumb-height= picture_presenter.image_thumb_height
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.created-at Created At
+        %strong.col-xs-12.col-sm-2.attribute.name.image-updated-at= Picture.human_attribute_name(:image_updated_at)
+        .col-xs-12.col-sm-10.attribute-value.image-updated-at= picture_presenter.image_updated_at
+      .row.attribute
+        %strong.col-xs-12.col-sm-2.attribute-name.created-at= Picture.human_attribute_name(:created_at)
         .col-xs-12.col-sm-10.attribute-value.created-at= picture_presenter.created_at
       .row.attribute
-        %strong.col-xs-12.col-sm-2.attribute-name.updated-at Updated At
+        %strong.col-xs-12.col-sm-2.attribute-name.updated-at= Picture.human_attribute_name(:updated_at)
         .col-xs-12.col-sm-10.attribute-value.updated-at= picture_presenter.updated_at

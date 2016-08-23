@@ -1,21 +1,21 @@
-%h2 Pictures
+%h2= t('.header.title')
 .well
   = search_form_for @search, url: admin_pictures_path, builder: BootstrapForm::FormBuilder, html: { class: 'form-inline', method: :get } do |f|
-    = f.text_field :title_cont, placeholder: 'Title', skip_label: true
-    = f.text_field :alt_text_cont, placeholder: 'Alt Text', skip_label: true
-    = f.text_field :caption_cont, placeholder: 'Caption', skip_label: true
-    = f.button '<span class="glyphicon glyphicon-search"></span> Search'.html_safe, class: 'btn btn-primary'
-    = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, admin_pictures_path, class: 'btn btn-default', rel: 'tooltip', title: 'Clear Search'
+    = f.text_field :title_cont, placeholder: Picture.human_attribute_name(:title), skip_label: true
+    = f.text_field :alt_text_cont, placeholder: Picture.human_attribute_name(:alt_text), skip_label: true
+    = f.text_field :caption_cont, placeholder: Picture.human_attribute_name(:caption), skip_label: true
+    = f.button t('admin.admin.search.search_html'), class: 'btn btn-primary'
+    = link_to t('admin.admin.search.clear_search_html'), admin_posts_path, class: 'btn btn-default', rel: 'tooltip', title: t('admin.admin.search.clear_search')
 - if can? :create, Picture
   .clearfix
-    = link_to 'New Picture', new_admin_picture_path, class: 'btn btn-primary pull-right'
+    = link_to t('.links.new'), new_admin_picture_path, class: 'btn btn-primary pull-right'
   = form_for [:admin, Picture.new], html: { id: 'new_picture-fileupload', data: { accept: 'gif|jpe?g|png' } } do |f|
     = f.file_field :image, name: 'picture[image]', class: 'hidden'
     .table-responsive
       %table{ class: "table table-striped table-hover#{' hidden' unless @pictures.present?}" }
         %thead
           %tr.row
-            %th.col-xs-2 Thumbnail
+            %th.col-xs-2= Picture.human_attribute_name(:thumbnail)
             %th.col-xs-6= sort_link @search, :title
             %th.col-xs-2= sort_link @search, :created_at
             %th.col-xs-1
@@ -35,7 +35,7 @@
                     = icon_delete_link admin_picture_path(picture)
     = paginate @pictures
     - unless @pictures.present?
-      %p.lead There are no pictures yet. Click 'New Picture' to get started.
+      %p.lead= t('.no_pictures_html')
 %script#template-upload{ type: 'text/x-tmpl' }
   <div class="upload">
   {%=o.name%}
