@@ -6,8 +6,14 @@ xml.urlset xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' do
     xml.changefreq 'monthly'
   end
   xml.url do
+    if @last_picture.present?
+      pictures_lastmod = @last_picture.created_at.xmlschema
+    else
+      pictures_lastmod = Time.now.beginning_of_month.xmlschema
+    end
+
     xml.loc pictures_url
-    xml.lastmod @last_picture.created_at.xmlschema
+    xml.lastmod pictures_lastmod
     xml.changefreq 'monthly'
   end
   @pages.each do |page|
