@@ -3,30 +3,11 @@ class UserPresenter < BasePresenter
     :full_name
   end
 
-  def self.humanized_attribute_names
-    @humanized_attribute_names ||= HashWithIndifferentAccess.new({
-      id: 'ID',
-      email: 'Email',
-      role: 'Role',
-      first_name: 'First Name',
-      last_name: 'Last Name',
-      reset_password_sent_at: 'Reset Password Sent At',
-      remember_created_at: 'Remember Created At',
-      sign_in_count: 'Sign In Count',
-      current_sign_in_at: 'Current Sign In At',
-      last_sign_in_at: 'Last Sign In At',
-      current_sign_in_ip: 'Current Sign In IP',
-      last_sign_in_ip: 'Last Sign In IP',
-      created_at: 'Created At',
-      updated_at: 'Updated At'
-    })
-  end
-
   def self.version_display_attributes
     [
       {
         method: :full_name,
-        header_class: 'col-xs-4',
+        header_class: 'col-xs-4'
       },
       {
         method: :email,
@@ -41,23 +22,23 @@ class UserPresenter < BasePresenter
     @user = user
   end
 
-  def current_sign_in_at
+  def current_sign_in_at(format = :default)
     if @user.current_sign_in_at.present?
-      @user.current_sign_in_at.strftime(time_format)
+      l(@user.current_sign_in_at, format: format)
     else
-      'N/A'
+      t('na')
     end
   end
 
   def email_link
-    link_to '<span class="glyphicon glyphicon-envelope">'.html_safe, "mailto:#{@user.email}", rel: 'tooltip', title: 'Send Email'
+    link_to(content_tag(:span, '', class: 'glyphicon glyphicon-envelope'), "mailto:#{@user.email}", rel: 'tooltip', title: t('send_email'))
   end
 
-  def last_sign_in_at
+  def last_sign_in_at(format = :default)
     if @user.last_sign_in_at.present?
-      @user.last_sign_in_at.strftime(time_format)
+      l(@user.last_sign_in_at, format: format)
     else
-      'N/A'
+      t('na')
     end
   end
 
