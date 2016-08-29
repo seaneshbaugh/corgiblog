@@ -1,7 +1,7 @@
 module Linkable
   extend ActiveSupport::Concern
 
-  module ClassMethods
+  class_methods do
     def path_and_url_links(method_name, options = {}, &block)
       if options[:plural]
         path_method_name = "#{method_name}_path_links".to_sym
@@ -24,11 +24,11 @@ module Linkable
   end
 
   def link(options = {})
-    link_to @object.title, path, options
+    link_to(@object.send(self.class.display_method), path, options)
   end
 
   def share_link(options = {})
-    link_to '<span class="glyphicon glyphicon-share"</span>'.html_safe, path, options
+    link_to(content_tag(:span, '', class: 'glyphicon glyphicon-share'), path, options)
   end
 
   def path
