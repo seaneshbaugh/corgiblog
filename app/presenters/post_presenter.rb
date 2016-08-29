@@ -2,36 +2,15 @@ class PostPresenter < BasePresenter
   include FrontEnd
   include Linkable
 
-  delegate :content_tag, to: :@template
-  delegate :params, to: :@template
-
   def self.display_method
     :title
-  end
-
-  def self.humanized_attribute_names
-    @humanized_attribute_names ||= HashWithIndifferentAccess.new({
-      id: 'ID',
-      title: 'Title',
-      slug: 'Slug',
-      body: 'Body',
-      style: 'Style',
-      meta_description: 'Meta Description',
-      meta_keywords: 'Meta Keywords',
-      order: 'Order',
-      show_in_menu: 'Show in Menu?',
-      visible: 'Visible?',
-      created_at: 'Created At',
-      updated_at: 'Updated At',
-      user_link: 'User'
-    })
   end
 
   def self.version_display_attributes
     [
       {
         method: :title,
-        header_class: 'col-xs-5',
+        header_class: 'col-xs-5'
       },
       {
         method: :user_link,
@@ -47,17 +26,7 @@ class PostPresenter < BasePresenter
   end
 
   def by
-    "by #{@post.user.first_name}"
-  end
-
-  def created_at(format = nil)
-    return unless @post.created_at
-
-    if format
-      @post.created_at.strftime(format)
-    else
-      super()
-    end
+    t('posts.show.by', name: @post.user.first_name)
   end
 
   def date
@@ -83,7 +52,7 @@ class PostPresenter < BasePresenter
   end
 
   def metadata
-    "by #{@post.user.first_name} on #{@post.created_at.strftime("%B #{@post.created_at.day.ordinalize}, %Y")}"
+    t('posts.show.metadata', name: @post.user.first_name, date: @post.created_at.strftime("%B #{@post.created_at.day.ordinalize}, %Y"))
   end
 
   def more
@@ -103,15 +72,15 @@ class PostPresenter < BasePresenter
   def more_link
     return unless truncated?
 
-    content_tag(:div, link_to('Read More', @post), class: 'read-more')
+    content_tag(:div, link_to(t('posts.index.read_more'), @post), class: 'read-more')
   end
 
   def tag_links
-    @post.tags.map { |tag| link_to tag.name, @template.root_path(tag: tag.name) }.join(', ').html_safe
+    @post.tags.map { |tag| link_to(tag.name, @template.root_path(tag: tag.name)) }.join(', ').html_safe
   end
 
   def title_text
-    "\"#{@post.title}\" posted on #{@post.created_at.strftime('%Y-%m-%d %H:%M:%S')}"
+    t('posts.show.title_text', title: @post.title, time: l(@post.created_at))
   end
 
   def truncated?
@@ -123,17 +92,7 @@ class PostPresenter < BasePresenter
 
     text = @post.tumblr_id if text.blank?
 
-    link_to text, "http://conneythecorgi.tumblr.com/#{@post.tumblr_id}"
-  end
-
-  def updated_at(format = nil)
-    return unless @post.updated_at
-
-    if format
-      @post.updated_at.strftime(format)
-    else
-      super()
-    end
+    link_to(text, "http://#{ENV['TUMBLR_BLOG_URI']}/#{@post.tumblr_id}")
   end
 
   def user_full_name
@@ -141,22 +100,22 @@ class PostPresenter < BasePresenter
   end
 
   def user_link
-    link_to user_full_name, @template.admin_user_path(@post.user)
+    link_to(user_full_name, @template.admin_user_path(@post.user))
   end
 
   def visible
     if @post.visible
-      'Yes'
+      t('yes')
     else
-      'No'
+      t('no')
     end
   end
 
   def sticky
     if @post.sticky
-      'Yes'
+      t('yes')
     else
-      'No'
+      t('no')
     end
   end
 

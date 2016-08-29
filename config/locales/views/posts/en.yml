@@ -1,4 +1,9 @@
 en:
   posts:
+    index:
+      read_more: "Read More"
     show:
+      by: "by %{name}"
+      metadata: "by %{name} on %{date}"
+      title_text: "\"%{title}\" posted on %{time}"
       tumblr_link: "Originally posted by Casie on Tumblr"
