@@ -12,18 +12,18 @@ class PicturePresenter < BasePresenter
   end
 
   def medium_image
-    image_tag @picture.image.url(:medium), alt: @picture.alt_text, class: 'medium', style: 'max-height: 300px;', title: @picture.title
+    image_tag(@picture.image.url(:medium), alt: @picture.alt_text, class: 'medium', style: 'max-height: 300px;', title: @picture.title)
   end
 
   def original_image
-    image_tag @picture.image.url, alt: @picture.alt_text, class: 'original', title: @picture.title
+    image_tag(@picture.image.url, alt: @picture.alt_text, class: 'original', title: @picture.title)
   end
 
   def small_image
-    image_tag @picture.image.url(:small), alt: @picture.alt_text, class: 'small', title: @picture.title
+    image_tag(@picture.image.url(:small), alt: @picture.alt_text, class: 'small', title: @picture.title)
   end
 
   def thumbnail_image
-    image_tag @picture.image.url(:thumb), alt: @picture.alt_text, class: 'thumb', style: 'max-height: 50px;', title: @picture.title
+    image_tag(@picture.image.url(:thumb), alt: @picture.alt_text, class: 'thumb', style: 'max-height: 50px;', title: @picture.title)
   end
 end
