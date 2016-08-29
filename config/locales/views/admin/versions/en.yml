@@ -1,0 +1,25 @@
+en:
+  admin:
+    versions:
+      messages:
+        version: "%{item_type} was successfully reverted."
+        deleted: "%{item_type} version was successfully deleted."
+      index:
+        header:
+          title: "Versions"
+        search:
+          select_type: "Select Type"
+          select_event: "Select Event"
+          select_user: "Select User"
+      show:
+        header:
+          title: "%{item_type} Version"
+        links:
+          back_to_index: "Back to Versions"
+          revert: "Revert"
+          revert_confirm: "Are you sure? This will permanantly overwrite the current version and delete all versions that were made after this one!"
+          delete: "Delete"
+        sections:
+          changes: "%{item_type} Changes (%{event})"
+          attributes: "Previous %{item_type} Attributes"
+        no_changeset_data: "No changeset data is available for this version. This means the version was created before changeset data was supported."

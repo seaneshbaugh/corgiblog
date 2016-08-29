@@ -1,21 +1,21 @@
-%h2 Versions
+%h2= t('.header.title')
 .well
   = search_form_for @search, url: admin_versions_path, builder: BootstrapForm::FormBuilder, html: { class: 'form-inline', method: :get } do |f|
-    = f.select :item_type_eq, PaperTrail::Version.uniq.pluck(:item_type).map { |item_type| [item_type, item_type] }, include_blank: 'Select Type', skip_label: true
-    = f.select :event_eq, [['create', 'create'], ['update', 'update'], ['destroy', 'destroy']], include_blank: 'Select Event', skip_label: true
-    = f.select :whodunnit_eq, User.options_for_select(display_method: :full_name, prompt: 'Select User'), skip_label: true
-    = f.button '<span class="glyphicon glyphicon-search"></span> Search'.html_safe, class: 'btn btn-primary'
-    = link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, admin_versions_path, class: 'btn btn-default', rel: 'tooltip', title: 'Clear Search'
+    = f.select :item_type_eq, PaperTrail::Version.distinct.pluck(:item_type).map { |item_type| [item_type, item_type] }, include_blank: t('.search.select_type'), skip_label: true
+    = f.select :event_eq, [['create', 'create'], ['update', 'update'], ['destroy', 'destroy']], include_blank: t('.search.select_event'), skip_label: true
+    = f.select :whodunnit_eq, User.options_for_select(display_method: :full_name, prompt: t('.search.select_user')), skip_label: true
+    = f.button t('admin.admin.search.search_html'), class: 'btn btn-primary'
+    = link_to t('admin.admin.search.clear_search_html'), admin_users_path, class: 'btn btn-default', rel: 'tooltip', title: t('admin.admin.search.clear_search')
 - if @versions.present?
   .table-responsive
     %table.table.table-striped.table-hover
       %thead
         %tr.row
-          %th.col-xs-1= sort_link @search, :id, 'ID'
-          %th.col-xs-3 Original Object
-          %th.col-xs-1= sort_link @search, :item_type, 'Type'
+          %th.col-xs-1= sort_link @search, :id
+          %th.col-xs-3= PaperTrail::Version.human_attribute_name(:original_object)
+          %th.col-xs-1= sort_link @search, :item_type
           %th.col-xs-1= sort_link @search, :event
-          %th.col-xs-2= sort_link @search, :whodunnit, 'User'
+          %th.col-xs-2= sort_link @search, :whodunnit
           %th.col-xs-2= sort_link @search, :created_at
           %th.col-xs-1
           %th.col-xs-1

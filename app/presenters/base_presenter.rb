@@ -1,7 +1,9 @@
 class BasePresenter
   attr_reader :object, :template
 
+  delegate :l, to: :@template
   delegate :link_to, to: :@template
+  delegate :t, to: :@template
 
   def self.display_method
     :id
@@ -21,35 +23,17 @@ class BasePresenter
 
   def created_at
     if @object.respond_to?(:created_at) && @object.created_at.present?
-      @object.created_at.strftime(time_format)
+      l(@object.created_at)
     else
-      'N/A'
+      t('na')
     end
   end
 
   def updated_at
     if @object.respond_to?(:updated_at) && @object.updated_at.present?
-      @object.updated_at.strftime(time_format)
+      l(@object.updated_at)
     else
-      'N/A'
+      t('na')
     end
-  end
-
-  def form_title
-    if @object.persisted?
-      "Edit #{@object.class.base_class.to_s.titleize}"
-    else
-      "New #{@object.class.base_class.to_s.titleize}"
-    end
-  end
-
-  private
-
-  def time_format
-    '%Y-%m-%d %H:%M:%S'
-  end
-
-  def date_format
-    '%Y-%m-%d'
   end
 end

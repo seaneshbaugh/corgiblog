@@ -1,14 +1,15 @@
 en:
   activerecord:
     models:
-      version: "Version"
+      paper_trail/version: "Version"
     attributes:
-      version:
+      paper_trail/version:
         id: "ID"
-        item_type: "Item Type"
+        item_type: "Type"
         item_id: "Item ID"
         event: "Event"
         whodunnit: "User"
         object: "Object"
         created_at: "Created At"
         object_changes: "Object Changes"
+        original_object: "Original Object"

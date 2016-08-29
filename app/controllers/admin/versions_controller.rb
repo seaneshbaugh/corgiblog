@@ -18,11 +18,17 @@ module Admin
 
       object.save
 
-      redirect_to send("admin_#{object.class.to_s.downcase.underscore.pluralize}_path")
+      flash[:success] = t('.admin.versions.messages.reverted', item_type: object.class.name)
+
+      redirect_to send("admin_#{object.class.name.downcase.underscore.pluralize}_path")
     end
 
     def destroy
+      @version.destroy
 
+      flash[:success] = t('.admin.versions.messages.deleted', item_type: object.class.name)
+
+      redirect_to admin_versions_url
     end
 
     private

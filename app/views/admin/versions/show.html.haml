@@ -1,27 +1,25 @@
 - present @version do |version_presenter|
-  %h2= "#{version_presenter.humanized_item_type} Version"
+  %h2= t('.header.title', item_type: version_presenter.item_type.name)
   .admin-actions
-    = link_to 'Back to Index', admin_versions_path, class: 'btn btn-default'
-    = link_to 'Revert', revert_admin_version_path(@version), class: 'btn btn-primary', data: { confirm: 'Are you sure? This will permanantly remove the current version and all versions after this one!' }
-    = link_to 'Delete', admin_version_path(@version), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
-  %h3= "#{version_presenter.humanized_item_type} Changes (#{version_presenter.event})"
+    = link_to t('.links.back_to_index'), admin_versions_path, class: 'btn btn-default'
+    = link_to t('.links.revert'), revert_admin_version_path(@version), class: 'btn btn-primary', data: { confirm: t('.links.revert_confirm') }
+    = link_to t('.links.delete'), admin_version_path(@version), method: :delete, class: 'btn btn-danger', data: { confirm: t('confirm_delete') }
+  %h3= t('.sections.changes', item_type: version_presenter.item_type.name, event: version_presenter.event)
   %div{ class: "#{version_presenter.dasherized_item_type} changes" }
     - if version_presenter.changeset.present?
       - version_presenter.changeset.each do |attribute_name, (original_value, new_value)|
-        - if version_presenter.humanized_attribute_name(attribute_name).present?
-          .row.change
-            %strong{ class: "col-xs-12 col-sm-2 attribute-name #{version_presenter.dasherized_attribute_name(attribute_name)}" }= version_presenter.humanized_attribute_name(attribute_name)
-            %div{ class: "col-xs-12 col-sm-10 attribute-value #{version_presenter.dasherized_attribute_name(attribute_name)}" }
-              .well= Diffy::Diff.new(original_value.to_s, new_value.to_s, include_plus_and_minus_in_html: true, context: 3).to_s(:html).html_safe
+        .row.change
+          %strong{ class: "col-xs-12 col-sm-2 attribute-name #{version_presenter.dasherized_attribute_name(attribute_name)}" }= version_presenter.item_type_human_attribute_name(attribute_name)
+          %div{ class: "col-xs-12 col-sm-10 attribute-value #{version_presenter.dasherized_attribute_name(attribute_name)}" }
+            .well= Diffy::Diff.new(original_value.to_s, new_value.to_s, include_plus_and_minus_in_html: true, context: 3).to_s(:html).html_safe
     - else
-      %p.lead.no-changeset-data No changeset data is available for this version. This means the version was created before changeset data was supported.
+      %p.lead.no-changeset-data= t('.no_changeset_data')
   - if version_presenter.reified_object.present?
-    %h3= "Previous #{version_presenter.humanized_item_type} Attributes"
+    %h3= t('.sections.attributes', item_type: version_presenter.item_type.name)
     %div{ class: "#{version_presenter.dasherized_item_type} attributes" }
       - version_presenter.reified_object.attributes.each do |attribute_name, attribute_value|
-        - if version_presenter.humanized_attribute_name(attribute_name).present?
-          .row.attribute
-            %strong{ class: "col-xs-12 col-sm-2 attribute-name #{version_presenter.dasherized_attribute_name(attribute_name)}" }
-              = version_presenter.humanized_attribute_name(attribute_name)
-            %div{ class: "col-xs-12 col-sm-10 attribute-value #{version_presenter.dasherized_attribute_name(attribute_name)}" }
-              %pre= attribute_value
+        .row.attribute
+          %strong{ class: "col-xs-12 col-sm-2 attribute-name #{version_presenter.dasherized_attribute_name(attribute_name)}" }
+            = version_presenter.item_type_human_attribute_name(attribute_name)
+          %div{ class: "col-xs-12 col-sm-10 attribute-value #{version_presenter.dasherized_attribute_name(attribute_name)}" }
+            %pre= attribute_value

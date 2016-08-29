@@ -36,12 +36,12 @@ module PaperTrail
       @dasherized_item_type ||= @version.item_type.underscore.parameterize.dasherize
     end
 
-    def humanized_attribute_name(attribute)
-      object_presenter.humanized_attribute_names[attribute] if reified_object.respond_to?(attribute)
+    def item_type
+      @item_type ||= @version.item_type.constantize
     end
 
-    def humanized_item_type
-      @humanized_item_type ||= @version.item_type.underscore.parameterize.humanize.titleize
+    def item_type_human_attribute_name(attribute)
+      item_type.human_attribute_name(attribute)
     end
 
     def reified_object

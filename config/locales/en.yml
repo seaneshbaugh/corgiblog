@@ -20,12 +20,17 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      long: "%d %B, %Y"
+      short: "%Y-%m-%d"
   time:
     am: "AM"
     formats:
-      default: "%d-%m-%Y %H:%M:%S"
+      default: "%Y-%m-%d %H:%M:%S"
       long: "%a, %d %b %Y %I:%M:%S %p %Z"
-      short: "%d-%m-%Y %H:%M:%S"
+      short: "%Y-%m-%d %H:%M:%S"
     pm: "PM"
   na: "N/A"
   home: "Home"
@@ -57,3 +62,4 @@ en:
   and: "and"
   nor: "nor"
   read_more: "Read more..."
+  send_email: "Send Email"
