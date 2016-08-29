@@ -167,5 +167,35 @@ module Tumblr
         assert_equal 'Friday! 1', second_post.title
       end
     end
+
+
+    test 'it should handle invalid dates' do
+      VCR.use_cassette('tumblr post factory test 2') do
+        post_json = {
+          'id' => 1234567890,
+          'type' => 'photo',
+          'date' => 'INVALID',
+          'caption' => '<p>Friday!</p>',
+          'photos' => [
+            {
+              'caption' => '',
+              'original_size' => {
+                'width' => 640,
+                'height' => 640,
+                'url' => 'http://41.media.tumblr.com/104f17db6c48f7de41775c10d4e6da35/tumblr_nott7nUuOv1r9wamzo1_1280.jpg'
+              }
+            }
+          ]
+        }
+
+        tumblr_post = Tumblr::PostFactory.new(post_json)
+
+        post = tumblr_post.to_post
+
+        post.save!
+
+        assert_equal 'Friday!', post.title
+      end
+    end
   end
 end
