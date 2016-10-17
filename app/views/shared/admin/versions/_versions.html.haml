@@ -4,7 +4,7 @@
       %tr.row
         %th.col-xs-1 Version ID
         - "#{object_class.name}Presenter".constantize.version_display_attributes.each do |attribute|
-          %th{ class: attribute[:method].to_s.dasherize }= "#{object_class.name}Presenter".constantize.humanized_attribute_names[attribute[:method]]
+          %th{ class: attribute[:method].to_s.dasherize }= object_class.human_attribute_name(attribute[:method])
         %th.col-xs-2 Created At
         %th.col-xs-1
         %th.col-xs-1
