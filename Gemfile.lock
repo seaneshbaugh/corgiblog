@@ -266,7 +266,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     raindrops (0.17.0)
-    rake (11.2.2)
+    rake (13.0.1)
     ransack (1.8.2)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
