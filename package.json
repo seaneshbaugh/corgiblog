@@ -13,7 +13,7 @@
     "materialize-css": "1.0.0-rc.1",
     "moment": "^2.22.2",
     "normalize.css": "^8.0.0",
-    "prismjs": "^1.15.0",
+    "prismjs": "^1.21.0",
     "prop-types": "^15.6.2",
     "rails-ujs": "^5.2.0",
     "react": "^16.4.2",
