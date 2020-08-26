@@ -1,76 +1,42 @@
-class Post < ActiveRecord::Base
+# frozen_string_literal: true
+
+class Post < ApplicationRecord
+  include FriendlyId
   include OptionsForSelect
-  include Slugable
 
-  # Scopes
   scope :alphabetical, -> { order(:title) }
-
-  scope :chronological, -> { order(:created_at) }
-
   scope :published, -> { where(visible: true) }
+  scope :reverse_alphabetical, -> { order(title: :desc) }
+  scope :unpublished, -> { where(visible: false) }
+  scope :sticky_first, -> { order(sticky: :desc) }
 
-  scope :reverse_alphabetical, -> { order('posts.title DESC') }
-
-  scope :reverse_chronological, -> { order('posts.created_at DESC') }
-
-  scope :sticky_first, -> { order('posts.sticky DESC') }
-
-  # Associations
   belongs_to :user
 
-  # Validations
-  validates_presence_of :user_id
-
-  validates_length_of :title, maximum: 255
-  validates_presence_of :title
-  validates_uniqueness_of :title
-
-  validates_length_of :body, maximum: 16_777_215
-
-  validates_length_of :style, maximum: 4_194_303
-
-  validates_length_of :meta_description, maximum: 65535
-
-  validates_length_of :meta_keywords, maximum: 65535
-
-  validates_inclusion_of :visible, in: [true, false], message: 'must be true or false'
-
-  validates_inclusion_of :sticky, in: [true, false], message: 'must be true or false'
-
-  validates_uniqueness_of :tumblr_id, allow_nil: true
-
+  validates :user_id, presence: true
   validates_associated :user
+  validates :title, presence: true, length: { maximum: 255 }, uniqueness: true
+  validates :body, presence: true, length: { minimum: 4, maximum: 16_777_215 }
+  validates :style, length: { maximum: 4_194_303 }
+  validates :script, length: { maximum: 4_194_303 }
+  validates :meta_description, length: { maximum: 65535 }
+  validates :meta_keywords, length: { maximum: 65535 }
+  validates :visible, inclusion: { in: [true, false] }
 
-  # Callbacks
   before_validation :nilify_blank_tumblr_id
-
-  # Default Values
-  default_value_for :title, ''
-
-  default_value_for :slug, ''
-
-  default_value_for :body, ''
-
-  default_value_for :style, ''
-
-  default_value_for :meta_description, ''
-
-  default_value_for :meta_keywords, ''
-
-  default_value_for :visible, true
-
-  default_value_for :sticky, false
 
   acts_as_taggable
 
+  friendly_id :title
+
   has_paper_trail
+
+  resourcify
 
   def published?
     visible
   end
 
   private
-
   def nilify_blank_tumblr_id
     self.tumblr_id = nil if tumblr_id.blank?
   end

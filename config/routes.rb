@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  devise_for :users, skip: [:sessions, :passwords, :registrations, :confirmations, :unlocks]
+  devise_for :users, skip: %i[sessions passwords registrations confirmations unlocks]
 
   devise_scope :user do
     get 'login' => 'devise/sessions#new', as: :new_user_session
@@ -24,11 +26,19 @@ Rails.application.routes.draw do
 
   get '/sitemap.xml' => 'sitemap#index', as: :sitemap, defaults: { format: :xml }
 
+  namespace :api do
+    namespace :v1 do
+      resources :pictures, only: %i[index show]
+      resources :posts, only: %i[index show]
+      resources :tags, only: %i[index]
+    end
+  end
+
   authenticate :user do
     namespace :admin do
       root to: 'admin#index'
 
-      resource :account, only: [:show, :edit, :update]
+      resource :account, only: %i[show edit update]
 
       resources :pages
 
@@ -40,7 +50,7 @@ Rails.application.routes.draw do
 
       resources :posts
 
-      resources :versions, only: [:index, :show, :delete] do
+      resources :versions, only: %i[index show delete] do
         member do
           patch :revert
         end

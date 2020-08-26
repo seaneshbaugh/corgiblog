@@ -1,19 +1,7 @@
 en:
   admin:
     accounts:
-      messages:
-        updated: "Your account was successfully updated."
       show:
-        header:
-          title: "My Account"
-        links:
-          edit: "Edit"
-        sections:
-          contact_information: "Contact Information"
-          account_information: "Account Information"
-          login_activity: "Login Activity"
+        title: "Your Account"
       edit:
-        header:
-          title: "Edit Account"
-        form:
-          update: 'Update Account'
+        title: "Edit Account"

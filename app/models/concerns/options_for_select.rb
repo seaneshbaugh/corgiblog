@@ -1,15 +1,28 @@
+# frozen_string_literal: true
+
+# TODO: Consider moving this to a presenter.
 module OptionsForSelect
   extend ActiveSupport::Concern
 
-  class_methods do
+  module ClassMethods
+    def default_display_method
+      if column_names.include?('name')
+        :name
+      elsif column_names.include?('title')
+        :title
+      elsif column_names.include?('label')
+        :label
+      else
+        primary_key.to_sym
+      end
+    end
+
     def options_for_select(*args)
       options = args.extract_options!
 
       display_method = options.delete(:display_method)
 
-      if display_method.blank?
-        display_method = (['name', 'title', 'label', primary_key] & column_names).first.to_sym
-      end
+      display_method = default_display_method if display_method.blank?
 
       prompt = options.delete(:prompt)
 
@@ -23,11 +36,11 @@ module OptionsForSelect
         results << ['', '']
       end
 
-      if display_method.respond_to?(:call)
-        display_method_wrapper = display_method
-      else
-        display_method_wrapper = -> (object) { object.public_send(display_method) }
-      end
+      display_method_wrapper = if display_method.respond_to?(:call)
+                                 display_method
+                               else
+                                 ->(object) { object.public_send(display_method) }
+                               end
 
       results + all.map { |object| [display_method_wrapper.call(object), object.id] }
     end

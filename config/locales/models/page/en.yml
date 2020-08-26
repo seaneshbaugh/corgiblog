@@ -4,15 +4,27 @@ en:
       page: "Page"
     attributes:
       page:
-        id: "ID"
         title: "Title"
         slug: "Slug"
         body: "Body"
         style: "Style"
+        script: "Script"
         meta_description: "Meta Description"
         meta_keywords: "Meta Keywords"
         order: "Order"
-        show_in_menu: "Show in Menu?"
-        visible: "Visible?"
+        color: "Color"
+        show_in_menu: "Show In Menu"
+        visible: "Visible"
         created_at: "Created At"
         updated_at: "Updated At"
+        body_or_style_or_script: "Body, Style, or Script"
+    errors:
+      models:
+        page:
+          attributes:
+            color:
+              invalid: "must be a valid CSS color"
+            show_in_menu:
+              inclusion: "must be true or false"
+            visible:
+              inclusion: "must be true or false"

@@ -4,24 +4,16 @@ en:
       picture: "Picture"
     attributes:
       picture:
-        id: "ID"
         title: "Title"
         alt_text: "Alt Text"
         caption: "Caption"
-        image_file_name: "Image File Name"
-        image_content_type: "Image Content Type"
-        image_file_size: "Image File Size"
-        image_fingerprint: "Image Fingerprint"
-        image_original_width: "Image Original Width"
-        image_original_height: "Image Original Height"
-        image_medium_width: "Image Medium Width"
-        image_medium_height: "Image Medium Height"
-        image_small_width: "Image Small Width"
-        image_small_height: "Image Small Height"
-        image_thumb_width: "Image Thumbnail Width"
-        image_thumb_height: "Image Thumbnail Height"
-        image_updated_at: "Image Updated At"
         created_at: "Created At"
         updated_at: "Updated At"
-        thumbnail: "Thumbnail"
-        preview: "Preview"
+        slug: "Slug"
+        image: "Image"
+    errors:
+      models:
+        picture:
+          attributes:
+            image:
+              no_file_uploaded: "no file uploaded"

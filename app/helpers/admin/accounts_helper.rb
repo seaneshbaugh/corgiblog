@@ -1,4 +1,4 @@
 module Admin
-  module AccountsHelper
+  module AccountHelper
   end
 end

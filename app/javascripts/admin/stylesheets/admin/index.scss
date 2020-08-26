@@ -1,0 +1,20 @@
+@import "./pages/show";
+@import "./pictures/index";
+@import "./pictures/show";
+@import "./posts/show";
+@import "./users/show";
+@import "./users/form";
+
+.quick-links {
+    .quick-link {
+        text-align: center;
+
+        .material-icons {
+            display: block;
+        }
+
+        .caption {
+            display: block;
+        }
+    }
+}

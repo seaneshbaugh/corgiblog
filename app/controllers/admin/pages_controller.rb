@@ -1,72 +1,81 @@
+# frozen_string_literal: true
+
 module Admin
   class PagesController < AdminController
-    before_action :set_page, only: [:show, :edit, :update, :destroy]
-
-    authorize_resource
+    before_action :set_page, only: %i[show edit update destroy]
 
     def index
+      authorize Page
+
       @search = Page.search(params[:q])
 
       @pages = @search.result.page(params[:page]).per(25).by_order
-
-      @deleted_pages = PaperTrail::Version.destroys.where(item_type: 'Page').reorder('versions.created_at DESC')
     end
 
     def show
-      @previous_versions = @page.versions.updates.reorder('versions.created_at DESC')
+      authorize @page
     end
 
     def new
+      authorize Page
+
       @page = Page.new
     end
 
     def edit
+      authorize @page
     end
 
     def create
+      authorize Page
+
       @page = Page.new(page_params)
 
       if @page.save
-        flash[:success] = t('admin.pages.messages.created')
+        flash[:success] = t('.success')
 
-        redirect_to admin_page_url(@page)
+        redirect_to admin_page_url(@page), status: :see_other
       else
-        flash.now[:error] = view_context.error_messages_for(@page)
+        flash.now[:error] = helpers.error_messages_for(@page)
 
-        render 'new'
+        render 'new', status: :unprocessable_entity
       end
     end
 
     def update
+      authorize @page
+
       if @page.update(page_params)
-        flash[:success] = t('admin.pages.messages.updated')
+        flash[:success] = t('.success')
 
-        redirect_to edit_admin_page_url(@page)
+        redirect_to edit_admin_page_url(@page), status: :see_other
       else
-        flash.now[:error] = view_context.error_messages_for(@page)
+        flash.now[:error] = helpers.error_messages_for(@page)
 
-        render 'edit'
+        render 'edit', status: :unprocessable_entity
       end
     end
 
     def destroy
+      authorize @page
+
       @page.destroy
 
-      flash[:success] = t('admin.pages.messages.deleted')
+      flash[:success] = t('.success')
 
-      redirect_to admin_pages_url
+      redirect_to admin_pages_url, status: :see_other
     end
 
     private
 
     def set_page
-      @page = Page.where(slug: params[:id]).first
+      @page = Page.friendly.find(params[:id])
 
       raise ActiveRecord::RecordNotFound if @page.nil?
     end
 
     def page_params
-      params.require(:page).permit(:title, :body, :style, :meta_description, :meta_keywords, :order, :color, :show_in_menu, :visible)
+      params.require(:page).permit(:title, :body, :style, :script, :meta_description, :meta_keywords, :order, :color, :show_in_menu, :visible)
     end
   end
 end

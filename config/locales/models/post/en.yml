@@ -4,17 +4,23 @@ en:
       post: "Post"
     attributes:
       post:
-        id: "ID"
+        user_id: "User"
         title: "Title"
         slug: "Slug"
         body: "Body"
         style: "Style"
+        script: "Script"
         meta_description: "Meta Description"
         meta_keywords: "Meta Keywords"
-        user_id: "User"
-        visible: "Visible?"
-        sticky: "Sticky?"
-        tumblr_id: "Tumblr ID"
+        visible: "Visible"
         created_at: "Created At"
         updated_at: "Updated At"
+        user: "User"
         tag_list: "Tags"
+        body_or_style: "Body or Style"
+    errors:
+      models:
+        post:
+          attributes:
+            visible:
+              inclusion: "must be true or false"

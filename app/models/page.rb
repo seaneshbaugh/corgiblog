@@ -1,57 +1,31 @@
-class Page < ActiveRecord::Base
+# frozen_string_literal: true
+
+class Page < ApplicationRecord
+  extend FriendlyId
   include OptionsForSelect
-  include Slugable
 
-  # Scopes
   scope :alphabetical, -> { order(:title) }
-
   scope :by_order, -> { order(:order) }
-
   scope :in_menu, -> { where(show_in_menu: true) }
-
   scope :published, -> { where(visible: true) }
+  scope :reverse_alphabetical, -> { order(title: :desc) }
 
-  scope :reverse_alphabetical, -> { order('pages.title DESC') }
+  validates :title, presence: true, length: { maximum: 255 }, uniqueness: true
+  validates :body, presence: true, length: { maximum: 16_777_215 }
+  validates :style, length: { maximum: 4_194_303 }
+  validates :script, length: { maximum: 4_194_303 }
+  validates :meta_description, length: { maximum: 65535 }
+  validates :meta_keywords, length: { maximum: 65535 }
+  validates :order, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :color, presence: true, css_color: true
+  validates :show_in_menu, inclusion: { in: [true, false] }
+  validates :visible, inclusion: { in: [true, false] }
 
-  validates_length_of :title, maximum: 255
-  validates_presence_of :title
-  validates_uniqueness_of :title
-
-  validates_length_of :body, maximum: 16_777_215
-
-  validates_length_of :style, maximum: 4_194_303
-
-  validates_length_of :meta_description, maximum: 65535
-
-  validates_length_of :meta_keywords, maximum: 65535
-
-  validates_inclusion_of :order, in: -2_147_483_648..2_147_483_647, message: 'is out of range'
-  validates_numericality_of :order, only_integer: true
-
-  validates_inclusion_of :show_in_menu, in: [true, false], message: 'must be true or false'
-
-  validates_inclusion_of :visible, in: [true, false], message: 'must be true or false'
-
-  # Default Values
-  default_value_for :title, ''
-
-  default_value_for :slug, ''
-
-  default_value_for :body, ''
-
-  default_value_for :style, ''
-
-  default_value_for :meta_description, ''
-
-  default_value_for :meta_keywords, ''
-
-  default_value_for :order, 0
-
-  default_value_for :show_in_menu, true
-
-  default_value_for :visible, true
+  friendly_id :title
 
   has_paper_trail
+
+  resourcify
 
   def first_image
     body_doc = Nokogiri::HTML(body)

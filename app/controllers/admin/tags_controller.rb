@@ -1,28 +1,10 @@
+# frozen_string_literal: true
+
+# TODO: Consider moving this to a proper API with some sort of token based authentication.
 module Admin
   class TagsController < AdminController
     def index
-      tokens = params[:q].split(/[^[:alnum:]]+/).map(&:downcase).each_with_object({}) { |token, v| v[v.length.to_s] = { 'value' => token } }
-
-      query = {
-        'g' => {
-          '0' => {
-            'm' => 'and',
-            'c' => {
-              '0' => {
-                'a' => {
-                  '0' => {
-                    'name' => 'name'
-                  }
-                },
-                'p' => 'cont_any',
-                'v' => tokens
-              }
-            }
-          }
-        }
-      }
-
-      @search = ActsAsTaggableOn::Tag.search(query)
+      @search = ActsAsTaggableOn::Tag.ransack(params[:q])
 
       @tags = @search.result
 

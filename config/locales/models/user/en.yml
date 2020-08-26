@@ -4,13 +4,10 @@ en:
       user: "User"
     attributes:
       user:
-        id: "ID"
         email: "Email"
         encrypted_password: "Encrypted Password"
-        role: "Role"
         first_name: "First Name"
         last_name: "Last Name"
-        name: "Name"
         reset_password_token: "Reset Password Token"
         reset_password_sent_at: "Reset Password Sent At"
         remember_created_at: "Remember Created At"
@@ -21,3 +18,8 @@ en:
         last_sign_in_ip: "Last Sign In IP"
         created_at: "Created At"
         updated_at: "Updated At"
+        roles: "Roles"
+        password: "Password"
+        password_confirmation: "Confirm Password"
+        full_name: "Name"
+        first_or_last_name: "First or Last Name"

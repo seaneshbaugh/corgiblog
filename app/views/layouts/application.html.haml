@@ -3,54 +3,35 @@
   %head
     %meta{ charset: 'utf-8' }
     %title= page_title(yield(:page_title))
-    %meta{ content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no', name: 'viewport' }
+    %meta{ content: 'width=device-width, initial-scale=1, shrink-to-fit=no', name: 'viewport' }
     %meta{ content: page_meta_description(yield(:meta_description)), name: 'description' }
     %meta{ content: t('.author'), name: 'author' }
-    = stylesheet_link_tag 'application', media: 'all'
-    = javascript_include_tag 'application'
-    - if Rails.env.production? && current_user.nil?
-      :javascript
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-28027997-1', 'auto');
-        ga('send', 'pageview');
+    %meta{ content: 'telephone=no', name: 'format-detection' }
+    = stylesheet_pack_tag 'application', media: 'all'
+    = javascript_pack_tag 'application'
     %link{ href: '/favicon.ico', rel: 'shortcut icon' }
-    %link{ href: image_path('apple-touch-icon-iphone.png'), rel: 'apple-touch-icon', sizes: '57x57' }
-    %link{ href: image_path('apple-touch-icon-ipad.png'), rel: 'apple-touch-icon', sizes: '72x72' }
-    %link{ href: image_path('apple-touch-icon-iphone-retina.png'), rel: 'apple-touch-icon', sizes: '114x114' }
-    %link{ href: image_path('apple-touch-icon-ipad-retina.png'), rel: 'apple-touch-icon', sizes: '144x144' }
+    %link{ href: asset_pack_path('shared/images/apple-touch-icon-iphone.png'), rel: 'apple-touch-icon', sizes: '57x57' }
+    %link{ href: asset_pack_path('shared/images/apple-touch-icon-ipad.png'), rel: 'apple-touch-icon', sizes: '72x72' }
+    %link{ href: asset_pack_path('shared/images/apple-touch-icon-iphone-retina.png'), rel: 'apple-touch-icon', sizes: '114x114' }
+    %link{ href: asset_pack_path('shared/images/apple-touch-icon-ipad-retina.png'), rel: 'apple-touch-icon', sizes: '144x144' }
     %link{ href: '/humans.txt', rel: 'author' }
     = csrf_meta_tags
   %body
-    #content-wrap
-      %nav.navbar.navbar-default.navbar-fixed-top
-        .container
-          .navbar-header
-            %button.navbar-toggle{ 'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse', type: 'button' }
-              %span.icon-bar
-              %span.icon-bar
-              %span.icon-bar
-            = link_to t('.nav.home'), root_path, class: 'navbar-brand'
-          .navbar-collapse.collapse
-            %ul.nav.navbar-nav
-              %li{ class: active_controller?('pictures') ? 'active' : nil }
-                = link_to t('.nav.pictures'), pictures_path
-              - @pages.each do |page|
-                %li{ class: active_page?(page.slug) ? 'active' : nil }
-                  = link_to page.title, "/#{page.slug}"
-              %li{ class: active_controller?('contact') ? 'active' : nil }
-                = link_to t('.nav.contact'), contact_path
-            - if current_user.present?
-              %ul.nav.navbar-nav.navbar-right
-                %li
-                  = link_to t('.nav.admin_panel'), admin_root_path, data: { no_turbolink: true }
-                %li
-                  = link_to t('.nav.sign_out'), destroy_user_session_path, method: :delete
-      %main#content.container
-        = flash_messages
+    .content-wrap
+      %header.main-header{ role: 'banner' }
+        %h1.main-header-title= t('.title')
+        %h2.main-header-subtitle= t('.subtitle')
+        %nav.main-header-nav
+          %ul.main-header-nav-list
+            %li.main-header-nav-list-item= link_to(t('.header_nav.home'), root_path, rel: 'home', class: 'main-header-nav-list-item-link')n
+            %li.main-header-nav-list-item= link_to(t('.header_nav.pictures'), pictures_path, class: 'main-header-nav-list-item-link')
+            - @pages.each do |page|
+              %li.main-header-nav-list-item= link_to(page.title, "/#{page.slug}", class: 'main-header-nav-list-item-link')
+            %li.main-header-nav-list-item= link_to(t('.header_nav.contact'), contact_path, class: 'main-header-nav-list-item-link')
+            - if current_user
+              %li.main-header-nav-list-item= link_to(t('.header_nav.admin'), admin_root_path, class: 'main-header-nav-list-item-link')
+              %li.main-header-nav-list-item= link_to(t('.header_nav.logout'), destroy_user_session_path, method: :delete, class: 'main-header-nav-list-item-link')
+      %main.main-content{ role: 'main' }
         = yield
-    %footer#main-footer
-      .container
-        %p= t('.footer_html')
+    %footer.main-footer{ role: 'contentinfo' }
+      %div.main-footer-credit= t('.credit_html')

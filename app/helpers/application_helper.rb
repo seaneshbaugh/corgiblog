@@ -1,52 +1,10 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
-  def active_action?(action_name)
-    params[:action] == action_name
-  end
-
-  def active_controller?(controller_name)
-    params[:controller] == controller_name
-  end
-
-  def active_page?(page_name)
-    params[:controller] == 'pages' && params[:action] == 'show' && params[:id] == page_name
-  end
+  include ClassNames
 
   def error_messages_for(object)
     object.errors.full_messages.uniq.join('. ') + '.'
-  end
-
-  def flash_messages
-    return unless flash.present?
-
-    flashes = flash.map do |name, message|
-      name = name.to_s
-
-      { name: flash_name(name), message: message, class_name: flash_class_name(name) }
-    end
-
-    render partial: 'shared/flash_messages', locals: { flashes: flashes }
-  end
-
-  def flash_class_name(name)
-    if %w(error alert).include?(name)
-      'danger'
-    elsif name == 'notice'
-      'success'
-    elsif !%w(success info warning danger).include?(name)
-      'info'
-    else
-      name
-    end
-  end
-
-  def flash_name(name)
-    if name == 'alert'
-      'error'
-    elsif name == 'notice'
-      'success'
-    else
-      name
-    end
   end
 
   def nav_link_to(*args, &block)
@@ -61,20 +19,16 @@ module ApplicationHelper
     NavLinkGenerator.new(request, body, path, html_options, options).to_html
   end
 
-  def page_meta_description(meta_description)
-    if meta_description.present?
-      meta_description.strip
-    else
-      t('layouts.application.meta_description')
-    end
+  def page_title(title)
+    return t('.title') unless title.present?
+
+    title.strip
   end
 
-  def page_title(title)
-    if title.present?
-      "#{title.strip} - #{t('layouts.application.page_title')}"
-    else
-      t('layouts.application.page_title')
-    end
+  def page_meta_description(meta_description)
+    return t('.meta_description') unless meta_description.present?
+
+    meta_description.strip
   end
 
   def present(object, klass = nil)
@@ -151,5 +105,9 @@ module ApplicationHelper
         @options[:wrapper_class]
       end
     end
+  end
+
+  def flash_messages
+    render partial: 'shared/flash_messages'
   end
 end

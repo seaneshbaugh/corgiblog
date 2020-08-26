@@ -1,122 +1,68 @@
-class Picture < ActiveRecord::Base
-  has_attached_file :image,
-                    path: :attachment_path,
-                    styles: -> (_) { attachment_styles },
-                    url: :attachment_url
+# frozen_string_literal: true
 
-  # Scopes
-  scope :chronological, -> { order(:created_at) }
+class Picture < ApplicationRecord
+  include FriendlyId
+  include Rails.application.routes.url_helpers
 
-  scope :reverse_chronological, -> { order('pictures.created_at DESC') }
+  has_one_attached :image
 
-  # Validations
-  validates_length_of :title, maximum: 65535
-  validates_presence_of :title
+  validates :title, presence: true, length: { maximum: 65535 }
+  validates :alt_text, length: { maximum: 65535 }
+  validates :caption, length: { maximum: 65535 }
+  validates :image, image_attachment: true
+  # validates :image_fingerprint, uniqueness: { if: -> { !Rails.env.test? } }
+  # validates_attachment_presence :image
+  # validates_attachment_size :image, less_than: 1024.megabytes
+  # validates_attachment_content_type :image, content_type: %w[image/gif image/jpeg image/jpg image/pjpeg image/png image/svg+xml image/tiff image/x-png]
 
-  validates_length_of :alt_text, maximum: 65535
+  before_validation :ensure_title
+  # before_validation :normalize_image_file_name
+  # after_post_process :save_image_dimensions
 
-  validates_length_of :caption, maximum: 65535
+  friendly_id :timestamp
 
-  validates_uniqueness_of :image_fingerprint, if: -> { !Rails.env.test? }
+  resourcify
 
-  validates_attachment_presence :image
-  validates_attachment_size :image, less_than: 1024.megabytes
-  validates_attachment_content_type :image, content_type: %w(image/gif image/jpeg image/jpg image/pjpeg image/png image/svg+xml image/tiff image/x-png)
-
-  # Callbacks
-  before_validation :modify_image_file_name
-
-  before_validation :set_default_title
-
-  after_post_process :save_image_dimensions
-
-  # Default Values
-  default_value_for :title, ''
-
-  default_value_for :alt_text, ''
-
-  default_value_for :caption, ''
-
-  default_value_for :image_original_width, 1
-
-  default_value_for :image_original_height, 1
-
-  default_value_for :image_medium_width, 1
-
-  default_value_for :image_medium_height, 1
-
-  default_value_for :image_small_width, 1
-
-  default_value_for :image_small_height, 1
-
-  default_value_for :image_thumb_width, 1
-
-  default_value_for :image_thumb_height, 1
-
-  def self.attachment_styles
-    {
-      thumb: {
-        geometry: '100x100',
-        convert_options: '-quality 75 -strip'
-      },
-      small: {
-        geometry: '300x300',
-        convert_options: '-quality 80 -strip'
-      },
-      medium: {
-        geometry: '800x800',
-        convert_options: '-quality 85 -strip'
-      }
-    }
+  def image_filename
+    image.blob.filename.to_s if image.attached?
   end
 
-  def as_json(options = {})
-    json = super(options)
-
-    options[:image_url].each do |image_size|
-      json["#{image_size}_image_url"] = image.url(image_size)
-    end
-
-    if options[:scaled_width]
-      json['scaled_width'] = options[:scaled_width]
-
-      json['scaled_height'] = scale_height(options[:scaled_width])
-    elsif options[:scaled_height]
-      json['scaled_height'] = options[:scaled_height]
-
-      json['scaled_width'] = scale_width(options[:scaled_height])
-    end
-
-    json
+  # TODO: Consider DRYing this?
+  def medium_image_path
+    rails_representation_url(image.variant(resize: '500x500'), only_path: true)
   end
 
-  def attachment_path
-    ":rails_root/public/uploads/#{Rails.env.test? ? 'test/' : ''}:class/:style_prefix:basename.:extension"
+  def medium_image_url
+    rails_representation_url(image.variant(resize: '500x500'))
   end
 
-  def attachment_url
-    "/uploads/:class/#{Rails.env.test? ? 'test/' : ''}:style_prefix:basename.:extension"
+  def original_image_path
+    rails_blob_path(image, only_path: true)
   end
 
-  def scale_height(new_width)
-    new_width = new_width.to_f
-
-    ratio = image_original_width.to_f / image_original_height.to_f
-
-    (new_width / ratio).to_i
+  def original_image_url
+    rails_blob_url(image)
   end
 
-  def scale_width(new_height)
-    new_height = new_height.to_f
-
-    ratio = image_original_height.to_f / image_original_width.to_f
-
-    (new_height / ratio).to_i
+  def thumbnail_image_path
+    rails_representation_url(image.variant(resize: '100x100'), only_path: true)
   end
 
-  protected
+  def thumbnail_image_url
+    rails_representation_url(image.variant(resize: '100x100'))
+  end
 
-  def modify_image_file_name
+  private
+
+  def default_title
+    File.basename(image_filename, '.*').to_s
+  end
+
+  def ensure_title
+    self.title = default_title if title.blank? && image_filename.present?
+  end
+
+  def normalize_image_file_name
     return unless image.file? && image.dirty?
 
     current_time = Time.now
@@ -129,28 +75,29 @@ class Picture < ActiveRecord::Base
 
     extension = '.tiff' if extension == '.tif'
 
-    image.instance_write :file_name, "#{basename}#{extension}"
+    image.instance_write(:file_name, "#{basename}#{extension}")
   end
 
-  def save_image_dimensions
-    original_geometry = Paperclip::Geometry.from_file(image.queued_for_write[:original])
-    self.image_original_width = original_geometry.width
-    self.image_original_height = original_geometry.height
+  def timestamp
+    current_time = Time.now
 
-    medium_geometry = Paperclip::Geometry.from_file(image.queued_for_write[:medium])
-    self.image_medium_width = medium_geometry.width
-    self.image_medium_height = medium_geometry.height
-
-    small_geometry = Paperclip::Geometry.from_file(image.queued_for_write[:small])
-    self.image_small_width = small_geometry.width
-    self.image_small_height = small_geometry.height
-
-    thumb_geometry = Paperclip::Geometry.from_file(image.queued_for_write[:thumb])
-    self.image_thumb_width = thumb_geometry.width
-    self.image_thumb_height = thumb_geometry.height
+    "#{current_time.to_i}#{current_time.usec}".ljust(16, '0')
   end
 
-  def set_default_title
-    self.title = File.basename(image_file_name, '.*').to_s if title.blank? && !image_file_name.blank?
-  end
+  # def save_image_dimensions
+  #   original_geometry = Paperclip::Geometry.from_file(image.queued_for_write[:original])
+
+  #   self.image_original_width = original_geometry.width
+  #   self.image_original_height = original_geometry.height
+
+  #   medium_geometry = Paperclip::Geometry.from_file(image.queued_for_write[:medium])
+
+  #   self.image_medium_width = medium_geometry.width
+  #   self.image_medium_height = medium_geometry.height
+
+  #   thumb_geometry = Paperclip::Geometry.from_file(image.queued_for_write[:thumb])
+
+  #   self.image_thumb_width = thumb_geometry.width
+  #   self.image_thumb_height = thumb_geometry.height
+  # end
 end

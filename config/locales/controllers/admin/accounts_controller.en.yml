@@ -1,0 +1,6 @@
+en:
+  admin:
+    accounts:
+      update:
+        success: "Your account was successfully updated."
+

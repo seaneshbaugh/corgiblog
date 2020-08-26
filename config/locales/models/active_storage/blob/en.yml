@@ -1,0 +1,13 @@
+en:
+  activerecord:
+    models:
+      active_storage/blob: "Blob"
+    attributes:
+      active_storage/blob:
+        key: "Key"
+        filename: "File Name"
+        content_type: "Content Type"
+        metadata: "Metadata"
+        byte_size: "File Size"
+        checksum: "MD5 Checksum"
+        created_at: "Created At"

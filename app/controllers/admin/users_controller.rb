@@ -1,60 +1,69 @@
+# frozen_string_literal: true
+
 module Admin
   class UsersController < AdminController
-    before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-    authorize_resource
+    before_action :set_user, only: %i[show edit update destroy]
 
     def index
-      @search = User.search(params[:q])
+      authorize User
+
+      @search = User.ransack(params[:q])
 
       @users = @search.result.page(params[:page]).per(25).alphabetical
-
-      @deleted_users = PaperTrail::Version.destroys.where(item_type: 'User').reorder('versions.created_at DESC')
     end
 
     def show
-      @previous_versions = @user.versions.updates.reorder('versions.created_at DESC')
+      authorize @user
     end
 
     def new
+      authorize User
+
       @user = User.new
     end
 
     def edit
+      authorize @user
     end
 
     def create
+      authorize User
+
       @user = User.new(user_params)
 
       if @user.save
-        flash[:success] = t('admin.users.messages.created')
+        flash[:success] = t('.success')
 
-        redirect_to admin_user_url(@user)
+        redirect_to admin_user_url(@user), status: :see_other
       else
-        flash.now[:error] = view_context.error_messages_for(@user)
+        flash[:error] = helpers.error_messages_for(@user)
 
-        render 'new'
+        render 'new', status: :unprocessable_entity
       end
     end
 
     def update
+      authorize @user
+
       if @user.update(user_params)
-        flash[:success] = t('admin.users.messages.updated')
+        flash[:success] = t('.success')
 
-        redirect_to edit_admin_user_url(@user)
+        redirect_to edit_admin_user_url(@user), status: :see_other
       else
-        flash.now[:error] = view_context.error_messages_for(@user)
+        flash[:error] = helpers.error_messages_for(@user)
 
-        render 'edit'
+        render 'edit', status: :unprocessable_entity
       end
     end
 
     def destroy
+      authorize @user
+
       @user.destroy
 
-      flash[:success] = t('admin.users.messages.deleted')
+      flash[:success] = t('.success')
 
-      redirect_to admin_users_url
+      redirect_to admin_users_url, status: :see_other
     end
 
     private

@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+@import "./color-variables";
+@import "./variables";
+@import "~materialize-css/sass/materialize";
+@import "./layout";
+@import "./admin/index";
+@import "./components/image_uploader";
+@import "./components/picture_selector";
+@import "./ace_builder";
+
+.waves-button-input {
+    color: $button-flat-color;
+}

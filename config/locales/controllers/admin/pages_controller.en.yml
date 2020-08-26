@@ -1,0 +1,9 @@
+en:
+  admin:
+    pages:
+      create:
+        success: "Page was successfully created."
+      update:
+        success: "Page was successfully updated."
+      delete:
+        success: "Page was successfully deleted."

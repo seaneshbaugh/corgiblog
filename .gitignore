@@ -11,32 +11,29 @@
 /log/*
 /tmp/*
 !/log/.keep
-!/log/.keep
+!/tmp/.keep
 
-# Ignore simplecov output.
-/public/coverage
+# Ignore uploaded files in development
+/storage/*
+
+/node_modules
+/yarn-error.log
+
+/public/assets
+.byebug_history
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity
+
 /coverage
 
-# Ignore config files.
-/config/application.yml
-
-# Ignore application created files.
-/public/assets/
-/public/uploads
-
-# Ignore other miscellaneous files.
-._*
-/.bundle
+.env
 .DS_Store
-.idea/
-.rbenv-version
-.redcar/
-.sass-cache/
-/db/*.sqlite3
-/log/*.log
-/uploads
-/vendor/bundle
-\#*\#
-.\#*
-*~
-*.swp
+
+/db/fixtures/files/pictures
+.env.prod

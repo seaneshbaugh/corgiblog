@@ -1,0 +1,74 @@
+@import "~materialize-css/sass/components/color-variables";
+@import "./modal/picture";
+
+.picture-selector-modal {
+    background: color("shades", "white");
+    box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
+    display: block;
+    height: 400px;
+    left: 50%;
+    max-height: 100%;
+    max-width: 100%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    z-index: 100;
+
+    &.closed {
+        display: none;
+    }
+
+    .picture-selector-modal-body {
+        height: 100%;
+        left: 0;
+        overflow: auto;
+        padding: 20px 50px 20px 20px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.picture-selector-modal-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+}
+
+
+
+.modal .close-button {
+  position: absolute;
+  
+  /* don't need to go crazy with z-index here, just sits over .modal-guts */
+  z-index: 1;
+  
+  top: 10px;
+  
+  /* needs to look OK with or without scrollbar */
+  right: 20px;
+  
+  border: 0;
+  background: black;
+  color: white;
+  padding: 5px 10px;
+  font-size: 1.3rem;
+}
+
+.open-button {
+  border: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: lightgreen;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 21px;
+}

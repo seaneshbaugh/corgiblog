@@ -2,43 +2,56 @@
 %html{ dir: 'ltr', lang: 'en-US' }
   %head
     %meta{ charset: 'utf-8' }
-    %title= t('.page_title')
-    %meta{ content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no', name: 'viewport' }
-    %meta{ content: t('.meta_description'), name: 'description' }
+    %title= page_title(yield(:page_title))
+    %meta{ content: 'width=device-width, initial-scale=1, shrink-to-fit=no', name: 'viewport' }
+    %meta{ content: page_meta_description(yield(:meta_description)), name: 'description' }
     %meta{ content: t('.author'), name: 'author' }
-    = stylesheet_link_tag 'admin', media: 'all'
-    = javascript_include_tag 'admin'
+    %meta{ content: 'telephone=no', name: 'format-detection' }
+    = stylesheet_pack_tag 'admin', media: 'all'
+    = javascript_pack_tag 'admin'
     %link{ href: '/favicon.ico', rel: 'shortcut icon' }
-    %link{ href: image_path('apple-touch-icon-iphone.png'), rel: 'apple-touch-icon', sizes: '57x57' }
-    %link{ href: image_path('apple-touch-icon-ipad.png'), rel: 'apple-touch-icon', sizes: '72x72' }
-    %link{ href: image_path('apple-touch-icon-iphone-retina.png'), rel: 'apple-touch-icon', sizes: '114x114' }
-    %link{ href: image_path('apple-touch-icon-ipad-retina.png'), rel: 'apple-touch-icon', sizes: '144x144' }
+    %link{ href: asset_pack_path('shared/images/apple-touch-icon-iphone.png'), rel: 'apple-touch-icon', sizes: '57x57' }
+    %link{ href: asset_pack_path('shared/images/apple-touch-icon-ipad.png'), rel: 'apple-touch-icon', sizes: '72x72' }
+    %link{ href: asset_pack_path('shared/images/apple-touch-icon-iphone-retina.png'), rel: 'apple-touch-icon', sizes: '114x114' }
+    %link{ href: asset_pack_path('shared/images/apple-touch-icon-ipad-retina.png'), rel: 'apple-touch-icon', sizes: '144x144' }
     %link{ href: '/humans.txt', rel: 'author' }
     = csrf_meta_tags
   %body
-    %header#main-header.container
-      %h1#title= t('.page_title')
-      .navbar.navbar-default
-        .navbar-header
-          %button.navbar-toggle{ 'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse', type: 'button' }
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to t('.nav.home'), admin_root_path, class: 'navbar-brand'
-        .navbar-collapse.collapse
-          %ul.nav.navbar-nav
-            - if can? :read, Post
-              = nav_link_to t('.nav.posts'), admin_posts_path, {}, { segments: 2, wrapper: 'li' }
-            - if can? :read, Page
-              = nav_link_to t('.nav.pages'), admin_pages_path, {}, { segments: 2, wrapper: 'li' }
-            - if can? :read, Picture
-              = nav_link_to t('.nav.pictures'), admin_pictures_path, {}, { segments: 2, wrapper: 'li' }
-            - if can? :read, User
-              = nav_link_to t('.nav.users'), admin_users_path, {}, { segments: 2, wrapper: 'li' }
-          %ul.nav.navbar-nav.navbar-right
-            %li= link_to t('.nav.site_home'), root_path, data: { no_turbolink: true }
-            = nav_link_to t('.nav.account'), edit_admin_account_path, {}, { segments: 2, wrapper: 'li' }
-            %li= link_to t('.nav.sign_out'), destroy_user_session_path, method: :delete
-    %main#content.container
-      = flash_messages
-      = yield
+    %header.main-header{ role: 'banner' }
+      .container
+        .row
+          .col.s12
+            %h1.main-header-title= t('.title')
+        .row
+          .col.s12
+            %nav.main-header-nav
+              .nav-wrapper
+                %ul.main-header-nav-list.left
+                  %li.main-header-nav-list-item= link_to(t('.header_nav.home'), admin_root_path, rel: 'home', class: 'main-header-nav-list-item-link')
+                  - if policy([:admin, Post]).index?
+                    %li.main-header-nav-list-item= link_to(t('activerecord.models.post').pluralize, admin_posts_path, class: 'main-header-nav-list-item-link')
+                  - if policy([:admin, Page]).index?
+                    %li.main-header-nav-list-item= link_to(t('activerecord.models.page').pluralize, admin_pages_path, class: 'main-header-nav-list-item-link')
+                  - if policy([:admin, Picture]).index?
+                    %li.main-header-nav-list-item= link_to(t('activerecord.models.picture').pluralize, admin_pictures_path, class: 'main-header-nav-list-item-link')
+                  - if policy([:admin, User]).index?
+                    %li.main-header-nav-list-item= link_to(t('activerecord.models.user').pluralize, admin_users_path, class: 'main-header-nav-list-item-link')
+                  %li.main-header-nav-list-item= link_to(t('.header_nav.site_home'), root_path, class: 'main-header-nav-list-item-link')
+                  %li.main-header-nav-list-item= link_to(t('.header_nav.my_account'), admin_account_path, class: 'main-header-nav-list-item-link')
+                  %li.main-header-nav-list-item= link_to(t('.header_nav.logout'), destroy_user_session_path, method: :delete, class: 'main-header-nav-list-item-link')
+    %main.main-content{ role: 'main' }
+      .container
+        .row
+          .col.s12
+            = flash_messages
+        .row
+          .col.s12
+            = yield
+    %footer.main-footer{ role: 'contentinfo' }
+      .container
+        .row
+          .s12
+            - if Rails.env.development?
+              %p.main-footer-git-info= t('.git_info', branch: git_branch, commit_sha: git_commit_sha)
+            - else
+              %p.main-footer-git-info= t('.git_info_disabled')

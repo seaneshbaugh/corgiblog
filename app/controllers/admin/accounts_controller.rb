@@ -1,24 +1,24 @@
+# frozen_string_literal: true
+
 module Admin
   class AccountsController < AdminController
-    before_action :set_account, only: [:show, :edit, :update]
+    before_action :set_account, only: %i[show edit update]
 
-    def show
-    end
+    def show; end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @account.update(account_params)
         bypass_sign_in(@account)
 
-        flash[:success] = t('admin.accounts.messages.updated')
+        flash[:success] = 'Your account was successfully updated.'
 
-        redirect_to admin_account_path
+        redirect_to admin_account_path, status: :see_other
       else
-        flash.now[:error] = view_context.error_messages_for(@account)
+        flash.now[:error] = helpers.error_messages_for(@account)
 
-        render 'edit'
+        render 'edit', status: :unprocessable_entity
       end
     end
 

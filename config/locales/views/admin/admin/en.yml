@@ -2,19 +2,19 @@ en:
   admin:
     admin:
       index:
-        sections:
-          quick_links: "Quick Links"
-          quick_post: "Quick Post"
-          rails_info: "Rails Info"
-          gems: "Gems"
-        quick_links:
-          new_user: "New User"
-          new_page: "New Page"
-          new_post: "New Post"
-          new_picture: "New Picture"
-        rails_info:
-          deploy_time: "Deployed On: %{time}"
-      search:
-        search_html: '<span class="glyphicon glyphicon-search"></span> Search'
-        clear_search_html: '<span class="glyphicon glyphicon-remove"></span>'
-        clear_search: "Clear Search"
+        section:
+          quick_links:
+            title: "Quick Links"
+            material_icons:
+              page: "note_add"
+              picture: "add_a_photo"
+              post: "comment"
+              user: "person_add"
+          quick_post:
+            title: "Quick Post"
+          rails_info:
+            title: "Rails Info"
+          routes:
+            title: "Routes"
+          gems:
+            title: "Gems"
