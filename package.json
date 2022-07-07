@@ -11,7 +11,7 @@
     "form-serialize": "^0.7.2",
     "material-design-icons": "3.0.1",
     "materialize-css": "1.0.0-rc.1",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "normalize.css": "^8.0.0",
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.2",
